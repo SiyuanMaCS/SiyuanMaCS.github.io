@@ -1,0 +1,874 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/DeepSeek-V4.1-Flash · 0006</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/DeepSeek-V4.1-Flash · 0006</h1></section><div class=case-meta><span class=badge>vision-agent</span><span class=pill>256×144</span><span class=pill>4.0 FPS · 20 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_1e4cb3c57d2241ea.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;89c4115b61001e29e13adc3dcc9d490d65b0024f5c14a0906f8ecad1d3206228&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/final/pixels_1e4cb3c57d2241ea.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/final/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>首帧续写</span><h3 style="margin-top:14px">原始任务</h3><p>Static locked-off single-shot with fixed frame throughout filmed with constant framerate in real-time. The scene shows a realistic scientific demonstration. The scene only contains the described setup and actions. The blue-black grabber tool held the tennis ball above the cardstock and lowered it behind the cardstock. The cardstock sits on the black platform on top of a wooden table. The blue-black grabber tool places the orange tennis ball behind the clockwise-rotating cardstock on the table.
+</p><div class=facts><div><strong>5.00s</strong>视频时长</div><div><strong>50411</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-08T19:10:51.431620+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_1052c63c379522ee.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;fd02cd8403863d3bbe0f4ecd76572c544b47abdf4a01d1796544c97fb5d3bc4b&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_00/pixels_1052c63c379522ee.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_00/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_00/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_00/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,427 @@
++from pathlib import Path
++
++import cv2
++import numpy as np
++from PIL import Image
++
++import artifact_io
++
++
++CASE_DIR = Path(__file__).resolve().parent
++WIDTH, HEIGHT = 256, 144
++FRAME_COUNT = 20
++FPS = 4
++
++CARD = np.array(
++    [[66.0, 43.0], [156.0, 46.8], [152.0, 125.0], [63.0, 119.7]],
++    dtype=np.float32,
++)
++CARD_CENTER_X = 108.0
++
++
++def _smoothstep(value):
++    value = np.clip(value, 0.0, 1.0)
++    return value * value * (3.0 - 2.0 * value)
++
++
++def _row_interpolated_fill(image, mask):
++    &quot;&quot;&quot;Fill masked pixels between the nearest visible pixels on each row.&quot;&quot;&quot;
++    filled = image.astype(np.float32).copy()
++    mask_bool = mask.astype(bool)
++    for y in range(HEIGHT):
++        row_mask = mask_bool[y]
++        if not row_mask.any():
++            continue
++        visible = np.flatnonzero(~row_mask)
++        if visible.size == 0:
++            continue
++        for x in np.flatnonzero(row_mask):
++            left = visible[visible &lt; x]
++            right = visible[visible &gt; x]
++            if left.size and right.size:
++                x0, x1 = left[-1], right[0]
++                blend = (x - x0) / max(1, x1 - x0)
++                filled[y, x] = image[y, x0] * (1.0 - blend) + image[y, x1] * blend
++            elif left.size:
++                filled[y, x] = image[y, left[-1]]
++            elif right.size:
++                filled[y, x] = image[y, right[0]]
++    return filled
++
++
++def _wood_grain(shape):
++    yy, xx = np.mgrid[0 : shape[0], 0 : shape[1]]
++    fine = np.sin(yy * 2.55 + np.sin(xx * 0.062) * 2.1)
++    coarse = np.sin(yy * 0.68 + xx * 0.015)
++    return (fine * 2.0 + coarse * 1.8).astype(np.float32)
++
++
++def build_background(source):
++    mask = np.zeros((HEIGHT, WIDTH), dtype=np.uint8)
++    cv2.fillPoly(mask, [np.round(CARD).astype(np.int32)], 255)
++    mask = cv2.dilate(mask, np.ones((3, 3), np.uint8), iterations=1)
++
++    smooth = _row_interpolated_fill(source, mask)
++    smooth = cv2.GaussianBlur(smooth, (0, 0), 1.2)
++    background = source.astype(np.float32).copy()
++
++    yy, xx = np.mgrid[0:HEIGHT, 0:WIDTH]
++    horizon = 65.5 + 0.096 * xx
++    inside = mask.astype(bool)
++    table = inside &amp; (yy &gt; horizon)
++    wall = inside &amp; ~table
++
++    # Restore the long, soft horizontal grain where the card has hidden it.
++    grain = _wood_grain((HEIGHT, WIDTH))
++    background[table] = smooth[table] + grain[table, None] * np.array([0.60, 0.42, 0.24])
++
++    # The wall has a broad rightward light falloff, with fine sensor texture.
++    wall_texture = (
++        np.sin(xx * 0.17 + yy * 0.09) * 0.9
++        + np.sin(xx * 0.041 - yy * 0.23) * 0.7
++    )
++    background[wall] = smooth[wall] + wall_texture[wall, None]
++
++    # Keep the table/wall boundary continuous behind the card.
++    edge = np.abs(yy - horizon) &lt; 0.7
++    edge &amp;= inside
++    background[edge] *= 0.92
++
++    # Rebuild the dark support and turntable hidden by the card.
++    stand = np.zeros((HEIGHT, WIDTH), dtype=np.uint8)
++    cv2.fillPoly(
++        stand,
++        [np.array([[122, 0], [136, 0], [140, 79], [132, 98], [120, 91]], np.int32)],
++        255,
++    )
++    stand = cv2.GaussianBlur(stand, (3, 3), 0.55)
++    stand_alpha = (stand.astype(np.float32) / 255.0)[..., None]
++    sy = np.clip((yy - 18.0) / 86.0, 0.0, 1.0)
++    stand_rgb = np.stack(
++        [
++            8.0 + 13.0 * sy,
++            9.0 + 15.0 * sy,
++            11.0 + 19.0 * sy,
++        ],
++        axis=2,
++    )
++    highlight = np.clip(1.0 - np.abs(xx - 128.5) / 5.0, 0.0, 1.0) * 9.0
++    stand_rgb += highlight[..., None] * np.array([0.65, 0.78, 1.0])
++    background = background * (1.0 - stand_alpha) + stand_rgb * stand_alpha
++
++    # A shallow black rotating platform, drawn only where the card formerly hid it.
++    platform_mask = np.zeros((HEIGHT, WIDTH), dtype=np.uint8)
++    cv2.ellipse(platform_mask, (119, 129), (55, 16), 0, 0, 360, 255, -1)
++    cv2.rectangle(platform_mask, (64, 126), (174, 139), 255, -1)
++    cv2.ellipse(platform_mask, (119, 139), (55, 8), 0, 0, 360, 255, -1)
++    platform_mask = cv2.GaussianBlur(platform_mask, (3, 3), 0.45)
++    p_alpha = (platform_mask.astype(np.float32) / 255.0)[..., None]
++
++    radial = np.clip(1.0 - np.sqrt(((xx - 114.0) / 63.0) ** 2 + ((yy - 126.0) / 19.0) ** 2), 0.0, 1.0)
++    platform_rgb = np.stack(
++        [
++            7.0 + 13.0 * radial + 1.8 * np.sin(yy * 0.9),
++            8.0 + 12.0 * radial + 1.4 * np.sin(yy * 0.9 + 0.5),
++            10.0 + 15.0 * radial + 1.2 * np.sin(yy * 0.9 + 1.0),
++        ],
++        axis=2,
++    )
++    rim = np.exp(-((yy - 120.5) / 1.4) ** 2) * np.clip((xx - 65.0) / 108.0, 0.0, 1.0)
++    platform_rgb += rim[..., None] * np.array([19.0, 18.0, 18.0])
++    background = background * (1.0 - p_alpha) + platform_rgb * p_alpha
++
++    return np.clip(background, 0, 255).astype(np.uint8)
++
++
++def rectify_card(source):
++    rect_w, rect_h = 112, 102
++    dst = np.array(
++        [[0, 0], [rect_w - 1, 0], [rect_w - 1, rect_h - 1], [0, rect_h - 1]],
++        dtype=np.float32,
++    )
++    transform = cv2.getPerspectiveTransform(CARD, dst)
++    return cv2.warpPerspective(
++        source,
++        transform,
++        (rect_w, rect_h),
++        flags=cv2.INTER_CUBIC,
++        borderMode=cv2.BORDER_REPLICATE,
++    )
++
++
++def _card_quad(angle):
++    scale = max(0.025, np.cos(angle))
++    quad = CARD.copy()
++    quad[:, 0] = CARD_CENTER_X + (quad[:, 0] - CARD_CENTER_X) * scale
++
++    # A tiny perspective rise makes the turning face feel physical.
++    lift = 1.8 * np.sin(angle)
++    quad[0, 1] -= lift
++    quad[1, 1] -= lift * 0.65
++    quad[2, 1] += lift * 0.08
++    quad[3, 1] += lift * 0.18
++    return quad.astype(np.float32)
++
++
++def composite_card(frame, card_texture, angle):
++    quad = _card_quad(angle)
++    h, w = card_texture.shape[:2]
++    src = np.array([[0, 0], [w - 1, 0], [w - 1, h - 1], [0, h - 1]], dtype=np.float32)
++    transform = cv2.getPerspectiveTransform(src, quad)
++
++    warped = cv2.warpPerspective(
++        card_texture,
++        transform,
++        (WIDTH, HEIGHT),
++        flags=cv2.INTER_LINEAR,
++        borderMode=cv2.BORDER_CONSTANT,
++        borderValue=(0, 0, 0),
++    ).astype(np.float32)
++
++    alpha_src = np.full((h, w), 255, dtype=np.uint8)
++    alpha = cv2.warpPerspective(
++        alpha_src,
++        transform,
++        (WIDTH, HEIGHT),
++        flags=cv2.INTER_LINEAR,
++        borderMode=cv2.BORDER_CONSTANT,
++        borderValue=0,
++    ).astype(np.float32) / 255.0
++
++    # Rotating cardstock darkens as its face turns away from the key light.
++    shade = 0.91 + 0.09 * np.cos(angle)
++    warped *= shade
++    face_gradient = np.linspace(0.965, 1.018, w, dtype=np.float32)
++    gradient_canvas = np.tile(face_gradient[None, :, None], (h, 1, 3))
++    gradient = cv2.warpPerspective(
++        gradient_canvas,
++        transform,
++        (WIDTH, HEIGHT),
++        flags=cv2.INTER_LINEAR,
++        borderMode=cv2.BORDER_CONSTANT,
++        borderValue=(1, 1, 1),
++    )
++    warped *= gradient
++
++    # Cast shadow and the narrow paper edge anchor the card to the platform.
++    shadow_quad = quad + np.array([[2.5, 2.5], [2.5, 2.5], [2.5, 2.5], [2.5, 2.5]], dtype=np.float32)
++    shadow_mask = np.zeros((HEIGHT, WIDTH), dtype=np.uint8)
++    cv2.fillConvexPoly(shadow_mask, np.round(shadow_quad).astype(np.int32), 255)
++    shadow_mask = cv2.GaussianBlur(shadow_mask, (0, 0), 1.15)
++    shadow_alpha = (shadow_mask.astype(np.float32) / 255.0) * 0.30
++    frame[:] = frame * (1.0 - shadow_alpha[..., None])
++
++    frame[:] = frame * (1.0 - alpha[..., None]) + warped * alpha[..., None]
++
++    edge = np.zeros((HEIGHT, WIDTH), dtype=np.uint8)
++    cv2.polylines(edge, [np.round(quad).astype(np.int32)], True, 255, 1, cv2.LINE_AA)
++    edge_alpha = (edge.astype(np.float32) / 255.0) * 0.33
++    frame[:] = frame * (1.0 - edge_alpha[..., None]) + np.array([103, 99, 98]) * edge_alpha[..., None]
++
++
++def _sphere_patch(cx, cy, radius):
++    pad = 4
++    size = int(np.ceil(radius * 2 + pad * 2))
++    scale = 4
++    s = size * scale
++    yy, xx = np.mgrid[0:s, 0:s].astype(np.float32) / scale
++    center = size / 2.0
++    nx = (xx - center) / radius
++    ny = (yy - center) / radius
++    rr = nx * nx + ny * ny
++    inside = rr &lt;= 1.0
++
++    nz = np.sqrt(np.clip(1.0 - rr, 0.0, 1.0))
++    light = np.array([-0.43, -0.57, 0.70], dtype=np.float32)
++    light /= np.linalg.norm(light)
++    lambert = np.clip(nx * light[0] + ny * light[1] + nz * light[2], 0.0, 1.0)
++
++    base = np.array([218.0, 103.0, 27.0], dtype=np.float32)
++    warm = np.array([249.0, 151.0, 42.0], dtype=np.float32)
++    shadow = np.array([132.0, 50.0, 10.0], dtype=np.float32)
++    rgb = shadow[None, None, :] + (base - shadow)[None, None, :] * lambert[..., None] ** 0.72
++    rgb += (warm - base)[None, None, :] * np.clip(lambert - 0.63, 0.0, 1.0)[..., None] * 1.25
++
++    # Two pale tennis seams, projected over the curved surface.
++    seam1 = np.abs(np.sin(2.3 * nx + 1.55 * nz + 0.38)) &lt; 0.075
++    seam2 = np.abs(np.sin(2.1 * ny - 1.25 * nz + 1.10)) &lt; 0.065
++    seam = (seam1 | seam2) &amp; (nz &gt; 0.20)
++    rgb[seam] = rgb[seam] * 0.36 + np.array([237.0, 226.0, 185.0]) * 0.64
++
++    fuzz = (
++        np.sin(xx * 8.3 + yy * 3.1)
++        + np.sin(xx * 4.1 - yy * 7.7)
++        + np.sin(xx * 12.7 + yy * 11.9)
++    ) * 1.45
++    rgb += fuzz[..., None]
++
++    rgba = np.zeros((s, s, 4), dtype=np.uint8)
++    rgba[..., :3] = np.clip(rgb, 0, 255).astype(np.uint8)
++    rgba[..., 3] = (inside * 255).astype(np.uint8)
++    rgba = cv2.resize(rgba, (size, size), interpolation=cv2.INTER_AREA)
++
++    x0 = int(round(cx - size / 2.0))
++    y0 = int(round(cy - size / 2.0))
++    return rgba, x0, y0
++
++
++def composite_rgba(frame, rgba, x0, y0):
++    h, w = rgba.shape[:2]
++    sx0, sy0 = max(0, x0), max(0, y0)
++    sx1, sy1 = min(WIDTH, x0 + w), min(HEIGHT, y0 + h)
++    if sx0 &gt;= sx1 or sy0 &gt;= sy1:
++        return
++    patch = rgba[sy0 - y0 : sy1 - y0, sx0 - x0 : sx1 - x0]
++    alpha = patch[..., 3:4].astype(np.float32) / 255.0
++    frame[sy0:sy1, sx0:sx1] = (
++        frame[sy0:sy1, sx0:sx1] * (1.0 - alpha)
++        + patch[..., :3].astype(np.float32) * alpha
++    )
++
++
++def draw_gripper(frame, ball_x, ball_y, grip_y, open_amount):
++    scale = 4
++    canvas = np.zeros((HEIGHT * scale, WIDTH * scale, 4), dtype=np.uint8)
++    sx = lambda value: int(round(value * scale))
++
++    # Slim blue-black support descending behind the card.
++    x0, x1 = int(ball_x - 3.0), int(ball_x + 3.0)
++    y_top = max(0, int(grip_y - 54.0))
++    y_bottom = int(grip_y + 2.0)
++    cv2.rectangle(
++        canvas,
++        (sx(x0), sx(y_top)),
++        (sx(x1), sx(y_bottom)),
++        (19, 20, 24, 255),
++        -1,
++    )
++    cv2.line(
++        canvas,
++        (sx(x0 + 1.0), sx(y_top)),
++        (sx(x0 + 1.0), sx(y_bottom)),
++        (54, 56, 64, 255),
++        max(1, scale // 2),
++    )
++    cv2.line(
++        canvas,
++        (sx(x1 - 0.7), sx(y_top)),
++        (sx(x1 - 0.7), sx(y_bottom)),
++        (14, 29, 54, 255),
++        max(1, scale // 2),
++    )
++
++    # Compact head and two curved jaws.
++    cv2.ellipse(
++        canvas,
++        (sx(ball_x), sx(grip_y - 1.0)),
++        (sx(6.0), sx(3.8)),
++        0,
++        0,
++        360,
++        (25, 27, 34, 255),
++        -1,
++        cv2.LINE_AA,
++    )
++    jaw_shift = 1.8 + 2.0 * open_amount
++    left = np.array(
++        [
++            [ball_x - 3.0, grip_y + 1.0],
++            [ball_x - 6.3 - jaw_shift, grip_y + 7.0],
++            [ball_x - 5.3 - jaw_shift, ball_y - 2.0],
++        ],
++        dtype=np.float32,
++    )
++    right = left.copy()
++    right[:, 0] = 2.0 * ball_x - right[:, 0]
++    for jaw in (left, right):
++        cv2.polylines(
++            canvas,
++            [np.round(jaw * scale).astype(np.int32)],
++            False,
++            (27, 39, 62, 255),
++            max(2, int(1.8 * scale)),
++            cv2.LINE_AA,
++        )
++        cv2.polylines(
++            canvas,
++            [np.round((jaw + np.array([0.35, 0.2], dtype=np.float32)) * scale).astype(np.int32)],
++            False,
++            (61, 82, 119, 255),
++            max(1, scale // 2),
++            cv2.LINE_AA,
++        )
++
++    small = cv2.resize(canvas, (WIDTH, HEIGHT), interpolation=cv2.INTER_AREA)
++    composite_rgba(frame, small, 0, 0)
++
++
++def motion_state(frame_index):
++    t = frame_index / FPS
++    turn_progress = np.clip((t - 0.18) / 4.72, 0.0, 1.0)
++    eased = 0.20 * turn_progress + 0.80 * _smoothstep(turn_progress)
++    angle = np.deg2rad(80.0) * eased
++
++    ball_x = 138.5
++    if t &lt; 0.85:
++        ball_y = 60.0
++        grip_y = 54.0
++        open_amount = 0.0
++    elif t &lt; 2.65:
++        p = _smoothstep((t - 0.85) / 1.80)
++        ball_y = 60.0 + 53.0 * p
++        grip_y = 54.0 + 53.0 * p
++        open_amount = 0.0
++    elif t &lt; 3.05:
++        ball_y = 113.0
++        grip_y = 107.0 + 6.0 * (t - 2.65) / 0.40
++        open_amount = _smoothstep((t - 2.65) / 0.40)
++    elif t &lt; 3.48:
++        p = _smoothstep((t - 3.05) / 0.43)
++        ball_y = 113.0 - 1.8 * np.sin(np.pi * p)
++        grip_y = 113.0 - 18.0 * p
++        open_amount = 1.0
++    else:
++        p = _smoothstep((t - 3.48) / 1.27)
++        ball_y = 113.0
++        grip_y = 95.0 - 54.0 * p
++        open_amount = 1.0
++    return angle, ball_x, ball_y, grip_y, open_amount
++
++
++def render_frames(source):
++    background = build_background(source)
++    card_texture = rectify_card(source)
++    frames = []
++
++    for index in range(FRAME_COUNT):
++        frame = background.astype(np.float32).copy()
++        angle, ball_x, ball_y, grip_y, open_amount = motion_state(index)
++
++        # Both the gripper and ball are behind the cardstock.
++        draw_gripper(frame, ball_x, ball_y, grip_y, open_amount)
++        ball, x0, y0 = _sphere_patch(ball_x, ball_y, 8.3)
++        composite_rgba(frame, ball, x0, y0)
++
++        composite_card(frame, card_texture, angle)
++
++        # Gentle optical texture, fixed from frame to frame.
++        noise = (
++            np.sin((np.arange(WIDTH)[None, :] + 1) * 12.9898 + (np.arange(HEIGHT)[:, None] + 1) * 78.233)
++            * 43758.5453
++        )
++        noise = (noise - np.floor(noise) - 0.5) * 1.8
++        frame += noise[..., None]
++        frames.append(np.clip(frame, 0, 255).astype(np.uint8))
++
++    frames[0] = source.copy()
++    return np.stack(frames, axis=0)
++
++
++def main():
++    source = np.asarray(Image.open(CASE_DIR / &quot;first_frame.png&quot;).convert(&quot;RGB&quot;))
++    frames = render_frames(source)
++    artifact_io.save(frames, CASE_DIR)
++
++
++if __name__ == &quot;__main__&quot;:
++    main()
+</pre></details></div></details><details class=candidate><summary><strong>候选 02</strong><span class=status>播放与检查图</span><time>2026-11-08T19:13:46.532288+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_689c3b96009f94bf.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;bc5f4ed1216721906bededdfb5f9649064eaca8cdb2f9abf5e4222b41ed362b5&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_01/pixels_689c3b96009f94bf.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_01/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_01/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_01/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_01/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_01/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -87,26 +87,27 @@
+     edge &amp;= inside
+     background[edge] *= 0.92
+ 
+-    # Rebuild the dark support and turntable hidden by the card.
++    # Continue the slim support as a shaded cylinder behind the card.
+     stand = np.zeros((HEIGHT, WIDTH), dtype=np.uint8)
+-    cv2.fillPoly(
+-        stand,
+-        [np.array([[122, 0], [136, 0], [140, 79], [132, 98], [120, 91]], np.int32)],
+-        255,
+-    )
+-    stand = cv2.GaussianBlur(stand, (3, 3), 0.55)
++    left_edge = 125.0 + 0.025 * np.minimum(yy, 100.0)
++    right_edge = 131.5 + 0.045 * np.minimum(yy, 100.0)
++    stand_core = (xx &gt;= left_edge) &amp; (xx &lt;= right_edge) &amp; (yy &lt; 102)
++    stand[stand_core] = 255
++    stand = cv2.GaussianBlur(stand, (3, 3), 0.38)
+     stand_alpha = (stand.astype(np.float32) / 255.0)[..., None]
+-    sy = np.clip((yy - 18.0) / 86.0, 0.0, 1.0)
++    stand_t = np.clip((xx - left_edge) / np.maximum(1.0, right_edge - left_edge), 0.0, 1.0)
++    cylinder = 0.32 + 0.68 * np.sin(np.pi * stand_t)
++    sy = np.clip((yy - 4.0) / 98.0, 0.0, 1.0)
+     stand_rgb = np.stack(
+         [
+-            8.0 + 13.0 * sy,
+-            9.0 + 15.0 * sy,
+-            11.0 + 19.0 * sy,
++            4.0 + 15.0 * cylinder + 5.0 * sy,
++            5.0 + 17.0 * cylinder + 6.0 * sy,
++            7.0 + 22.0 * cylinder + 8.0 * sy,
+         ],
+         axis=2,
+     )
+-    highlight = np.clip(1.0 - np.abs(xx - 128.5) / 5.0, 0.0, 1.0) * 9.0
+-    stand_rgb += highlight[..., None] * np.array([0.65, 0.78, 1.0])
++    blue_reflection = np.clip(1.0 - np.abs(xx - 129.0) / 2.8, 0.0, 1.0) * (4.0 + 5.0 * sy)
++    stand_rgb += blue_reflection[..., None] * np.array([0.35, 0.60, 1.0])
+     background = background * (1.0 - stand_alpha) + stand_rgb * stand_alpha
+ 
+     # A shallow black rotating platform, drawn only where the card formerly hid it.
+@@ -135,18 +136,26 @@
+ 
+ def rectify_card(source):
+     rect_w, rect_h = 112, 102
++    center = CARD.mean(axis=0)
++    # The outermost source pixels mix with the wall and cast shadow. Start
++    # just inside the physical paper edge so rotation does not amplify them.
++    inner = center + (CARD - center) * 0.966
+     dst = np.array(
+         [[0, 0], [rect_w - 1, 0], [rect_w - 1, rect_h - 1], [0, rect_h - 1]],
+         dtype=np.float32,
+     )
+-    transform = cv2.getPerspectiveTransform(CARD, dst)
+-    return cv2.warpPerspective(
++    transform = cv2.getPerspectiveTransform(inner, dst)
++    texture = cv2.warpPerspective(
+         source,
+         transform,
+         (rect_w, rect_h),
+         flags=cv2.INTER_CUBIC,
+         borderMode=cv2.BORDER_REPLICATE,
+     )
++    # Preserve the broad lighting on the paper, but suppress pixel-scale
++    # camera noise that would crawl as the plane turns.
++    smooth = cv2.bilateralFilter(texture, 5, 10.0, 3.0)
++    return cv2.addWeighted(texture, 0.18, smooth, 0.82, 0.0)
+ 
+ 
+ def _card_quad(angle):
+@@ -208,7 +217,7 @@
+     shadow_mask = np.zeros((HEIGHT, WIDTH), dtype=np.uint8)
+     cv2.fillConvexPoly(shadow_mask, np.round(shadow_quad).astype(np.int32), 255)
+     shadow_mask = cv2.GaussianBlur(shadow_mask, (0, 0), 1.15)
+-    shadow_alpha = (shadow_mask.astype(np.float32) / 255.0) * 0.30
++    shadow_alpha = (shadow_mask.astype(np.float32) / 255.0) * 0.21
+     frame[:] = frame * (1.0 - shadow_alpha[..., None])
+ 
+     frame[:] = frame * (1.0 - alpha[..., None]) + warped * alpha[..., None]
+@@ -357,32 +366,32 @@
+ 
+ def motion_state(frame_index):
+     t = frame_index / FPS
+-    turn_progress = np.clip((t - 0.18) / 4.72, 0.0, 1.0)
++    turn_progress = np.clip((t - 0.05) / 4.82, 0.0, 1.0)
+     eased = 0.20 * turn_progress + 0.80 * _smoothstep(turn_progress)
+-    angle = np.deg2rad(80.0) * eased
++    angle = np.deg2rad(84.0) * eased
+ 
+     ball_x = 138.5
+-    if t &lt; 0.85:
+-        ball_y = 60.0
+-        grip_y = 54.0
++    if t &lt; 0.60:
++        ball_y = 73.0
++        grip_y = 67.0
+         open_amount = 0.0
+-    elif t &lt; 2.65:
+-        p = _smoothstep((t - 0.85) / 1.80)
+-        ball_y = 60.0 + 53.0 * p
+-        grip_y = 54.0 + 53.0 * p
++    elif t &lt; 2.60:
++        p = _smoothstep((t - 0.60) / 2.00)
++        ball_y = 73.0 + 41.0 * p
++        grip_y = 67.0 + 41.0 * p
+         open_amount = 0.0
+-    elif t &lt; 3.05:
+-        ball_y = 113.0
+-        grip_y = 107.0 + 6.0 * (t - 2.65) / 0.40
+-        open_amount = _smoothstep((t - 2.65) / 0.40)
+-    elif t &lt; 3.48:
+-        p = _smoothstep((t - 3.05) / 0.43)
+-        ball_y = 113.0 - 1.8 * np.sin(np.pi * p)
++    elif t &lt; 3.00:
++        ball_y = 114.0
++        grip_y = 108.0 + 5.0 * (t - 2.60) / 0.40
++        open_amount = _smoothstep((t - 2.60) / 0.40)
++    elif t &lt; 3.45:
++        p = _smoothstep((t - 3.00) / 0.45)
++        ball_y = 114.0 - 1.2 * np.sin(np.pi * p)
+         grip_y = 113.0 - 18.0 * p
+         open_amount = 1.0
+     else:
+-        p = _smoothstep((t - 3.48) / 1.27)
+-        ball_y = 113.0
++        p = _smoothstep((t - 3.45) / 1.30)
++        ball_y = 114.0
+         grip_y = 95.0 - 54.0 * p
+         open_amount = 1.0
+     return angle, ball_x, ball_y, grip_y, open_amount
+</pre></details></div></details><details class=candidate><summary><strong>候选 03</strong><span class=status>播放与检查图</span><time>2026-11-08T19:14:35.511080+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_1e4cb3c57d2241ea.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;89c4115b61001e29e13adc3dcc9d490d65b0024f5c14a0906f8ecad1d3206228&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_02/pixels_1e4cb3c57d2241ea.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_02/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_02/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_02/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_02/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/candidate_02/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -135,11 +135,11 @@
+ 
+ 
+ def rectify_card(source):
+-    rect_w, rect_h = 112, 102
+-    center = CARD.mean(axis=0)
+-    # The outermost source pixels mix with the wall and cast shadow. Start
+-    # just inside the physical paper edge so rotation does not amplify them.
+-    inner = center + (CARD - center) * 0.966
++    rect_w, rect_h = 112, 96
++    # Inset only at the lower edge, where the source card meets its shadow.
++    inner = CARD.copy()
++    inner[2] += (inner[0] - inner[2]) * 0.038
++    inner[3] += (inner[1] - inner[3]) * 0.038
+     dst = np.array(
+         [[0, 0], [rect_w - 1, 0], [rect_w - 1, rect_h - 1], [0, rect_h - 1]],
+         dtype=np.float32,
+@@ -155,12 +155,20 @@
+     # Preserve the broad lighting on the paper, but suppress pixel-scale
+     # camera noise that would crawl as the plane turns.
+     smooth = cv2.bilateralFilter(texture, 5, 10.0, 3.0)
+-    return cv2.addWeighted(texture, 0.18, smooth, 0.82, 0.0)
++    texture = cv2.addWeighted(texture, 0.18, smooth, 0.82, 0.0)
++    # Replace the first source-mixed row by the clean row immediately below.
++    texture[:2] = texture[3:4]
++    return texture
+ 
+ 
+ def _card_quad(angle):
+-    scale = max(0.025, np.cos(angle))
++    scale = max(0.045, np.cos(angle))
+     quad = CARD.copy()
++    # Keep the source outline untouched on the first frame; trim a little
++    # from the lower edge in later views so source shadow never turns with it.
++    if angle &gt; 0.001:
++        quad[2] += (quad[0] - quad[2]) * 0.022
++        quad[3] += (quad[1] - quad[3]) * 0.022
+     quad[:, 0] = CARD_CENTER_X + (quad[:, 0] - CARD_CENTER_X) * scale
+ 
+     # A tiny perspective rise makes the turning face feel physical.
+@@ -200,7 +208,7 @@
+     # Rotating cardstock darkens as its face turns away from the key light.
+     shade = 0.91 + 0.09 * np.cos(angle)
+     warped *= shade
+-    face_gradient = np.linspace(0.965, 1.018, w, dtype=np.float32)
++    face_gradient = np.linspace(0.985, 1.012, w, dtype=np.float32)
+     gradient_canvas = np.tile(face_gradient[None, :, None], (h, 1, 3))
+     gradient = cv2.warpPerspective(
+         gradient_canvas,
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-08T19:05:38.431507+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;pwd &amp;&amp; rg --files -g &#x27;&quot;&#x27;!*.mp4&#x27;&quot;&#x27; -g &#x27;&quot;&#x27;!*.webm&#x27;&quot;&#x27; | sed -n &#x27;1,160p&#x27;&quot;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-08T19:05:38.685146+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;printf &#x27;%s\\n&#x27; &#x27;--- prompt.txt ---&#x27;; sed -n &#x27;1,240p&#x27; prompt.txt; printf &#x27;%s\\n&#x27; &#x27;--- GENERATION_RULES.md ---&#x27;; sed -n &#x27;1,320p&#x27; GENERATION_RULES.md&quot;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-08T19:05:39.024257+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;find . -maxdepth 2 -type f -printf &#x27;%p %s bytes\\n&#x27; | sort&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-08T19:05:50.276921+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+im=Image.open(&#x27;first_frame.png&#x27;)
+print(im.mode, im.size)
+print(im.getpixel((0,0)), im.getpixel((128,72)), im.getpixel((200,120)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-08T19:05:50.471027+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;sed -n &#x27;1,260p&#x27; artifact_io.py&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-08T19:05:50.899769+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;sed -n &#x27;1,240p&#x27; player_template.html&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-08T19:05:59.801758+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+im=Image.open(&#x27;first_frame.png&#x27;)
+im.resize((1024,576)).save(&#x27;.tmp/first_x4.png&#x27;)
+for name,box in {
+&#x27;card&#x27;:(45,30,175,135),
+&#x27;stand&#x27;:(105,0,155,70),
+&#x27;platform&#x27;:(55,100,190,144),
+&#x27;right&#x27;:(160,0,256,144)
+}.items():
+    im.crop(box).resize(((box[2]-box[0])*6,(box[3]-box[1])*6)).save(f&#x27;.tmp/{name}.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-08T19:06:53.825517+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2, numpy as np
+im=cv2.imread(&#x27;first_frame.png&#x27;)
+print(&#x27;cv2&#x27;, cv2.__version__, &#x27;shape&#x27;, im.shape)
+hsv=cv2.cvtColor(im,cv2.COLOR_BGR2HSV)
+# near-white card values
+mask=(hsv[:,:,1]&lt;45)&amp;(hsv[:,:,2]&gt;100)
+ys,xs=np.where(mask)
+print(&#x27;white bbox&#x27;, xs.min(),ys.min(),xs.max(),ys.max())
+# per row extents around card
+for y in [44,48,52,60,70,80,90,100,110,116,120,124]:
+ xs=np.where(mask[y])[0]
+ print(y, (xs.min(),xs.max(),len(xs)) if len(xs) else None)
+PY&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-08T19:07:40.284247+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2, numpy as np
+from PIL import Image
+im=cv2.imread(&#x27;first_frame.png&#x27;)
+# card polygon mask
+mask=np.zeros(im.shape[:2],np.uint8)
+poly=np.array([[67,43],[155,48],[152,125],[62,119]],np.int32)
+cv2.fillPoly(mask,[poly],255)
+# dilate edges
+mask=cv2.dilate(mask,np.ones((5,5),np.uint8),iterations=1)
+bg=cv2.inpaint(im,mask,7,cv2.INPAINT_TELEA)
+cv2.imwrite(&#x27;.tmp/bg_inpaint.png&#x27;,bg)
+# overlay original outside expanded mask
+# Build using texture patches later
+PY&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-08T19:07:47.918912+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2, numpy as np
+im=cv2.imread(&#x27;first_frame.png&#x27;)
+# sample table colors at representative points BGR
+for p in [(0,100),(0,120),(30,130),(80,138),(200,130),(240,110),(200,90),(80,80),(90,65),(110,55),(120,45),(140,30),(200,60),(200,100)]:
+ x,y=p; print(p, im[y,x][::-1])
+PY&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-08T19:07:52.350670+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2, numpy as np
+im=cv2.imread(&#x27;first_frame.png&#x27;)
+# card central line colors, rows 50..120 every 5 at x 100 and 130
+for y in range(46,126,5):
+ print(y, tuple(im[y,100][::-1]), tuple(im[y,130][::-1]))
+PY&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-08T19:07:56.376820+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+im=Image.open(&#x27;first_frame.png&#x27;)
+# print coarse color map as ascii
+chars=&#x27; .:-=+*#%@&#x27;
+for y in range(0,144,4):
+ s=&#x27;&#x27;
+ for x in range(0,256,4):
+  r,g,b=im.getpixel((x,y)); v=(r+g+b)/3
+  s+=chars[min(9,int(v/256*10))]
+ print(s)
+PY&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-08T19:08:30.457227+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2, numpy as np
+im=cv2.imread(&#x27;first_frame.png&#x27;)
+poly=np.array([[65,42],[157,46],[154,127],[60,121]],np.int32)
+for exp in [2,4,6]:
+ mask=np.zeros(im.shape[:2],np.uint8); cv2.fillPoly(mask,[poly],255)
+ if exp: mask=cv2.dilate(mask,np.ones((2*exp+1,2*exp+1),np.uint8))
+ for rad in [3,7,15]:
+  for algo,name in [(cv2.INPAINT_TELEA,&#x27;telea&#x27;),(cv2.INPAINT_NS,&#x27;ns&#x27;)]:
+   out=cv2.inpaint(im,mask,rad,algo)
+   cv2.imwrite(f&#x27;.tmp/inpaint_e{exp}_r{rad}_{name}.png&#x27;,out)
+PY&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-08T19:08:38.752888+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+im=cv2.imread(&#x27;first_frame.png&#x27;)
+# show pixel-derived edges via sobel/color cluster perhaps generate polygons later
+# save nearest scaled original 4x with coordinates grid for inspection
+out=cv2.resize(im,(1024,576),interpolation=cv2.INTER_NEAREST)
+for x in range(0,1024,40): cv2.line(out,(x,0),(x,575),(0,255,0),1)
+for y in range(0,576,40): cv2.line(out,(0,y),(1023,y),(0,255,0),1)
+cv2.imwrite(&#x27;.tmp/grid.png&#x27;,out)
+PY&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-08T19:08:47.371268+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+im=cv2.imread(&#x27;first_frame.png&#x27;)
+# Determine card vertices from white-ish pixels in ROI, use hsv plus distance to colors.
+roi=im[35:132,45:175]
+# print for each y x min/max where low saturation and brightness&gt;100; but wall is white too
+# card is slightly warm and lower than wall, difference edge strongest.
+# Instead threshold image based on red &gt; 150, and local vertical edge.
+hsv=cv2.cvtColor(im,cv2.COLOR_BGR2HSV)
+for y in range(38,130):
+ xs=[]
+ for x in range(45,175):
+  h,s,v=hsv[y,x]
+  b,g,r=im[y,x]
+  if s&lt;20 and v&gt;105 and abs(int(b)-int(g))&lt;8 and abs(int(g)-int(r))&lt;8: xs.append(x)
+ if xs and y%2==0: print(y,min(xs),max(xs))
+PY&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-08T19:08:52.057460+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+im=cv2.imread(&#x27;first_frame.png&#x27;)
+# sample x=145 dark thing card overlap etc
+for x in [50,60,62,64,66,100,145,148,150,152,155,160,170,180,190]:
+ print(&#x27;x&#x27;,x)
+ for y in [45,50,60,70,80,90,100,110,120,125,130,135,140]:
+  print(y,tuple(im[y,x][::-1]),end=&#x27;; &#x27;)
+ print()
+PY&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-08T19:10:50.244903+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-08T19:11:24.242405+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+im=Image.open(&#x27;first_frame.png&#x27;)
+for y in [118,120,122,124,126,128,130,132,134,136,138,140,142,143]:
+ runs=[]; on=False
+ for x in range(256):
+  r,g,b=im.getpixel((x,y)); dark=(r+g+b)/3&lt;35
+  if dark and not on: st=x;on=True
+  if on and (not dark or x==255):
+   en=x-1 if not dark else x;runs.append((st,en));on=False
+ print(y,runs)
+PY&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-08T19:11:28.602814+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+im=Image.open(&#x27;first_frame.png&#x27;)
+# enlarged exact source at 8x crop bottom center
+im.crop((45,110,215,144)).resize((1360,272)).save(&#x27;.tmp/base8.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-08T19:11:36.307880+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+im=Image.open(&#x27;first_frame.png&#x27;)
+# vertical stand region crop 8x
+im.crop((110,0,155,115)).resize((360,920)).save(&#x27;.tmp/stand8.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-08T19:11:44.287852+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+im=np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Sample background row continuity and find big color edges per row
+for y in [55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130]:
+ # grayscale vals at x every 10
+ vals=[int(im[y,x].mean()) for x in range(0,256,10)]
+ print(y, vals)
+PY&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-08T19:11:50.882786+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+from PIL import Image
+im=cv2.imread(&#x27;first_frame.png&#x27;)
+# Table continuity: fill card mask with horizontal interpolation only for y&gt;50 then smooth. Use inpaint smaller mask and blend.
+poly=np.array([[65,42],[157,46],[154,127],[60,121]],np.int32)
+mask=np.zeros(im.shape[:2],np.uint8);cv2.fillPoly(mask,[poly],255)
+mask=cv2.dilate(mask,np.ones((5,5),np.uint8))
+# examine inpaint radius variants as enlarged
+for r in [2,3,5,10]:
+ out=cv2.inpaint(im,mask,r,cv2.INPAINT_TELEA)
+ cv2.imwrite(f&#x27;.tmp/ip{r}.png&#x27;,out)
+PY&quot;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-08T19:12:00.344897+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+im=Image.open(&#x27;frames/00.png&#x27;)
+print(&#x27;identical&#x27;, im.tobytes()==Image.open(&#x27;first_frame.png&#x27;).tobytes())
+for i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]:
+ p=Image.open(f&#x27;frames/{i:02d}.png&#x27;)
+ print(i,p.getpixel((110,80)),p.getpixel((138,80)),p.getpixel((130,30)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 24</strong><time>2026-11-08T19:12:07.118104+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+for i in range(20):
+ im=Image.open(f&#x27;frames/{i:02d}.png&#x27;)
+ im.resize((1024,576),Image.Resampling.NEAREST).save(f&#x27;.tmp/f{i:02d}x4.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 25</strong><time>2026-11-08T19:12:18.785997+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2, numpy as np
+from generate import *
+from PIL import Image
+src=np.asarray(Image.open(&#x27;first_frame.png&#x27;).convert(&#x27;RGB&#x27;))
+bg=build_background(src)
+cv2.imwrite(&#x27;.tmp/bg_ours.png&#x27;,bg[...,::-1])
+# Check background errors outside card vs original
+m=np.ones((144,256),bool);cv2.fillPoly(m.astype(np.uint8),[CARD.astype(np.int32)],0)
+PY&quot;</pre></details><details class=command><summary><strong>命令 26</strong><time>2026-11-08T19:12:27.263895+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+for i in [7,8,9,10,11,12,13,14]:
+ Image.open(f&#x27;frames/{i:02d}.png&#x27;).resize((1024,576),Image.Resampling.NEAREST).save(f&#x27;.tmp/f{i:02d}x4.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 27</strong><time>2026-11-08T19:12:45.366970+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+from PIL import Image
+im=cv2.imread(&#x27;first_frame.png&#x27;)
+# create quad crops nearest for card for inspecting texture
+poly=np.array([[66,43],[156,47],[152,125],[63,120]],np.float32)
+w,h=450,410
+dst=np.array([[0,0],[w-1,0],[w-1,h-1],[0,h-1]],np.float32)
+M=cv2.getPerspectiveTransform(poly,dst)
+out=cv2.warpPerspective(im,M,(w,h),flags=cv2.INTER_NEAREST)
+cv2.imwrite(&#x27;.tmp/cardrect.png&#x27;,out)
+PY&quot;</pre></details><details class=command><summary><strong>命令 28</strong><time>2026-11-08T19:13:45.045779+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 29</strong><time>2026-11-08T19:13:53.371768+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+for i in [6,8,10,12,14,16,18,19]:
+ Image.open(f&#x27;frames/{i:02d}.png&#x27;).resize((1024,576),Image.Resampling.NEAREST).save(f&#x27;.tmp/n{i:02d}.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 30</strong><time>2026-11-08T19:14:14.656588+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+from generate import *
+from PIL import Image
+src=np.asarray(Image.open(&#x27;first_frame.png&#x27;).convert(&#x27;RGB&#x27;))
+text=rectify_card(src)
+cv2.imwrite(&#x27;.tmp/cardtex.png&#x27;,text[...,::-1])
+# Print extents/ranges at border rows
+for y in [0,1,2,3,4,50,97,98,99,100,101]:
+ print(y, tuple(text[y,0]),tuple(text[y,55]),tuple(text[y,111]))
+PY&quot;</pre></details><details class=command><summary><strong>命令 31</strong><time>2026-11-08T19:14:34.456768+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=tool-image><summary>视觉工具实际返回图片 1</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_01.png"></details><details class=tool-image><summary>视觉工具实际返回图片 2</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_02.png"></details><details class=tool-image><summary>视觉工具实际返回图片 3</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_03.png"></details><details class=tool-image><summary>视觉工具实际返回图片 4</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_04.png"></details><details class=tool-image><summary>视觉工具实际返回图片 5</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_05.png"></details><details class=tool-image><summary>视觉工具实际返回图片 6</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_06.png"></details><details class=tool-image><summary>视觉工具实际返回图片 7</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_07.png"></details><details class=tool-image><summary>视觉工具实际返回图片 8</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_08.png"></details><details class=tool-image><summary>视觉工具实际返回图片 9</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_09.png"></details><details class=tool-image><summary>视觉工具实际返回图片 10</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_10.png"></details><details class=tool-image><summary>视觉工具实际返回图片 11</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_11.png"></details><details class=tool-image><summary>视觉工具实际返回图片 12</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_12.png"></details><details class=tool-image><summary>视觉工具实际返回图片 13</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_13.png"></details><details class=tool-image><summary>视觉工具实际返回图片 14</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_14.png"></details><details class=tool-image><summary>视觉工具实际返回图片 15</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_15.png"></details><details class=tool-image><summary>视觉工具实际返回图片 16</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_16.png"></details><details class=tool-image><summary>视觉工具实际返回图片 17</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_17.png"></details><details class=tool-image><summary>视觉工具实际返回图片 18</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_18.png"></details><details class=tool-image><summary>视觉工具实际返回图片 19</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_19.png"></details><details class=tool-image><summary>视觉工具实际返回图片 20</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_20.png"></details><details class=tool-image><summary>视觉工具实际返回图片 21</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_21.png"></details><details class=tool-image><summary>视觉工具实际返回图片 22</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_22.png"></details><details class=tool-image><summary>视觉工具实际返回图片 23</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_23.png"></details><details class=tool-image><summary>视觉工具实际返回图片 24</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_24.png"></details><details class=tool-image><summary>视觉工具实际返回图片 25</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_25.png"></details><details class=tool-image><summary>视觉工具实际返回图片 26</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_26.png"></details><details class=tool-image><summary>视觉工具实际返回图片 27</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_27.png"></details><details class=tool-image><summary>视觉工具实际返回图片 28</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_28.png"></details><details class=tool-image><summary>视觉工具实际返回图片 29</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_29.png"></details><details class=tool-image><summary>视觉工具实际返回图片 30</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_30.png"></details><details class=tool-image><summary>视觉工具实际返回图片 31</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_31.png"></details><details class=tool-image><summary>视觉工具实际返回图片 32</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/3670537520627b1e658ce98367a7d24edd6daa5c/pixelworld/bench_smoke_codex_20261109/physics_iq/deepseek-v41/vision-agent/case_0006_attempt_01/tool_view_32.png"></details><p class=muted>保存候选 3 份；完成命令 31 次；可验证图片返回 32 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>

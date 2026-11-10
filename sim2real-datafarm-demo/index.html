@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataFarm-style Sim2Real Video Evaluation Demo</title>
+<meta name="description" content="A compact DataFarm-style demo for evaluating simulator-to-rendered video pairs using motion, structure, jumps, and flow diagnostics.">
+<link rel="canonical" href="https://siyuanmacs.github.io/sim2real-datafarm-demo/">
+<meta property="og:title" content="DataFarm-style Sim2Real Video Evaluation Demo">
+<meta property="og:description" content="Static demo of motion, structure, jumps, and flow diagnostics for simulator/rendered video pairs.">
+<meta property="og:url" content="https://siyuanmacs.github.io/sim2real-datafarm-demo/">
+<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+<header class="top">
+  <p class="eyebrow"><a href="https://siyuanmacs.github.io/">Siyuan Ma</a> / Sim2Real Evaluation</p>
+  <h1>DataFarm-style Sim2Real Video Evaluation Demo</h1>
+  <p class="lead">A static demo for checking whether a rendered video follows the simulator episode before judging appearance realism.</p>
+  <nav>
+    <a href="#summary">Metrics</a>
+    <a href="#good_render">Good render</a>
+    <a href="#motion_wrong">Motion failure</a>
+    <a href="#structure_wrong">Structure failure</a>
+    <a href="#jump_wrong">Jump failure</a>
+  </nav>
+</header>
+
+<section class="note">
+  <p>This page mirrors the DataFarm split: <strong>Motion</strong> and <strong>Structure</strong> check consistency with the simulator, <strong>Jumps</strong> catches seams, and flow diagnostics inspect moving pixels. KID/JEDi require a real-camera reference pool, so this synthetic two-video demo reports them as N/A.</p>
+</section>
+
+<section id="summary">
+  <h2>Summary</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Case</th>
+          <th>Motion</th>
+          <th>Structure</th>
+          <th>Jumps</th>
+          <th>Flow error</th>
+          <th>Flow agreement</th>
+          <th>KID</th>
+          <th>JEDi</th>
+          <th>Expected signal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><a href="#good_render">good_render</a></td><td><span class="num">0.993</span><div class="bar" aria-hidden="true"><span style="width:99.3%"></span></div></td><td><span class="num">0.737</span><div class="bar" aria-hidden="true"><span style="width:73.7%"></span></div></td><td><span class="num">0.0</span><div class="bar" aria-hidden="true"><span style="width:100.0%"></span></div></td><td><span class="num">0.024</span><div class="bar" aria-hidden="true"><span style="width:84.0%"></span></div></td><td><span class="num">0.779</span><div class="bar" aria-hidden="true"><span style="width:77.9%"></span></div></td><td><span class="num muted">N/A</span></td><td><span class="num muted">N/A</span></td><td>same geometry/motion, more camera-like appearance</td></tr><tr><td><a href="#motion_wrong">motion_wrong</a></td><td><span class="num">0.598</span><div class="bar" aria-hidden="true"><span style="width:59.8%"></span></div></td><td><span class="num">0.288</span><div class="bar" aria-hidden="true"><span style="width:28.8%"></span></div></td><td><span class="num">0.0</span><div class="bar" aria-hidden="true"><span style="width:100.0%"></span></div></td><td><span class="num">0.123</span><div class="bar" aria-hidden="true"><span style="width:17.9%"></span></div></td><td><span class="num">0.004</span><div class="bar" aria-hidden="true"><span style="width:0.4%"></span></div></td><td><span class="num muted">N/A</span></td><td><span class="num muted">N/A</span></td><td>motion should drop and flow error should rise</td></tr><tr><td><a href="#structure_wrong">structure_wrong</a></td><td><span class="num">0.993</span><div class="bar" aria-hidden="true"><span style="width:99.3%"></span></div></td><td><span class="num">0.610</span><div class="bar" aria-hidden="true"><span style="width:61.0%"></span></div></td><td><span class="num">0.0</span><div class="bar" aria-hidden="true"><span style="width:100.0%"></span></div></td><td><span class="num">0.025</span><div class="bar" aria-hidden="true"><span style="width:83.1%"></span></div></td><td><span class="num">0.762</span><div class="bar" aria-hidden="true"><span style="width:76.2%"></span></div></td><td><span class="num muted">N/A</span></td><td><span class="num muted">N/A</span></td><td>phantom object/arm should lower structure and need reject review</td></tr><tr><td><a href="#jump_wrong">jump_wrong</a></td><td><span class="num">0.097</span><div class="bar" aria-hidden="true"><span style="width:9.7%"></span></div></td><td><span class="num">0.451</span><div class="bar" aria-hidden="true"><span style="width:45.1%"></span></div></td><td><span class="num">10.5</span><div class="bar" aria-hidden="true"><span style="width:12.3%"></span></div></td><td><span class="num">0.057</span><div class="bar" aria-hidden="true"><span style="width:62.2%"></span></div></td><td><span class="num">0.492</span><div class="bar" aria-hidden="true"><span style="width:49.2%"></span></div></td><td><span class="num muted">N/A</span></td><td><span class="num muted">N/A</span></td><td>mid-video seam should increase jumps</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<section class="case" id="good_render">
+  <div class="case-head">
+    <div>
+      <h2>good render</h2>
+      <p>same geometry/motion, more camera-like appearance</p>
+    </div>
+    <a class="report-link" href="data/summary.json">JSON</a>
+  </div>
+  <ul class="metric-chips">
+    <li><strong>Motion</strong><span>0.993</span><em>higher is better</em></li><li><strong>Structure</strong><span>0.737</span><em>higher is better</em></li><li><strong>Jumps</strong><span>0.0</span><em>lower is better</em></li><li><strong>Flow error</strong><span>0.024</span><em>lower is better</em></li><li><strong>Flow agreement</strong><span>0.779</span><em>higher is better</em></li>
+  </ul>
+  <div class="videos">
+    <figure>
+      <video controls preload="metadata" src="assets/videos/simulator.mp4"></video>
+      <figcaption>Simulator source</figcaption>
+    </figure>
+    <figure>
+      <video controls preload="metadata" src="assets/videos/good_render.mp4"></video>
+      <figcaption>Rendered candidate</figcaption>
+    </figure>
+  </div>
+  <div class="strip" aria-label="Sampled paired frames">
+    <img src="assets/paired/good_render/000000.jpg" alt="Paired simulator and rendered frame for good_render at sample 000000"><img src="assets/paired/good_render/000006.jpg" alt="Paired simulator and rendered frame for good_render at sample 000006"><img src="assets/paired/good_render/000012.jpg" alt="Paired simulator and rendered frame for good_render at sample 000012"><img src="assets/paired/good_render/000018.jpg" alt="Paired simulator and rendered frame for good_render at sample 000018"><img src="assets/paired/good_render/000024.jpg" alt="Paired simulator and rendered frame for good_render at sample 000024">
+  </div>
+</section>
+
+<section class="case" id="motion_wrong">
+  <div class="case-head">
+    <div>
+      <h2>motion wrong</h2>
+      <p>motion should drop and flow error should rise</p>
+    </div>
+    <a class="report-link" href="data/summary.json">JSON</a>
+  </div>
+  <ul class="metric-chips">
+    <li><strong>Motion</strong><span>0.598</span><em>higher is better</em></li><li><strong>Structure</strong><span>0.288</span><em>higher is better</em></li><li><strong>Jumps</strong><span>0.0</span><em>lower is better</em></li><li><strong>Flow error</strong><span>0.123</span><em>lower is better</em></li><li><strong>Flow agreement</strong><span>0.004</span><em>higher is better</em></li>
+  </ul>
+  <div class="videos">
+    <figure>
+      <video controls preload="metadata" src="assets/videos/simulator.mp4"></video>
+      <figcaption>Simulator source</figcaption>
+    </figure>
+    <figure>
+      <video controls preload="metadata" src="assets/videos/motion_wrong.mp4"></video>
+      <figcaption>Rendered candidate</figcaption>
+    </figure>
+  </div>
+  <div class="strip" aria-label="Sampled paired frames">
+    <img src="assets/paired/motion_wrong/000000.jpg" alt="Paired simulator and rendered frame for motion_wrong at sample 000000"><img src="assets/paired/motion_wrong/000006.jpg" alt="Paired simulator and rendered frame for motion_wrong at sample 000006"><img src="assets/paired/motion_wrong/000012.jpg" alt="Paired simulator and rendered frame for motion_wrong at sample 000012"><img src="assets/paired/motion_wrong/000018.jpg" alt="Paired simulator and rendered frame for motion_wrong at sample 000018"><img src="assets/paired/motion_wrong/000024.jpg" alt="Paired simulator and rendered frame for motion_wrong at sample 000024">
+  </div>
+</section>
+
+<section class="case" id="structure_wrong">
+  <div class="case-head">
+    <div>
+      <h2>structure wrong</h2>
+      <p>phantom object/arm should lower structure and need reject review</p>
+    </div>
+    <a class="report-link" href="data/summary.json">JSON</a>
+  </div>
+  <ul class="metric-chips">
+    <li><strong>Motion</strong><span>0.993</span><em>higher is better</em></li><li><strong>Structure</strong><span>0.610</span><em>higher is better</em></li><li><strong>Jumps</strong><span>0.0</span><em>lower is better</em></li><li><strong>Flow error</strong><span>0.025</span><em>lower is better</em></li><li><strong>Flow agreement</strong><span>0.762</span><em>higher is better</em></li>
+  </ul>
+  <div class="videos">
+    <figure>
+      <video controls preload="metadata" src="assets/videos/simulator.mp4"></video>
+      <figcaption>Simulator source</figcaption>
+    </figure>
+    <figure>
+      <video controls preload="metadata" src="assets/videos/structure_wrong.mp4"></video>
+      <figcaption>Rendered candidate</figcaption>
+    </figure>
+  </div>
+  <div class="strip" aria-label="Sampled paired frames">
+    <img src="assets/paired/structure_wrong/000000.jpg" alt="Paired simulator and rendered frame for structure_wrong at sample 000000"><img src="assets/paired/structure_wrong/000006.jpg" alt="Paired simulator and rendered frame for structure_wrong at sample 000006"><img src="assets/paired/structure_wrong/000012.jpg" alt="Paired simulator and rendered frame for structure_wrong at sample 000012"><img src="assets/paired/structure_wrong/000018.jpg" alt="Paired simulator and rendered frame for structure_wrong at sample 000018"><img src="assets/paired/structure_wrong/000024.jpg" alt="Paired simulator and rendered frame for structure_wrong at sample 000024">
+  </div>
+</section>
+
+<section class="case" id="jump_wrong">
+  <div class="case-head">
+    <div>
+      <h2>jump wrong</h2>
+      <p>mid-video seam should increase jumps</p>
+    </div>
+    <a class="report-link" href="data/summary.json">JSON</a>
+  </div>
+  <ul class="metric-chips">
+    <li><strong>Motion</strong><span>0.097</span><em>higher is better</em></li><li><strong>Structure</strong><span>0.451</span><em>higher is better</em></li><li><strong>Jumps</strong><span>10.5</span><em>lower is better</em></li><li><strong>Flow error</strong><span>0.057</span><em>lower is better</em></li><li><strong>Flow agreement</strong><span>0.492</span><em>higher is better</em></li>
+  </ul>
+  <div class="videos">
+    <figure>
+      <video controls preload="metadata" src="assets/videos/simulator.mp4"></video>
+      <figcaption>Simulator source</figcaption>
+    </figure>
+    <figure>
+      <video controls preload="metadata" src="assets/videos/jump_wrong.mp4"></video>
+      <figcaption>Rendered candidate</figcaption>
+    </figure>
+  </div>
+  <div class="strip" aria-label="Sampled paired frames">
+    <img src="assets/paired/jump_wrong/000000.jpg" alt="Paired simulator and rendered frame for jump_wrong at sample 000000"><img src="assets/paired/jump_wrong/000006.jpg" alt="Paired simulator and rendered frame for jump_wrong at sample 000006"><img src="assets/paired/jump_wrong/000012.jpg" alt="Paired simulator and rendered frame for jump_wrong at sample 000012"><img src="assets/paired/jump_wrong/000018.jpg" alt="Paired simulator and rendered frame for jump_wrong at sample 000018"><img src="assets/paired/jump_wrong/000024.jpg" alt="Paired simulator and rendered frame for jump_wrong at sample 000024">
+  </div>
+</section>
+
+
+<section class="note small">
+  <h2>Implementation Notes</h2>
+  <p>The demo uses CPU OpenCV/Farneback diagnostics as a smoke test. A benchmark run should freeze a stronger optical-flow or feature stack, add real-camera KID/JEDi when a reference pool exists; until then they should remain N/A, and hard reject cases stay separate from averaged scores.</p>
+</section>
+</main>
+</body>
+</html>
