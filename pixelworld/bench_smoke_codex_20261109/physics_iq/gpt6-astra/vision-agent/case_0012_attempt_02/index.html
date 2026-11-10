@@ -1,0 +1,457 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/GPT-6-Astra · 0012</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/GPT-6-Astra · 0012</h1></section><div class=case-meta><span class=badge>vision-agent</span><span class=pill>256×144</span><span class=pill>4.0 FPS · 20 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_fec36573ed88e7ac.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;eb5bbb9b028291962a762b4c9d9726d6c2e4635a0b1e74f81b0844e353f95158&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/final/pixels_fec36573ed88e7ac.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/final/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>首帧续写</span><h3 style="margin-top:14px">原始任务</h3><p>Static locked-off single-shot with fixed frame throughout filmed with constant framerate in real-time. The scene shows a realistic scientific demonstration. The scene only contains the described setup and actions. A light-colored wooden coffee table with a few small objects on it, including a brown tennis ball and a smaller red ball. The orange tennis ball rolls straight out of the black pipe over the entire table towards the right side.
+</p><div class=facts><div><strong>5.00s</strong>视频时长</div><div><strong>12795</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-09T00:20:41.259112+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_fec36573ed88e7ac.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;eb5bbb9b028291962a762b4c9d9726d6c2e4635a0b1e74f81b0844e353f95158&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/candidate_00/pixels_fec36573ed88e7ac.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/candidate_00/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/candidate_00/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/candidate_00/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,133 @@
++&quot;&quot;&quot;Reconstruct a locked-camera tabletop shot using the supplied photograph.
++
++All imagery is derived from first_frame.png.  Motion, a soft contact shadow,
++and the surface rotation are evaluated analytically, with no learned models.
++&quot;&quot;&quot;
++from pathlib import Path
++import math
++import cv2
++import numpy as np
++from PIL import Image
++from scipy.special import ndtr
++import artifact_io
++
++ROOT = Path(__file__).resolve().parent
++H, W = 144, 256
++Y, X = np.mgrid[:H, :W].astype(np.float64)
++
++
++def clean_plate(photo):
++    # Continue the same board&#x27;s grain from its unobstructed section to the right.
++    u = (X - 48.2) * .953 - (Y - 47.4) * .302
++    v = (X - 48.2) * .302 + (Y - 47.4) * .953
++    ball = np.sqrt(((X - 37.4) / 8.5)**2 + ((Y - 45.2) / 8.5)**2)
++    shadow = np.sqrt((u / 14.2)**2 + (v / 5.)**2)
++    q = np.minimum(ball, shadow)
++    blend = np.clip((1.18 - q) / .27, 0., 1.)
++    sample = cv2.remap(photo.astype(np.float32),
++                       (X + 40).astype(np.float32),
++                       (Y + 4.4).astype(np.float32),
++                       cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT).astype(float)
++    ring = (q &gt; 1.09) &amp; (q &lt; 1.6) &amp; (X &gt; 23)
++    design = np.stack([np.ones_like(X), (X - 43)/20, (Y - 45)/10], -1)
++    difference = photo - sample
++    coef = np.linalg.lstsq(design[ring], difference[ring], rcond=None)[0]
++    for _ in range(3):
++        residual = difference[ring] - design[ring] @ coef
++        weight = 1 / (1 + (residual.mean(axis=1)/4)**2)
++        coef = np.linalg.lstsq(design[ring]*weight[:, None],
++                               difference[ring]*weight[:, None], rcond=None)[0]
++    replacement = sample + design @ coef
++    return np.clip(photo*(1-blend[..., None]) + replacement*blend[..., None], 0, 255)
++
++
++# The silhouette and penumbra dimensions are measured from the photograph.
++CX, CY, RX, RY = 37.22845898, 45.04945520, 6.92834021, 6.35173297
++SHX, SHY = 47.77558113, 47.80866759
++
++def initial_shadow():
++    a = -.32279413
++    u = (X-SHX)*math.cos(a) + (Y-SHY)*math.sin(a)
++    v = -(X-SHX)*math.sin(a) + (Y-SHY)*math.cos(a)
++    q = (u/10.43248673)**2 + (v/2.81773677)**2
++    return .31396992*np.exp(-.5*q**2.64551687)
++
++
++def main():
++    photo_u8 = np.array(Image.open(ROOT/&#x27;first_frame.png&#x27;).convert(&#x27;RGB&#x27;))
++    photo = photo_u8.astype(np.float64)
++    plate = clean_plate(photo)
++    d = np.sqrt(((X-CX)/RX)**2 + ((Y-CY)/RY)**2)
++    matte = ndtr((1-d)*RX/1.20245476)
++    matte[matte &lt; .001] = 0
++    shadow = initial_shadow()
++    old_backdrop = plate*(1-shadow[..., None])
++    color = (photo-old_backdrop*(1-matte[..., None]))/np.maximum(matte[..., None], .001)
++    color = np.clip(color, 0, 255)
++    premul = (color*matte[..., None]).astype(np.float32)
++    matte = matte.astype(np.float32)
++    shadow = shadow.astype(np.float32)
++
++    # Constant rolling resistance, with a straight trajectory aligned to the pipe.
++    speed, deceleration = 47., 1.0
++    edge_x = 223.2
++    edge_distance = edge_x-CX
++    edge_time = (speed-math.sqrt(speed*speed-2*deceleration*edge_distance))/deceleration
++    edge_speed = speed-deceleration*edge_time
++    edge_y = CY + .135*edge_distance
++
++    def render(t):
++        if t &lt;= edge_time:
++            dist = speed*t-.5*deceleration*t*t
++            center_x, center_y = CX+dist, CY+.135*dist
++            fall = 0.
++        else:
++            elapsed = t-edge_time
++            dist = edge_distance+edge_speed*elapsed
++            center_x = CX+dist
++            # Once unsupported the sphere follows a ballistic arc off the edge.
++            fall = .5*650.*elapsed*elapsed
++            center_y = edge_y+.135*edge_speed*elapsed+fall
++        scale = 1+.00022*dist
++        mx = ((X-center_x)/scale+CX).astype(np.float32)
++        my = ((Y-center_y)/scale+CY).astype(np.float32)
++        a = np.clip(cv2.remap(matte, mx, my, cv2.INTER_CUBIC), 0., 1.)
++        rgb = np.clip(cv2.remap(premul, mx, my, cv2.INTER_CUBIC), 0., 255.)
++        rgb = np.minimum(rgb, a[..., None]*255.)
++
++        # Rotate very subtle surface mottling without rotating the illumination.
++        nx = (X-center_x)/(RX*scale)
++        ny = (Y-center_y)/(RY*scale)
++        nz = np.sqrt(np.maximum(0, 1-nx*nx-ny*ny))
++        angle = dist/RX
++        u = nx*math.cos(angle)+nz*math.sin(angle)
++        w = -nx*math.sin(angle)+nz*math.cos(angle)
++        fuzz = np.sin(11*u+3*ny)*np.sin(13*w-5*ny) + .5*np.sin(20*u-7*w+16*ny)
++        rgb *= (1 + .003*fuzz*np.clip((1-nx*nx-ny*ny)*3, 0, 1))[..., None]
++
++        # Shadow remains on the tabletop and is clipped at its right boundary.
++        smx = ((X-center_x)/scale+CX).astype(np.float32)
++        smy = ((Y-(center_y-fall))/scale+CY).astype(np.float32)
++        s = np.clip(cv2.remap(shadow, smx, smy, cv2.INTER_LINEAR), 0, 1)
++        boundary = 218.0 + (Y-37.)*(16./107.)
++        on_table = np.clip(boundary-X+.5, 0, 1)
++        if t &gt; edge_time:
++            s *= math.exp(-fall/5.)
++        s *= on_table
++        background = plate*(1-s[..., None])
++        return background*(1-a[..., None])+rgb
++
++    frames = [photo_u8.copy()]
++    for index in range(1, 20):
++        t = index/4.
++        # Short, fixed camera exposure; temporal sampling avoids harsh raster jumps.
++        image = sum(render(t+dt) for dt in (-1/128, 0, 1/128))/3.
++        frames.append(np.uint8(np.rint(np.clip(image, 0, 255))))
++    frames = np.stack(frames)
++    assert np.array_equal(frames[0], photo_u8)
++    artifact_io.save(frames, ROOT)
++    Image.fromarray(np.uint8(np.rint(plate))).save(ROOT/&#x27;.tmp/clean_plate.png&#x27;)
++
++
++if __name__ == &#x27;__main__&#x27;:
++    main()
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-08T23:45:13.728314+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;ls -la &amp;&amp; cat prompt.txt &amp;&amp; printf &#x27;\\n---RULES---\\n&#x27; &amp;&amp; cat GENERATION_RULES.md&quot;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-08T23:46:14.115837+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat artifact_io.py &amp;&amp; python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+im=Image.open(&#x27;first_frame.png&#x27;); print(im.size); im.resize((1024,576)).save(&#x27;.tmp/large.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-08T23:46:38.660112+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import importlib.util
+for x in [&#x27;cv2&#x27;,&#x27;scipy&#x27;,&#x27;numpy&#x27;,&#x27;PIL&#x27;]:
+ print(x, bool(importlib.util.find_spec(x)))
+from PIL import Image
+im=Image.open(&#x27;first_frame.png&#x27;); im.crop((20,30,70,61)).resize((800,496)).save(&#x27;.tmp/crop.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-08T23:54:46.964365+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; .tmp/test_plate.py &lt;&lt;&#x27;PY&#x27;
+import cv2
+import numpy as np
+from PIL import Image
+im=np.array(Image.open(&#x27;first_frame.png&#x27;).convert(&#x27;RGB&#x27;))
+y,x=np.mgrid[:144,:256]
+mask=(((x-37.4)/9.0)**2+((y-45.1)/8.7)**2&lt;1)
+# elongated shadow running away from light
+u=(x-47.7)*.95-(y-47.5)*.31
+v=(x-47.7)*.31+(y-47.5)*.95
+mask|=(u/15)**2+(v/4.8)**2&lt;1
+m=mask.astype(&#x27;uint8&#x27;)*255
+ns=cv2.inpaint(im,m,4,cv2.INPAINT_NS)
+te=cv2.inpaint(im,m,4,cv2.INPAINT_TELEA)
+Image.fromarray(ns).resize((1024,576)).save(&#x27;.tmp/plate_ns.png&#x27;)
+Image.fromarray(te).resize((1024,576)).save(&#x27;.tmp/plate_te.png&#x27;)
+Image.fromarray(im).save(&#x27;.tmp/ref.png&#x27;)
+np.save(&#x27;.tmp/mask.npy&#x27;,m)
+PY
+python .tmp/test_plate.py&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-08T23:56:52.914548+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+im=Image.open(&#x27;first_frame.png&#x27;); im.crop((15,27,120,70)).resize((1260,516)).save(&#x27;.tmp/table.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-09T00:08:17.162812+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; .tmp/plate_trials.py &lt;&lt;&#x27;PY&#x27;
+import cv2
+import numpy as np
+from PIL import Image
+im=np.array(Image.open(&#x27;first_frame.png&#x27;).convert(&#x27;RGB&#x27;)).astype(float)
+h,w=im.shape[:2];y,x=np.mgrid[:h,:w].astype(float)
+u=(x-48.2)*.953-(y-47.4)*.302
+v=(x-48.2)*.302+(y-47.4)*.953
+q1=np.sqrt(((x-37.4)/8.5)**2+((y-45.2)/8.5)**2)
+q2=np.sqrt((u/14.2)**2+(v/5.0)**2)
+q=np.minimum(q1,q2)
+a=np.clip((1.18-q)/.27,0,1)
+for dx,dy in [(40,4.4),(48,5.3),(32,4.3),(0,17)]:
+ src=cv2.remap(im.astype(np.float32),(x+dx).astype(np.float32),(y+dy).astype(np.float32),cv2.INTER_LINEAR,borderMode=cv2.BORDER_REFLECT).astype(float)
+ ring=(q&gt;1.09)&amp;(q&lt;1.6)&amp;(x&gt;23)
+ A=np.stack([np.ones_like(x),(x-43)/20,(y-45)/10],-1)
+ diff=im-src
+ coeff=np.linalg.lstsq(A[ring],diff[ring],rcond=None)[0]
+ # soft least square outlier suppression
+ for i in range(3):
+  r=diff[ring]-A[ring]@coeff
+  wt=1/(1+(r.mean(axis=1)/4)**2)
+  coeff=np.linalg.lstsq(A[ring]*wt[:,None],diff[ring]*wt[:,None],rcond=None)[0]
+ corrected=src+A@coeff
+ plate=im*(1-a[:,:,None])+corrected*a[:,:,None]
+ Image.fromarray(np.uint8(np.clip(plate,0,255))).resize((1024,576)).save(f&#x27;.tmp/plate_{dx}.png&#x27;)
+ np.save(f&#x27;.tmp/plate_{dx}.npy&#x27;,plate)
+PY
+python .tmp/plate_trials.py&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-09T00:18:09.813635+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+im=np.array(Image.open(&#x27;first_frame.png&#x27;)).astype(float)
+np.set_printoptions(precision=0, suppress=True,linewidth=180)
+print(&#x27;R-G&#x27;); print((im[36:56,27:48,0]-im[36:56,27:48,1]))
+PY&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-09T00:18:47.060702+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; .tmp/fit.py &lt;&lt;&#x27;PY&#x27;
+import numpy as np, cv2
+from PIL import Image
+from scipy.optimize import least_squares
+im=np.array(Image.open(&#x27;first_frame.png&#x27;)).astype(float)
+y,x=np.mgrid[:144,:256].astype(float)
+# fit ball silhouette using red-green chroma, intrinsic linear light gradient
+obs=(im[:,:,0]-im[:,:,1])
+sel=(x&gt;25)&amp;(x&lt;50)&amp;(y&gt;34)&amp;(y&lt;57)
+def calc(p):
+ cx,cy,rx,ry,sig,c0,gx,gy=p
+ d=np.sqrt(((x-cx)/rx)**2+((y-cy)/ry)**2)
+ from scipy.special import ndtr
+ a=ndtr((1-d)*rx/sig)
+ col=c0+gx*(x-cx)/rx+gy*(y-cy)/ry
+ return a*col+(1-a)*7,a
+p=least_squares(lambda p:(calc(p)[0]-obs)[sel],[37.25,45.5,6.8,6.5,.65,77,-10,2],bounds=([36,44,6,6,.3,65,-30,-20],[39,47,8,8,1.5,100,20,20])).x
+print(&#x27;ball&#x27;,p)
+a=calc(p)[1]
+plate=np.load(&#x27;.tmp/plate_40.npy&#x27;)
+ratio=np.clip(1-im.mean(2)/plate.mean(2),0,1)
+sel=(x&gt;27)&amp;(x&lt;65)&amp;(y&gt;37)&amp;(y&lt;57)&amp;(a&lt;.03)
+def sh(p):
+ cx,cy,sx,sy,ang,opacity,exp=p
+ u=(x-cx)*np.cos(ang)+(y-cy)*np.sin(ang)
+ v=-(x-cx)*np.sin(ang)+(y-cy)*np.cos(ang)
+ rr=(u/sx)**2+(v/sy)**2
+ return opacity*np.exp(-.5*rr**exp)
+p2=least_squares(lambda p:(sh(p)-ratio)[sel],[45,48,7,2.2,-.35,.4,1],bounds=([40,45,4,1,-.8,.15,.5],[52,51,12,4,0,.7,3])).x
+print(&#x27;shadow&#x27;,p2)
+np.savez(&#x27;.tmp/fit_params.npz&#x27;,ball=p,shadow=p2)
+# reconstruct subject over unmodified background to assess matte.
+s=sh(p2)
+bg=plate*(1-s[:,:,None])
+fg=(im-bg*(1-a[:,:,None]))/np.maximum(a[:,:,None],.001)
+fg=np.clip(fg,0,255)
+# move 45px across image
+cx,cy=p[:2]; dx=45;dy=dx*.135
+xm=(x-dx).astype(np.float32); ym=(y-dy).astype(np.float32)
+ma=cv2.remap(a.astype(np.float32),xm,ym,cv2.INTER_LINEAR)
+ms=cv2.remap(s.astype(np.float32),xm,ym,cv2.INTER_LINEAR)
+premult=cv2.remap((fg*a[:,:,None]).astype(np.float32),xm,ym,cv2.INTER_LINEAR)
+out=plate*(1-ms[:,:,None])*(1-ma[:,:,None])+premult
+Image.fromarray(np.uint8(np.clip(out,0,255))).resize((1024,576)).save(&#x27;.tmp/moved.png&#x27;)
+PY
+python .tmp/fit.py&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-09T00:20:39.619285+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; generate.py &lt;&lt;&#x27;PY&#x27;
+\&quot;\&quot;\&quot;Reconstruct a locked-camera tabletop shot using the supplied photograph.
+
+All imagery is derived from first_frame.png.  Motion, a soft contact shadow,
+and the surface rotation are evaluated analytically, with no learned models.
+\&quot;\&quot;\&quot;
+from pathlib import Path
+import math
+import cv2
+import numpy as np
+from PIL import Image
+from scipy.special import ndtr
+import artifact_io
+
+ROOT = Path(__file__).resolve().parent
+H, W = 144, 256
+Y, X = np.mgrid[:H, :W].astype(np.float64)
+
+
+def clean_plate(photo):
+    # Continue the same board&#x27;s grain from its unobstructed section to the right.
+    u = (X - 48.2) * .953 - (Y - 47.4) * .302
+    v = (X - 48.2) * .302 + (Y - 47.4) * .953
+    ball = np.sqrt(((X - 37.4) / 8.5)**2 + ((Y - 45.2) / 8.5)**2)
+    shadow = np.sqrt((u / 14.2)**2 + (v / 5.)**2)
+    q = np.minimum(ball, shadow)
+    blend = np.clip((1.18 - q) / .27, 0., 1.)
+    sample = cv2.remap(photo.astype(np.float32),
+                       (X + 40).astype(np.float32),
+                       (Y + 4.4).astype(np.float32),
+                       cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT).astype(float)
+    ring = (q &gt; 1.09) &amp; (q &lt; 1.6) &amp; (X &gt; 23)
+    design = np.stack([np.ones_like(X), (X - 43)/20, (Y - 45)/10], -1)
+    difference = photo - sample
+    coef = np.linalg.lstsq(design[ring], difference[ring], rcond=None)[0]
+    for _ in range(3):
+        residual = difference[ring] - design[ring] @ coef
+        weight = 1 / (1 + (residual.mean(axis=1)/4)**2)
+        coef = np.linalg.lstsq(design[ring]*weight[:, None],
+                               difference[ring]*weight[:, None], rcond=None)[0]
+    replacement = sample + design @ coef
+    return np.clip(photo*(1-blend[..., None]) + replacement*blend[..., None], 0, 255)
+
+
+# The silhouette and penumbra dimensions are measured from the photograph.
+CX, CY, RX, RY = 37.22845898, 45.04945520, 6.92834021, 6.35173297
+SHX, SHY = 47.77558113, 47.80866759
+
+def initial_shadow():
+    a = -.32279413
+    u = (X-SHX)*math.cos(a) + (Y-SHY)*math.sin(a)
+    v = -(X-SHX)*math.sin(a) + (Y-SHY)*math.cos(a)
+    q = (u/10.43248673)**2 + (v/2.81773677)**2
+    return .31396992*np.exp(-.5*q**2.64551687)
+
+
+def main():
+    photo_u8 = np.array(Image.open(ROOT/&#x27;first_frame.png&#x27;).convert(&#x27;RGB&#x27;))
+    photo = photo_u8.astype(np.float64)
+    plate = clean_plate(photo)
+    d = np.sqrt(((X-CX)/RX)**2 + ((Y-CY)/RY)**2)
+    matte = ndtr((1-d)*RX/1.20245476)
+    matte[matte &lt; .001] = 0
+    shadow = initial_shadow()
+    old_backdrop = plate*(1-shadow[..., None])
+    color = (photo-old_backdrop*(1-matte[..., None]))/np.maximum(matte[..., None], .001)
+    color = np.clip(color, 0, 255)
+    premul = (color*matte[..., None]).astype(np.float32)
+    matte = matte.astype(np.float32)
+    shadow = shadow.astype(np.float32)
+
+    # Constant rolling resistance, with a straight trajectory aligned to the pipe.
+    speed, deceleration = 47., 1.0
+    edge_x = 223.2
+    edge_distance = edge_x-CX
+    edge_time = (speed-math.sqrt(speed*speed-2*deceleration*edge_distance))/deceleration
+    edge_speed = speed-deceleration*edge_time
+    edge_y = CY + .135*edge_distance
+
+    def render(t):
+        if t &lt;= edge_time:
+            dist = speed*t-.5*deceleration*t*t
+            center_x, center_y = CX+dist, CY+.135*dist
+            fall = 0.
+        else:
+            elapsed = t-edge_time
+            dist = edge_distance+edge_speed*elapsed
+            center_x = CX+dist
+            # Once unsupported the sphere follows a ballistic arc off the edge.
+            fall = .5*650.*elapsed*elapsed
+            center_y = edge_y+.135*edge_speed*elapsed+fall
+        scale = 1+.00022*dist
+        mx = ((X-center_x)/scale+CX).astype(np.float32)
+        my = ((Y-center_y)/scale+CY).astype(np.float32)
+        a = np.clip(cv2.remap(matte, mx, my, cv2.INTER_CUBIC), 0., 1.)
+        rgb = np.clip(cv2.remap(premul, mx, my, cv2.INTER_CUBIC), 0., 255.)
+        rgb = np.minimum(rgb, a[..., None]*255.)
+
+        # Rotate very subtle surface mottling without rotating the illumination.
+        nx = (X-center_x)/(RX*scale)
+        ny = (Y-center_y)/(RY*scale)
+        nz = np.sqrt(np.maximum(0, 1-nx*nx-ny*ny))
+        angle = dist/RX
+        u = nx*math.cos(angle)+nz*math.sin(angle)
+        w = -nx*math.sin(angle)+nz*math.cos(angle)
+        fuzz = np.sin(11*u+3*ny)*np.sin(13*w-5*ny) + .5*np.sin(20*u-7*w+16*ny)
+        rgb *= (1 + .003*fuzz*np.clip((1-nx*nx-ny*ny)*3, 0, 1))[..., None]
+
+        # Shadow remains on the tabletop and is clipped at its right boundary.
+        smx = ((X-center_x)/scale+CX).astype(np.float32)
+        smy = ((Y-(center_y-fall))/scale+CY).astype(np.float32)
+        s = np.clip(cv2.remap(shadow, smx, smy, cv2.INTER_LINEAR), 0, 1)
+        boundary = 218.0 + (Y-37.)*(16./107.)
+        on_table = np.clip(boundary-X+.5, 0, 1)
+        if t &gt; edge_time:
+            s *= math.exp(-fall/5.)
+        s *= on_table
+        background = plate*(1-s[..., None])
+        return background*(1-a[..., None])+rgb
+
+    frames = [photo_u8.copy()]
+    for index in range(1, 20):
+        t = index/4.
+        # Short, fixed camera exposure; temporal sampling avoids harsh raster jumps.
+        image = sum(render(t+dt) for dt in (-1/128, 0, 1/128))/3.
+        frames.append(np.uint8(np.rint(np.clip(image, 0, 255))))
+    frames = np.stack(frames)
+    assert np.array_equal(frames[0], photo_u8)
+    artifact_io.save(frames, ROOT)
+    Image.fromarray(np.uint8(np.rint(plate))).save(ROOT/&#x27;.tmp/clean_plate.png&#x27;)
+
+
+if __name__ == &#x27;__main__&#x27;:
+    main()
+PY
+python generate.py&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-09T00:21:28.567907+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+im=np.array(Image.open(&#x27;first_frame.png&#x27;));pl=np.array(Image.open(&#x27;.tmp/clean_plate.png&#x27;))
+out=Image.new(&#x27;RGB&#x27;,(900,500))
+out.paste(Image.fromarray(im).crop((20,30,65,55)).resize((900,500)))
+out.save(&#x27;.tmp/orig_close.png&#x27;)
+Image.fromarray(pl).crop((20,30,65,55)).resize((900,500)).save(&#x27;.tmp/plate_close.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-09T00:23:18.367362+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+from PIL import Image
+import numpy as np
+p=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;]
+assert p.shape==(144,256,20)
+assert np.array_equal(np.array(Image.open(&#x27;frames/00.png&#x27;)),np.array(Image.open(&#x27;first_frame.png&#x27;)))
+assert len(list(Path(&#x27;frames&#x27;).glob(&#x27;*.png&#x27;)))==20
+print(&#x27;Validated: 20 RGB frames at 256x144; frame 00 is pixel-identical.&#x27;)
+PY
+command -v ffmpeg || true&quot;</pre></details><details class=tool-image><summary>视觉工具实际返回图片 1</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/tool_view_01.png"></details><details class=tool-image><summary>视觉工具实际返回图片 2</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/tool_view_02.png"></details><details class=tool-image><summary>视觉工具实际返回图片 3</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/tool_view_03.png"></details><details class=tool-image><summary>视觉工具实际返回图片 4</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/tool_view_04.png"></details><details class=tool-image><summary>视觉工具实际返回图片 5</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/tool_view_05.png"></details><details class=tool-image><summary>视觉工具实际返回图片 6</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/tool_view_06.png"></details><details class=tool-image><summary>视觉工具实际返回图片 7</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/tool_view_07.png"></details><details class=tool-image><summary>视觉工具实际返回图片 8</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/tool_view_08.png"></details><details class=tool-image><summary>视觉工具实际返回图片 9</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/afd2882d473dc3a59ac7a6a931ca7551347ced99/pixelworld/bench_smoke_codex_20261109/physics_iq/gpt6-astra/vision-agent/case_0012_attempt_02/tool_view_09.png"></details><p class=muted>保存候选 1 份；完成命令 11 次；可验证图片返回 9 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
