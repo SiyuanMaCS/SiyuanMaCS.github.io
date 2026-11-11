@@ -1,0 +1,940 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/GPT-5.6-Sol · pcve_0056</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/GPT-5.6-Sol · pcve_0056</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>24 FPS · 96 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_36f77c1f5a56ea28.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;45afa5a74bbbdec7ca0a7013a855824a80e002cb3dbbb16eb333c115466675e0&quot;, &quot;pixels&quot;: &quot;final/pixels_36f77c1f5a56ea28.rgb.gz&quot;, &quot;poster&quot;: &quot;final/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>视频编辑</span><h3 style="margin-top:14px">原始任务</h3><p>From frame 1 onwards, place the blue stone on the line between the red stone and the yellow stone, one quarter of the way from the yellow stone to the red stone.
+</p><div class=facts><div><strong>4.00s</strong>视频时长</div><div><strong>41404</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=card><h2>编辑前的完整原视频</h2><video controls preload=metadata src="source_video.mp4" style="width:100%;max-height:480px"></video><p class=note>上方为编辑结果；原视频是模型获准使用的输入。下方为逐轮保存的编辑候选。</p></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-11T21:22:21.884671+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_7205bc887db7d62d.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;44de015eb79b7334096dcb41c81c1efcf5472fa59a3dc67839b6db07b84f47d5&quot;, &quot;pixels&quot;: &quot;candidate_00/pixels_7205bc887db7d62d.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_00/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_00/inspection.png" target=_blank><img loading=lazy src="candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_00/transition_check.png" target=_blank><img loading=lazy src="candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,198 @@
++#!/usr/bin/env python3
++&quot;&quot;&quot;Generate the requested counterfactual RGB video.
++
++The edit is entirely numeric.  The prominent blue rigid body is segmented from
++its blue chroma, completed behind its original red occluder, removed from its
++factual pose, and translated so that its centre is 25% of the way from the
++initial yellow-stone centre to the central red-stone centre.  Native source
++texture and frame-to-frame illumination are retained.
++&quot;&quot;&quot;
++from pathlib import Path
++import cv2
++import numpy as np
++import artifact_io
++
++CASE_DIR = Path(__file__).resolve().parent
++
++
++def largest_filled(mask: np.ndarray) -&gt; np.ndarray:
++    &quot;&quot;&quot;Filled external contour of the largest connected region.&quot;&quot;&quot;
++    contours, _ = cv2.findContours(mask.astype(np.uint8), cv2.RETR_EXTERNAL,
++                                   cv2.CHAIN_APPROX_SIMPLE)
++    if not contours:
++        raise RuntimeError(&quot;expected object contour was not found&quot;)
++    contour = max(contours, key=cv2.contourArea)
++    out = np.zeros(mask.shape, np.uint8)
++    cv2.drawContours(out, [contour], -1, 255, cv2.FILLED)
++    return out
++
++
++def component_near(mask: np.ndarray, point, largest=False) -&gt; np.ndarray:
++    &quot;&quot;&quot;Return a filled chroma component, selected by size or a nearby point.&quot;&quot;&quot;
++    n, labels, stats, centers = cv2.connectedComponentsWithStats(
++        mask.astype(np.uint8), 8)
++    ids = [i for i in range(1, n) if stats[i, cv2.CC_STAT_AREA] &gt;= 3]
++    if not ids:
++        raise RuntimeError(&quot;expected reference stone was not found&quot;)
++    if largest:
++        idx = max(ids, key=lambda i: stats[i, cv2.CC_STAT_AREA])
++    else:
++        px, py = point
++        idx = min(ids, key=lambda i: (centers[i, 0]-px)**2 +
++                                      (centers[i, 1]-py)**2)
++    raw = (labels == idx).astype(np.uint8)
++    return largest_filled(raw)
++
++
++def centroid(mask: np.ndarray) -&gt; np.ndarray:
++    m = cv2.moments(mask.astype(np.float32))
++    if m[&quot;m00&quot;] == 0:
++        raise RuntimeError(&quot;empty object mask&quot;)
++    return np.array([m[&quot;m10&quot;] / m[&quot;m00&quot;], m[&quot;m01&quot;] / m[&quot;m00&quot;]],
++                    np.float32)
++
++
++def feather(mask: np.ndarray, sigma: float) -&gt; np.ndarray:
++    a = mask.astype(np.float32) / 255.0
++    return cv2.GaussianBlur(a, (0, 0), sigma).clip(0, 1)
++
++
++def background_fill(frame: np.ndarray, object_mask: np.ndarray) -&gt; np.ndarray:
++    &quot;&quot;&quot;Reconstruct the smooth set behind the old large blue body.
++
++    The set is nearly planar but has a mild per-row illumination gradient.
++    Robust side-strip samples preserve that gradient without copying either
++    moving small stone into the repaired region.
++    &quot;&quot;&quot;
++    h, w = object_mask.shape
++    ys, xs = np.where(object_mask &gt; 0)
++    x0, x1 = int(xs.min()), int(xs.max())
++    y0, y1 = int(ys.min()), int(ys.max())
++    result = frame.astype(np.float32).copy()
++    f = frame.astype(np.float32)
++
++    left0, left1 = max(0, x0-15), max(1, x0-5)
++    right0, right1 = min(w-1, x1+6), min(w, x1+16)
++    # Gentle deterministic texture prevents a conspicuously flat repair.
++    texture = np.array([[-0.55, 0.15, 0.45, -0.10],
++                        [ 0.25,-0.35, 0.05, 0.35],
++                        [ 0.05, 0.40,-0.40, 0.00]], np.float32)
++    for y in range(max(0, y0-2), min(h, y1+3)):
++        lstrip = f[max(0, y-1):min(h, y+2), left0:left1]
++        rstrip = f[max(0, y-1):min(h, y+2), right0:right1]
++        left = np.median(lstrip.reshape(-1, 3), axis=0)
++        right = np.median(rstrip.reshape(-1, 3), axis=0)
++        xx = np.arange(x0, x1+1, dtype=np.float32)
++        q = ((xx-x0) / max(1, x1-x0))[:, None]
++        row = left[None, :] * (1-q) + right[None, :] * q
++        # The broad background is smooth; use sub-code-value dither only.
++        row += texture[:, (np.arange(len(xx)) + y) % 4].T
++        result[y, x0:x1+1] = row
++
++    alpha = feather(object_mask, 1.15)[..., None]
++    return f * (1-alpha) + result * alpha
++
++
++def foreground_masks(frame: np.ndarray):
++    &quot;&quot;&quot;Masks for the red/yellow bodies which visually sit above blue.&quot;&quot;&quot;
++    a = frame.astype(np.int16)
++    red_chroma = ((a[..., 0]-a[..., 1] &gt; 38) &amp;
++                  (a[..., 0]-a[..., 2] &gt; 30))
++    yellow_chroma = ((a[..., 0]-a[..., 2] &gt; 28) &amp;
++                     (a[..., 1]-a[..., 2] &gt; 28) &amp;
++                     (np.abs(a[..., 0]-a[..., 1]) &lt; 48))
++
++    # Central red body is the largest component.  Filling its external contour
++    # includes its neutral specular highlight.
++    central_red = component_near(red_chroma, (128, 75), largest=True)
++
++    # Small moving saturated red body lies to the left initially.  If it has
++    # merged visually with the central red body, its pixels are already covered
++    # by central_red and no separate mask is needed.
++    n, lab, stats, centers = cv2.connectedComponentsWithStats(
++        red_chroma.astype(np.uint8), 8)
++    small_red = np.zeros(red_chroma.shape, np.uint8)
++    candidates = [i for i in range(1, n)
++                  if 3 &lt;= stats[i, cv2.CC_STAT_AREA] &lt; 120 and centers[i, 0] &lt; 125]
++    if candidates:
++        idx = max(candidates, key=lambda i: stats[i, cv2.CC_STAT_AREA])
++        small_red = largest_filled((lab == idx).astype(np.uint8))
++
++    yellow = component_near(yellow_chroma, (205, 76), largest=False)
++
++    # A one-pixel expansion captures antialiasing and contact shadow fringe.
++    k = np.ones((3, 3), np.uint8)
++    combined = cv2.dilate(np.maximum.reduce([central_red, small_red, yellow]), k)
++    return combined, central_red, yellow
++
++
++def build_frames(source: np.ndarray) -&gt; np.ndarray:
++    first = source[0]
++    a0 = first.astype(np.int16)
++
++    # Strong blue chroma cleanly identifies the large blue body.  Its filled
++    # external contour restores the area hidden by the central red body.
++    strong_blue = ((a0[..., 2]-a0[..., 0] &gt; 52) &amp;
++                   (a0[..., 1]-a0[..., 0] &gt; 28))
++    blue_shape = largest_filled(strong_blue)
++    blue_shape = cv2.morphologyEx(blue_shape, cv2.MORPH_CLOSE,
++                                  np.ones((5, 5), np.uint8))
++    blue_center = centroid(blue_shape)
++
++    _, red0, yellow0 = foreground_masks(first)
++    red_center = centroid(red0)
++    yellow_center = centroid(yellow0)
++    target = yellow_center + 0.25 * (red_center-yellow_center)
++    delta = target-blue_center
++    transform = np.array([[1.0, 0.0, float(delta[0])],
++                          [0.0, 1.0, float(delta[1])]], np.float32)
++
++    h, w = first.shape[:2]
++    out = np.empty_like(source)
++    blue_alpha0 = feather(blue_shape, 0.75)
++
++    for t, frame in enumerate(source):
++        foreground, _, _ = foreground_masks(frame)
++
++        # Rebuild the old footprint first.
++        base = background_fill(frame, blue_shape)
++
++        # Complete the blue texture behind all non-blue foreground occluders.
++        # Telea works well here because the rigid body is smoothly lit.
++        repair = cv2.dilate(foreground, np.ones((3, 3), np.uint8))
++        repair = cv2.bitwise_and(repair, blue_shape)
++        texture = cv2.inpaint(frame, repair, 7.0, cv2.INPAINT_TELEA)
++
++        moved_rgb = cv2.warpAffine(texture, transform, (w, h),
++                                   flags=cv2.INTER_LINEAR,
++                                   borderMode=cv2.BORDER_REFLECT_101)
++        moved_alpha = cv2.warpAffine(blue_alpha0, transform, (w, h),
++                                     flags=cv2.INTER_LINEAR,
++                                     borderMode=cv2.BORDER_CONSTANT,
++                                     borderValue=0).clip(0, 1)
++        composed = base * (1-moved_alpha[..., None]) + \
++                   moved_rgb.astype(np.float32) * moved_alpha[..., None]
++
++        # Preserve exact native rendering of all reference stones in front.
++        fg_alpha = feather(foreground, 0.55)[..., None]
++        composed = composed * (1-fg_alpha) + frame.astype(np.float32) * fg_alpha
++        out[t] = np.clip(np.rint(composed), 0, 255).astype(np.uint8)
++
++    print(&quot;blue_center&quot;, blue_center.tolist())
++    print(&quot;red_center&quot;, red_center.tolist())
++    print(&quot;yellow_center&quot;, yellow_center.tolist())
++    print(&quot;target_center&quot;, target.tolist())
++    print(&quot;translation&quot;, delta.tolist())
++    return out
++
++
++def main():
++    source = np.load(CASE_DIR / &quot;source_pixels.npz&quot;)[&quot;rgb&quot;]
++    assert source.shape == (96, 144, 256, 3) and source.dtype == np.uint8
++    frames = build_frames(source)
++    artifact_io.save(frames, CASE_DIR)
++    print(&quot;saved&quot;, frames.shape, frames.dtype, &quot;to&quot;, CASE_DIR)
++
++
++if __name__ == &quot;__main__&quot;:
++    main()
+</pre></details></div></details><details class=candidate><summary><strong>候选 02</strong><span class=status>播放与检查图</span><time>2026-11-11T21:23:18.071911+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_7205bc887db7d62d.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;44de015eb79b7334096dcb41c81c1efcf5472fa59a3dc67839b6db07b84f47d5&quot;, &quot;pixels&quot;: &quot;candidate_01/pixels_7205bc887db7d62d.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_01/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_01/inspection.png" target=_blank><img loading=lazy src="candidate_01/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_01/transition_check.png" target=_blank><img loading=lazy src="candidate_01/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -123,7 +123,7 @@
+     # A one-pixel expansion captures antialiasing and contact shadow fringe.
+     k = np.ones((3, 3), np.uint8)
+     combined = cv2.dilate(np.maximum.reduce([central_red, small_red, yellow]), k)
+-    return combined, central_red, yellow
++    return combined, central_red, yellow, small_red
+ 
+ 
+ def build_frames(source: np.ndarray) -&gt; np.ndarray:
+@@ -139,7 +139,9 @@
+                                   np.ones((5, 5), np.uint8))
+     blue_center = centroid(blue_shape)
+ 
+-    _, red0, yellow0 = foreground_masks(first)
++    _, pink0, yellow0, red0 = foreground_masks(first)
++    # The large muted body at the centre is pink.  The prompt&#x27;s red stone is
++    # the small, strongly saturated red component entering from the left.
+     red_center = centroid(red0)
+     yellow_center = centroid(yellow0)
+     target = yellow_center + 0.25 * (red_center-yellow_center)
+@@ -152,7 +154,7 @@
+     blue_alpha0 = feather(blue_shape, 0.75)
+ 
+     for t, frame in enumerate(source):
+-        foreground, _, _ = foreground_masks(frame)
++        foreground, _, _, _ = foreground_masks(frame)
+ 
+         # Rebuild the old footprint first.
+         base = background_fill(frame, blue_shape)
+</pre></details></div></details><details class=candidate><summary><strong>候选 03</strong><span class=status>播放与检查图</span><time>2026-11-11T21:23:32.191469+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_36f77c1f5a56ea28.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;45afa5a74bbbdec7ca0a7013a855824a80e002cb3dbbb16eb333c115466675e0&quot;, &quot;pixels&quot;: &quot;candidate_02/pixels_36f77c1f5a56ea28.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_02/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_02/inspection.png" target=_blank><img loading=lazy src="candidate_02/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_02/transition_check.png" target=_blank><img loading=lazy src="candidate_02/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>代码未变化；重新保存了产物。</pre></details></div></details><details class=candidate><summary><strong>候选 04</strong><span class=status>播放与检查图</span><time>2026-11-11T21:23:39.081339+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_36f77c1f5a56ea28.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;45afa5a74bbbdec7ca0a7013a855824a80e002cb3dbbb16eb333c115466675e0&quot;, &quot;pixels&quot;: &quot;candidate_03/pixels_36f77c1f5a56ea28.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_03/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_03/inspection.png" target=_blank><img loading=lazy src="candidate_03/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_03/transition_check.png" target=_blank><img loading=lazy src="candidate_03/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>代码未变化；重新保存了产物。</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-11T21:14:17.631976+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat prompt.txt &amp;&amp; printf &#x27;\\n--- GENERATION_RULES.md ---\\n&#x27; &amp;&amp; cat GENERATION_RULES.md&quot;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-11T21:14:17.908571+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;find . -maxdepth 3 -type f -printf &#x27;%p\\n&#x27; | sort &amp;&amp; printf &#x27;\\n--- dirs ---\\n&#x27; &amp;&amp; find . -maxdepth 2 -type d -printf &#x27;%p\\n&#x27; | sort&quot;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-11T21:14:26.785828+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;printf &#x27;%s\\n&#x27; &#x27;--- source_info ---&#x27;; cat source_info.json; printf &#x27;%s\\n&#x27; &#x27;--- task_spec ---&#x27;; cat task_spec.json; printf &#x27;%s\\n&#x27; &#x27;--- artifact_io ---&#x27;; sed -n &#x27;1,240p&#x27; artifact_io.py&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-11T21:14:27.772766+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+for f in [&#x27;first_frame.png&#x27;,&#x27;source_inspection.png&#x27;]:
+ im=Image.open(f); a=np.array(im)
+ print(f, im.mode, im.size, a.shape, a.dtype, a.min(),a.max())
+z=np.load(&#x27;source_pixels.npz&#x27;)
+print(&#x27;npz files&#x27;,z.files)
+for k in z.files:
+ a=z[k]; print(k,a.shape,a.dtype,a.min(),a.max())
+PY&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-11T21:14:38.491489+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+from collections import Counter
+F=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+for t in [0,1,12,24,36,48,60,72,84,95]:
+ a=F[t]
+ print(&#x27;\\nFRAME&#x27;,t)
+ # dominant colors quantized 8
+ q=(a//8)*8
+ c=Counter(map(tuple,q.reshape(-1,3)))
+ for rgb,n in c.most_common(12): print(rgb,n)
+ # saturated pixels for expected channels
+ for name,cond in {
+ &#x27;red&#x27;:(a[...,0]&gt;120)&amp;(a[...,0]&gt;a[...,1]*1.25)&amp;(a[...,0]&gt;a[...,2]*1.25),
+ &#x27;yellow&#x27;:(a[...,0]&gt;100)&amp;(a[...,1]&gt;80)&amp;(a[...,2]&lt;a[...,:2].min(-1)*.75),
+ &#x27;blue&#x27;:(a[...,2]&gt;90)&amp;(a[...,2]&gt;a[...,0]*1.2)&amp;(a[...,2]&gt;a[...,1]*1.1),
+ }.items():
+  y,x=np.where(cond)
+  print(name,len(x), (&#x27;bbox&#x27;,x.min(),y.min(),x.max(),y.max(),&#x27;cent&#x27;,round(x.mean(),2),round(y.mean(),2)) if len(x) else &#x27;&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-11T21:14:48.121411+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label
+F=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+for t in [0,12,24,36,48,72,95]:
+ a=F[t].astype(float); mx=a.max(2); mn=a.min(2); sat=mx-mn
+ masks={
+ &#x27;red&#x27;:(a[:,:,0]-np.maximum(a[:,:,1],a[:,:,2])&gt;25),
+ &#x27;yellow&#x27;:(np.minimum(a[:,:,0],a[:,:,1])-a[:,:,2]&gt;20)&amp;(a[:,:,0]&gt;a[:,:,1]*1.05),
+ &#x27;blue&#x27;:(a[:,:,2]-a[:,:,0]&gt;25)&amp;(a[:,:,1]-a[:,:,0]&gt;10),
+ &#x27;chrom&#x27;:sat&gt;25}
+ print(&#x27;\\nFRAME&#x27;,t)
+ for name,m in masks.items():
+  labs,n=label(m)
+  comps=[]
+  for i in range(1,n+1):
+   y,x=np.where(labs==i)
+   if len(x)&gt;=4: comps.append((len(x),round(x.mean(),1),round(y.mean(),1),(x.min(),y.min(),x.max(),y.max()),np.round(a[y,x].mean(0)).astype(int).tolist()))
+  print(name, sorted(comps,reverse=True)[:15])
+PY&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-11T21:14:58.717948+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+F=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+for t in [0,24,48,95]:
+ a=F[t].astype(int)
+ print(&#x27;\\nFRAME&#x27;,t)
+ # every 2 rows and 2 cols crop y40:115 x0:256, classify chromatic deviation from median neutral
+ for yy in range(42,116,2):
+  s=&#x27;&#x27;
+  for xx in range(0,256,2):
+   p=a[yy:yy+2,xx:xx+2].mean((0,1)); r,g,b=p
+   if b-r&gt;28 and g-r&gt;12: c=&#x27;B&#x27;
+   elif r-max(g,b)&gt;28:c=&#x27;R&#x27;
+   elif min(r,g)-b&gt;20:c=&#x27;Y&#x27;
+   elif max(p)-min(p)&lt;20:c=&#x27;.&#x27;
+   else:c=&#x27; &#x27;
+   s+=c
+  print(s.rstrip())
+PY&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-11T21:15:22.958362+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label
+F=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+for t in [0,12,24,36,48,72,95]:
+ a=F[t].astype(int); print(&#x27;\\nF&#x27;,t)
+ tests={
+ &#x27;blue_dark&#x27;:(a[:,:,2]-a[:,:,0]&gt;25)&amp;(a[:,:,1]-a[:,:,0]&gt;10)&amp;(a.mean(2)&lt;140),
+ &#x27;blue_sat&#x27;:(a[:,:,2]-a[:,:,0]&gt;65)&amp;(a[:,:,1]-a[:,:,0]&gt;35),
+ &#x27;blue_hi&#x27;:(a[:,:,2]&gt;a[:,:,0]*1.6)&amp;(a[:,:,2]&gt;a[:,:,1]*1.15),
+ &#x27;blue_deep&#x27;:(a[:,:,0]&lt;80)&amp;(a[:,:,2]&gt;130),
+ &#x27;dark&#x27;:a.mean(2)&lt;130}
+ for name,m in tests.items():
+  labs,n=label(m)
+  co=[]
+  for i in range(1,n+1):
+   y,x=np.where(labs==i)
+   if len(x)&gt;=3: co.append((len(x),round(x.mean(),1),round(y.mean(),1),(x.min(),y.min(),x.max(),y.max()),np.round(a[y,x].mean(0)).astype(int).tolist()))
+  print(name,sorted(co,reverse=True)[:10])
+PY&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-11T21:15:39.082372+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+F=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(int)
+# inspect local pixels around tracks: find strongest deviations and raw matrices encoded key colors per frame
+for t in [0,6,12,18,24,30,36,48,72,95]:
+ a=F[t]
+ print(&#x27;\\nframe&#x27;,t)
+ # for y60:85 scan each x: report pixels whose contrast &gt; 40, grouped x
+ for x in range(256):
+  p=a[60:86,x]
+  score=(p.max(1)-p.min(1))
+  if score.max()&gt;55:
+   y=60+score.argmax(); rgb=a[y,x]
+   if x%1==0: print(f&#x27;{x}:{y}:{rgb.tolist()}&#x27;,end=&#x27; &#x27;)
+ print()
+PY&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-11T21:15:57.658374+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label, binary_dilation
+F=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(int)
+for t in [1,2,6,12,18,24,30,36,48,72,95]:
+ d=np.max(abs(F[t]-F[t-1]),2)&gt;8
+ d=binary_dilation(d,iterations=1)
+ L,n=label(d); cs=[]
+ for i in range(1,n+1):
+  y,x=np.where(L==i)
+  if len(x)&gt;3: cs.append((len(x),round(x.mean(),1),round(y.mean(),1),(x.min(),y.min(),x.max(),y.max())))
+ print(t,sorted(cs,reverse=True)[:20])
+# long diff frame 0 vs others
+print(&#x27;LONG&#x27;)
+for t in [6,12,18,24,30,36,48,72,95]:
+ d=np.max(abs(F[t]-F[0]),2)&gt;15; L,n=label(binary_dilation(d,iterations=1));cs=[]
+ for i in range(1,n+1):
+  y,x=np.where(L==i)
+  if len(x)&gt;10:cs.append((len(x),round(x.mean(),1),round(y.mean(),1),(x.min(),y.min(),x.max(),y.max())))
+ print(t,sorted(cs,reverse=True)[:10])
+PY&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-11T21:16:23.262902+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+F=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+for t in [0,12,24,36,48,95]:
+ a=F[t].astype(int)
+ print(&#x27;\\nF&#x27;,t)
+ metrics={&#x27;B-R&#x27;:a[:,:,2]-a[:,:,0], &#x27;B-G&#x27;:a[:,:,2]-a[:,:,1], &#x27;satB&#x27;:2*a[:,:,2]-a[:,:,0]-a[:,:,1], &#x27;darkblue&#x27;:a[:,:,2]-a[:,:,0]-(a.mean(2)-100)*.3}
+ for name,m in metrics.items():
+  flat=np.argpartition(m.ravel(),-20)[-20:]; flat=flat[np.argsort(m.ravel()[flat])[::-1]]
+  print(name,[(int(i%256),int(i//256),round(float(m.ravel()[i]),1),a.reshape(-1,3)[i].tolist()) for i in flat[:15]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-11T21:16:47.027185+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import sobel, gaussian_filter, maximum_filter
+F=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+a=np.median(F,axis=0)
+# high-pass color / edge energy
+smooth=gaussian_filter(a,(3,3,0)); hp=np.sqrt(((a-smooth)**2).sum(2));
+grad=np.sqrt(sum(sobel(a[:,:,c],0)**2+sobel(a[:,:,c],1)**2 for c in range(3)))
+for name,m in [(&#x27;hp&#x27;,hp),(&#x27;grad&#x27;,grad)]:
+ # candidate local sums 9x9
+ s=gaussian_filter(m,3)
+ # exclude known giant boundaries &amp; center red &amp; moving tracks y60-86, and edges
+ yy,xx=np.mgrid[:144,:256]
+ valid=(xx&gt;8)&amp;(xx&lt;247)&amp;(yy&gt;8)&amp;(yy&lt;135)
+ # list raw maxima separated greedily
+ arr=s.copy();arr[~valid]=-1
+ out=[]
+ for _ in range(30):
+  i=np.argmax(arr); y,x=np.unravel_index(i,arr.shape);out.append((round(arr[y,x],1),x,y,np.round(a[y,x]).astype(int).tolist()));arr[max(0,y-7):y+8,max(0,x-7):x+8]=-1
+ print(name,out)
+# mean temporal variance regions
+v=F.std(0).mean(2);s=gaussian_filter(v,2)
+out=[]
+for _ in range(20):
+ i=np.argmax(s);y,x=np.unravel_index(i,s.shape);out.append((round(s[y,x],1),x,y));s[max(0,y-8):y+9,max(0,x-8):x+9]=-1
+print(&#x27;temp&#x27;,out)
+PY&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-11T21:17:27.468251+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label
+F=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for typ in [&#x27;r&#x27;,&#x27;y&#x27;]:
+ xs=[];ys=[];ns=[]
+ for t,a in enumerate(F):
+  if typ==&#x27;r&#x27;: m=(a[:,:,0]-a[:,:,1]&gt;85)&amp;(a[:,:,0]-a[:,:,2]&gt;65)
+  else:m=(a[:,:,0]-a[:,:,2]&gt;65)&amp;(a[:,:,1]-a[:,:,2]&gt;65)&amp;(abs(a[:,:,0]-a[:,:,1])&lt;35)
+  L,n=label(m);co=[]
+  for i in range(1,n+1):
+   y,x=np.where(L==i)
+   if len(x)&gt;=3: co.append((len(x),x.mean(),y.mean(),x.min(),y.min(),x.max(),y.max()))
+  co=sorted(co,reverse=True)
+  c=co[0] if co else (0,np.nan,np.nan,0,0,0,0)
+  ns.append(c[0]);xs.append(c[1]);ys.append(c[2])
+ print(&#x27;\\n&#x27;,typ)
+ for t in range(96):
+  if t%4==0 or t&gt;88:print(t,round(xs[t],2),round(ys[t],2),ns[t])
+ print(&#x27;x&#x27;,np.round(xs,1).tolist())
+PY&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-11T21:17:49.184530+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;command -v chafa || command -v viu || command -v jp2 || command -v img2txt || command -v python; python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+im=Image.open(&#x27;first_frame.png&#x27;).resize((128,72))
+# ansi half-block truecolor (may render in captured output with escapes)
+p=im.load()
+for y in range(0,72,2):
+ s=&#x27;&#x27;
+ for x in range(128):
+  a=p[x,y]; b=p[x,y+1]
+  s+=f&#x27;\\x1b[38;2;{a[0]};{a[1]};{a[2]}m\\x1b[48;2;{b[0]};{b[1]};{b[2]}mâ&#x27;
+ print(s+&#x27;\\x1b[0m&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-11T21:17:58.040056+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+# 8x8 avg, classify hue/sat/light into ascii; print full frame each cell ~4x4 =&gt;64x36
+for t in [0,24,48,95]:
+ a=np.array(Image.fromarray(np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;][t]).resize((64,36)))
+ print(&#x27;\\nF&#x27;,t)
+ for row in a:
+  s=&#x27;&#x27;
+  for r,g,b in row:
+   mx=max(r,g,b);mn=min(r,g,b); sat=mx-mn; v=(int(r)+int(g)+int(b))/3
+   if sat&lt;18:c=&#x27; &#x27; if v&gt;205 else &#x27;.&#x27; if v&gt;195 else &#x27;:&#x27;
+   elif r&gt;g+30 and r&gt;b+25:c=&#x27;R&#x27;
+   elif r&gt;b+25 and g&gt;b+20:c=&#x27;Y&#x27;
+   elif b&gt;r+30 and g&gt;r+15:c=&#x27;B&#x27;
+   elif b&gt;r+12:c=&#x27;b&#x27;
+   elif r&gt;b+12:c=&#x27;r&#x27;
+   else:c=&#x27;o&#x27;
+   s+=c
+  print(s.rstrip())
+PY&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-11T21:18:27.050539+00:00</time><span class=pill>exit 127</span></summary><pre>/bin/bash -lc &#x27;ffprobe -v error -show_entries stream=width,height,avg_frame_rate,nb_frames,pix_fmt,codec_name -of default=nw=1 source_video.mp4&#x27;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-11T21:18:27.900719+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+try:
+ import cv2;print(&#x27;cv2&#x27;,cv2.__version__)
+except Exception as e:print(&#x27;no cv2&#x27;,e)
+try:
+ import scipy;print(&#x27;scipy&#x27;,scipy.__version__)
+except Exception as e:print(&#x27;no scipy&#x27;,e)
+PY&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-11T21:18:37.937407+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2, numpy as np
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);print(cap.isOpened(),cap.get(cv2.CAP_PROP_FRAME_WIDTH),cap.get(cv2.CAP_PROP_FRAME_HEIGHT),cap.get(cv2.CAP_PROP_FRAME_COUNT))
+cap.set(cv2.CAP_PROP_POS_FRAMES,0);ok,a=cap.read();print(ok,a.shape if ok else None)
+if ok:
+ a=cv2.cvtColor(a,cv2.COLOR_BGR2RGB)
+ # color components in hi res
+ from scipy.ndimage import label
+ for name,m in {
+ &#x27;red&#x27;:(a[:,:,0].astype(int)-a[:,:,1]&gt;80)&amp;(a[:,:,0].astype(int)-a[:,:,2]&gt;60),
+ &#x27;yellow&#x27;:(a[:,:,0].astype(int)-a[:,:,2]&gt;55)&amp;(a[:,:,1].astype(int)-a[:,:,2]&gt;55)&amp;(abs(a[:,:,0].astype(int)-a[:,:,1])&lt;40),
+ &#x27;blue&#x27;:(a[:,:,2].astype(int)-a[:,:,0]&gt;70)&amp;(a[:,:,1].astype(int)-a[:,:,0]&gt;35)
+ }.items():
+  L,n=label(m);co=[]
+  for i in range(1,n+1):
+   y,x=np.where(L==i)
+   if len(x)&gt;20:co.append((len(x),round(x.mean(),1),round(y.mean(),1),(x.min(),y.min(),x.max(),y.max()),np.round(a[y,x].mean(0)).astype(int).tolist()))
+  print(name,sorted(co,reverse=True)[:20])
+PY&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-11T21:19:07.975626+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);ok,bgr=cap.read();a=cv2.cvtColor(bgr,cv2.COLOR_BGR2RGB).astype(float)
+# blue area strong mask, use local deviations from 15px smooth in RGB and edge energy
+sm=cv2.GaussianBlur(a,(0,0),7)
+d=np.sqrt(((a-sm)**2).sum(2))
+gray=cv2.cvtColor(a.astype(np.uint8),cv2.COLOR_RGB2GRAY).astype(float)
+g=np.sqrt(cv2.Sobel(gray,cv2.CV_64F,1,0)**2+cv2.Sobel(gray,cv2.CV_64F,0,1)**2)
+# box averages, mask centers to interior of blue, excluding known central red
+for name,m in [(&#x27;dev&#x27;,d),(&#x27;grad&#x27;,g)]:
+ s=cv2.boxFilter(m,-1,(31,21),normalize=True)
+ valid=np.zeros_like(m,dtype=bool);valid[270:530,340:940]=1
+ yy,xx=np.mgrid[:720,:1280]
+ # interior ellipse, exclude outer boundary annulus roughly and red
+ e=((xx-640)/300)**2+((yy-405)/135)**2
+ valid &amp;= e&lt;.80
+ valid &amp;= ~(((xx-640)/115)**2+((yy-375)/55)**2&lt;1.4)
+ arr=s.copy();arr[~valid]=-1
+ out=[]
+ for _ in range(30):
+  y,x=np.unravel_index(arr.argmax(),arr.shape);out.append((round(arr[y,x],1),x,y,np.round(a[y,x]).astype(int).tolist()));arr[max(0,y-20):y+21,max(0,x-30):x+31]=-1
+ print(name,out)
+# quantiles and darkest within blue by local avg
+v=cv2.boxFilter(a.mean(2),-1,(15,9))
+arr=v.copy();arr[~valid]=999
+out=[]
+for _ in range(30):
+ y,x=np.unravel_index(arr.argmin(),arr.shape);out.append((round(arr[y,x],1),x,y,np.round(a[y,x]).astype(int).tolist()));arr[max(0,y-15):y+16,max(0,x-20):x+21]=999
+print(&#x27;dark local&#x27;,out)
+PY&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-11T21:19:26.838269+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;); ok,b=cap.read();a=cv2.cvtColor(b,cv2.COLOR_BGR2RGB)
+# crops printed 2x horizontal and 4x vertical bins, local grayscale normalized; annotate coordinate
+for (name,x0,x1,y0,y1) in [(&#x27;wide&#x27;,300,1120,280,450),(&#x27;desired&#x27;,740,980,320,420),(&#x27;left&#x27;,300,600,280,400),(&#x27;center&#x27;,500,800,280,440)]:
+ g=cv2.cvtColor(a[y0:y1,x0:x1],cv2.COLOR_RGB2GRAY)
+ # bin 4x4 mean then high-pass broad Gaussian
+ scale=4; small=cv2.resize(g,(g.shape[1]//scale,g.shape[0]//scale),interpolation=cv2.INTER_AREA).astype(float)
+ smooth=cv2.GaussianBlur(small,(0,0),3); d=small-smooth
+ # color map sampled averaged
+ c=cv2.resize(a[y0:y1,x0:x1],(small.shape[1],small.shape[0]),interpolation=cv2.INTER_AREA).astype(int)
+ print(&#x27;\\n&#x27;,name,&#x27;x&#x27;,x0,x1,&#x27;y&#x27;,y0,y1,&#x27;shape&#x27;,small.shape)
+ chars=&#x27; .:-=+*#%@&#x27;
+ for y in range(small.shape[0]):
+  s=&#x27;&#x27;
+  for x in range(small.shape[1]):
+   r,gg,bb=c[y,x]
+   if r-gg&gt;45 and r-bb&gt;35:ch=&#x27;R&#x27;
+   elif min(r,gg)-bb&gt;35:ch=&#x27;Y&#x27;
+   else:
+    z=np.clip(int((d[y,x]+30)/60*len(chars)),0,len(chars)-1);ch=chars[z]
+   s+=ch
+  print(s)
+PY&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-11T21:19:44.864497+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);ok,b=cap.read();a=cv2.cvtColor(b,cv2.COLOR_BGR2RGB)
+g=cv2.cvtColor(b,cv2.COLOR_BGR2GRAY)
+for lo,hi in [(15,35),(25,50),(40,80),(60,120)]:
+ ed=cv2.Canny(g,lo,hi,L2gradient=True)
+ # interior giant ellipse and not central red
+ yy,xx=np.mgrid[:720,:1280]; valid=(((xx-640)/310)**2+((yy-402)/145)**2&lt;.9)&amp;~(((xx-640)/120)**2+((yy-375)/60)**2&lt;1.5)
+ ed[~valid]=0
+ contours,_=cv2.findContours(ed,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
+ out=[]
+ for c in contours:
+  x,y,w,h=cv2.boundingRect(c); per=cv2.arcLength(c,False); area=cv2.contourArea(c)
+  if 8&lt;=w&lt;=70 and 4&lt;=h&lt;=40 and per&gt;10:
+   # edge strength
+   mask=np.zeros_like(g);cv2.drawContours(mask,[c],-1,255,1); strength=cv2.mean(cv2.magnitude(cv2.Sobel(g,cv2.CV_32F,1,0),cv2.Sobel(g,cv2.CV_32F,0,1)),mask=mask)[0]
+   out.append((round(strength,1),round(per,1),round(area,1),(x,y,w,h),np.round(a[y:y+h,x:x+w].mean((0,1))).astype(int).tolist()))
+ print(&#x27;\\nthreshold&#x27;,lo,hi,&#x27;n&#x27;,len(out))
+ print(sorted(out,reverse=True)[:60])
+PY&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-11T21:19:51.990963+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);ok,b=cap.read();a=cv2.cvtColor(b,cv2.COLOR_BGR2RGB);g=cv2.cvtColor(b,cv2.COLOR_BGR2GRAY)
+for lo,hi in [(10,20),(20,40),(30,60),(50,100)]:
+ ed=cv2.Canny(g,lo,hi,L2gradient=True)
+ contours,_=cv2.findContours(ed,cv2.RETR_LIST,cv2.CHAIN_APPROX_NONE)
+ out=[]
+ for c in contours:
+  x,y,w,h=cv2.boundingRect(c); per=cv2.arcLength(c,False); area=cv2.contourArea(c)
+  if 320&lt;x&lt;960 and 260&lt;y&lt;540 and 5&lt;=w&lt;=100 and 3&lt;=h&lt;=80 and per&gt;10:
+   out.append((round(per,1),round(area,1),(x,y,w,h),np.round(a[y:y+h,x:x+w].mean((0,1))).astype(int).tolist()))
+ print(&#x27;\\n&#x27;,lo,len(out),sorted(out,reverse=True)[:60])
+PY&quot;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-11T21:20:00.277915+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2, numpy as np
+F=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+for t in [0,12,24,36,48,72,95]:
+ a=F[t]
+ # segment connected by threshold and morphology slight
+ masks={
+  &#x27;red&#x27;:(a[:,:,0].astype(int)-a[:,:,1]&gt;45)&amp;(a[:,:,0].astype(int)-a[:,:,2]&gt;35),
+  &#x27;yellow&#x27;:(a[:,:,0].astype(int)-a[:,:,2]&gt;30)&amp;(a[:,:,1].astype(int)-a[:,:,2]&gt;30)&amp;(abs(a[:,:,0].astype(int)-a[:,:,1])&lt;45),
+ }
+ print(&#x27;\\nF&#x27;,t)
+ for nm,m in masks.items():
+  # only y55:90; connected after close
+  m[:55]=0;m[90:]=0
+  n,L,stats,cents=cv2.connectedComponentsWithStats(m.astype(np.uint8),8)
+  cs=[]
+  for i in range(1,n):
+   x,y,w,h,area=stats[i];
+   if area&gt;=3:cs.append((area,tuple(np.round(cents[i],2)),(x,y,w,h)))
+  print(nm,sorted(cs,reverse=True)[:10])
+PY&quot;</pre></details><details class=command><summary><strong>命令 24</strong><time>2026-11-11T21:20:09.618506+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label
+F=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(int)
+# target distinguish giant light blue stone background: blue smaller stone could have color? List all compact chromatic comps outside red/yellow and giant blue impossible due touching giant background.
+# inspect all connected components by quantized color exact-ish ranges and print compact comps
+for t in [0,24,48,95]:
+ a=F[t]; print(&#x27;\\nF&#x27;,t)
+ # bins hue based argmax/min and saturation thresholds
+ for sat in [10,20,30,40,50,70]:
+  mx=a.max(2);mn=a.min(2);m=(mx-mn&gt;sat)
+  L,n=label(m);cs=[]
+  for i in range(1,n+1):
+   y,x=np.where(L==i); w=x.max()-x.min()+1;h=y.max()-y.min()+1
+   if 3&lt;=len(x)&lt;=500 and w&lt;=35 and h&lt;=35:
+    cs.append((len(x),round(x.mean(),1),round(y.mean(),1),(x.min(),y.min(),x.max(),y.max()),np.round(a[y,x].mean(0)).astype(int).tolist()))
+  print(&#x27;sat&#x27;,sat, sorted(cs,reverse=True)[:20])
+PY&quot;</pre></details><details class=command><summary><strong>命令 25</strong><time>2026-11-11T21:20:17.893652+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);ok,b=cap.read();a=cv2.cvtColor(b,cv2.COLOR_BGR2RGB)
+g=cv2.cvtColor(b,cv2.COLOR_BGR2GRAY).astype(float)
+# inspect around desired geometric target high res x~? red moving center 237,333 yellow1072,384 =&gt; target863,371
+for x0,y0 in [(863,371),(850,370),(920,370),(400,350),(640,375)]:
+ print(&#x27;\\ncenter&#x27;,x0,y0)
+ # 120x80 crop to 60x40, high-pass char
+ cr=g[y0-40:y0+40,x0-60:x0+60]
+ sm=cv2.GaussianBlur(cr,(0,0),4);d=cr-sm
+ co=a[y0-40:y0+40,x0-60:x0+60]
+ small=cv2.resize(d,(60,40),interpolation=cv2.INTER_AREA); cs=cv2.resize(co,(60,40),interpolation=cv2.INTER_AREA)
+ chars=&#x27; .:-=+*#%@&#x27;
+ for y in range(40):
+  st=&#x27;&#x27;
+  for x in range(60):
+   r,gg,bb=cs[y,x]
+   if r-gg&gt;35 and r-bb&gt;30:ch=&#x27;R&#x27;
+   elif min(r,gg)-bb&gt;30:ch=&#x27;Y&#x27;
+   else:ch=chars[int(np.clip((small[y,x]+20)/40*len(chars),0,len(chars)-1))]
+   st+=ch
+  print(st)
+PY&quot;</pre></details><details class=command><summary><strong>命令 26</strong><time>2026-11-11T21:20:44.276705+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);ok,b=cap.read();rgb=cv2.cvtColor(b,cv2.COLOR_BGR2RGB);gray=cv2.cvtColor(b,cv2.COLOR_BGR2GRAY).astype(np.float32)
+# highpass and gradient maps
+hp=gray-cv2.GaussianBlur(gray,(0,0),5)
+gm=cv2.magnitude(cv2.Sobel(gray,cv2.CV_32F,1,0),cv2.Sobel(gray,cv2.CV_32F,0,1))
+for nm,cx,cy,w,h in [(&#x27;red&#x27;,237,333,60,30),(&#x27;yellow&#x27;,1072,384,60,30)]:
+ for typ,img in [(&#x27;gray&#x27;,gray),(&#x27;hp&#x27;,hp),(&#x27;grad&#x27;,gm)]:
+  templ=img[cy-h//2:cy+h//2,cx-w//2:cx+w//2]
+  res=cv2.matchTemplate(img,templ,cv2.TM_CCOEFF_NORMED)
+  # blank source regions around red/yellow and central major boundaries? list separated
+  arr=res.copy();out=[]
+  for _ in range(40):
+   y,x=np.unravel_index(np.nanargmax(arr),arr.shape); score=arr[y,x];cc=(x+w//2,y+h//2)
+   out.append((round(float(score),3),cc,np.round(rgb[max(0,cc[1]-4):cc[1]+5,max(0,cc[0]-4):cc[0]+5].mean((0,1))).astype(int).tolist()))
+   arr[max(0,y-20):y+21,max(0,x-40):x+41]=-2
+  print(&#x27;\\n&#x27;,nm,typ);print(out[:30])
+PY&quot;</pre></details><details class=command><summary><strong>命令 27</strong><time>2026-11-11T21:22:15.654537+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; generate.py &lt;&lt;&#x27;PY&#x27;
+#&quot;&#x27;!/usr/bin/env python3
+&quot;&quot;&quot;Generate the requested counterfactual RGB video.
+
+The edit is entirely numeric.  The prominent blue rigid body is segmented from
+its blue chroma, completed behind its original red occluder, removed from its
+factual pose, and translated so that its centre is 25% of the way from the
+initial yellow-stone centre to the central red-stone centre.  Native source
+texture and frame-to-frame illumination are retained.
+&quot;&quot;&quot;
+from pathlib import Path
+import cv2
+import numpy as np
+import artifact_io
+
+CASE_DIR = Path(__file__).resolve().parent
+
+
+def largest_filled(mask: np.ndarray) -&gt; np.ndarray:
+    &quot;&quot;&quot;Filled external contour of the largest connected region.&quot;&quot;&quot;
+    contours, _ = cv2.findContours(mask.astype(np.uint8), cv2.RETR_EXTERNAL,
+                                   cv2.CHAIN_APPROX_SIMPLE)
+    if not contours:
+        raise RuntimeError(&quot;expected object contour was not found&quot;)
+    contour = max(contours, key=cv2.contourArea)
+    out = np.zeros(mask.shape, np.uint8)
+    cv2.drawContours(out, [contour], -1, 255, cv2.FILLED)
+    return out
+
+
+def component_near(mask: np.ndarray, point, largest=False) -&gt; np.ndarray:
+    &quot;&quot;&quot;Return a filled chroma component, selected by size or a nearby point.&quot;&quot;&quot;
+    n, labels, stats, centers = cv2.connectedComponentsWithStats(
+        mask.astype(np.uint8), 8)
+    ids = [i for i in range(1, n) if stats[i, cv2.CC_STAT_AREA] &gt;= 3]
+    if not ids:
+        raise RuntimeError(&quot;expected reference stone was not found&quot;)
+    if largest:
+        idx = max(ids, key=lambda i: stats[i, cv2.CC_STAT_AREA])
+    else:
+        px, py = point
+        idx = min(ids, key=lambda i: (centers[i, 0]-px)**2 +
+                                      (centers[i, 1]-py)**2)
+    raw = (labels == idx).astype(np.uint8)
+    return largest_filled(raw)
+
+
+def centroid(mask: np.ndarray) -&gt; np.ndarray:
+    m = cv2.moments(mask.astype(np.float32))
+    if m[&quot;m00&quot;] == 0:
+        raise RuntimeError(&quot;empty object mask&quot;)
+    return np.array([m[&quot;m10&quot;] / m[&quot;m00&quot;], m[&quot;m01&quot;] / m[&quot;m00&quot;]],
+                    np.float32)
+
+
+def feather(mask: np.ndarray, sigma: float) -&gt; np.ndarray:
+    a = mask.astype(np.float32) / 255.0
+    return cv2.GaussianBlur(a, (0, 0), sigma).clip(0, 1)
+
+
+def background_fill(frame: np.ndarray, object_mask: np.ndarray) -&gt; np.ndarray:
+    &quot;&quot;&quot;Reconstruct the smooth set behind the old large blue body.
+
+    The set is nearly planar but has a mild per-row illumination gradient.
+    Robust side-strip samples preserve that gradient without copying either
+    moving small stone into the repaired region.
+    &quot;&quot;&quot;
+    h, w = object_mask.shape
+    ys, xs = np.where(object_mask &gt; 0)
+    x0, x1 = int(xs.min()), int(xs.max())
+    y0, y1 = int(ys.min()), int(ys.max())
+    result = frame.astype(np.float32).copy()
+    f = frame.astype(np.float32)
+
+    left0, left1 = max(0, x0-15), max(1, x0-5)
+    right0, right1 = min(w-1, x1+6), min(w, x1+16)
+    # Gentle deterministic texture prevents a conspicuously flat repair.
+    texture = np.array([[-0.55, 0.15, 0.45, -0.10],
+                        [ 0.25,-0.35, 0.05, 0.35],
+                        [ 0.05, 0.40,-0.40, 0.00]], np.float32)
+    for y in range(max(0, y0-2), min(h, y1+3)):
+        lstrip = f[max(0, y-1):min(h, y+2), left0:left1]
+        rstrip = f[max(0, y-1):min(h, y+2), right0:right1]
+        left = np.median(lstrip.reshape(-1, 3), axis=0)
+        right = np.median(rstrip.reshape(-1, 3), axis=0)
+        xx = np.arange(x0, x1+1, dtype=np.float32)
+        q = ((xx-x0) / max(1, x1-x0))[:, None]
+        row = left[None, :] * (1-q) + right[None, :] * q
+        # The broad background is smooth; use sub-code-value dither only.
+        row += texture[:, (np.arange(len(xx)) + y) % 4].T
+        result[y, x0:x1+1] = row
+
+    alpha = feather(object_mask, 1.15)[..., None]
+    return f * (1-alpha) + result * alpha
+
+
+def foreground_masks(frame: np.ndarray):
+    &quot;&quot;&quot;Masks for the red/yellow bodies which visually sit above blue.&quot;&quot;&quot;
+    a = frame.astype(np.int16)
+    red_chroma = ((a[..., 0]-a[..., 1] &gt; 38) &amp;
+                  (a[..., 0]-a[..., 2] &gt; 30))
+    yellow_chroma = ((a[..., 0]-a[..., 2] &gt; 28) &amp;
+                     (a[..., 1]-a[..., 2] &gt; 28) &amp;
+                     (np.abs(a[..., 0]-a[..., 1]) &lt; 48))
+
+    # Central red body is the largest component.  Filling its external contour
+    # includes its neutral specular highlight.
+    central_red = component_near(red_chroma, (128, 75), largest=True)
+
+    # Small moving saturated red body lies to the left initially.  If it has
+    # merged visually with the central red body, its pixels are already covered
+    # by central_red and no separate mask is needed.
+    n, lab, stats, centers = cv2.connectedComponentsWithStats(
+        red_chroma.astype(np.uint8), 8)
+    small_red = np.zeros(red_chroma.shape, np.uint8)
+    candidates = [i for i in range(1, n)
+                  if 3 &lt;= stats[i, cv2.CC_STAT_AREA] &lt; 120 and centers[i, 0] &lt; 125]
+    if candidates:
+        idx = max(candidates, key=lambda i: stats[i, cv2.CC_STAT_AREA])
+        small_red = largest_filled((lab == idx).astype(np.uint8))
+
+    yellow = component_near(yellow_chroma, (205, 76), largest=False)
+
+    # A one-pixel expansion captures antialiasing and contact shadow fringe.
+    k = np.ones((3, 3), np.uint8)
+    combined = cv2.dilate(np.maximum.reduce([central_red, small_red, yellow]), k)
+    return combined, central_red, yellow
+
+
+def build_frames(source: np.ndarray) -&gt; np.ndarray:
+    first = source[0]
+    a0 = first.astype(np.int16)
+
+    # Strong blue chroma cleanly identifies the large blue body.  Its filled
+    # external contour restores the area hidden by the central red body.
+    strong_blue = ((a0[..., 2]-a0[..., 0] &gt; 52) &amp;
+                   (a0[..., 1]-a0[..., 0] &gt; 28))
+    blue_shape = largest_filled(strong_blue)
+    blue_shape = cv2.morphologyEx(blue_shape, cv2.MORPH_CLOSE,
+                                  np.ones((5, 5), np.uint8))
+    blue_center = centroid(blue_shape)
+
+    _, red0, yellow0 = foreground_masks(first)
+    red_center = centroid(red0)
+    yellow_center = centroid(yellow0)
+    target = yellow_center + 0.25 * (red_center-yellow_center)
+    delta = target-blue_center
+    transform = np.array([[1.0, 0.0, float(delta[0])],
+                          [0.0, 1.0, float(delta[1])]], np.float32)
+
+    h, w = first.shape[:2]
+    out = np.empty_like(source)
+    blue_alpha0 = feather(blue_shape, 0.75)
+
+    for t, frame in enumerate(source):
+        foreground, _, _ = foreground_masks(frame)
+
+        # Rebuild the old footprint first.
+        base = background_fill(frame, blue_shape)
+
+        # Complete the blue texture behind all non-blue foreground occluders.
+        # Telea works well here because the rigid body is smoothly lit.
+        repair = cv2.dilate(foreground, np.ones((3, 3), np.uint8))
+        repair = cv2.bitwise_and(repair, blue_shape)
+        texture = cv2.inpaint(frame, repair, 7.0, cv2.INPAINT_TELEA)
+
+        moved_rgb = cv2.warpAffine(texture, transform, (w, h),
+                                   flags=cv2.INTER_LINEAR,
+                                   borderMode=cv2.BORDER_REFLECT_101)
+        moved_alpha = cv2.warpAffine(blue_alpha0, transform, (w, h),
+                                     flags=cv2.INTER_LINEAR,
+                                     borderMode=cv2.BORDER_CONSTANT,
+                                     borderValue=0).clip(0, 1)
+        composed = base * (1-moved_alpha[..., None]) + &#x27;&quot;\\
+                   moved_rgb.astype(np.float32) * moved_alpha[..., None]
+
+        # Preserve exact native rendering of all reference stones in front.
+        fg_alpha = feather(foreground, 0.55)[..., None]
+        composed = composed * (1-fg_alpha) + frame.astype(np.float32) * fg_alpha
+        out[t] = np.clip(np.rint(composed), 0, 255).astype(np.uint8)
+
+    print(\&quot;blue_center\&quot;, blue_center.tolist())
+    print(\&quot;red_center\&quot;, red_center.tolist())
+    print(\&quot;yellow_center\&quot;, yellow_center.tolist())
+    print(\&quot;target_center\&quot;, target.tolist())
+    print(\&quot;translation\&quot;, delta.tolist())
+    return out
+
+
+def main():
+    source = np.load(CASE_DIR / \&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+    assert source.shape == (96, 144, 256, 3) and source.dtype == np.uint8
+    frames = build_frames(source)
+    artifact_io.save(frames, CASE_DIR)
+    print(\&quot;saved\&quot;, frames.shape, frames.dtype, \&quot;to\&quot;, CASE_DIR)
+
+
+if __name__ == \&quot;__main__\&quot;:
+    main()
+PY
+python generate.py&quot;</pre></details><details class=command><summary><strong>命令 28</strong><time>2026-11-11T21:22:44.383663+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);ok,b=cap.read();a=cv2.cvtColor(b,cv2.COLOR_BGR2RGB).astype(float)
+# robust smooth expected image using huge median/gauss -- local residual at stone scale
+for sig in [4,8,15,25]:
+ sm=cv2.GaussianBlur(a,(0,0),sig)
+ d=np.sqrt(((a-sm)**2).sum(2))
+ s=cv2.boxFilter(d,-1,(45,25),normalize=True)
+ yy,xx=np.mgrid[:720,:1280]
+ outer=((xx-640)/305)**2+((yy-402)/137)**2
+ inner=((xx-640)/135)**2+((yy-375)/75)**2
+ valid=(outer&lt;.60)&amp;(inner&gt;1.8)
+ arr=s.copy();arr[~valid]=-1
+ out=[]
+ for _ in range(40):
+  y,x=np.unravel_index(arr.argmax(),arr.shape);out.append((round(arr[y,x],2),x,y,np.round(a[y,x]).astype(int).tolist(),round(outer[y,x],2),round(inner[y,x],2)));arr[max(0,y-18):y+19,max(0,x-30):x+31]=-1
+ print(&#x27;\\nsig&#x27;,sig);print(out[:40])
+PY&quot;</pre></details><details class=command><summary><strong>命令 29</strong><time>2026-11-11T21:23:28.641252+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python generate.py &amp;&amp; python - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+import numpy as np, json
+from PIL import Image
+root=Path(&#x27;.&#x27;)
+z=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;]
+print(&#x27;packed pixels&#x27;,z.shape,z.dtype)
+files=sorted((root/&#x27;frames&#x27;).glob(&#x27;*.png&#x27;))
+print(&#x27;frame files&#x27;,len(files),files[0].name,files[-1].name)
+arr=np.stack([np.array(Image.open(p)) for p in files])
+print(&#x27;decoded&#x27;,arr.shape,arr.dtype,arr.min(),arr.max())
+print(&#x27;artifacts&#x27;,[(p.name,p.stat().st_size) for p in [root/&#x27;pixels.npz&#x27;,root/&#x27;inspection.png&#x27;,root/&#x27;transition_check.png&#x27;,root/&#x27;index.html&#x27;]])
+# exact anchor check using printed geometry expectation from first frame
+# revised blue silhouette should have changed pixels centered around 171 px.
+d=np.max(np.abs(arr[0].astype(int)-np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;][0].astype(int)),axis=2)
+y,x=np.where(d&gt;20)
+print(&#x27;first-frame edit bbox/centroid&#x27;, (x.min(),y.min(),x.max(),y.max()),(round(x.mean(),2),round(y.mean(),2)), &#x27;pixels&#x27;,len(x))
+assert arr.shape==(96,144,256,3) and arr.dtype==np.uint8
+assert len(files)==96
+PY&quot;</pre></details><details class=command><summary><strong>命令 30</strong><time>2026-11-11T21:23:53.324000+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np,cv2
+S=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]; O=np.stack([cv2.cvtColor(cv2.imread(f&#x27;frames/{i:02d}.png&#x27;),cv2.COLOR_BGR2RGB) for i in range(96)])
+# quantify temporal consistency and strong-blue connected contours/output centers
+for t in [0,1,12,24,36,48,72,95]:
+ a=O[t].astype(int)
+ m=((a[:,:,2]-a[:,:,0]&gt;52)&amp;(a[:,:,1]-a[:,:,0]&gt;28)).astype(np.uint8)
+ n,L,st,ce=cv2.connectedComponentsWithStats(m,8)
+ i=max(range(1,n),key=lambda j:st[j,cv2.CC_STAT_AREA])
+ print(t,&#x27;blue chroma area/center/bbox&#x27;,st[i,4],np.round(ce[i],2),st[i,:4].tolist())
+# changed-pixel count per frame and temporal jump stats
+chg=(np.max(abs(O.astype(np.int16)-S.astype(np.int16)),3)&gt;10).sum((1,2))
+print(&#x27;changed count range/mean&#x27;,chg.min(),chg.max(),round(chg.mean(),1))
+# Difference between adjacent edited vs source (median pixel change, max mean)
+ed=np.abs(np.diff(O.astype(np.int16),axis=0)).mean((1,2,3)); sd=np.abs(np.diff(S.astype(np.int16),axis=0)).mean((1,2,3))
+print(&#x27;adjacent source mean range&#x27;,sd.min(),sd.max(),&#x27;edit&#x27;,ed.min(),ed.max(),&#x27;excess max&#x27;,np.max(ed-sd))
+# Verify no accidental modifications far outside union of old/new object neighborhoods except actual foreground antialias.
+y,x=np.mgrid[:144,:256];roi=(((x-127.5)/68)**2+((y-79)/35)**2&lt;1.5)|(((x-172)/68)**2+((y-74)/35)**2&lt;1.5)
+outside=np.max(abs(O.astype(int)-S.astype(int)),3)[:,~roi]
+print(&#x27;outside differences &gt;10&#x27;,int((outside&gt;10).sum()),&#x27;of&#x27;,outside.size,&#x27;max&#x27;,outside.max())
+PY
+python -m py_compile generate.py
+printf &#x27;\\nworkspace outputs:\\n&#x27;; find . -maxdepth 2 -type f | sort | sed -n &#x27;1,130p&#x27;&quot;</pre></details><p class=muted>保存候选 4 份；完成命令 30 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
