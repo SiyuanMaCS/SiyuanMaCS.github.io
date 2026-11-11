@@ -1,0 +1,811 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/DeepSeek-V4.1-Flash · mechanics_0028</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/DeepSeek-V4.1-Flash · mechanics_0028</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>4.0 FPS · 20 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_fc6847aa80b5144f.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;80458580236938741f159a10e00b23322347cf9ab261b7240740141f4e3e933d&quot;, &quot;pixels&quot;: &quot;final/pixels_fc6847aa80b5144f.rgb.gz&quot;, &quot;poster&quot;: &quot;final/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>文本生成</span><h3 style="margin-top:14px">原始任务</h3><p>A timelapse of air being extracted from a sealed, empty vacuum chamber.</p><div class=facts><div><strong>5.00s</strong>视频时长</div><div><strong>38642</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-11T08:37:31.065966+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_c7eeb9deb598b0c3.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;cc05a1bff82f770e91bbc96906b97fd773543b8a227b59c9bb13ee5ae85f7364&quot;, &quot;pixels&quot;: &quot;candidate_00/pixels_c7eeb9deb598b0c3.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_00/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_00/inspection.png" target=_blank><img loading=lazy src="candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_00/transition_check.png" target=_blank><img loading=lazy src="candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,621 @@
++from __future__ import annotations
++
++import math
++import random
++from pathlib import Path
++
++import numpy as np
++from PIL import Image, ImageChops, ImageDraw, ImageFilter
++
++from artifact_io import save
++
++
++CASE_DIR = Path(__file__).resolve().parent
++WIDTH = 256
++HEIGHT = 144
++FRAME_COUNT = 20
++FPS = 4.0
++SS = 4
++SW = WIDTH * SS
++SH = HEIGHT * SS
++
++INK = (15, 22, 27, 255)
++GLASS = (129, 205, 216, 255)
++CYAN = (101, 220, 229, 255)
++AMBER = (237, 154, 78, 255)
++RED = (223, 91, 63, 255)
++
++FONT = {
++    &quot; &quot;: (&quot;000&quot;, &quot;000&quot;, &quot;000&quot;, &quot;000&quot;, &quot;000&quot;),
++    &quot;+&quot;: (&quot;000&quot;, &quot;010&quot;, &quot;111&quot;, &quot;010&quot;, &quot;000&quot;),
++    &quot;.&quot;: (&quot;000&quot;, &quot;000&quot;, &quot;000&quot;, &quot;000&quot;, &quot;010&quot;),
++    &quot;:&quot;: (&quot;000&quot;, &quot;010&quot;, &quot;000&quot;, &quot;010&quot;, &quot;000&quot;),
++    &quot;0&quot;: (&quot;111&quot;, &quot;101&quot;, &quot;101&quot;, &quot;101&quot;, &quot;111&quot;),
++    &quot;1&quot;: (&quot;010&quot;, &quot;110&quot;, &quot;010&quot;, &quot;010&quot;, &quot;111&quot;),
++    &quot;2&quot;: (&quot;110&quot;, &quot;001&quot;, &quot;010&quot;, &quot;100&quot;, &quot;111&quot;),
++    &quot;3&quot;: (&quot;110&quot;, &quot;001&quot;, &quot;010&quot;, &quot;001&quot;, &quot;110&quot;),
++    &quot;4&quot;: (&quot;101&quot;, &quot;101&quot;, &quot;111&quot;, &quot;001&quot;, &quot;001&quot;),
++    &quot;5&quot;: (&quot;111&quot;, &quot;100&quot;, &quot;110&quot;, &quot;001&quot;, &quot;110&quot;),
++    &quot;6&quot;: (&quot;011&quot;, &quot;100&quot;, &quot;111&quot;, &quot;101&quot;, &quot;111&quot;),
++    &quot;7&quot;: (&quot;111&quot;, &quot;001&quot;, &quot;010&quot;, &quot;010&quot;, &quot;010&quot;),
++    &quot;8&quot;: (&quot;111&quot;, &quot;101&quot;, &quot;111&quot;, &quot;101&quot;, &quot;111&quot;),
++    &quot;9&quot;: (&quot;111&quot;, &quot;101&quot;, &quot;111&quot;, &quot;001&quot;, &quot;110&quot;),
++    &quot;A&quot;: (&quot;010&quot;, &quot;101&quot;, &quot;111&quot;, &quot;101&quot;, &quot;101&quot;),
++    &quot;B&quot;: (&quot;110&quot;, &quot;101&quot;, &quot;110&quot;, &quot;101&quot;, &quot;110&quot;),
++    &quot;C&quot;: (&quot;011&quot;, &quot;100&quot;, &quot;100&quot;, &quot;100&quot;, &quot;011&quot;),
++    &quot;D&quot;: (&quot;110&quot;, &quot;101&quot;, &quot;101&quot;, &quot;101&quot;, &quot;110&quot;),
++    &quot;E&quot;: (&quot;111&quot;, &quot;100&quot;, &quot;110&quot;, &quot;100&quot;, &quot;111&quot;),
++    &quot;F&quot;: (&quot;111&quot;, &quot;100&quot;, &quot;110&quot;, &quot;100&quot;, &quot;100&quot;),
++    &quot;G&quot;: (&quot;011&quot;, &quot;100&quot;, &quot;101&quot;, &quot;101&quot;, &quot;011&quot;),
++    &quot;H&quot;: (&quot;101&quot;, &quot;101&quot;, &quot;111&quot;, &quot;101&quot;, &quot;101&quot;),
++    &quot;I&quot;: (&quot;111&quot;, &quot;010&quot;, &quot;010&quot;, &quot;010&quot;, &quot;111&quot;),
++    &quot;J&quot;: (&quot;001&quot;, &quot;001&quot;, &quot;001&quot;, &quot;101&quot;, &quot;010&quot;),
++    &quot;K&quot;: (&quot;101&quot;, &quot;101&quot;, &quot;110&quot;, &quot;101&quot;, &quot;101&quot;),
++    &quot;L&quot;: (&quot;100&quot;, &quot;100&quot;, &quot;100&quot;, &quot;100&quot;, &quot;111&quot;),
++    &quot;M&quot;: (&quot;101&quot;, &quot;111&quot;, &quot;111&quot;, &quot;101&quot;, &quot;101&quot;),
++    &quot;N&quot;: (&quot;101&quot;, &quot;111&quot;, &quot;111&quot;, &quot;111&quot;, &quot;101&quot;),
++    &quot;O&quot;: (&quot;010&quot;, &quot;101&quot;, &quot;101&quot;, &quot;101&quot;, &quot;010&quot;),
++    &quot;P&quot;: (&quot;110&quot;, &quot;101&quot;, &quot;110&quot;, &quot;100&quot;, &quot;100&quot;),
++    &quot;Q&quot;: (&quot;010&quot;, &quot;101&quot;, &quot;101&quot;, &quot;111&quot;, &quot;011&quot;),
++    &quot;R&quot;: (&quot;110&quot;, &quot;101&quot;, &quot;110&quot;, &quot;101&quot;, &quot;101&quot;),
++    &quot;S&quot;: (&quot;011&quot;, &quot;100&quot;, &quot;010&quot;, &quot;001&quot;, &quot;110&quot;),
++    &quot;T&quot;: (&quot;111&quot;, &quot;010&quot;, &quot;010&quot;, &quot;010&quot;, &quot;010&quot;),
++    &quot;U&quot;: (&quot;101&quot;, &quot;101&quot;, &quot;101&quot;, &quot;101&quot;, &quot;111&quot;),
++    &quot;V&quot;: (&quot;101&quot;, &quot;101&quot;, &quot;101&quot;, &quot;101&quot;, &quot;010&quot;),
++    &quot;W&quot;: (&quot;101&quot;, &quot;101&quot;, &quot;111&quot;, &quot;111&quot;, &quot;101&quot;),
++    &quot;X&quot;: (&quot;101&quot;, &quot;101&quot;, &quot;010&quot;, &quot;101&quot;, &quot;101&quot;),
++    &quot;Y&quot;: (&quot;101&quot;, &quot;101&quot;, &quot;010&quot;, &quot;010&quot;, &quot;010&quot;),
++    &quot;Z&quot;: (&quot;111&quot;, &quot;001&quot;, &quot;010&quot;, &quot;100&quot;, &quot;111&quot;),
++}
++
++
++def pt(x: float, y: float) -&gt; tuple[int, int]:
++    return round(x * SS), round(y * SS)
++
++
++def box(x0: float, y0: float, x1: float, y1: float) -&gt; tuple[int, int, int, int]:
++    return round(x0 * SS), round(y0 * SS), round(x1 * SS), round(y1 * SS)
++
++
++def scaled(points):
++    return [pt(x, y) for x, y in points]
++
++
++def clamp(value: float, low: float = 0.0, high: float = 1.0) -&gt; float:
++    return max(low, min(high, value))
++
++
++def mix(a, b, amount: float):
++    return tuple(round(a[i] + (b[i] - a[i]) * amount) for i in range(len(a)))
++
++
++def layer() -&gt; Image.Image:
++    return Image.new(&quot;RGBA&quot;, (SW, SH), (0, 0, 0, 0))
++
++
++def add_layer(scene: Image.Image, overlay: Image.Image) -&gt; Image.Image:
++    return Image.alpha_composite(scene, overlay)
++
++
++def draw_pixel_text(
++    draw: ImageDraw.ImageDraw,
++    text: str,
++    x: float,
++    y: float,
++    scale: float,
++    fill,
++    spacing: float = 1.0,
++) -&gt; float:
++    cell = max(1, round(scale * SS))
++    advance = (3 + spacing) * cell
++    cursor = round(x * SS)
++    top = round(y * SS)
++    for char in text.upper():
++        glyph = FONT.get(char, FONT[&quot; &quot;])
++        for row, bits in enumerate(glyph):
++            for col, bit in enumerate(bits):
++                if bit == &quot;1&quot;:
++                    draw.rectangle(
++                        (
++                            cursor + col * cell,
++                            top + row * cell,
++                            cursor + (col + 1) * cell - 1,
++                            top + (row + 1) * cell - 1,
++                        ),
++                        fill=fill,
++                    )
++        cursor += advance
++    return (cursor - round(spacing * cell)) / SS
++
++
++def rounded(draw: ImageDraw.ImageDraw, bounds, radius: float, fill, outline=None, width: float = 1.0):
++    draw.rounded_rectangle(
++        box(*bounds),
++        radius=round(radius * SS),
++        fill=fill,
++        outline=outline,
++        width=max(1, round(width * SS)),
++    )
++
++
++def bezier(p0, p1, p2, p3, amount: float):
++    u = 1.0 - amount
++    return (
++        u**3 * p0[0] + 3 * u * u * amount * p1[0] + 3 * u * amount * amount * p2[0] + amount**3 * p3[0],
++        u**3 * p0[1] + 3 * u * u * amount * p1[1] + 3 * u * amount * amount * p2[1] + amount**3 * p3[1],
++    )
++
++
++def smoothstep(value: float) -&gt; float:
++    value = clamp(value)
++    return value * value * (3.0 - 2.0 * value)
++
++
++def jar_halfwidth(y: float, margin: float = 0.0) -&gt; float:
++    top = 24.0 + margin * 1.7
++    shoulder = 60.0
++    bottom = 107.0 - margin
++    if y &lt; top or y &gt; bottom:
++        return 0.0
++    if y &gt;= shoulder:
++        return 50.0 - margin
++    q = (shoulder - y) / (shoulder - top)
++    return max(0.0, (50.0 - margin) * math.sqrt(max(0.0, 1.0 - q * q)))
++
++
++def jar_points(margin: float = 0.0):
++    center = 104.0
++    top = 24.0 + margin * 1.7
++    bottom = 107.0 - margin
++    left = []
++    right = []
++    steps = 220
++    for index in range(steps + 1):
++        y = top + (bottom - top) * index / steps
++        half = jar_halfwidth(y, margin)
++        left.append((center - half, y))
++        right.append((center + half, y))
++    return left + right[::-1]
++
++
++def jar_mask(margin: float = 0.0) -&gt; Image.Image:
++    mask = Image.new(&quot;L&quot;, (SW, SH), 0)
++    ImageDraw.Draw(mask).polygon(scaled(jar_points(margin)), fill=255)
++    return mask
++
++
++def make_background() -&gt; Image.Image:
++    rows = np.arange(SH, dtype=np.float32)[:, None] / max(1, SH - 1)
++    cols = np.arange(SW, dtype=np.float32)[None, :] / max(1, SW - 1)
++    top = np.array([37, 43, 51], dtype=np.float32)
++    bottom = np.array([19, 24, 30], dtype=np.float32)
++    field = top[None, None, :] + (bottom - top)[None, None, :] * rows[:, :, None]
++    field = field + (cols[:, :, None] - 0.5) * np.array([4.0, 2.0, -1.0], dtype=np.float32)
++    field = field + np.random.default_rng(11).normal(0, 0.8, (SH, SW, 1))
++    image = Image.fromarray(np.clip(field, 0, 255).astype(np.uint8), &quot;RGB&quot;).convert(&quot;RGBA&quot;)
++
++    backlight = layer()
++    bd = ImageDraw.Draw(backlight)
++    bd.ellipse(box(36, -24, 216, 114), fill=(94, 151, 159, 27))
++    bd.ellipse(box(78, 5, 172, 96), fill=(127, 198, 205, 18))
++    backlight = backlight.filter(ImageFilter.GaussianBlur(16 * SS))
++    image = add_layer(image, backlight)
++
++    panels = layer()
++    pd = ImageDraw.Draw(panels)
++    for x in (29, 229):
++        pd.line([pt(x, 0), pt(x, 111)], fill=(133, 151, 158, 20), width=SS)
++        pd.line([pt(x + 0.7, 0), pt(x + 0.7, 111)], fill=(8, 12, 16, 25), width=SS)
++    pd.rectangle(box(0, 0, 256, 3), fill=(180, 201, 207, 12))
++    image = add_layer(image, panels)
++
++    table = layer()
++    td = ImageDraw.Draw(table)
++    td.polygon(scaled([(0, 111), (256, 108), (256, 127), (0, 131)]), fill=(34, 39, 44, 255))
++    td.polygon(scaled([(0, 131), (256, 127), (256, 144), (0, 144)]), fill=(20, 25, 30, 255))
++    td.line(scaled([(0, 111), (256, 108)]), fill=(118, 137, 142, 145), width=round(1.1 * SS))
++    td.line(scaled([(0, 112.4), (256, 109.4)]), fill=(5, 9, 12, 120), width=round(1.4 * SS))
++    td.line(scaled([(0, 130.8), (256, 126.8)]), fill=(104, 121, 126, 45), width=round(0.7 * SS))
++    for x in (18, 77, 136, 195, 251):
++        td.line([pt(x, 129), pt(x - 3, 144)], fill=(76, 88, 94, 28), width=SS)
++    image = add_layer(image, table)
++
++    shadows = layer()
++    sd = ImageDraw.Draw(shadows)
++    sd.ellipse(box(37, 108, 171, 125), fill=(3, 7, 9, 145))
++    sd.ellipse(box(179, 113, 253, 130), fill=(3, 7, 9, 125))
++    sd.polygon(scaled([(151, 111), (188, 107), (204, 120), (158, 122)]), fill=(3, 7, 9, 55))
++    shadows = shadows.filter(ImageFilter.GaussianBlur(3.1 * SS))
++    image = add_layer(image, shadows)
++
++    floor_glow = layer()
++    gd = ImageDraw.Draw(floor_glow)
++    gd.ellipse(box(64, 107, 143, 120), fill=(91, 173, 183, 22))
++    floor_glow = floor_glow.filter(ImageFilter.GaussianBlur(5 * SS))
++    image = add_layer(image, floor_glow)
++    return image
++
++
++def make_particles(frame_index: int, vacuum: float) -&gt; Image.Image:
++    rng = random.Random(1407)
++    center = (104.0, 69.0)
++    outlet = (148.0, 101.5)
++    result = layer()
++    glow = layer()
++    core_draw = ImageDraw.Draw(result)
++    glow_draw = ImageDraw.Draw(glow)
++
++    count = 46
++    for index in range(count):
++        angle = rng.uniform(0, math.tau)
++        radius = math.sqrt(rng.random()) * rng.uniform(26, 44)
++        start_x = center[0] + math.cos(angle) * radius * rng.uniform(0.58, 1.0)
++        start_y = center[1] + math.sin(angle) * radius * rng.uniform(0.72, 1.0)
++        if abs(start_x - 104) &gt; 43:
++            start_x = 104 + math.copysign(43, start_x - 104)
++        start_y = clamp(start_y, 37, 101)
++        exit_time = 0.09 + 0.88 * ((start_x - 58) / 90.0) ** 0.42
++        exit_time += rng.uniform(-0.05, 0.05)
++        exit_time = clamp(exit_time, 0.08, 0.97)
++        if vacuum &gt;= exit_time:
++            continue
++        travel = smoothstep(vacuum / exit_time) ** 1.15
++        swirl = (1.0 - travel) * rng.uniform(1.2, 4.0)
++        phase = rng.uniform(0, math.tau)
++        x = start_x + (outlet[0] - start_x) * travel + math.cos(phase + vacuum * 8.0) * swirl
++        y = start_y + (outlet[1] - start_y) * travel + math.sin(phase + vacuum * 8.0) * swirl * 0.72
++        fade = clamp((exit_time - vacuum) / 0.16)
++        alpha = round(rng.uniform(76, 136) * (0.45 + 0.55 * fade))
++        size = rng.uniform(0.55, 1.0)
++        color = (174, 229, 233, alpha)
++        glow_radius = size * 3.0
++        glow_draw.ellipse(
++            box(x - glow_radius, y - glow_radius, x + glow_radius, y + glow_radius),
++            fill=(82, 199, 211, round(alpha * 0.23)),
++        )
++        core_draw.ellipse(box(x - size, y - size, x + size, y + size), fill=color)
++
++        prev_t = max(0.0, vacuum - 0.016)
++        prev_travel = smoothstep(prev_t / exit_time) ** 1.15
++        px = start_x + (outlet[0] - start_x) * prev_travel + math.cos(phase + prev_t * 8.0) * swirl
++        py = start_y + (outlet[1] - start_y) * prev_travel + math.sin(phase + prev_t * 8.0) * swirl * 0.72
++        if abs(px - x) + abs(py - y) &gt; 0.16:
++            core_draw.line([pt(px, py), pt(x, y)], fill=(132, 219, 226, round(alpha * 0.24)), width=max(1, SS // 2))
++
++    glow = glow.filter(ImageFilter.GaussianBlur(1.2 * SS))
++    result = Image.alpha_composite(glow, result)
++
++    wisps = layer()
++    wd = ImageDraw.Draw(wisps)
++    wisp_alpha = round(22 * (1.0 - vacuum) ** 1.3)
++    if wisp_alpha &gt; 1:
++        for index in range(3):
++            phase = vacuum * 1.4 + index * 0.18
++            p0 = (68 + index * 9, 57 + index * 8)
++            p1 = (88 + index * 5 + math.sin(phase) * 4, 47 + index * 9)
++            p2 = (124, 66 + index * 9)
++            points = [bezier(p0, p1, p2, outlet, i / 28) for i in range(29)]
++            wd.line(scaled(points), fill=(111, 213, 221, wisp_alpha), width=max(1, round(0.45 * SS)))
++    wisps = wisps.filter(ImageFilter.GaussianBlur(1.1 * SS))
++    result = Image.alpha_composite(wisps, result)
++
++    mask = jar_mask(1.5)
++    result.putalpha(ImageChops.multiply(result.getchannel(&quot;A&quot;), mask))
++    return result
++
++
++def make_glass_base() -&gt; Image.Image:
++    glass_layer = layer()
++    gd = ImageDraw.Draw(glass_layer)
++    outline = scaled(jar_points(0.25))
++    gd.line(outline, fill=(32, 60, 68, 70), width=round(2.6 * SS))
++    gd.line(outline, fill=(157, 220, 226, 90), width=round(1.0 * SS))
++
++    edge = layer()
++    ed = ImageDraw.Draw(edge)
++    left_edge = []
++    right_edge = []
++    for i in range(110):
++        y = 48 + 58 * i / 109
++        left_edge.append((104 - jar_halfwidth(y, 0.7), y))
++        right_edge.append((104 + jar_halfwidth(y, 0.7), y))
++    ed.line(scaled(left_edge), fill=(206, 242, 242, 32), width=round(1.6 * SS))
++    ed.line(scaled(right_edge), fill=(194, 241, 242, 72), width=round(1.15 * SS))
++    edge = edge.filter(ImageFilter.GaussianBlur(0.45 * SS))
++    glass_layer = Image.alpha_composite(glass_layer, edge)
++
++    dome_glint = layer()
++    dd = ImageDraw.Draw(dome_glint)
++    dd.polygon(scaled([(70, 43), (78, 37), (82, 55), (74, 61)]), fill=(222, 248, 249, 28))
++    dd.polygon(scaled([(79, 37), (84, 36), (88, 50), (82, 55)]), fill=(240, 252, 252, 22))
++    dd.arc(box(70, 25, 138, 84), 197, 292, fill=(225, 248, 249, 53), width=round(0.8 * SS))
++    dome_glint = dome_glint.filter(ImageFilter.GaussianBlur(1.15 * SS))
++    glass_layer = Image.alpha_composite(glass_layer, dome_glint)
++
++    left_glint = layer()
++    ld = ImageDraw.Draw(left_glint)
++    ld.line(scaled([(64.5, 58), (63.8, 72), (64.2, 87), (66, 101)]), fill=(229, 250, 250, 48), width=round(1.4 * SS))
++    ld.line(scaled([(61.8, 62), (61.5, 78), (62.4, 95)]), fill=(158, 223, 229, 25), width=round(0.75 * SS))
++    left_glint = left_glint.filter(ImageFilter.GaussianBlur(0.85 * SS))
++    glass_layer = Image.alpha_composite(glass_layer, left_glint)
++
++    reflection = layer()
++    rd = ImageDraw.Draw(reflection)
++    rd.ellipse(box(54, 96, 154, 111), outline=(180, 232, 235, 28), width=round(0.8 * SS))
++    rd.line(scaled([(53, 98), (56, 103)]), fill=(220, 248, 249, 50), width=round(0.9 * SS))
++    reflection = reflection.filter(ImageFilter.GaussianBlur(1.0 * SS))
++    glass_layer = Image.alpha_composite(glass_layer, reflection)
++    return glass_layer
++
++
++def make_air_tint(vacuum: float) -&gt; Image.Image:
++    tint = layer()
++    td = ImageDraw.Draw(tint)
++    alpha = round(13 * (1.0 - vacuum) ** 1.5)
++    if alpha:
++        td.rectangle(box(0, 0, 256, 144), fill=(142, 218, 223, alpha))
++    mask = jar_mask(2.0)
++    tint.putalpha(ImageChops.multiply(tint.getchannel(&quot;A&quot;), mask))
++    return tint
++
++
++def draw_chamber_base(scene: Image.Image) -&gt; Image.Image:
++    base = layer()
++    d = ImageDraw.Draw(base)
++    d.ellipse(box(44, 101.5, 164, 112), fill=(32, 40, 45, 255))
++    d.ellipse(box(47, 100.5, 161, 109), fill=(98, 109, 113, 255))
++    d.ellipse(box(52, 101.5, 156, 107.4), fill=(35, 45, 50, 255))
++    d.ellipse(box(55, 102.2, 153, 106.4), fill=(66, 78, 83, 255))
++    d.polygon(scaled([(47, 106), (161, 106), (157, 118), (51, 118)]), fill=(49, 58, 64, 255))
++    d.line(scaled([(51, 109), (157, 109)]), fill=(130, 143, 145, 100), width=round(0.7 * SS))
++    d.line(scaled([(51, 117), (157, 117)]), fill=(12, 17, 21, 210), width=round(1.4 * SS))
++    d.rectangle(box(59, 111, 149, 112.1), fill=(26, 33, 38, 180))
++    for x in (55.5, 152.5):
++        d.ellipse(box(x - 1.1, 111.4, x + 1.1, 113.6), fill=(137, 147, 148, 170))
++        d.ellipse(box(x - 0.45, 112.1, x + 0.45, 113.0), fill=(34, 42, 47, 255))
++    d.rectangle(box(91, 113, 117, 114), fill=(85, 99, 103, 65))
++    scene = add_layer(scene, base)
++
++    top_glow = layer()
++    gd = ImageDraw.Draw(top_glow)
++    gd.line(scaled([(50, 102.1), (157, 102.1)]), fill=(213, 230, 229, 90), width=round(0.75 * SS))
++    top_glow = top_glow.filter(ImageFilter.GaussianBlur(0.45 * SS))
++    return add_layer(scene, top_glow)
++
++
++HOSE_P0 = (157.0, 109.5)
++HOSE_P1 = (167.0, 119.0)
++HOSE_P2 = (174.0, 95.0)
++HOSE_P3 = (185.0, 101.0)
++
++
++def draw_hose(scene: Image.Image, frame_index: int) -&gt; Image.Image:
++    shadow = layer()
++    sd = ImageDraw.Draw(shadow)
++    points = [bezier(HOSE_P0, HOSE_P1, HOSE_P2, HOSE_P3, i / 40) for i in range(41)]
++    sd.line([pt(x + 0.7, y + 0.9) for x, y in points], fill=(0, 3, 5, 135), width=round(7.2 * SS))
++    shadow = shadow.filter(ImageFilter.GaussianBlur(1.0 * SS))
++    scene = add_layer(scene, shadow)
++
++    hose = layer()
++    hd = ImageDraw.Draw(hose)
++    hd.line(scaled(points), fill=(10, 16, 20, 255), width=round(7.0 * SS))
++    hd.line(scaled(points), fill=(39, 49, 55, 255), width=round(5.2 * SS))
++    hd.line(scaled(points), fill=(74, 86, 91, 255), width=round(3.2 * SS))
++    hd.line([pt(x - 0.65, y - 0.7) for x, y in points], fill=(150, 164, 164, 65), width=round(0.75 * SS))
++    for index in range(1, 17):
++        t = index / 17.0
++        x, y = bezier(HOSE_P0, HOSE_P1, HOSE_P2, HOSE_P3, t)
++        x2, y2 = bezier(HOSE_P0, HOSE_P1, HOSE_P2, HOSE_P3, min(1.0, t + 0.01))
++        dx, dy = x2 - x, y2 - y
++        length = max(0.001, math.hypot(dx, dy))
++        nx, ny = -dy / length, dx / length
++        hd.line(
++            [pt(x + nx * 2.7, y + ny * 2.7), pt(x - nx * 2.7, y - ny * 2.7)],
++            fill=(107, 121, 124, 100),
++            width=max(1, round(0.45 * SS)),
++        )
++    scene = add_layer(scene, hose)
++
++    collars = layer()
++    cd = ImageDraw.Draw(collars)
++    rounded(cd, (153.5, 106.0, 161.5, 114.0), 1.2, (54, 65, 70, 255), (126, 140, 141, 180), 0.6)
++    rounded(cd, (179.5, 94.0, 188.0, 105.0), 1.4, (43, 53, 58, 255), (119, 133, 134, 160), 0.6)
++    cd.rectangle(box(155.2, 107.1, 160.0, 108.1), fill=(146, 157, 156, 100))
++    scene = add_layer(scene, collars)
++
++    pulse_layer = layer()
++    pd = ImageDraw.Draw(pulse_layer)
++    for index in range(3):
++        phase = (frame_index / max(1, FRAME_COUNT - 1) * 2.4 + index / 3.0) % 1.0
++        x, y = bezier(HOSE_P0, HOSE_P1, HOSE_P2, HOSE_P3, phase)
++        pd.ellipse(box(x - 3.2, y - 3.2, x + 3.2, y + 3.2), fill=(86, 229, 236, 48))
++    pulse_layer = pulse_layer.filter(ImageFilter.GaussianBlur(1.5 * SS))
++    pulse_core = layer()
++    pcd = ImageDraw.Draw(pulse_core)
++    for index in range(3):
++        phase = (frame_index / max(1, FRAME_COUNT - 1) * 2.4 + index / 3.0) % 1.0
++        x, y = bezier(HOSE_P0, HOSE_P1, HOSE_P2, HOSE_P3, phase)
++        pcd.ellipse(box(x - 0.8, y - 0.8, x + 0.8, y + 0.8), fill=(197, 251, 250, 190))
++    scene = add_layer(scene, pulse_layer)
++    scene = add_layer(scene, pulse_core)
++    return scene
++
++
++def pressure_at(frame_index: int) -&gt; float:
++    t = frame_index / max(1, FRAME_COUNT - 1)
++    return 760.0 * (10.0 ** (-3.28 * t))
++
++
++def pressure_text(pressure: float) -&gt; str:
++    if pressure &gt;= 100:
++        return f&quot;{round(pressure):03d}&quot;
++    if pressure &gt;= 10:
++        return f&quot;{round(pressure):3d}&quot;
++    return f&quot;{pressure:.1f}&quot;
++
++
++def draw_gauge(scene: Image.Image, center, pressure: float, jitter: float) -&gt; Image.Image:
++    gauge = layer()
++    gd = ImageDraw.Draw(gauge)
++    cx, cy = center
++
++    gd.ellipse(box(cx - 18.3, cy - 18.0, cx + 18.3, cy + 18.6), fill=(5, 9, 11, 130))
++    gd.ellipse(box(cx - 17.2, cy - 17.2, cx + 17.2, cy + 17.2), fill=(30, 37, 41, 255))
++    gd.ellipse(box(cx - 16.4, cy - 16.4, cx + 16.4, cy + 16.4), outline=(128, 140, 140, 255), width=round(1.3 * SS))
++    gd.ellipse(box(cx - 14.7, cy - 14.7, cx + 14.7, cy + 14.7), fill=(216, 213, 196, 255))
++    gd.ellipse(box(cx - 13.8, cy - 13.8, cx + 13.8, cy + 13.8), fill=(230, 226, 208, 255))
++
++    tick_color = (49, 56, 58, 255)
++    for index in range(15):
++        angle = math.radians(140 + 260 * index / 14)
++        inner = 11.1 if index % 2 == 0 else 11.9
++        outer = 13.5
++        x1 = cx + math.cos(angle) * inner
++        y1 = cy + math.sin(angle) * inner
++        x2 = cx + math.cos(angle) * outer
++        y2 = cy + math.sin(angle) * outer
++        gd.line([pt(x1, y1), pt(x2, y2)], fill=tick_color, width=max(1, round((0.55 if index % 2 else 0.8) * SS)))
++
++    draw_pixel_text(gd, &quot;760&quot;, cx - 10.5, cy + 9.6, 0.72, (47, 53, 55, 230), 0.6)
++    draw_pixel_text(gd, &quot;0&quot;, cx + 9.4, cy + 9.6, 0.72, (47, 53, 55, 230), 0.6)
++    draw_pixel_text(gd, &quot;TORR&quot;, cx - 5.3, cy + 3.8, 0.55, (77, 82, 81, 190), 0.45)
++
++    vacuum = clamp(math.log10(760.0 / pressure) / math.log10(760.0 / 0.4))
++    needle_angle = math.radians(140 + 260 * vacuum + jitter)
++    tip = (cx + math.cos(needle_angle) * 12.5, cy + math.sin(needle_angle) * 12.5)
++    shadow_tip = (tip[0] + 0.3, tip[1] + 0.35)
++    gd.line([pt(cx + 0.3, cy + 0.35), pt(*shadow_tip)], fill=(52, 49, 44, 90), width=round(1.35 * SS))
++    gd.line([pt(cx, cy), pt(*tip)], fill=RED, width=round(0.9 * SS))
++    gd.ellipse(box(cx - 2.2, cy - 2.2, cx + 2.2, cy + 2.2), fill=(43, 49, 51, 255))
++    gd.ellipse(box(cx - 0.8, cy - 0.8, cx + 0.8, cy + 0.8), fill=(166, 157, 135, 255))
++
++    shine = layer()
++    shd = ImageDraw.Draw(shine)
++    shd.arc(box(cx - 12.8, cy - 12.8, cx + 12.8, cy + 12.8), 196, 284, fill=(255, 255, 246, 118), width=round(0.65 * SS))
++    shine = shine.filter(ImageFilter.GaussianBlur(0.3 * SS))
++    gauge = Image.alpha_composite(gauge, shine)
++    return add_layer(scene, gauge)
++
++
++def draw_pump(scene: Image.Image, frame_index: int, pressure: float) -&gt; Image.Image:
++    dx = 0.24 * math.sin(frame_index * 2.75)
++    dy = 0.13 * math.sin(frame_index * 3.61 + 0.8)
++    pump = layer()
++    d = ImageDraw.Draw(pump)
++
++    # Gauge stem and mounting collar.
++    d.polygon(scaled([(214.0 + dx, 78.0 + dy), (222.0 + dx, 78.0 + dy), (224.0 + dx, 87.0 + dy), (212.0 + dx, 87.0 + dy)]), fill=(47, 57, 62, 255))
++    d.ellipse(box(210.5 + dx, 82.0 + dy, 225.5 + dx, 89.0 + dy), fill=(33, 42, 47, 255))
++
++    rounded(d, (183.0 + dx, 82.0 + dy, 246.0 + dx, 122.0 + dy), 4.0, (38, 47, 53, 255), (10, 16, 20, 255), 1.0)
++    rounded(d, (186.0 + dx, 78.0 + dy, 242.0 + dx, 94.0 + dy), 3.2, (69, 79, 83, 255), (112, 124, 125, 145), 0.6)
++    rounded(d, (188.0 + dx, 91.0 + dy, 223.0 + dx, 116.5 + dy), 2.0, (23, 30, 35, 255), (8, 13, 16, 255), 0.7)
++    d.line(scaled([(187.0 + dx, 94.0 + dy), (241.0 + dx, 94.0 + dy)]), fill=(131, 143, 143, 62), width=round(0.6 * SS))
++
++    # Right-side cooling grille.
++    d.rectangle(box(227.0 + dx, 96.0 + dy, 241.0 + dx, 115.5 + dy), fill=(24, 31, 35, 255))
++    for row in range(6):
++        y = 98.2 + row * 2.7 + dy
++        d.rounded_rectangle(box(229.0 + dx, y, 239.0 + dx, y + 1.0), radius=round(0.5 * SS), fill=(67, 78, 82, 255))
++        d.line(scaled([(229.0 + dx, y + 1.0), (239.0 + dx, y + 1.0)]), fill=(5, 9, 11, 150), width=max(1, round(0.4 * SS)))
++
++    # Pump feet and inlet.
++    rounded(d, (188.0 + dx, 120.0 + dy, 198.0 + dx, 124.0 + dy), 1.0, (19, 25, 29, 255))
++    rounded(d, (231.0 + dx, 120.0 + dy, 241.0 + dx, 124.0 + dy), 1.0, (19, 25, 29, 255))
++    d.ellipse(box(179.8 + dx, 96.2 + dy, 189.0 + dx, 104.0 + dy), fill=(11, 17, 20, 255))
++    d.ellipse(box(182.0 + dx, 97.5 + dy, 188.0 + dx, 102.8 + dy), fill=(57, 69, 73, 255))
++
++    # Digital display.
++    d.rectangle(box(190.5 + dx, 96.5 + dy, 218.0 + dx, 106.5 + dy), fill=(9, 19, 20, 255))
++    d.rectangle(box(191.4 + dx, 97.4 + dy, 217.1 + dx, 105.6 + dy), fill=(13, 31, 31, 255))
++    label = pressure_text(pressure)
++    text_width = len(label) * 4 - 1
++    draw_pixel_text(d, label, 204.0 + dx - text_width / 2, 98.1 + dy, 1.0, (138, 241, 209, 255), 1.0)
++    draw_pixel_text(d, &quot;TORR&quot;, 201.2 + dx, 102.8 + dy, 0.58, (87, 151, 137, 210), 0.5)
++
++    # Indicator and power switch.
++    led_on = frame_index % 4 in (0, 1)
++    led_color = (83, 238, 198, 255) if led_on else (38, 100, 88, 255)
++    d.ellipse(box(191.5 + dx, 109.0 + dy, 194.4 + dx, 111.9 + dy), fill=(4, 9, 10, 255))
++    d.ellipse(box(192.0 + dx, 109.5 + dy, 193.9 + dx, 111.4 + dy), fill=led_color)
++    d.rounded_rectangle(box(197.0 + dx, 108.2 + dy, 209.0 + dx, 114.0 + dy), radius=round(1.4 * SS), fill=(31, 39, 43, 255))
++    d.ellipse(box(198.3 + dx, 109.3 + dy, 202.2 + dx, 113.2 + dy), fill=(229, 144, 65, 255))
++    d.ellipse(box(199.0 + dx, 109.9 + dy, 201.5 + dx, 112.4 + dy), fill=(251, 187, 104, 255))
++    draw_pixel_text(d, &quot;PUMP&quot;, 211.0 + dx, 109.6 + dy, 0.62, (130, 143, 144, 175), 0.55)
++
++    # Top casing highlights and seam details.
++    d.line(scaled([(190.0 + dx, 80.4 + dy), (237.0 + dx, 80.4 + dy)]), fill=(187, 201, 199, 70), width=round(0.6 * SS))
++    d.line(scaled([(189.0 + dx, 91.5 + dy), (240.0 + dx, 91.5 + dy)]), fill=(10, 15, 18, 150), width=round(0.8 * SS))
++    d.rectangle(box(186.8 + dx, 84.0 + dy, 188.0 + dx, 117.0 + dy), fill=(18, 25, 29, 190))
++
++    scene = add_layer(scene, pump)
++    scene = draw_gauge(scene, (218.0 + dx, 68.0 + dy), pressure, jitter=math.sin(frame_index * 5.3) * 0.7)
++
++    glow = layer()
++    gd = ImageDraw.Draw(glow)
++    if led_on:
++        gd.ellipse(box(190.0 + dx, 107.5 + dy, 196.0 + dx, 113.5 + dy), fill=(82, 238, 200, 70))
++    glow = glow.filter(ImageFilter.GaussianBlur(1.4 * SS))
++    return add_layer(scene, glow)
++
++
++def add_scene_text(scene: Image.Image, frame_index: int) -&gt; Image.Image:
++    overlay = layer()
++    d = ImageDraw.Draw(overlay)
++    d.rectangle(box(9, 8.5, 11, 14.5), fill=(228, 142, 65, 180))
++    draw_pixel_text(d, &quot;VACUUM CHAMBER&quot;, 15.0, 8.5, 0.95, (148, 173, 179, 165), 0.9)
++
++    elapsed = round(285 * frame_index / max(1, FRAME_COUNT - 1))
++    stamp = f&quot;T+{elapsed // 60:02d}:{elapsed % 60:02d}&quot;
++    stamp_width = len(stamp) * 4 - 1
++    draw_pixel_text(d, stamp, 245.0 - stamp_width, 8.5, 0.9, (143, 168, 174, 155), 0.85)
++    d.line(scaled([(9, 18), (72, 18)]), fill=(115, 148, 156, 45), width=round(0.45 * SS))
++    d.line(scaled([(203, 18), (247, 18)]), fill=(115, 148, 156, 45), width=round(0.45 * SS))
++    return add_layer(scene, overlay)
++
++
++def finish_frame(scene: Image.Image, frame_index: int) -&gt; np.ndarray:
++    image = scene.convert(&quot;RGB&quot;).resize((WIDTH, HEIGHT), Image.Resampling.LANCZOS)
++    arr = np.asarray(image, dtype=np.float32)
++    yy, xx = np.mgrid[0:HEIGHT, 0:WIDTH]
++    nx = (xx - (WIDTH - 1) / 2) / ((WIDTH - 1) / 2)
++    ny = (yy - (HEIGHT - 1) / 2) / ((HEIGHT - 1) / 2)
++    vignette = np.clip(1.0 - 0.12 * (nx * nx + ny * ny * 0.65), 0.78, 1.0)
++    arr *= vignette[:, :, None]
++    rng = np.random.default_rng(500 + frame_index)
++    arr += rng.normal(0.0, 0.55, (HEIGHT, WIDTH, 1))
++    return np.clip(arr, 0, 255).astype(np.uint8)
++
++
++def render_frame(frame_index: int, background: Image.Image, glass: Image.Image) -&gt; np.ndarray:
++    vacuum = frame_index / max(1, FRAME_COUNT - 1)
++    pressure = pressure_at(frame_index)
++    scene = background.copy()
++
++    rim = layer()
++    rd = ImageDraw.Draw(rim)
++    rd.line(scaled(jar_points(0.3)), fill=(20, 42, 47, 95), width=round(2.8 * SS))
++    scene = add_layer(scene, rim)
++
++    particles = make_particles(frame_index, vacuum)
++    scene = add_layer(scene, particles)
++    scene = add_layer(scene, make_air_tint(vacuum))
++    scene = add_layer(scene, glass)
++    scene = draw_chamber_base(scene)
++    scene = draw_hose(scene, frame_index)
++    scene = draw_pump(scene, frame_index, pressure)
++    scene = add_scene_text(scene, frame_index)
++    return finish_frame(scene, frame_index)
++
++
++def main() -&gt; None:
++    background = make_background()
++    glass = make_glass_base()
++    frames = [render_frame(index, background, glass) for index in range(FRAME_COUNT)]
++    save(frames, CASE_DIR)
++    print(f&quot;Wrote {FRAME_COUNT} frames to {CASE_DIR}&quot;)
++
++
++if __name__ == &quot;__main__&quot;:
++    main()
+</pre></details></div></details><details class=candidate><summary><strong>候选 02</strong><span class=status>播放与检查图</span><time>2026-11-11T08:38:30.758404+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_fc6847aa80b5144f.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;80458580236938741f159a10e00b23322347cf9ab261b7240740141f4e3e933d&quot;, &quot;pixels&quot;: &quot;candidate_01/pixels_fc6847aa80b5144f.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_01/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_01/inspection.png" target=_blank><img loading=lazy src="candidate_01/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_01/transition_check.png" target=_blank><img loading=lazy src="candidate_01/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -265,7 +265,7 @@
+         x = start_x + (outlet[0] - start_x) * travel + math.cos(phase + vacuum * 8.0) * swirl
+         y = start_y + (outlet[1] - start_y) * travel + math.sin(phase + vacuum * 8.0) * swirl * 0.72
+         fade = clamp((exit_time - vacuum) / 0.16)
+-        alpha = round(rng.uniform(76, 136) * (0.45 + 0.55 * fade))
++        alpha = round(rng.uniform(92, 153) * (0.45 + 0.55 * fade))
+         size = rng.uniform(0.55, 1.0)
+         color = (174, 229, 233, alpha)
+         glow_radius = size * 3.0
+@@ -308,8 +308,8 @@
+     glass_layer = layer()
+     gd = ImageDraw.Draw(glass_layer)
+     outline = scaled(jar_points(0.25))
+-    gd.line(outline, fill=(32, 60, 68, 70), width=round(2.6 * SS))
+-    gd.line(outline, fill=(157, 220, 226, 90), width=round(1.0 * SS))
++    gd.line(outline, fill=(28, 56, 64, 92), width=round(2.7 * SS))
++    gd.line(outline, fill=(170, 229, 233, 112), width=round(1.0 * SS))
+ 
+     edge = layer()
+     ed = ImageDraw.Draw(edge)
+@@ -319,8 +319,8 @@
+         y = 48 + 58 * i / 109
+         left_edge.append((104 - jar_halfwidth(y, 0.7), y))
+         right_edge.append((104 + jar_halfwidth(y, 0.7), y))
+-    ed.line(scaled(left_edge), fill=(206, 242, 242, 32), width=round(1.6 * SS))
+-    ed.line(scaled(right_edge), fill=(194, 241, 242, 72), width=round(1.15 * SS))
++    ed.line(scaled(left_edge), fill=(206, 242, 242, 45), width=round(1.6 * SS))
++    ed.line(scaled(right_edge), fill=(194, 241, 242, 91), width=round(1.15 * SS))
+     edge = edge.filter(ImageFilter.GaussianBlur(0.45 * SS))
+     glass_layer = Image.alpha_composite(glass_layer, edge)
+ 
+@@ -351,7 +351,7 @@
+ def make_air_tint(vacuum: float) -&gt; Image.Image:
+     tint = layer()
+     td = ImageDraw.Draw(tint)
+-    alpha = round(13 * (1.0 - vacuum) ** 1.5)
++    alpha = round(16 * (1.0 - vacuum) ** 1.5)
+     if alpha:
+         td.rectangle(box(0, 0, 256, 144), fill=(142, 218, 223, alpha))
+     mask = jar_mask(2.0)
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-11T08:34:00.957382+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;pwd &amp;&amp; rg --files -g &#x27;prompt.txt&#x27; -g &#x27;GENERATION_RULES.md&#x27; -g &#x27;task_spec.json&#x27; -g &#x27;&quot;&#x27;!node_modules&#x27;&quot;&#x27; -g &#x27;&quot;&#x27;!vendor&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-11T08:34:01.186783+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;ls -la &amp;&amp; find . -maxdepth 2 -type f | sed &#x27;s#&quot;&#x27;^./##&#x27;&quot;&#x27; | sort | head -200&quot;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-11T08:34:01.771284+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;git status --short --branch&#x27;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-11T08:34:08.647414+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;cat prompt.txt&#x27;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-11T08:34:08.890383+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;cat GENERATION_RULES.md&#x27;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-11T08:34:09.150458+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;cat task_spec.json&#x27;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-11T08:34:09.545130+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;sed -n &#x27;1,240p&#x27; artifact_io.py &amp;&amp; printf &#x27;\\n--- template ---\\n&#x27; &amp;&amp; sed -n &#x27;1,260p&#x27; player_template.html&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-11T08:34:34.561548+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import sys
+from PIL import Image
+print(sys.version)
+print(Image.__version__)
+PY&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-11T08:34:34.789622+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;fc-list | head -20&#x27;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-11T08:34:35.160857+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;command -v chafa || command -v viu || command -v img2txt || command -v jp2 || command -v magick || command -v convert || true&#x27;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-11T08:37:13.705845+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-11T08:37:29.463027+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-11T08:37:33.437109+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+im=Image.open(&#x27;inspection.png&#x27;)
+print(im.size)
+im.resize((1024,330), Image.Resampling.NEAREST).save(&#x27;.tmp/inspection_big.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-11T08:37:44.075741+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+im=Image.open(&#x27;inspection.png&#x27;).convert(&#x27;RGB&#x27;)
+a=np.asarray(im)
+# Report overall and selected-region stats.
+print(&#x27;shape&#x27;,a.shape,&#x27;mean&#x27;,np.round(a.mean((0,1)),1),&#x27;minmax&#x27;,a.min(),a.max())
+for name,box in {&#x27;jar&#x27;:(60,45,180,220),&#x27;pump&#x27;:(730,45,1010,220),&#x27;background&#x27;:(0,0,1024,20)}.items():
+ x0,y0,x1,y1=box; r=a[y0:y1,x0:x1]; print(name, np.round(r.mean((0,1)),1), &#x27;std&#x27;,np.round(r.std((0,1)),1))
+# Palette buckets for a quick structural map.
+rgb=a[::4,::4]
+names=np.array([&#x27;K&#x27;,&#x27;D&#x27;,&#x27;B&#x27;,&#x27;G&#x27;,&#x27;C&#x27;,&#x27;W&#x27;,&#x27;O&#x27;,&#x27;R&#x27;])
+pal=np.array([[10,14,18],[30,39,45],[56,69,75],[92,143,145],[126,206,212],[221,228,221],[193,127,63],[181,74,51]])
+idx=((rgb[:,:,None,:]-pal[None,None,:,:])**2).sum(-1).argmin(-1)
+chars=np.array(list(&#x27; .:-=+*#&#x27;))
+print(&#x27;\\n&#x27;.join(&#x27;&#x27;.join(chars[min(7,int(v))] for v in row) for row in rgb.mean(2)//32))
+PY&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-11T08:37:48.915277+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image, ImageDraw
+import numpy as np
+files=[&#x27;frames/00.png&#x27;,&#x27;frames/09.png&#x27;,&#x27;frames/19.png&#x27;]
+ims=[Image.open(f).convert(&#x27;RGB&#x27;) for f in files]
+out=Image.new(&#x27;RGB&#x27;,(256*3,144),(8,10,12))
+for i,im in enumerate(ims): out.paste(im,(i*256,0))
+out.resize((1536,288),Image.Resampling.NEAREST).save(&#x27;.tmp/three_frames.png&#x27;)
+# Numeric evidence of intended changes.
+for f in files:
+ a=np.asarray(Image.open(f).convert(&#x27;RGB&#x27;))
+ jar=a[24:108,54:154]
+ print(f,&#x27;jar mean&#x27;,np.round(jar.mean((0,1)),2),&#x27;pump display&#x27;,np.round(a[96:108,190:218].mean((0,1)),2))
+PY&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-11T08:37:58.217624+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image, ImageOps, ImageFilter
+import numpy as np
+im=Image.open(&#x27;frames/00.png&#x27;).convert(&#x27;L&#x27;)
+im=ImageOps.autocontrast(im, cutoff=1)
+im=im.resize((96,54),Image.Resampling.LANCZOS)
+a=np.asarray(im)
+chars=&#x27; .,:;irsXA253hMHGS#9B&amp;@&#x27;
+for row in a:
+ print(&#x27;&#x27;.join(chars[min(len(chars)-1,int(v)*(len(chars)-1)//256)] for v in row))
+PY&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-11T08:38:15.403935+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;rg -n \&quot;alpha = round|gd.line\\(outline|ed.line\\(scaled\&quot; generate.py&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-11T08:38:28.954567+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-11T08:38:37.208266+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+from PIL import Image
+import numpy as np, json
+files=sorted(Path(&#x27;frames&#x27;).glob(&#x27;*.png&#x27;))
+arr=np.stack([np.asarray(Image.open(f).convert(&#x27;RGB&#x27;)) for f in files])
+print(&#x27;frames&#x27;,len(files),&#x27;shape&#x27;,arr.shape,&#x27;dtype&#x27;,arr.dtype)
+print(&#x27;frame_means&#x27;,[(i,tuple(np.round(arr[i].mean((0,1)),1))) for i in (0,5,10,15,19)])
+d=np.abs(np.diff(arr.astype(np.int16),axis=0))
+print(&#x27;diff mean per transition&#x27;,np.round(d.mean((1,2,3)),2).tolist())
+print(&#x27;changed pixels per transition (&gt;8 max channel)&#x27;,(d.max(3)&gt;8).sum((1,2)).tolist())
+print(&#x27;npz&#x27;,np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;].shape)
+print(&#x27;html bytes&#x27;,Path(&#x27;index.html&#x27;).stat().st_size)
+print(&#x27;inspection&#x27;,Image.open(&#x27;inspection.png&#x27;).size)
+PY&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-11T08:38:47.263540+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import hashlib, subprocess, sys
+from pathlib import Path
+before={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in Path(&#x27;frames&#x27;).glob(&#x27;*.png&#x27;)}
+subprocess.run([sys.executable,&#x27;generate.py&#x27;],check=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+after={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in Path(&#x27;frames&#x27;).glob(&#x27;*.png&#x27;)}
+print(&#x27;deterministic_frames&#x27;,before==after,&#x27;count&#x27;,len(after))
+PY&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-11T08:38:52.511365+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+from PIL import Image
+import numpy as np, re, json
+text=Path(&#x27;index.html&#x27;).read_text()
+m=re.search(r\&quot;const DATA=(\\{.*?\\}),W=DATA\\.width\&quot;,text)
+assert m, &#x27;payload missing&#x27;
+data=json.loads(m.group(1))
+print(&#x27;player metadata&#x27;, {k:data[k] for k in (&#x27;width&#x27;,&#x27;height&#x27;,&#x27;frames&#x27;,&#x27;fps&#x27;)}, &#x27;caption=&#x27;,data[&#x27;caption&#x27;])
+print(&#x27;deltas&#x27;,len(data[&#x27;deltas&#x27;]),&#x27;first chars&#x27;,len(data[&#x27;first&#x27;]))
+# Check final contact sheet for clipping and broad tonal range.
+im=Image.open(&#x27;inspection.png&#x27;).convert(&#x27;RGB&#x27;)
+a=np.asarray(im)
+print(&#x27;contact sheet extrema&#x27;,a.min(),a.max(),&#x27;mean&#x27;,np.round(a.mean((0,1)),1))
+# Validate all PNGs are actual RGB frames.
+for i in range(20):
+ p=Image.open(f&#x27;frames/{i:02d}.png&#x27;); assert p.size==(256,144) and p.mode==&#x27;RGB&#x27;
+print(&#x27;all RGB frame files valid&#x27;)
+PY&quot;</pre></details><p class=muted>保存候选 2 份；完成命令 21 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
