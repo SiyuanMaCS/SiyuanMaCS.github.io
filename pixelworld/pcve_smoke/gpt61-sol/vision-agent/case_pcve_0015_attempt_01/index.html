@@ -1,0 +1,634 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/GPT-6.1-Sol · pcve_0015</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/GPT-6.1-Sol · pcve_0015</h1></section><div class=case-meta><span class=badge>vision-agent</span><span class=pill>256×144</span><span class=pill>24 FPS · 96 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_9420885ede0ff775.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;60fcd50e900445f11e2d33a84fed465c49ee86a0cee1b5328ff1829de5f7b852&quot;, &quot;pixels&quot;: &quot;final/pixels_9420885ede0ff775.rgb.gz&quot;, &quot;poster&quot;: &quot;final/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>视频编辑</span><h3 style="margin-top:14px">原始任务</h3><p>From frame 1 onwards, remove the wooden block from the scene.
+</p><div class=facts><div><strong>4.00s</strong>视频时长</div><div><strong>26240</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=card><h2>编辑前的完整原视频</h2><video controls preload=metadata src="source_video.mp4" style="width:100%;max-height:480px"></video><p class=note>上方为编辑结果；原视频是模型获准使用的输入。下方为逐轮保存的编辑候选。</p></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-11T17:58:19.959633+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_14526cd980e0223c.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;1c854af83d983665023cb0e30b5c4f0d1ddcd3eddce0df901831a1059cd5f8b4&quot;, &quot;pixels&quot;: &quot;candidate_00/pixels_14526cd980e0223c.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_00/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_00/inspection.png" target=_blank><img loading=lazy src="candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_00/transition_check.png" target=_blank><img loading=lazy src="candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,140 @@
++&quot;&quot;&quot;Remove the block at time zero; reconstruct the room and continue free rolling.
++Only source pixels and local image/geometry calculations are used.
++&quot;&quot;&quot;
++from pathlib import Path
++import warnings
++import numpy as np
++import cv2
++from scipy.optimize import least_squares
++from scipy.ndimage import gaussian_filter
++from PIL import Image
++import artifact_io
++
++ROOT = Path(__file__).resolve().parent
++
++def ball_circles(source):
++    tracks=[]
++    for image in source:
++        a=image.astype(float)
++        mask=(a[:,:,0]&gt;1.75*a[:,:,1])&amp;(a[:,:,0]-a[:,:,1]&gt;60)&amp;(a[:,:,0]&gt;1.8*a[:,:,2])
++        contours,_=cv2.findContours(mask.astype(&#x27;uint8&#x27;),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
++        points=cv2.convexHull(max(contours,key=cv2.contourArea)).reshape(-1,2).astype(float)
++        fit=np.linalg.lstsq(np.c_[2*points,np.ones(len(points))],(points**2).sum(1),rcond=None)[0]
++        cx,cy=fit[:2]
++        radius=np.sqrt(fit[2]+cx*cx+cy*cy)+.6
++        tracks.append((cx,cy,radius))
++    return np.array(tracks)
++
++def room_plate(source, tracks):
++    h,w=source.shape[1:3]
++    y,x=np.mgrid[:h,:w]
++    keys=[0,10,12,14,15,17,20,23,26,29,33,95]
++    left=[108,108,109,118,121,134,152,166,177,181,181,181]
++    right=[167,167,168,177,180,193,212,226,239,244,245,245]
++    top=[55,55,55,56,57,59,61,63,65,66,66,66]
++    bottom=[105,105,105,106,107,110,112,114,117,118,118,118]
++    available=[]
++    for i,image in enumerate(source):
++        cx,cy,r=tracks[i]
++        bad=((x-cx)**2+(y-cy)**2&lt;=(r+3)**2)
++        bad |= ((x-cx-6)/(r+16))**2+((y-cy-r+2)/10)**2&lt;1
++        l=np.interp(i,keys,left);rr=np.interp(i,keys,right)
++        t=np.interp(i,keys,top);b=np.interp(i,keys,bottom)
++        margin=8 if i&lt;15 else 15
++        bad|=(x&gt;=l-3)&amp;(x&lt;=rr+margin)&amp;(y&gt;=t-1)&amp;(y&lt;=b+17)
++        pixels=image.astype(float);pixels[bad]=np.nan
++        available.append(pixels)
++    with warnings.catch_warnings():
++        warnings.simplefilter(&#x27;ignore&#x27;, RuntimeWarning)
++        bg=np.nanmedian(np.array(available),axis=0)
++    holes=~np.isfinite(bg[:,:,0])
++    # Small footprint never observed: complete with classical local image inpainting.
++    bg=np.nan_to_num(bg).astype(&#x27;uint8&#x27;)
++    bg=cv2.inpaint(bg,holes.astype(&#x27;uint8&#x27;)*255,3,cv2.INPAINT_TELEA)
++    # Keep static wall at its exact source appearance (no intervention affects it).
++    wall=(x&gt;=69)&amp;(y&lt;=43+(x-69)*.156)
++    bg[wall]=source[0][wall]
++    return bg
++
++def free_trajectory(tracks):
++    t=np.arange(12,dtype=float)
++    observed=tracks[:12]
++    # Projected straight world-space motion is a rational curve under perspective.
++    def residual(p):
++        k,a,b,c,d,r,e=p
++        den=1-k*t
++        return np.r_[(a+b*t)/den-observed[:,0],(c+d*t)/den-observed[:,1],
++                     .75*((r+e*t)/den-observed[:,2])]
++    p=least_squares(residual,[.001,15.4,7,56.2,1.4,15,.15]).x
++    k,a,b,c,d,r,e=p
++    def at(i):
++        if i&lt;12:
++            return tracks[i]
++        den=1-k*i
++        return np.array([(a+b*i)/den,(c+d*i)/den,(r+e*i)/den])
++    return at
++
++def sphere_texture(image, background, circle):
++    # Recover a soft RGB sphere sprite, excluding its floor shadow.
++    cx,cy,r=circle
++    radius=r-.25
++    h,w=image.shape[:2]
++    yy,xx=np.mgrid[:h,:w]
++    distance=np.sqrt((xx-cx)**2+(yy-cy)**2)
++    alpha=np.clip((radius+.65-distance)/1.3,0,1)
++    # Recover surface color from the antialiased edge rather than copy floor pixels.
++    surface=(image.astype(float)-background*(1-alpha[:,:,None]))/np.maximum(alpha[:,:,None],.22)
++    # A dark contact edge needs a slightly soft transition, as in the factual render.
++    return np.clip(surface,0,255).astype(&#x27;float32&#x27;),alpha.astype(&#x27;float32&#x27;)
++
++def composite_ball(bg, texture, src_circle, target_circle):
++    image=bg.astype(&#x27;float32&#x27;).copy()
++    cx,cy,r=target_circle
++    if cx-r&gt;bg.shape[1]+2 or cx+r&lt;-2:
++        return bg.copy()
++    sx,sy,sr=src_circle
++    yy,xx=np.mgrid[:bg.shape[0],:bg.shape[1]]
++    # Floor contact and elongated soft cast shadow in the original light direction.
++    broad=np.exp(-.5*(((xx-cx-.36*r)/(.99*r))**2+((yy-cy-.96*r)/(.22*r))**2))
++    contact=np.exp(-.5*(((xx-cx)/(.57*r))**2+((yy-cy-.94*r)/(.075*r))**2))
++    darkness=1-.25*broad-.34*contact
++    image*=darkness[:,:,None].astype(&#x27;float32&#x27;)
++    u=(sx+(xx-cx)*sr/r).astype(&#x27;float32&#x27;);v=(sy+(yy-cy)*sr/r).astype(&#x27;float32&#x27;)
++    rgb,alpha=texture
++    rgb=cv2.remap(rgb,u,v,cv2.INTER_LINEAR,borderMode=cv2.BORDER_REPLICATE)
++    alpha=cv2.remap(alpha,u,v,cv2.INTER_LINEAR,borderMode=cv2.BORDER_CONSTANT)
++    image=image*(1-alpha[:,:,None])+rgb*alpha[:,:,None]
++    return np.clip(image,0,255).astype(&#x27;uint8&#x27;)
++
++def main():
++    source=np.load(ROOT/&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
++    tracks=ball_circles(source)
++    bg=room_plate(source,tracks)
++    at=free_trajectory(tracks)
++    textures=[sphere_texture(im,bg,tracks[i]) for i,im in enumerate(source)]
++    output=[]
++    h,w=bg.shape[:2];yy,xx=np.mgrid[:h,:w]
++    for i in range(len(source)):
++        circle=at(i)
++        if i&lt;12:
++            # Ball history is unaffected until the missing block&#x27;s first contact.
++            # Copy its original pixels and shadow, stopping before the block.
++            cx,cy,r=circle
++            mask=((xx-cx)**2+(yy-cy)**2&lt;(r+2)**2)
++            mask|=(((xx-cx-5)/(r+14))**2+((yy-cy-r+1)/8)**2&lt;1)
++            mask&amp;=(xx&lt;107)
++            frame=bg.copy();frame[mask]=source[i][mask]
++        else:
++            # Source later contains a clean view of a complete rotation of the ball.
++            # Retiming this cycle preserves the source ball&#x27;s texture and lighting.
++            # Eight slow-spin samples per output sample approximate free rolling.
++            j=18+((i-12)*8)%52
++            frame=composite_ball(bg,textures[j],tracks[j],circle)
++        output.append(frame)
++    frames=np.array(output,dtype=&#x27;uint8&#x27;)
++    artifact_io.save(frames,ROOT)
++    Image.fromarray(bg).resize((768,432)).save(ROOT/&#x27;.tmp/room_plate.png&#x27;)
++    print(&#x27;Saved&#x27;,frames.shape,&#x27;RGB frames at 24 fps&#x27;)
++
++if __name__==&#x27;__main__&#x27;:
++    main()
+</pre></details></div></details><details class=candidate><summary><strong>候选 02</strong><span class=status>播放与检查图</span><time>2026-11-11T18:05:39.415594+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_14526cd980e0223c.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;1c854af83d983665023cb0e30b5c4f0d1ddcd3eddce0df901831a1059cd5f8b4&quot;, &quot;pixels&quot;: &quot;candidate_01/pixels_14526cd980e0223c.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_01/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_01/inspection.png" target=_blank><img loading=lazy src="candidate_01/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_01/transition_check.png" target=_blank><img loading=lazy src="candidate_01/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -7,6 +7,8 @@
+ import cv2
+ from scipy.optimize import least_squares
+ from scipy.ndimage import gaussian_filter
++from scipy.sparse import lil_matrix
++from scipy.sparse.linalg import spsolve
+ from PIL import Image
+ import artifact_io
+ 
+@@ -46,11 +48,48 @@
+         available.append(pixels)
+     with warnings.catch_warnings():
+         warnings.simplefilter(&#x27;ignore&#x27;, RuntimeWarning)
+-        bg=np.nanmedian(np.array(available),axis=0)
++        bg=np.nanpercentile(np.array(available),65,axis=0)
+     holes=~np.isfinite(bg[:,:,0])
+-    # Small footprint never observed: complete with classical local image inpainting.
++    # A tiny footprint was never observed. Continue the existing plank grain
++    # from a matched, exposed source-floor patch, with a harmonic seam correction.
+     bg=np.nan_to_num(bg).astype(&#x27;uint8&#x27;)
+-    bg=cv2.inpaint(bg,holes.astype(&#x27;uint8&#x27;)*255,3,cv2.INPAINT_TELEA)
++    region=cv2.dilate(holes.astype(&#x27;uint8&#x27;),np.ones((5,5),np.uint8)).astype(bool)
++    ring=cv2.dilate(region.astype(&#x27;uint8&#x27;),np.ones((5,5),np.uint8)).astype(bool)&amp;~region
++    ys,xs=np.where(region)
++    ry,rx=np.where(ring)
++    smooth=gaussian_filter(bg.astype(float),sigma=(2,2,0))
++    grain=bg.astype(float)-smooth
++    best=None
++    for dx in range(-85,86):
++        if abs(dx)&lt;22:
++            continue
++        for dy in range(-28,29):
++            xx=xs+dx;yy=ys+dy
++            qx=rx+dx;qy=ry+dy
++            if xx.min()&lt;2 or xx.max()&gt;=w-2 or yy.min()&lt;48 or yy.max()&gt;=h-2:
++                continue
++            if np.any(holes[yy,xx]) or np.any(holes[qy,qx]):
++                continue
++            # Grain orientation and boundary alignment matter more than lighting.
++            error=np.mean((grain[qy,qx]-grain[ry,rx])**2)
++            error+=.04*np.mean((smooth[qy,qx]-smooth[ry,rx])**2)
++            if best is None or error&lt;best[0]:
++                best=(error,dx,dy)
++    _,dx,dy=best
++    donor=bg.astype(float)[np.clip(y+dy,0,h-1),np.clip(x+dx,0,w-1)]
++    lookup=np.full((h,w),-1,dtype=int)
++    lookup[ys,xs]=np.arange(len(xs))
++    lap=lil_matrix((len(xs),len(xs)))
++    rhs=np.zeros((len(xs),3))
++    for n,(py,px) in enumerate(zip(ys,xs)):
++        lap[n,n]=4
++        for ay,ax in ((py-1,px),(py+1,px),(py,px-1),(py,px+1)):
++            if lookup[ay,ax]&gt;=0:
++                lap[n,lookup[ay,ax]]=-1
++            else:
++                rhs[n]+=bg[ay,ax].astype(float)-donor[ay,ax]
++    correction=spsolve(lap.tocsr(),rhs)
++    bg[ys,xs]=np.clip(donor[ys,xs]+correction,0,255).astype(&#x27;uint8&#x27;)
+     # Keep static wall at its exact source appearance (no intervention affects it).
+     wall=(x&gt;=69)&amp;(y&lt;=43+(x-69)*.156)
+     bg[wall]=source[0][wall]
+</pre></details></div></details><details class=candidate><summary><strong>候选 03</strong><span class=status>播放与检查图</span><time>2026-11-11T18:06:33.590752+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_01c4657ba30cb80b.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;60fcd50e900445f11e2d33a84fed465c49ee86a0cee1b5328ff1829de5f7b852&quot;, &quot;pixels&quot;: &quot;candidate_02/pixels_01c4657ba30cb80b.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_02/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_02/inspection.png" target=_blank><img loading=lazy src="candidate_02/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_02/transition_check.png" target=_blank><img loading=lazy src="candidate_02/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>代码未变化；重新保存了产物。</pre></details></div></details><details class=candidate><summary><strong>候选 04</strong><span class=status>播放与检查图</span><time>2026-11-11T18:06:42.169508+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_01c4657ba30cb80b.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;60fcd50e900445f11e2d33a84fed465c49ee86a0cee1b5328ff1829de5f7b852&quot;, &quot;pixels&quot;: &quot;candidate_03/pixels_01c4657ba30cb80b.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_03/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_03/inspection.png" target=_blank><img loading=lazy src="candidate_03/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_03/transition_check.png" target=_blank><img loading=lazy src="candidate_03/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>代码未变化；重新保存了产物。</pre></details></div></details><details class=candidate><summary><strong>候选 05</strong><span class=status>播放与检查图</span><time>2026-11-11T18:14:25.401434+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_9420885ede0ff775.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;60fcd50e900445f11e2d33a84fed465c49ee86a0cee1b5328ff1829de5f7b852&quot;, &quot;pixels&quot;: &quot;candidate_04/pixels_9420885ede0ff775.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_04/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_04/inspection.png" target=_blank><img loading=lazy src="candidate_04/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_04/transition_check.png" target=_blank><img loading=lazy src="candidate_04/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -155,7 +155,7 @@
+     h,w=bg.shape[:2];yy,xx=np.mgrid[:h,:w]
+     for i in range(len(source)):
+         circle=at(i)
+-        if i&lt;12:
++        if i&lt;9:
+             # Ball history is unaffected until the missing block&#x27;s first contact.
+             # Copy its original pixels and shadow, stopping before the block.
+             cx,cy,r=circle
+@@ -163,6 +163,10 @@
+             mask|=(((xx-cx-5)/(r+14))**2+((yy-cy-r+1)/8)**2&lt;1)
+             mask&amp;=(xx&lt;107)
+             frame=bg.copy();frame[mask]=source[i][mask]
++        elif i&lt;12:
++            # Close to the former block, a copied rectangular shadow patch would
++            # also copy its dark edge. Composite only the sphere and its own shadow.
++            frame=composite_ball(bg,textures[i],tracks[i],circle)
+         else:
+             # Source later contains a clean view of a complete rotation of the ball.
+             # Retiming this cycle preserves the source ball&#x27;s texture and lighting.
+</pre></details></div></details><details class=candidate><summary><strong>候选 06</strong><span class=status>播放与检查图</span><time>2026-11-11T18:20:34.130740+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_9420885ede0ff775.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;60fcd50e900445f11e2d33a84fed465c49ee86a0cee1b5328ff1829de5f7b852&quot;, &quot;pixels&quot;: &quot;candidate_05/pixels_9420885ede0ff775.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_05/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_05/inspection.png" target=_blank><img loading=lazy src="candidate_05/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_05/transition_check.png" target=_blank><img loading=lazy src="candidate_05/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -176,6 +176,12 @@
+         output.append(frame)
+     frames=np.array(output,dtype=&#x27;uint8&#x27;)
+     artifact_io.save(frames,ROOT)
++    # Convenient conventional video in addition to the required RGB artifact/player.
++    import imageio.v2 as imageio
++    with imageio.get_writer(ROOT/&#x27;edited_video.mp4&#x27;, fps=24, codec=&#x27;libx264&#x27;,
++                            quality=9, macro_block_size=1) as writer:
++        for frame in frames:
++            writer.append_data(frame)
+     Image.fromarray(bg).resize((768,432)).save(ROOT/&#x27;.tmp/room_plate.png&#x27;)
+     print(&#x27;Saved&#x27;,frames.shape,&#x27;RGB frames at 24 fps&#x27;)
+ 
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-11T17:32:48.784807+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;ls -la &amp;&amp; cat prompt.txt &amp;&amp; printf &#x27;\\n---RULES---\\n&#x27; &amp;&amp; cat GENERATION_RULES.md&quot;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-11T17:34:41.520654+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat source_info.json &amp;&amp; cat task_spec.json &amp;&amp; cat artifact_io.py&#x27;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-11T17:36:09.698479+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+p=np.load(&#x27;source_pixels.npz&#x27;); print(p.files)
+a=p[p.files[0]]; print(a.shape,a.dtype)
+for i in [0,9,14,17,22,27,32,40,55,80,95]:
+ Image.fromarray(a[i]).resize((768,432)).save(f&#x27;.tmp/source{i:02d}.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-11T17:40:29.156742+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np, cv2
+from PIL import Image,ImageDraw
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;];
+print(&#x27;wall diff&#x27;,np.abs(f[-1,:40,90:230].astype(float)-f[0,:40,90:230]).mean())
+items=[]
+for i,img in enumerate(f):
+ a=img.astype(float); m=(a[:,:,0]&gt;1.75*a[:,:,1])&amp;(a[:,:,0]-a[:,:,1]&gt;60)&amp;(a[:,:,0]&gt;1.8*a[:,:,2]); num,lab,stats,cens=cv2.connectedComponentsWithStats(m.astype(&#x27;uint8&#x27;))
+ j=1+np.argmax(stats[1:,4]); x,y,w,h,n=stats[j]; cx,cy=cens[j]; items.append((cx,cy,x,y,w,h,n))
+for i in range(0,96,3): print(i, np.round(items[i],1))
+np.save(&#x27;.tmp/ball_track.npy&#x27;,items)
+# contact sheet larger
+out=Image.new(&#x27;RGB&#x27;,(1024,768))
+for k,i in enumerate([0,6,9,12,15,18,21,24,27,30,33,36,45,60,75,95]):
+ out.paste(Image.fromarray(f[i]).resize((256,144)),(k%4*256,k//4*192))
+ ImageDraw.Draw(out).text((k%4*256+5,k//4*192+150),str(i),fill=&#x27;white&#x27;)
+out.save(&#x27;.tmp/tracks.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-11T17:42:52.843295+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image,ImageDraw
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]; out=Image.new(&#x27;RGB&#x27;,(900,540))
+for k,i in enumerate([0,3,6,9,10,11,14,18,30,45,60,75,90,95]):
+ a=np.load(&#x27;.tmp/ball_track.npy&#x27;)[i]; cx,cy=a[:2]; x=int(round(cx));y=int(round(cy)); crop=Image.fromarray(f[i]).crop((x-25,y-25,x+25,y+25)).resize((150,150),Image.Resampling.NEAREST)
+ out.paste(crop,(k%6*150,k//6*180));ImageDraw.Draw(out).text((k%6*150,k//6*180+153),str(i),fill=&#x27;white&#x27;)
+out.save(&#x27;.tmp/spheres.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-11T17:44:52.848892+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; .tmp/analyze.py &lt;&lt;&#x27;PY&#x27;
+import numpy as np, cv2
+from PIL import Image
+from scipy.interpolate import interp1d
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;];N,H,W,_=f.shape
+Y,X=np.mgrid[:H,:W]
+tracks=[]
+for a in f:
+ b=a.astype(float);m=(b[:,:,0]&gt;1.75*b[:,:,1])&amp;(b[:,:,0]-b[:,:,1]&gt;60)&amp;(b[:,:,0]&gt;1.8*b[:,:,2])
+ contours,_=cv2.findContours(m.astype(&#x27;uint8&#x27;),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
+ cnt=max(contours,key=cv2.contourArea); hull=cv2.convexHull(cnt).reshape(-1,2).astype(float)
+ A=np.c_[2*hull,np.ones(len(hull))];z=(hull**2).sum(1)
+ sol=np.linalg.lstsq(A,z,rcond=None)[0];cx,cy=sol[:2]; r=(sol[2]+cx*cx+cy*cy)**.5
+ tracks.append([cx,cy,r+.6])
+tracks=np.array(tracks);np.save(&#x27;.tmp/circles.npy&#x27;,tracks)
+keys=[0,10,12,14,15,17,20,23,26,29,33,95]
+left=[108,108,109,118,121,134,152,166,177,181,181,181]
+right=[167,167,168,177,180,193,212,226,239,244,245,245]
+top=[55,55,55,56,57,59,61,63,65,66,66,66]
+bottom=[105,105,105,106,107,110,112,114,117,118,118,118]
+clean=[]
+for i,a in enumerate(f):
+ cx,cy,r=tracks[i]
+ # ball&#x27;s shadow extending to the right
+ bad=((X-cx)**2+(Y-cy)**2&lt;=(r+3)**2) | (((X-cx-6)/(r+15))**2+((Y-cy-r+2)/9)**2&lt;1)
+ l=np.interp(i,keys,left); rr=np.interp(i,keys,right);t=np.interp(i,keys,top);b=np.interp(i,keys,bottom)
+ bad|=(X&gt;=l-8)&amp;(X&lt;=rr+13)&amp;(Y&gt;=t-3)&amp;(Y&lt;=b+9)
+ aa=a.astype(float); aa[bad]=np.nan;clean.append(aa)
+clean=np.array(clean);valid=np.isfinite(clean[:,:,:,0]).sum(0); print(&#x27;unseen&#x27;,np.sum(valid==0), &#x27;min&#x27;,valid.min())
+bg=np.nanmedian(clean,axis=0);bg=np.nan_to_num(bg).astype(&#x27;uint8&#x27;); Image.fromarray(bg).save(&#x27;.tmp/bg.png&#x27;);Image.fromarray(bg).resize((768,432)).save(&#x27;.tmp/bg_big.png&#x27;);np.save(&#x27;.tmp/bg.npy&#x27;,bg)
+for i in range(12):print(i,np.round(tracks[i],3))
+PY
+python .tmp/analyze.py&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-11T17:46:53.770656+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; .tmp/fitspin.py &lt;&lt;&#x27;PY&#x27;
+import numpy as np, cv2
+from scipy.spatial.transform import Rotation
+from scipy.optimize import differential_evolution,minimize
+from scipy.ndimage import gaussian_filter
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;];circle=np.load(&#x27;.tmp/circles.npy&#x27;)
+res=100
+Y,X=np.mgrid[:res,:res];u=(X-(res-1)/2)/(res/2);v=(Y-(res-1)/2)/(res/2);d=u*u+v*v;valid=d&lt;.8;z=np.sqrt(np.maximum(0,1-d));qs=np.stack((u[valid],v[valid],z[valid]),1)
+imgs=[]
+for i in range(len(f)):
+ cx,cy,r=circle[i];px=(cx+u*r).astype(&#x27;float32&#x27;);py=(cy+v*r).astype(&#x27;float32&#x27;);im=cv2.remap(f[i].astype(&#x27;float32&#x27;),px,py,cv2.INTER_LINEAR)
+ # normalized intensity emphasizes black channels instead of lighting.
+ # high pass
+ im=cv2.cvtColor(im,cv2.COLOR_RGB2GRAY)
+ filt=cv2.GaussianBlur(im,(0,0),2)
+ norm=np.log(np.maximum(1,filt))-np.log(np.maximum(1,cv2.GaussianBlur(im,(0,0),9)))
+ imgs.append(norm)
+imgs=np.array(imgs)
+np.save(&#x27;.tmp/spinimgs.npy&#x27;,imgs)
+pairs=[(i,i+1) for i in range(10)]
+
+def loss(rv):
+ rot=Rotation.from_rotvec(rv).as_matrix();new=qs@rot
+ vv=new[:,2]&gt;.22
+ xx=((new[:,0]*res/2+(res-1)/2)).astype(&#x27;float32&#x27;);yy=((new[:,1]*res/2+(res-1)/2)).astype(&#x27;float32&#x27;)
+ tot=0
+ for a,b in pairs:
+  v1=cv2.remap(imgs[a],xx[:,None],yy[:,None],cv2.INTER_LINEAR)[:,0]
+  v2=imgs[b][valid]
+  tot+=np.mean((v1[vv]-v2[vv])**2)
+ return tot/len(pairs)
+resu=differential_evolution(loss,[(-.5,.5),(-.6,.6),(-.6,.6)],popsize=10,maxiter=50,tol=.001)
+print(resu.x, resu.fun,&#x27;angle&#x27;,np.linalg.norm(resu.x));print(&#x27;zero&#x27;,loss([0,0,0]));np.save(&#x27;.tmp/rotvec.npy&#x27;,resu.x)
+# Fit source frame pairs later at constant postcollision spin
+rv=resu.x;axis=rv/np.linalg.norm(rv)
+for i,j in [(14,15),(18,19),(25,26),(40,41),(60,61),(80,81),(0,3),(3,6),(6,9)]:
+ pairs=[(i,j)]
+ from scipy.optimize import minimize_scalar
+ rr=minimize_scalar(lambda angle:loss(axis*angle),bounds=(-.2,1.6),method=&#x27;bounded&#x27;);print(i,j,rr.x,rr.fun)
+PY
+OPENBLAS_NUM_THREADS=1 python .tmp/fitspin.py&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-11T17:47:33.769708+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image,ImageDraw
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;];tr=np.load(&#x27;.tmp/circles.npy&#x27;);o=Image.new(&#x27;RGB&#x27;,(1200,400))
+for i in range(12):
+ cx,cy,r=tr[i];crop=Image.fromarray(f[i]).crop((int(cx)-22,int(cy)-22,int(cx)+22,int(cy)+22)).resize((200,200))
+ o.paste(crop,(i%6*200,i//6*200));ImageDraw.Draw(o).text((i%6*200,i//6*200),str(i),fill=&#x27;white&#x27;)
+o.save(&#x27;.tmp/early.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-11T17:50:02.283651+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;sed -e &#x27;s/l-8/l-3/&#x27; -e &#x27;s/rr+13/rr+5/&#x27; -e &#x27;s/t-3/t-1/&#x27; -e &#x27;s/b+9/b+6/&#x27; .tmp/analyze.py &gt; .tmp/analyze2.py &amp;&amp; python .tmp/analyze2.py&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-11T17:51:33.948873+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.optimize import least_squares
+tr=np.load(&#x27;.tmp/circles.npy&#x27;)[:12]; t=np.arange(12)
+def fun(p):
+ k,a,b,c,d,r,e=p;den=1-k*t
+ return np.r_[((a+b*t)/den-tr[:,0]),((c+d*t)/den-tr[:,1]), .75*((r+e*t)/den-tr[:,2])]
+p=least_squares(fun,[.001,15.4,7,56.2,1.4,15,.15]).x
+print(p, &#x27;rmse&#x27;,np.sqrt(np.mean(fun(p)**2)))
+for i in [12,20,30,35,40]:
+ k,a,b,c,d,r,e=p;print(i,(a+b*i)/(1-k*i),(c+d*i)/(1-k*i),(r+e*i)/(1-k*i))
+PY&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-11T17:53:10.156650+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+from scipy.ndimage import gaussian_filter
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;];bg=np.load(&#x27;.tmp/bg.npy&#x27;);tr=np.load(&#x27;.tmp/circles.npy&#x27;)
+for i in [0,10,18,30,70]:
+ cx,cy,r=tr[i]; x=int(cx);y=int(cy)
+ print(i,&#x27;circle&#x27;,cx,cy,r,&#x27;top&#x27;, [(yy,tuple(f[i,yy,x])) for yy in range(int(cy-r)-2,int(cy-r)+4)])
+PY&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-11T17:53:57.208839+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+from PIL import Image,ImageDraw
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;];tr=np.load(&#x27;.tmp/circles.npy&#x27;);res=70;yy,xx=np.mgrid[:res,:res];out=Image.new(&#x27;RGB&#x27;,(res*13,res*6))
+for k,i in enumerate(range(18,96)):
+ cx,cy,r=tr[i];img=cv2.remap(f[i],(cx+(xx-(res-1)/2)/res*2*(r+1)).astype(&#x27;float32&#x27;),(cy+(yy-(res-1)/2)/res*2*(r+1)).astype(&#x27;float32&#x27;),cv2.INTER_LINEAR)
+ out.paste(Image.fromarray(img),(k%13*res,k//13*res));ImageDraw.Draw(out).text((k%13*res,k//13*res),str(i),fill=&#x27;white&#x27;)
+out.save(&#x27;.tmp/late_spin.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-11T17:56:08.934893+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np,cv2
+f=np.load(&#x27;.tmp/spinimgs.npy&#x27;);res=f.shape[1];Y,X=np.mgrid[:res,:res];valid=(X-49.5)**2+(Y-49.5)**2&lt;36**2
+# compare filters (seams emphasize)
+for i in range(12):
+ ds=((f[18:71,:, :]-f[i])[:,valid]**2).mean(1)
+ ids=np.argsort(ds)[:4]+18
+ print(i,ids,ds[ids-18])
+PY&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-11T17:58:09.856822+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; generate.py &lt;&lt;&#x27;PY&#x27;
+\&quot;\&quot;\&quot;Remove the block at time zero; reconstruct the room and continue free rolling.
+Only source pixels and local image/geometry calculations are used.
+\&quot;\&quot;\&quot;
+from pathlib import Path
+import warnings
+import numpy as np
+import cv2
+from scipy.optimize import least_squares
+from scipy.ndimage import gaussian_filter
+from PIL import Image
+import artifact_io
+
+ROOT = Path(__file__).resolve().parent
+
+def ball_circles(source):
+    tracks=[]
+    for image in source:
+        a=image.astype(float)
+        mask=(a[:,:,0]&gt;1.75*a[:,:,1])&amp;(a[:,:,0]-a[:,:,1]&gt;60)&amp;(a[:,:,0]&gt;1.8*a[:,:,2])
+        contours,_=cv2.findContours(mask.astype(&#x27;uint8&#x27;),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
+        points=cv2.convexHull(max(contours,key=cv2.contourArea)).reshape(-1,2).astype(float)
+        fit=np.linalg.lstsq(np.c_[2*points,np.ones(len(points))],(points**2).sum(1),rcond=None)[0]
+        cx,cy=fit[:2]
+        radius=np.sqrt(fit[2]+cx*cx+cy*cy)+.6
+        tracks.append((cx,cy,radius))
+    return np.array(tracks)
+
+def room_plate(source, tracks):
+    h,w=source.shape[1:3]
+    y,x=np.mgrid[:h,:w]
+    keys=[0,10,12,14,15,17,20,23,26,29,33,95]
+    left=[108,108,109,118,121,134,152,166,177,181,181,181]
+    right=[167,167,168,177,180,193,212,226,239,244,245,245]
+    top=[55,55,55,56,57,59,61,63,65,66,66,66]
+    bottom=[105,105,105,106,107,110,112,114,117,118,118,118]
+    available=[]
+    for i,image in enumerate(source):
+        cx,cy,r=tracks[i]
+        bad=((x-cx)**2+(y-cy)**2&lt;=(r+3)**2)
+        bad |= ((x-cx-6)/(r+16))**2+((y-cy-r+2)/10)**2&lt;1
+        l=np.interp(i,keys,left);rr=np.interp(i,keys,right)
+        t=np.interp(i,keys,top);b=np.interp(i,keys,bottom)
+        margin=8 if i&lt;15 else 15
+        bad|=(x&gt;=l-3)&amp;(x&lt;=rr+margin)&amp;(y&gt;=t-1)&amp;(y&lt;=b+17)
+        pixels=image.astype(float);pixels[bad]=np.nan
+        available.append(pixels)
+    with warnings.catch_warnings():
+        warnings.simplefilter(&#x27;ignore&#x27;, RuntimeWarning)
+        bg=np.nanmedian(np.array(available),axis=0)
+    holes=~np.isfinite(bg[:,:,0])
+    # Small footprint never observed: complete with classical local image inpainting.
+    bg=np.nan_to_num(bg).astype(&#x27;uint8&#x27;)
+    bg=cv2.inpaint(bg,holes.astype(&#x27;uint8&#x27;)*255,3,cv2.INPAINT_TELEA)
+    # Keep static wall at its exact source appearance (no intervention affects it).
+    wall=(x&gt;=69)&amp;(y&lt;=43+(x-69)*.156)
+    bg[wall]=source[0][wall]
+    return bg
+
+def free_trajectory(tracks):
+    t=np.arange(12,dtype=float)
+    observed=tracks[:12]
+    # Projected straight world-space motion is a rational curve under perspective.
+    def residual(p):
+        k,a,b,c,d,r,e=p
+        den=1-k*t
+        return np.r_[(a+b*t)/den-observed[:,0],(c+d*t)/den-observed[:,1],
+                     .75*((r+e*t)/den-observed[:,2])]
+    p=least_squares(residual,[.001,15.4,7,56.2,1.4,15,.15]).x
+    k,a,b,c,d,r,e=p
+    def at(i):
+        if i&lt;12:
+            return tracks[i]
+        den=1-k*i
+        return np.array([(a+b*i)/den,(c+d*i)/den,(r+e*i)/den])
+    return at
+
+def sphere_texture(image, background, circle):
+    # Recover a soft RGB sphere sprite, excluding its floor shadow.
+    cx,cy,r=circle
+    radius=r-.25
+    h,w=image.shape[:2]
+    yy,xx=np.mgrid[:h,:w]
+    distance=np.sqrt((xx-cx)**2+(yy-cy)**2)
+    alpha=np.clip((radius+.65-distance)/1.3,0,1)
+    # Recover surface color from the antialiased edge rather than copy floor pixels.
+    surface=(image.astype(float)-background*(1-alpha[:,:,None]))/np.maximum(alpha[:,:,None],.22)
+    # A dark contact edge needs a slightly soft transition, as in the factual render.
+    return np.clip(surface,0,255).astype(&#x27;float32&#x27;),alpha.astype(&#x27;float32&#x27;)
+
+def composite_ball(bg, texture, src_circle, target_circle):
+    image=bg.astype(&#x27;float32&#x27;).copy()
+    cx,cy,r=target_circle
+    if cx-r&gt;bg.shape[1]+2 or cx+r&lt;-2:
+        return bg.copy()
+    sx,sy,sr=src_circle
+    yy,xx=np.mgrid[:bg.shape[0],:bg.shape[1]]
+    # Floor contact and elongated soft cast shadow in the original light direction.
+    broad=np.exp(-.5*(((xx-cx-.36*r)/(.99*r))**2+((yy-cy-.96*r)/(.22*r))**2))
+    contact=np.exp(-.5*(((xx-cx)/(.57*r))**2+((yy-cy-.94*r)/(.075*r))**2))
+    darkness=1-.25*broad-.34*contact
+    image*=darkness[:,:,None].astype(&#x27;float32&#x27;)
+    u=(sx+(xx-cx)*sr/r).astype(&#x27;float32&#x27;);v=(sy+(yy-cy)*sr/r).astype(&#x27;float32&#x27;)
+    rgb,alpha=texture
+    rgb=cv2.remap(rgb,u,v,cv2.INTER_LINEAR,borderMode=cv2.BORDER_REPLICATE)
+    alpha=cv2.remap(alpha,u,v,cv2.INTER_LINEAR,borderMode=cv2.BORDER_CONSTANT)
+    image=image*(1-alpha[:,:,None])+rgb*alpha[:,:,None]
+    return np.clip(image,0,255).astype(&#x27;uint8&#x27;)
+
+def main():
+    source=np.load(ROOT/&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+    tracks=ball_circles(source)
+    bg=room_plate(source,tracks)
+    at=free_trajectory(tracks)
+    textures=[sphere_texture(im,bg,tracks[i]) for i,im in enumerate(source)]
+    output=[]
+    h,w=bg.shape[:2];yy,xx=np.mgrid[:h,:w]
+    for i in range(len(source)):
+        circle=at(i)
+        if i&lt;12:
+            # Ball history is unaffected until the missing block&#x27;s first contact.
+            # Copy its original pixels and shadow, stopping before the block.
+            cx,cy,r=circle
+            mask=((xx-cx)**2+(yy-cy)**2&lt;(r+2)**2)
+            mask|=(((xx-cx-5)/(r+14))**2+((yy-cy-r+1)/8)**2&lt;1)
+            mask&amp;=(xx&lt;107)
+            frame=bg.copy();frame[mask]=source[i][mask]
+        else:
+            # Source later contains a clean view of a complete rotation of the ball.
+            # Retiming this cycle preserves the source ball&#x27;s texture and lighting.
+            # Eight slow-spin samples per output sample approximate free rolling.
+            j=18+((i-12)*8)%52
+            frame=composite_ball(bg,textures[j],tracks[j],circle)
+        output.append(frame)
+    frames=np.array(output,dtype=&#x27;uint8&#x27;)
+    artifact_io.save(frames,ROOT)
+    Image.fromarray(bg).resize((768,432)).save(ROOT/&#x27;.tmp/room_plate.png&#x27;)
+    print(&#x27;Saved&#x27;,frames.shape,&#x27;RGB frames at 24 fps&#x27;)
+
+if __name__==&#x27;__main__&#x27;:
+    main()
+PY
+OPENBLAS_NUM_THREADS=1 python generate.py&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-11T18:00:35.556255+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image,ImageDraw
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;];bg=np.array(Image.open(&#x27;frames/95.png&#x27;))
+o=Image.new(&#x27;RGB&#x27;,(840,600))
+for k,(a,name) in enumerate([(f[0],&#x27;orig0&#x27;),(f[20],&#x27;orig20&#x27;),(bg,&#x27;bg&#x27;)]):
+ o.paste(Image.fromarray(a).crop((100,68,200,118)).resize((600,300)),(0,k*200))
+ ImageDraw.Draw(o).text((605,k*200+10),name,fill=&#x27;white&#x27;)
+o.save(&#x27;.tmp/plate_compare.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-11T18:02:35.867131+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np,cv2
+from PIL import Image
+bg=np.array(Image.open(&#x27;frames/95.png&#x27;)).astype(float); src=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+# floor pixels completely exposed under original block left-side top, original initial block shadow edge
+for x,y in [(136,86),(150,80),(170,90),(176,96),(181,115),(200,125)]:
+ vals=src[:,y,x]; lum=vals.sum(1); ids=np.argsort(lum)[-8:];print(x,y,&#x27;bg&#x27;,bg[y,x],&#x27;best&#x27;,ids,&#x27;vals&#x27;,vals[ids])
+PY&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-11T18:03:30.962191+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import generate,numpy as np,cv2
+from PIL import Image
+# reconstruct validity by rerunning variant without inpaint
+import inspect
+s=inspect.getsource(generate.room_plate)
+s=s.replace(&#x27;def room_plate(&#x27;, &#x27;def raw_plate(&#x27;).replace(\&quot;bg=cv2.inpaint(bg,holes.astype(&#x27;uint8&#x27;)*255,3,cv2.INPAINT_TELEA)\&quot;,\&quot;np.save(&#x27;.tmp/holes.npy&#x27;,holes)\&quot;)
+exec(s,generate.__dict__)
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;];bg=generate.raw_plate(f,generate.ball_circles(f));h=np.load(&#x27;.tmp/holes.npy&#x27;);ys,xs=np.where(h);print(xs.min(),xs.max(),ys.min(),ys.max(),len(xs))
+# candidates sample offsets
+out=Image.new(&#x27;RGB&#x27;,(1200,400))
+for k,(dx,dy) in enumerate([(0,0),(-50,-15),(-60,-18),(-40,-12),(45,13),(50,15)]):
+ out.paste(Image.fromarray(bg).crop((120+dx,70+dy,165+dx,108+dy)).resize((200,200)),(k*200,0))
+out.save(&#x27;.tmp/patches.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-11T18:06:27.777381+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;OPENBLAS_NUM_THREADS=1 python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-11T18:09:09.769151+00:00</time><span class=pill>exit 2</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image,ImageDraw
+out=Image.new(&#x27;RGB&#x27;,(1024,576))
+for k,i in enumerate([9,10,11,12,13,14,16,18,20,22,24,26,28,30,32,34]):
+ out.paste(Image.open(f&#x27;frames/{i:02d}.png&#x27;),(k%4*256,k//4*144));ImageDraw.Draw(out).text((k%4*256+5,k//4*144+4),str(i),fill=&#x27;white&#x27;)
+out.save(&#x27;.tmp/motion_check.png&#x27;)
+PY
+ffmpeg -y -framerate 24 -i frames/%02d.png -c:v libx264 -pix_fmt yuv420p -crf 16 -movflags +faststart edited_video.mp4 &gt;/dev/null 2&gt;&amp;1
+ls -lh pixels.npz index.html edited_video.mp4&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-11T18:12:01.356578+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;grep -n &#x27;if i&lt;&#x27; generate.py &amp;&amp; sed -n &#x27;105,205p&#x27; generate.py &amp;&amp; command -v ffmpeg || true&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-11T18:14:18.092370+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;OPENBLAS_NUM_THREADS=1 python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-11T18:16:07.295610+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+Image.open(&#x27;frames/11.png&#x27;).resize((768,432)).save(&#x27;.tmp/final11.png&#x27;)
+import importlib.util
+for m in [&#x27;imageio_ffmpeg&#x27;,&#x27;imageio&#x27;,&#x27;av&#x27;]:
+ print(m, bool(importlib.util.find_spec(m)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-11T18:20:32.147725+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;OPENBLAS_NUM_THREADS=1 python generate.py&#x27;</pre></details><details class=tool-image><summary>视觉工具实际返回图片 1</summary><img loading=lazy src="tool_view_01.png"></details><details class=tool-image><summary>视觉工具实际返回图片 2</summary><img loading=lazy src="tool_view_02.png"></details><details class=tool-image><summary>视觉工具实际返回图片 3</summary><img loading=lazy src="tool_view_03.png"></details><details class=tool-image><summary>视觉工具实际返回图片 4</summary><img loading=lazy src="tool_view_04.png"></details><details class=tool-image><summary>视觉工具实际返回图片 5</summary><img loading=lazy src="tool_view_05.png"></details><details class=tool-image><summary>视觉工具实际返回图片 6</summary><img loading=lazy src="tool_view_06.png"></details><details class=tool-image><summary>视觉工具实际返回图片 7</summary><img loading=lazy src="tool_view_07.png"></details><details class=tool-image><summary>视觉工具实际返回图片 8</summary><img loading=lazy src="tool_view_08.png"></details><details class=tool-image><summary>视觉工具实际返回图片 9</summary><img loading=lazy src="tool_view_09.png"></details><details class=tool-image><summary>视觉工具实际返回图片 10</summary><img loading=lazy src="tool_view_10.png"></details><details class=tool-image><summary>视觉工具实际返回图片 11</summary><img loading=lazy src="tool_view_11.png"></details><details class=tool-image><summary>视觉工具实际返回图片 12</summary><img loading=lazy src="tool_view_12.png"></details><details class=tool-image><summary>视觉工具实际返回图片 13</summary><img loading=lazy src="tool_view_13.png"></details><details class=tool-image><summary>视觉工具实际返回图片 14</summary><img loading=lazy src="tool_view_14.png"></details><details class=tool-image><summary>视觉工具实际返回图片 15</summary><img loading=lazy src="tool_view_15.png"></details><details class=tool-image><summary>视觉工具实际返回图片 16</summary><img loading=lazy src="tool_view_16.png"></details><details class=tool-image><summary>视觉工具实际返回图片 17</summary><img loading=lazy src="tool_view_17.png"></details><details class=tool-image><summary>视觉工具实际返回图片 18</summary><img loading=lazy src="tool_view_18.png"></details><details class=tool-image><summary>视觉工具实际返回图片 19</summary><img loading=lazy src="tool_view_19.png"></details><p class=muted>保存候选 6 份；完成命令 23 次；可验证图片返回 19 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
