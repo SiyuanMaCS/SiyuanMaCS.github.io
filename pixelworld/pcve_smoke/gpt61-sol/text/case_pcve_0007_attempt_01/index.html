@@ -1,0 +1,891 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/GPT-6.1-Sol · pcve_0007</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/GPT-6.1-Sol · pcve_0007</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>24 FPS · 96 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_61ab86966e3ce063.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;bd82ab1e45a1379a4da3baca140082db12fa6a14138b066c291f71b413d7e8b1&quot;, &quot;pixels&quot;: &quot;final/pixels_61ab86966e3ce063.rgb.gz&quot;, &quot;poster&quot;: &quot;final/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>视频编辑</span><h3 style="margin-top:14px">原始任务</h3><p>From frame 1 onwards, remove the red mallet from the scene.
+</p><div class=facts><div><strong>4.00s</strong>视频时长</div><div><strong>30238</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=card><h2>编辑前的完整原视频</h2><video controls preload=metadata src="source_video.mp4" style="width:100%;max-height:480px"></video><p class=note>上方为编辑结果；原视频是模型获准使用的输入。下方为逐轮保存的编辑候选。</p></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-11T11:56:34.959896+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_e7a48781ac5e8f3f.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;6d7fa800434a3bcef5f5d9e706845daec4dc8664fb97b5a586f974110b2dacbe&quot;, &quot;pixels&quot;: &quot;candidate_00/pixels_e7a48781ac5e8f3f.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_00/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_00/inspection.png" target=_blank><img loading=lazy src="candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_00/transition_check.png" target=_blank><img loading=lazy src="candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,230 @@
++&quot;&quot;&quot;Remove the red mallet and reconstruct the resulting source-timeline impacts.
++
++All geometry, tracks, textures and mattes are derived from the local RGB video.
++No learned models or renderer are used.  Coordinates below are in source pixels.
++&quot;&quot;&quot;
++from pathlib import Path
++import warnings
++import numpy as np
++from scipy.ndimage import label, find_objects, binary_dilation, distance_transform_edt, map_coordinates
++from scipy.optimize import least_squares
++from scipy.sparse import lil_matrix
++from scipy.sparse.linalg import spsolve
++import artifact_io
++
++ROOT = Path(__file__).resolve().parent
++Y, X = np.indices((144, 256))
++
++
++def get_tracks(src):
++    red, blue, white = [], [], []
++    region = (X &gt; 90) &amp; (X &lt; 177) &amp; (Y &gt; 49) &amp; (Y &lt; 85)
++    for i, frame in enumerate(src):
++        r, g, b = frame.transpose(2, 0, 1)
++        for target, m in [(red, region &amp; (r &gt; 1.4*g) &amp; (r &gt; 1.4*b) &amp; (r &gt; 70)),
++                          (blue, region &amp; (b &gt; 1.5*r) &amp; (b &gt; 1.2*g) &amp; (b &gt; 60))]:
++            yy, xx = np.where(m)
++            target.append((xx.mean(), yy.mean()))
++        xp = 105 if i &lt; 30 else 105 - 2.13*(i-30) if i &lt; 49 else 68 + .05*(i-49)
++        yp = 81 if i &lt; 30 else 81 + .82*(i-30) if i &lt; 49 else 95.3
++        m = ((abs(X-xp) &lt; 9) &amp; (abs(Y-yp) &lt; 5) &amp; (r &gt; 230) &amp; (g &gt; 228)
++             &amp; (b &gt; 222) &amp; (abs(r-b) &lt; 20) &amp; (abs(g-b) &lt; 23))
++        labs, _ = label(m)
++        slices = find_objects(labs)
++        k = max(range(len(slices)), key=lambda k: (labs[slices[k]] == k+1).sum())
++        yy, xx = np.where(labs == k+1)
++        white.append((xx.mean(), yy.mean()))
++    return np.array(red), np.array(blue), np.array(white)
++
++
++def object_masks(src, red, blue, white):
++    tight = np.zeros(src.shape[:3], bool)
++    wide = np.zeros_like(tight)
++    for i, frame in enumerate(src):
++        r, g, b = frame.transpose(2, 0, 1)
++        x, y = red[i]
++        core = (abs(X-x) &lt; 8) &amp; (abs(Y-y) &lt; 5) &amp; (r-g &gt; 22) &amp; (r-b &gt; 22)
++        tight[i] |= binary_dilation(core)
++        tight[i] |= ((X-x-.4)/6.5)**2 + ((Y-y-3.8)/2.8)**2 &lt; 1
++        x, y = blue[i]
++        core = (abs(X-x) &lt; 8) &amp; (abs(Y-y) &lt; 5) &amp; (b-r &gt; 32) &amp; (b-g &gt; 8)
++        tight[i] |= binary_dilation(core)
++        tight[i] |= ((X-x-.8)/5)**2 + ((Y-y-4.2)/4.8)**2 &lt; 1
++        x, y = white[i]
++        tight[i] |= (abs(X-x) &lt; 9) &amp; (Y &gt; y-5) &amp; (Y &lt; y+6)
++        for (x, y), width, up, down in [(red[i], 9, 7, 9),
++                                        (blue[i], 9, 7, 12),
++                                        (white[i], 10, 7, 8)]:
++            wide[i] |= (abs(X-x) &lt; width) &amp; (Y &gt; y-up) &amp; (Y &lt; y+down)
++    return tight, wide
++
++
++def restore_holes(plate):
++    &quot;&quot;&quot;Source-texture exemplar plus a Dirichlet Poisson seam correction.&quot;&quot;&quot;
++    missing = np.isnan(plate[:, :, 0])
++    labs, _ = label(missing)
++    for k, box in enumerate(find_objects(labs)):
++        hole = labs == k+1
++        ring = binary_dilation(hole, iterations=3) &amp; ~missing
++        yy, xx = np.where(ring)
++        yh, xh = np.where(hole)
++        xm, ym = xx.mean(), yy.mean()
++        basis = np.stack([np.ones(len(xx)), (xx-xm)/10, (yy-ym)/10], 1)
++        best = None
++        for dy in range(-18, 19):
++            for dx in range(-30, 31):
++                if (dx == dy == 0 or min(xx+dx) &lt; 0 or max(xx+dx) &gt;= 256
++                    or min(yy+dy) &lt; 0 or max(yy+dy) &gt;= 144):
++                    continue
++                sample = plate[yy+dy, xx+dx]
++                inner = plate[yh+dy, xh+dx]
++                if not np.isfinite(sample).all() or not np.isfinite(inner).all():
++                    continue
++                diff = plate[yy, xx] - sample
++                coef = np.linalg.lstsq(basis, diff, rcond=None)[0]
++                residual = diff - basis@coef
++                score = (np.mean(residual**2) + .007*np.mean((basis@coef)**2)
++                         + .025*(dx*dx+dy*dy))
++                if best is None or score &lt; best[0]:
++                    best = (score, dx, dy, coef)
++        _, dx, dy, coef = best
++        # A one-pixel expanded exemplar provides guidance gradients at the seam.
++        allpoints = binary_dilation(hole)
++        ye, xe = np.where(allpoints)
++        patch = plate.copy()
++        bas = np.stack([np.ones(len(xe)), (xe-xm)/10, (ye-ym)/10], 1)
++        patch[ye, xe] = plate[ye+dy, xe+dx] + bas@coef
++        lookup = {(int(y), int(x)): j for j, (y, x) in enumerate(zip(yh, xh))}
++        A = lil_matrix((len(yh), len(yh)))
++        rhs = np.zeros((len(yh), 3))
++        for j, (y, x) in enumerate(zip(yh, xh)):
++            A[j, j] = 4
++            for yn, xn in [(y-1, x), (y+1, x), (y, x-1), (y, x+1)]:
++                # Moderate the exemplar gradients in the unobserved small area.
++                rhs[j] += .75*(patch[y, x] - patch[yn, xn])
++                if (int(yn), int(xn)) in lookup:
++                    A[j, lookup[(int(yn), int(xn))]] = -1
++                else:
++                    rhs[j] += plate[yn, xn]
++        plate[yh, xh] = spsolve(A.tocsr(), rhs)
++    return np.clip(plate, 0, 255)
++
++
++def make_blue_layers(src, plate, center):
++    &quot;&quot;&quot;Unpremultiply a source-pixel mallet matte; retain its soft floor shadow.&quot;&quot;&quot;
++    delta = src[0] - plate
++    x, y = center
++    region = (abs(X-x) &lt; 9) &amp; (Y &gt; y-7) &amp; (Y &lt; y+12)
++    # The blue-vs-floor chroma difference yields a subpixel edge matte.
++    chroma = ((src[0, :, :, 1]-src[0, :, :, 0]) -
++              (plate[:, :, 1]-plate[:, :, 0]))
++    alpha = np.clip(chroma/54., 0, 1)
++    alpha *= region &amp; (Y &lt; y+3.1)
++    alpha[alpha &lt; .06] = 0
++    # Preserve the highlights of the originally rendered head and handle.
++    fg = np.zeros_like(src[0])
++    m = alpha &gt; 0
++    fg[m] = (src[0][m] - (1-alpha[m, None])*plate[m]) / alpha[m, None]
++    fg = np.clip(fg, 0, 255)
++    # Source shadows are extracted independently, never carried as a floor tile.
++    shadow = np.zeros_like(src[0])
++    residual = delta - alpha[:, :, None]*(fg-plate)
++    shadow_region = region &amp; (Y &gt; y+1.3)
++    magnitude = np.maximum(-residual[:, :, :2].mean(2)-3., 0)
++    weight = np.clip(magnitude/7., 0, 1) * shadow_region
++    shadow = np.minimum(residual, 0) * weight[:, :, None]
++    # Remove isolated compression ripple at the edge of the extracted footprint.
++    taper = np.minimum(1, distance_transform_edt(region)/2)
++    shadow *= taper[:, :, None]
++    return alpha, fg*alpha[:, :, None], shadow
++
++
++def warp_layer(layer, origin, target, scale):
++    ox, oy = origin
++    tx, ty = target
++    coords = [(Y-ty)/scale+oy, (X-tx)/scale+ox]
++    if layer.ndim == 2:
++        return map_coordinates(layer, coords, order=1, mode=&#x27;constant&#x27;, cval=0)
++    return np.stack([map_coordinates(layer[:, :, c], coords, order=1,
++                                    mode=&#x27;constant&#x27;, cval=0) for c in range(3)], 2)
++
++
++def white_layer(src, plate, center, i):
++    x, y = center
++    region = (abs(X-x) &lt; 10) &amp; (Y &gt; y-7) &amp; (Y &lt; y+8)
++    taper = np.minimum(1, distance_transform_edt(region)/2)
++    diff = (src[i] - plate) * taper[:, :, None]
++    diff[abs(diff).max(2) &lt; 3] = 0
++    return diff
++
++
++def generate():
++    src = np.load(ROOT/&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(np.float64)
++    red, blue, white = get_tracks(src)
++    tight, wide = object_masks(src, red, blue, white)
++    with warnings.catch_warnings():
++        warnings.simplefilter(&#x27;ignore&#x27;, RuntimeWarning)
++        plate = np.nanmedian(np.where(~tight[:, :, :, None], src, np.nan), axis=0)
++    plate = restore_holes(plate)
++
++    # A perspective projection of constant plane velocity fits the pre-impact
++    # centers.  It predicts the blue mallet&#x27;s unobstructed flight across the table.
++    tt = np.arange(14, dtype=float)
++    def projected(p, t):
++        return (p[0]+p[1]*t)/(1+p[2]*t)
++    params = least_squares(lambda p: projected(p, tt)-blue[:14, 0],
++                           [167.5, -2.45, -.0067]).x
++    slope, intercept = np.polyfit(blue[:14, 0], blue[:14, 1], 1)
++    # The source head-to-head contact with the white mallet occurred at about
++    # source time 29.5.  Match that contact distance, without the red mediator.
++    contact_x = np.interp(29.6, np.arange(96), red[:, 0])
++    contact_t = (params[0]-contact_x)/(contact_x*params[2]-params[1])
++    delay = contact_t - 29.6
++    alpha, premul, shadow = make_blue_layers(src, plate, blue[0])
++    whites = [white_layer(src, plate, white[i], i) for i in range(96)]
++    out = []
++    for i in range(96):
++        # Retain the original scene and its very small encoding/lighting changes.
++        erase = np.minimum(1, distance_transform_edt(wide[i])/1.6)
++        frame = src[i]*(1-erase[:, :, None]) + plate*erase[:, :, None]
++
++        # Re-time the white mallet only after the newly delayed direct collision.
++        wi = max(0., i-delay)
++        lo = min(95, int(np.floor(wi)))
++        hi = min(95, lo+1)
++        mix = wi-lo
++        frame += (1-mix)*whites[lo] + mix*whites[hi]
++
++        if i &lt;= 13:
++            # Factual blue history before any possible contact is unchanged.
++            x, y = blue[i]
++            m = (abs(X-x) &lt; 9) &amp; (Y &gt; y-7) &amp; (Y &lt; y+12)
++            taper = np.minimum(1, distance_transform_edt(m)/2)
++            frame += (src[i]-plate)*taper[:, :, None]
++        else:
++            if i &lt;= contact_t:
++                bx = projected(params, float(i))
++                by = intercept+slope*bx
++            else:
++                # Reuse the source&#x27;s decaying contact recoil on the now-blue body.
++                s = min(95., 29.6 + i-contact_t)
++                bx = np.interp(s, np.arange(96), red[:, 0])
++                by = intercept+slope*bx
++            target = (bx, by)
++            # Projective depth enlarges the mallet slightly as it approaches.
++            scale = (1-params[2]*0)/(1+params[2]*min(float(i), contact_t))
++            scale = 1 + .68*(scale-1)
++            a = warp_layer(alpha, blue[0], target, scale)
++            p = warp_layer(premul, blue[0], target, scale)
++            sh = warp_layer(shadow, blue[0], target, scale)
++            frame += sh
++            frame = frame*(1-a[:, :, None]) + p
++        out.append(np.clip(np.rint(frame), 0, 255).astype(np.uint8))
++    frames = np.stack(out)
++    artifact_io.save(frames, ROOT)
++    print(f&#x27;Saved {frames.shape}, uint8 RGB, 24 fps. Direct impact at frame {contact_t+1:.2f}; white delay {delay:.2f} frames.&#x27;)
++    return frames
++
++
++if __name__ == &#x27;__main__&#x27;:
++    generate()
+</pre></details></div></details><details class=candidate><summary><strong>候选 02</strong><span class=status>播放与检查图</span><time>2026-11-11T11:57:55.565382+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_61ab86966e3ce063.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;bd82ab1e45a1379a4da3baca140082db12fa6a14138b066c291f71b413d7e8b1&quot;, &quot;pixels&quot;: &quot;candidate_01/pixels_61ab86966e3ce063.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_01/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_01/inspection.png" target=_blank><img loading=lazy src="candidate_01/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_01/transition_check.png" target=_blank><img loading=lazy src="candidate_01/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -195,14 +195,16 @@
+         mix = wi-lo
+         frame += (1-mix)*whites[lo] + mix*whites[hi]
+ 
+-        if i &lt;= 13:
++        if i &lt;= 7:
+             # Factual blue history before any possible contact is unchanged.
+             x, y = blue[i]
+             m = (abs(X-x) &lt; 9) &amp; (Y &gt; y-7) &amp; (Y &lt; y+12)
+             taper = np.minimum(1, distance_transform_edt(m)/2)
+             frame += (src[i]-plate)*taper[:, :, None]
+         else:
+-            if i &lt;= contact_t:
++            if i &lt;= 13:
++                bx, by = blue[i]
++            elif i &lt;= contact_t:
+                 bx = projected(params, float(i))
+                 by = intercept+slope*bx
+             else:
+@@ -213,7 +215,7 @@
+             target = (bx, by)
+             # Projective depth enlarges the mallet slightly as it approaches.
+             scale = (1-params[2]*0)/(1+params[2]*min(float(i), contact_t))
+-            scale = 1 + .68*(scale-1)
++            scale = 1 + .45*(scale-1)
+             a = warp_layer(alpha, blue[0], target, scale)
+             p = warp_layer(premul, blue[0], target, scale)
+             sh = warp_layer(shadow, blue[0], target, scale)
+</pre></details></div></details><details class=candidate><summary><strong>候选 03</strong><span class=status>播放与检查图</span><time>2026-11-11T11:58:03.356533+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_61ab86966e3ce063.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;bd82ab1e45a1379a4da3baca140082db12fa6a14138b066c291f71b413d7e8b1&quot;, &quot;pixels&quot;: &quot;candidate_02/pixels_61ab86966e3ce063.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_02/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_02/inspection.png" target=_blank><img loading=lazy src="candidate_02/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_02/transition_check.png" target=_blank><img loading=lazy src="candidate_02/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>代码未变化；重新保存了产物。</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-11T11:42:59.663134+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la &amp;&amp; cat prompt.txt &amp;&amp; cat GENERATION_RULES.md&#x27;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-11T11:43:11.743453+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat source_info.json; cat task_spec.json; cat artifact_io.py&#x27;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-11T11:43:38.542040+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from collections import Counter
+z=np.load(&#x27;source_pixels.npz&#x27;); print(z.files)
+a=z[z.files[0]]; print(a.shape,a.dtype)
+for i in [0,12,24,48,72,95]:
+ f=a[i].astype(float); print(&#x27;\\nFRAME&#x27;,i)
+ # 4x3 sampling average and classification
+ for y in range(0,144,3):
+  s=&#x27;&#x27;
+  for x in range(0,256,4):
+   r,g,b=f[y:y+3,x:x+4].mean((0,1))
+   if r&gt;g*1.4 and r&gt;b*1.4 and r&gt;70: c=&#x27;R&#x27;
+   elif g&gt;r*1.3 and g&gt;b*1.1: c=&#x27;G&#x27;
+   elif b&gt;r*1.3 and b&gt;g*1.1: c=&#x27;B&#x27;
+   elif r&gt;b*1.4 and g&gt;b*1.3 and r&gt;80: c=&#x27;Y&#x27;
+   elif max(r,g,b)&lt;35:c=&#x27;#&#x27;
+   elif max(r,g,b)&lt;65:c=&#x27;o&#x27;
+   elif max(r,g,b)&lt;100:c=&#x27;:&#x27;
+   elif max(r,g,b)&lt;145:c=&#x27;-&#x27;
+   elif max(r,g,b)&lt;190:c=&#x27;.&#x27;
+   else:c=&#x27; &#x27;
+   s+=c
+  print(s)
+PY&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-11T11:43:53.860215+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label,find_objects
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]; a=f.astype(int)
+d=np.max(a,axis=0)-np.min(a,axis=0); m=d.max(2)&gt;40
+lab,n=label(m)
+for i,s in enumerate(find_objects(lab)):
+ area=(lab[s]==i+1).sum()
+ if area&gt;8: print(area,s)
+print(&#x27;REGION RGB&#x27;)
+for i in [0,4,8,12,16,20,24,32,48]:
+ print(&#x27;\\nFrame&#x27;,i)
+ for y in range(45,87):
+  s=&#x27;&#x27;
+  for x in range(100,181):
+   r,g,b=a[i,y,x]
+   if r&gt;g*1.4 and r&gt;b*1.4 and r&gt;70:c=&#x27;R&#x27;
+   elif b&gt;r*1.3 and b&gt;g*1.1:c=&#x27;B&#x27;
+   elif r&gt;g*1.2 and r&gt;b*1.2:c=&#x27;r&#x27;
+   elif b&gt;r*1.15 and b&gt;g*1.05:c=&#x27;b&#x27;
+   elif r&gt;b*1.4 and g&gt;b*1.3:c=&#x27;Y&#x27;
+   else: c=&#x27; .-:=+*#@&#x27;[min(8,int((255-(r+g+b)/3)/28))]
+   s+=c
+  print(&#x27;%3d&#x27;%y+s)
+PY&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-11T11:44:17.566996+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label,find_objects
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]; a=f.astype(float)
+for i in range(0,96,2):
+ r,g,b=a[i].transpose(2,0,1); yy,xx=np.indices(r.shape)
+ reg=(xx&gt;92)&amp;(xx&lt;174)&amp;(yy&gt;49)&amp;(yy&lt;85)
+ rd=reg&amp;(r&gt;g*1.4)&amp;(r&gt;b*1.4)&amp;(r&gt;70)
+ bl=reg&amp;(b&gt;r*1.5)&amp;(b&gt;g*1.2)&amp;(b&gt;60)
+ def info(m):
+  y,x=np.where(m); return [len(y), round(x.mean(),2),round(y.mean(),2),[x.min(),y.min(),x.max(),y.max()]] if len(y) else []
+ print(i, &#x27;red&#x27;,info(rd),&#x27;blue&#x27;,info(bl))
+PY&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-11T11:44:37.786011+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for i in [0,10,20,30,48,95]:
+ print(&#x27;\\nFRAME&#x27;,i)
+ for y in range(83,102):
+  s=&#x27;&#x27;
+  for x in range(50,102):
+   r,g,b=f[i,y,x]
+   if r&gt;g*1.4 and r&gt;b*1.4 and r&gt;70:c=&#x27;R&#x27;
+   elif b&gt;r*1.3 and b&gt;g*1.1:c=&#x27;B&#x27;
+   elif r&gt;b*1.4 and g&gt;b*1.3:c=&#x27;Y&#x27;
+   else:c=&#x27; .-:=+*#@&#x27;[min(8,int((255-(r+g+b)/3)/28))]
+   s+=c
+  print(&#x27;%3d&#x27;%y+s)
+# report rgb in central red and blue for lighting details
+for y in range(62,76):
+ print(y,f[0,y,132:150].astype(int).tolist())
+PY&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-11T11:45:05.055539+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label,find_objects
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for a,b in [(0,4),(4,8),(8,12),(12,16),(16,20),(20,24),(24,28),(28,32),(32,48),(48,95)]:
+ d=np.max(abs(f[a]-f[b]),2)
+ labs,n=label(d&gt;20)
+ print(&#x27;\\n&#x27;,a,b)
+ for k,s in enumerate(find_objects(labs)):
+  area=(labs[s]==k+1).sum()
+  if area&gt;4: print(area,[(q.start,q.stop) for q in s],round(d[s].max(),1))
+# full diff map stationary texture symbols location relative
+print(&#x27;\\nDIFF0:48&#x27;)
+d=np.max(abs(f[0]-f[48]),2)
+for y in range(45,105):
+ print(f&#x27;{y:3}&#x27;, &#x27;&#x27;.join(&#x27; &#x27; if d[y,x]&lt;10 else &#x27;.&#x27; if d[y,x]&lt;20 else &#x27;:&#x27; if d[y,x]&lt;40 else &#x27;*&#x27; if d[y,x]&lt;80 else &#x27;#&#x27; if d[y,x]&lt;120 else &#x27;@&#x27; for x in range(48,178)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-11T11:45:38.611209+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]; a=f.astype(float); yy,xx=np.indices(f.shape[1:3]); reg=(xx&gt;90)&amp;(xx&lt;174)&amp;(yy&gt;49)&amp;(yy&lt;85)
+for i in range(40):
+ r,g,b=a[i].transpose(2,0,1)
+ arr=[]
+ for m in [reg&amp;(r&gt;g*1.4)&amp;(r&gt;b*1.4)&amp;(r&gt;70),reg&amp;(b&gt;r*1.5)&amp;(b&gt;g*1.2)&amp;(b&gt;60)]:
+  y,x=np.where(m); arr.append((round(x.mean(),3),round(y.mean(),3)))
+ print(i,arr)
+print(&#x27;BACKGROUND COLOR MAP START&#x27;)
+for y in range(35,122,2):
+ s=&#x27;&#x27;
+ for x in range(0,256,2):
+  r,g,b=a[0,y:y+2,x:x+2].mean((0,1))
+  if r&gt;g*1.4 and r&gt;b*1.4 and r&gt;70:c=&#x27;R&#x27;
+  elif b&gt;r*1.3 and b&gt;g*1.1:c=&#x27;B&#x27;
+  elif r&gt;b*1.4 and g&gt;b*1.3:c=&#x27;Y&#x27;
+  else:c=&#x27; .-:=+*#@&#x27;[min(8,int((255-(r+g+b)/3)/28))]
+  s+=c
+ print(&#x27;%3d&#x27;%y+s)
+PY&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-11T11:46:01.174382+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;];
+for idx in [0,16,30,60]:
+ print(&#x27;Frame&#x27;,idx)
+ for y,x in [(57,167),(68,141),(79,113),(95,68),(85,94),(83,106),(78,145),(54,184),(0,0),(87,70),(91,73)]:
+  print((x,y),f[idx,y,x].tolist())
+ print(&#x27;crop below mallets RGB&#x27;)
+ for y in range(72,102,2):
+  print(y, [f[idx,y,x].tolist() for x in range(60,130,5)])
+PY&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-11T11:46:23.362769+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label,find_objects
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+yy,xx=np.indices(f.shape[1:3]); reg=(xx&gt;50)&amp;(xx&lt;174)&amp;(yy&gt;50)&amp;(yy&lt;102)
+for i in [0,12,16,20,24,28,32,36,40,44,48,60,95]:
+ r,g,b=f[i].transpose(2,0,1); m=(r&gt;235)&amp;(g&gt;233)&amp;(b&gt;225)&amp;reg
+ labs,n=label(m)
+ print(i,[(int((labs[s]==k+1).sum()),(s[1].start,s[0].start,s[1].stop,s[0].stop)) for k,s in enumerate(find_objects(labs)) if (labs[s]==k+1).sum()&gt;2])
+print(&#x27;WHITE0MASK&#x27;)
+r,g,b=f[0].transpose(2,0,1)
+for y in range(52,102):
+ print(y,&#x27;&#x27;.join(&#x27;W&#x27; if min(r[y,x],g[y,x],b[y,x])&gt;245 else &#x27;w&#x27; if r[y,x]&gt;232 and g[y,x]&gt;229 and abs(r[y,x]-b[y,x])&lt;20 else &#x27;R&#x27; if r[y,x]-g[y,x]&gt;40 and r[y,x]-b[y,x]&gt;40 else &#x27;.&#x27; if b[y,x]-r[y,x]&gt;20 else &#x27; &#x27; for x in range(60,174)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-11T11:47:56.355780+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label,find_objects
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float); yy,xx=np.indices(f.shape[1:3])
+for i in range(0,96):
+ predx=106 if i&lt;=30 else 106-2.13*(i-30) if i&lt;=48 else 68+0.045*(i-48)
+ predy=81 if i&lt;=30 else 81+.82*(i-30) if i&lt;=48 else 95.5
+ r,g,b=f[i].transpose(2,0,1)
+ m=(abs(xx-predx)&lt;9)&amp;(abs(yy-predy)&lt;5)&amp;(r&gt;230)&amp;(g&gt;228)&amp;(b&gt;222)&amp;(abs(r-b)&lt;20)&amp;(abs(g-b)&lt;23)
+ # segmentation
+ labs,n=label(m); ss=find_objects(labs)
+ if n:
+  k=np.argmax([(labs[s]==j+1).sum() for j,s in enumerate(ss)])
+  m=labs==k+1
+ y,x=np.where(m)
+ if i%2==0 or i&gt;90:print(i,round(x.mean(),2),round(y.mean(),2),len(x),[int(x.min()),int(y.min()),int(x.max()),int(y.max())])
+# rational path fit blue measurements with leastsq
+from scipy.optimize import least_squares
+cent=[]
+for i in range(14):
+ r,g,b=f[i].transpose(2,0,1)
+ m=(xx&gt;140)&amp;(xx&lt;176)&amp;(yy&gt;50)&amp;(yy&lt;70)&amp;(b&gt;r*1.5)&amp;(b&gt;g*1.2)&amp;(b&gt;60)
+ y,x=np.where(m); cent.append([x.mean(),y.mean()])
+cent=np.array(cent); t=np.arange(14)
+for coord in range(2):
+ p=np.polyfit(t,cent[:,coord],2); print(&#x27;quad&#x27;,coord,p,np.polyval(p,[14,20,30,34,36]))
+def path(p,t):return (p[0]+p[1]*t)/(1+p[2]*t)
+q=least_squares(lambda p:path(p,t)-cent[:,0],[167.5,-2,-.004]).x
+print(&#x27;rational&#x27;,q,path(q,np.array([14,20,30,32,34,36,38])))
+print(&#x27;fitresid&#x27;,path(q,t)-cent[:,0])
+PY&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-11T11:48:47.585949+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(int)
+for i,y0,x0,y1,x1 in [(0,50,157,67,176),(0,60,131,76,150),(0,73,95,88,118),(36,76,84,93,105),(60,87,57,102,80)]:
+ print(&#x27;\\nFRAME&#x27;,i,(x0,y0,x1,y1))
+ for y in range(y0,y1):
+  line=[]
+  for x in range(x0,x1):
+   r,g,b=f[i,y,x];
+   # show rounded rgb via colors classes
+   if r-g&gt;35 and r-b&gt;35:c=&#x27;R&#x27;
+   elif b-r&gt;40 and b-g&gt;20:c=&#x27;B&#x27;
+   elif min(r,g,b)&gt;245:c=&#x27;W&#x27;
+   elif min(r,g,b)&gt;230 and max(r,g,b)-min(r,g,b)&lt;22:c=&#x27;w&#x27;
+   elif r-g&gt;15 and r-b&gt;10:c=&#x27;r&#x27;
+   elif r-g&gt;8 and r-b&gt;0:c=&#x27;s&#x27;
+   elif b-r&gt;10:c=&#x27;p&#x27;
+   else:c=&#x27;o&#x27;
+   line.append(c)
+  print(y,&#x27;&#x27;.join(line))
+PY&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-11T11:49:18.369783+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(int)
+# high luminance mask numerical grid early and late. Need fixed vs moving revealed stripes
+for i in [0,28,60]:
+ print(&#x27;\\n&#x27;,i)
+ for y in range(55,87):
+  print(y,&#x27;&#x27;.join(&#x27;W&#x27; if min(f[i,y,x])&gt;240 else &#x27;w&#x27; if min(f[i,y,x])&gt;224 and np.ptp(f[i,y,x])&lt;30 else &#x27;R&#x27; if f[i,y,x,0]-max(f[i,y,x,1:])&gt;30 else &#x27;B&#x27; if f[i,y,x,2]-f[i,y,x,0]&gt;45 else &#x27;.&#x27; for x in range(94,161)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-11T11:50:16.375624+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; .tmp/analyze_plate.py &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label, find_objects
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float); yy,xx=np.indices(f.shape[1:3]); n=len(f)
+reg=(xx&gt;90)&amp;(xx&lt;177)&amp;(yy&gt;49)&amp;(yy&lt;85)
+red=[]; blue=[]; white=[]
+for i in range(n):
+ r,g,b=f[i].transpose(2,0,1)
+ m=reg&amp;(r&gt;1.4*g)&amp;(r&gt;1.4*b)&amp;(r&gt;70); y,x=np.where(m); red.append([x.mean(),y.mean()])
+ m=reg&amp;(b&gt;1.5*r)&amp;(b&gt;1.2*g)&amp;(b&gt;60); y,x=np.where(m); blue.append([x.mean(),y.mean()])
+ xp=105 if i&lt;30 else 105-2.13*(i-30) if i&lt;49 else 68+.05*(i-49)
+ yp=81 if i&lt;30 else 81+.82*(i-30) if i&lt;49 else 95.3
+ m=(abs(xx-xp)&lt;9)&amp;(abs(yy-yp)&lt;5)&amp;(r&gt;230)&amp;(g&gt;228)&amp;(b&gt;222)&amp;(abs(r-b)&lt;20)&amp;(abs(g-b)&lt;23)
+ labs,_=label(m); ss=find_objects(labs)
+ k=max(range(len(ss)),key=lambda k:(labs[ss[k]]==k+1).sum()); y,x=np.where(labs==k+1); white.append([x.mean(),y.mean()])
+red,blue,white=map(np.array,[red,blue,white])
+mask=np.zeros((n,144,256),bool)
+for i in range(n):
+ for center,w,up,down in [(red[i],8,6,7),(blue[i],8,6,8),(white[i],9,6,6)]:
+  x,y=center; mask[i]|=(abs(xx-x)&lt;w)&amp;(yy&gt;y-up)&amp;(yy&lt;y+down)
+valid=~mask
+missing=~valid.any(0)
+labs,_=label(missing); ss=find_objects(labs)
+print(&#x27;missing&#x27;,missing.sum(),[(int((labs[s]==k+1).sum()),s) for k,s in enumerate(ss)])
+np.savez(&#x27;.tmp/tracks.npz&#x27;,red=red,blue=blue,white=white,mask=mask)
+PY
+python .tmp/analyze_plate.py&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-11T11:51:11.169690+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(int)
+for i,c in [(0,(167,58)),(10,(153,63)),(40,(146,66))]:
+ x,y=c; print(&#x27;\\n&#x27;,i)
+ print(f[i,y-4:y+7,x-6:x+7].tolist())
+PY&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-11T11:52:44.043955+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt;&gt; .tmp/analyze_plate.py &lt;&lt;&#x27;PY&#x27;
+# source-only median plate with intentionally conservative object exclusions
+with np.errstate(all=&#x27;ignore&#x27;):
+ import warnings
+ with warnings.catch_warnings():
+  warnings.simplefilter(&#x27;ignore&#x27;); bg=np.nanmedian(np.where(valid[:,:,:,None],f,np.nan),axis=0)
+# floor match known gradients within small holes
+from scipy.ndimage import binary_dilation
+for k,s in enumerate(ss):
+ hole=labs==k+1
+ ring=binary_dilation(hole,iterations=3)&amp;~missing
+ y,x=np.where(ring)
+ # Candidate translation matched over observed ring. offset+brightness plane adjustment
+ candidates=[]
+ for dy in range(-20,21):
+  for dx in range(-35,36):
+   if dx==dy==0:continue
+   if min(x+dx)&lt;0 or max(x+dx)&gt;=256 or min(y+dy)&lt;0 or max(y+dy)&gt;=144:continue
+   known=~missing[y+dy,x+dx]
+   if known.mean()&lt;.96:continue
+   X=np.stack([np.ones(len(x)),(x-x.mean())/10,(y-y.mean())/10],1)
+   diff=bg[y,x]-bg[y+dy,x+dx];
+   if np.isnan(diff).any():continue
+   coef=np.linalg.lstsq(X,diff,rcond=None)[0]
+   resid=diff-X@coef
+   score=np.mean(resid**2)+.007*np.mean((X@coef)**2)+.025*(dx*dx+dy*dy)
+   yh,xh=np.where(hole)
+   if np.isnan(bg[yh+dy,xh+dx]).any():continue
+   candidates.append((score,dx,dy,coef,x.mean(),y.mean()))
+ candidates.sort(key=lambda c:c[0]); print(&#x27;match&#x27;,s,[(round(c[0],1),c[1:3]) for c in candidates[:10]])
+ score,dx,dy,coef,xm,ym=candidates[0]; yh,xh=np.where(hole)
+ Xh=np.stack([np.ones(len(xh)),(xh-xm)/10,(yh-ym)/10],1)
+ bg[yh,xh]=bg[yh+dy,xh+dx]+Xh@coef
+np.save(&#x27;.tmp/plate.npy&#x27;,bg)
+print(&#x27;Plate blue residual&#x27;)
+for y in range(51,67):
+ print(y,[tuple((f[0,y,x]-bg[y,x]).round().astype(int)) for x in range(160,176)])
+PY
+python .tmp/analyze_plate.py&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-11T11:53:12.324482+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.optimize import least_squares
+f=np.load(&#x27;.tmp/tracks.npz&#x27;); b=f[&#x27;blue&#x27;]; r=f[&#x27;red&#x27;]; w=f[&#x27;white&#x27;];
+print(&#x27;blue line&#x27;,np.polyfit(b[:14,0],b[:14,1],1)); print(&#x27;red line&#x27;,np.polyfit(r[16:30,0],r[16:30,1],1));
+print(&#x27;white line&#x27;,np.polyfit(w[31:49,0],w[31:49,1],1))
+for label,arr in [(&#x27;blue&#x27;,b[:14]),(&#x27;red&#x27;,r[16:30]),(&#x27;white&#x27;,w[31:49])]:
+ print(label,arr)
+PY&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-11T11:53:54.090731+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import binary_dilation,label,find_objects
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float); z=np.load(&#x27;.tmp/tracks.npz&#x27;); bg=np.load(&#x27;.tmp/plate.npy&#x27;); yy,xx=np.indices(f.shape[1:3]); mask=z[&#x27;mask&#x27;].copy()
+for i in range(96):
+ # compare to source plate to erase object footprints but allow identical floor
+ diff=abs(f[i]-bg).max(2)
+ mask[i]= mask[i]&amp;binary_dilation(diff&gt;7,iterations=1)
+ # overlap hole fallback must remain conservative in unavoidable region
+v=~mask; missing=~v.any(0); labs,n=label(missing)
+print(&#x27;missing&#x27;,missing.sum(),[(int((labs[s]==j+1).sum()),s) for j,s in enumerate(find_objects(labs))])
+# show best (brightest G from frame0-14 vs late) at hidden region
+for y in range(62,75):
+ print(y,&#x27;&#x27;.join(&#x27;#&#x27; if missing[y,x] else &#x27;W&#x27; if bg[y,x].min()&gt;235 else &#x27;.&#x27; for x in range(132,155)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-11T11:54:32.759212+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import binary_dilation,label,find_objects
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float); z=np.load(&#x27;.tmp/tracks.npz&#x27;); bg=np.load(&#x27;.tmp/plate.npy&#x27;); yy,xx=np.indices(f.shape[1:3]);
+red=z[&#x27;red&#x27;]; blue=z[&#x27;blue&#x27;]; white=z[&#x27;white&#x27;]; n=96; masks=np.zeros(f.shape[:3],bool)
+for i in range(n):
+ r,g,b=f[i].transpose(2,0,1)
+ # red pigment core plus surrounding AA and shadow
+ x,y=red[i]; core=(abs(xx-x)&lt;8)&amp;(abs(yy-y)&lt;5)&amp;(r-g&gt;22)&amp;(r-b&gt;22)
+ m=binary_dilation(core,iterations=1)
+ m|=((xx-x-.4)/6.5)**2+((yy-y-3.8)/2.8)**2&lt;1
+ masks[i]|=m
+ x,y=blue[i]; core=(abs(xx-x)&lt;8)&amp;(abs(yy-y)&lt;5)&amp;(b-r&gt;32)&amp;(b-g&gt;8)
+ m=binary_dilation(core,iterations=1)
+ m|=((xx-x-.8)/5)**2+((yy-y-4.2)/4.8)**2&lt;1
+ masks[i]|=m
+ x,y=white[i]; masks[i]|=(abs(xx-x)&lt;9)&amp;(yy&gt;y-5)&amp;(yy&lt;y+6)
+valid=~masks; missing=~valid.any(0)
+print(&#x27;missing&#x27;,missing.sum())
+print([(int((label(missing)[0][s]==j+1).sum()),s) for j,s in enumerate(find_objects(label(missing)[0]))])
+with __import__(&#x27;warnings&#x27;).catch_warnings():
+ __import__(&#x27;warnings&#x27;).simplefilter(&#x27;ignore&#x27;); plate=np.nanmedian(np.where(valid[:,:,:,None],f,np.nan),axis=0)
+for y in range(58,79):
+ print(y,&#x27;&#x27;.join(&#x27;#&#x27; if missing[y,x] else &#x27;W&#x27; if plate[y,x].min()&gt;235 else &#x27;w&#x27; if plate[y,x].min()&gt;225 and np.ptp(plate[y,x])&lt;30 else &#x27;.&#x27; for x in range(131,157)))
+np.savez(&#x27;.tmp/tight.npz&#x27;,masks=masks,plate=plate,missing=missing)
+PY&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-11T11:56:25.620581+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; generate.py &lt;&lt;&#x27;PY&#x27;
+\&quot;\&quot;\&quot;Remove the red mallet and reconstruct the resulting source-timeline impacts.
+
+All geometry, tracks, textures and mattes are derived from the local RGB video.
+No learned models or renderer are used.  Coordinates below are in source pixels.
+\&quot;\&quot;\&quot;
+from pathlib import Path
+import warnings
+import numpy as np
+from scipy.ndimage import label, find_objects, binary_dilation, distance_transform_edt, map_coordinates
+from scipy.optimize import least_squares
+from scipy.sparse import lil_matrix
+from scipy.sparse.linalg import spsolve
+import artifact_io
+
+ROOT = Path(__file__).resolve().parent
+Y, X = np.indices((144, 256))
+
+
+def get_tracks(src):
+    red, blue, white = [], [], []
+    region = (X &gt; 90) &amp; (X &lt; 177) &amp; (Y &gt; 49) &amp; (Y &lt; 85)
+    for i, frame in enumerate(src):
+        r, g, b = frame.transpose(2, 0, 1)
+        for target, m in [(red, region &amp; (r &gt; 1.4*g) &amp; (r &gt; 1.4*b) &amp; (r &gt; 70)),
+                          (blue, region &amp; (b &gt; 1.5*r) &amp; (b &gt; 1.2*g) &amp; (b &gt; 60))]:
+            yy, xx = np.where(m)
+            target.append((xx.mean(), yy.mean()))
+        xp = 105 if i &lt; 30 else 105 - 2.13*(i-30) if i &lt; 49 else 68 + .05*(i-49)
+        yp = 81 if i &lt; 30 else 81 + .82*(i-30) if i &lt; 49 else 95.3
+        m = ((abs(X-xp) &lt; 9) &amp; (abs(Y-yp) &lt; 5) &amp; (r &gt; 230) &amp; (g &gt; 228)
+             &amp; (b &gt; 222) &amp; (abs(r-b) &lt; 20) &amp; (abs(g-b) &lt; 23))
+        labs, _ = label(m)
+        slices = find_objects(labs)
+        k = max(range(len(slices)), key=lambda k: (labs[slices[k]] == k+1).sum())
+        yy, xx = np.where(labs == k+1)
+        white.append((xx.mean(), yy.mean()))
+    return np.array(red), np.array(blue), np.array(white)
+
+
+def object_masks(src, red, blue, white):
+    tight = np.zeros(src.shape[:3], bool)
+    wide = np.zeros_like(tight)
+    for i, frame in enumerate(src):
+        r, g, b = frame.transpose(2, 0, 1)
+        x, y = red[i]
+        core = (abs(X-x) &lt; 8) &amp; (abs(Y-y) &lt; 5) &amp; (r-g &gt; 22) &amp; (r-b &gt; 22)
+        tight[i] |= binary_dilation(core)
+        tight[i] |= ((X-x-.4)/6.5)**2 + ((Y-y-3.8)/2.8)**2 &lt; 1
+        x, y = blue[i]
+        core = (abs(X-x) &lt; 8) &amp; (abs(Y-y) &lt; 5) &amp; (b-r &gt; 32) &amp; (b-g &gt; 8)
+        tight[i] |= binary_dilation(core)
+        tight[i] |= ((X-x-.8)/5)**2 + ((Y-y-4.2)/4.8)**2 &lt; 1
+        x, y = white[i]
+        tight[i] |= (abs(X-x) &lt; 9) &amp; (Y &gt; y-5) &amp; (Y &lt; y+6)
+        for (x, y), width, up, down in [(red[i], 9, 7, 9),
+                                        (blue[i], 9, 7, 12),
+                                        (white[i], 10, 7, 8)]:
+            wide[i] |= (abs(X-x) &lt; width) &amp; (Y &gt; y-up) &amp; (Y &lt; y+down)
+    return tight, wide
+
+
+def restore_holes(plate):
+    \&quot;\&quot;\&quot;Source-texture exemplar plus a Dirichlet Poisson seam correction.\&quot;\&quot;\&quot;
+    missing = np.isnan(plate[:, :, 0])
+    labs, _ = label(missing)
+    for k, box in enumerate(find_objects(labs)):
+        hole = labs == k+1
+        ring = binary_dilation(hole, iterations=3) &amp; ~missing
+        yy, xx = np.where(ring)
+        yh, xh = np.where(hole)
+        xm, ym = xx.mean(), yy.mean()
+        basis = np.stack([np.ones(len(xx)), (xx-xm)/10, (yy-ym)/10], 1)
+        best = None
+        for dy in range(-18, 19):
+            for dx in range(-30, 31):
+                if (dx == dy == 0 or min(xx+dx) &lt; 0 or max(xx+dx) &gt;= 256
+                    or min(yy+dy) &lt; 0 or max(yy+dy) &gt;= 144):
+                    continue
+                sample = plate[yy+dy, xx+dx]
+                inner = plate[yh+dy, xh+dx]
+                if not np.isfinite(sample).all() or not np.isfinite(inner).all():
+                    continue
+                diff = plate[yy, xx] - sample
+                coef = np.linalg.lstsq(basis, diff, rcond=None)[0]
+                residual = diff - basis@coef
+                score = (np.mean(residual**2) + .007*np.mean((basis@coef)**2)
+                         + .025*(dx*dx+dy*dy))
+                if best is None or score &lt; best[0]:
+                    best = (score, dx, dy, coef)
+        _, dx, dy, coef = best
+        # A one-pixel expanded exemplar provides guidance gradients at the seam.
+        allpoints = binary_dilation(hole)
+        ye, xe = np.where(allpoints)
+        patch = plate.copy()
+        bas = np.stack([np.ones(len(xe)), (xe-xm)/10, (ye-ym)/10], 1)
+        patch[ye, xe] = plate[ye+dy, xe+dx] + bas@coef
+        lookup = {(int(y), int(x)): j for j, (y, x) in enumerate(zip(yh, xh))}
+        A = lil_matrix((len(yh), len(yh)))
+        rhs = np.zeros((len(yh), 3))
+        for j, (y, x) in enumerate(zip(yh, xh)):
+            A[j, j] = 4
+            for yn, xn in [(y-1, x), (y+1, x), (y, x-1), (y, x+1)]:
+                # Moderate the exemplar gradients in the unobserved small area.
+                rhs[j] += .75*(patch[y, x] - patch[yn, xn])
+                if (int(yn), int(xn)) in lookup:
+                    A[j, lookup[(int(yn), int(xn))]] = -1
+                else:
+                    rhs[j] += plate[yn, xn]
+        plate[yh, xh] = spsolve(A.tocsr(), rhs)
+    return np.clip(plate, 0, 255)
+
+
+def make_blue_layers(src, plate, center):
+    \&quot;\&quot;\&quot;Unpremultiply a source-pixel mallet matte; retain its soft floor shadow.\&quot;\&quot;\&quot;
+    delta = src[0] - plate
+    x, y = center
+    region = (abs(X-x) &lt; 9) &amp; (Y &gt; y-7) &amp; (Y &lt; y+12)
+    # The blue-vs-floor chroma difference yields a subpixel edge matte.
+    chroma = ((src[0, :, :, 1]-src[0, :, :, 0]) -
+              (plate[:, :, 1]-plate[:, :, 0]))
+    alpha = np.clip(chroma/54., 0, 1)
+    alpha *= region &amp; (Y &lt; y+3.1)
+    alpha[alpha &lt; .06] = 0
+    # Preserve the highlights of the originally rendered head and handle.
+    fg = np.zeros_like(src[0])
+    m = alpha &gt; 0
+    fg[m] = (src[0][m] - (1-alpha[m, None])*plate[m]) / alpha[m, None]
+    fg = np.clip(fg, 0, 255)
+    # Source shadows are extracted independently, never carried as a floor tile.
+    shadow = np.zeros_like(src[0])
+    residual = delta - alpha[:, :, None]*(fg-plate)
+    shadow_region = region &amp; (Y &gt; y+1.3)
+    magnitude = np.maximum(-residual[:, :, :2].mean(2)-3., 0)
+    weight = np.clip(magnitude/7., 0, 1) * shadow_region
+    shadow = np.minimum(residual, 0) * weight[:, :, None]
+    # Remove isolated compression ripple at the edge of the extracted footprint.
+    taper = np.minimum(1, distance_transform_edt(region)/2)
+    shadow *= taper[:, :, None]
+    return alpha, fg*alpha[:, :, None], shadow
+
+
+def warp_layer(layer, origin, target, scale):
+    ox, oy = origin
+    tx, ty = target
+    coords = [(Y-ty)/scale+oy, (X-tx)/scale+ox]
+    if layer.ndim == 2:
+        return map_coordinates(layer, coords, order=1, mode=&#x27;constant&#x27;, cval=0)
+    return np.stack([map_coordinates(layer[:, :, c], coords, order=1,
+                                    mode=&#x27;constant&#x27;, cval=0) for c in range(3)], 2)
+
+
+def white_layer(src, plate, center, i):
+    x, y = center
+    region = (abs(X-x) &lt; 10) &amp; (Y &gt; y-7) &amp; (Y &lt; y+8)
+    taper = np.minimum(1, distance_transform_edt(region)/2)
+    diff = (src[i] - plate) * taper[:, :, None]
+    diff[abs(diff).max(2) &lt; 3] = 0
+    return diff
+
+
+def generate():
+    src = np.load(ROOT/&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(np.float64)
+    red, blue, white = get_tracks(src)
+    tight, wide = object_masks(src, red, blue, white)
+    with warnings.catch_warnings():
+        warnings.simplefilter(&#x27;ignore&#x27;, RuntimeWarning)
+        plate = np.nanmedian(np.where(~tight[:, :, :, None], src, np.nan), axis=0)
+    plate = restore_holes(plate)
+
+    # A perspective projection of constant plane velocity fits the pre-impact
+    # centers.  It predicts the blue mallet&#x27;s unobstructed flight across the table.
+    tt = np.arange(14, dtype=float)
+    def projected(p, t):
+        return (p[0]+p[1]*t)/(1+p[2]*t)
+    params = least_squares(lambda p: projected(p, tt)-blue[:14, 0],
+                           [167.5, -2.45, -.0067]).x
+    slope, intercept = np.polyfit(blue[:14, 0], blue[:14, 1], 1)
+    # The source head-to-head contact with the white mallet occurred at about
+    # source time 29.5.  Match that contact distance, without the red mediator.
+    contact_x = np.interp(29.6, np.arange(96), red[:, 0])
+    contact_t = (params[0]-contact_x)/(contact_x*params[2]-params[1])
+    delay = contact_t - 29.6
+    alpha, premul, shadow = make_blue_layers(src, plate, blue[0])
+    whites = [white_layer(src, plate, white[i], i) for i in range(96)]
+    out = []
+    for i in range(96):
+        # Retain the original scene and its very small encoding/lighting changes.
+        erase = np.minimum(1, distance_transform_edt(wide[i])/1.6)
+        frame = src[i]*(1-erase[:, :, None]) + plate*erase[:, :, None]
+
+        # Re-time the white mallet only after the newly delayed direct collision.
+        wi = max(0., i-delay)
+        lo = min(95, int(np.floor(wi)))
+        hi = min(95, lo+1)
+        mix = wi-lo
+        frame += (1-mix)*whites[lo] + mix*whites[hi]
+
+        if i &lt;= 13:
+            # Factual blue history before any possible contact is unchanged.
+            x, y = blue[i]
+            m = (abs(X-x) &lt; 9) &amp; (Y &gt; y-7) &amp; (Y &lt; y+12)
+            taper = np.minimum(1, distance_transform_edt(m)/2)
+            frame += (src[i]-plate)*taper[:, :, None]
+        else:
+            if i &lt;= contact_t:
+                bx = projected(params, float(i))
+                by = intercept+slope*bx
+            else:
+                # Reuse the source&#x27;s decaying contact recoil on the now-blue body.
+                s = min(95., 29.6 + i-contact_t)
+                bx = np.interp(s, np.arange(96), red[:, 0])
+                by = intercept+slope*bx
+            target = (bx, by)
+            # Projective depth enlarges the mallet slightly as it approaches.
+            scale = (1-params[2]*0)/(1+params[2]*min(float(i), contact_t))
+            scale = 1 + .68*(scale-1)
+            a = warp_layer(alpha, blue[0], target, scale)
+            p = warp_layer(premul, blue[0], target, scale)
+            sh = warp_layer(shadow, blue[0], target, scale)
+            frame += sh
+            frame = frame*(1-a[:, :, None]) + p
+        out.append(np.clip(np.rint(frame), 0, 255).astype(np.uint8))
+    frames = np.stack(out)
+    artifact_io.save(frames, ROOT)
+    print(f&#x27;Saved {frames.shape}, uint8 RGB, 24 fps. Direct impact at frame {contact_t+1:.2f}; white delay {delay:.2f} frames.&#x27;)
+    return frames
+
+
+if __name__ == &#x27;__main__&#x27;:
+    generate()
+PY
+python generate.py&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-11T11:57:01.859422+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+z=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;].transpose(2,0,1); f=np.stack([(z&gt;&gt;16)&amp;255,(z&gt;&gt;8)&amp;255,z&amp;255],3).astype(float)
+yy,xx=np.indices((144,256)); reg=(xx&gt;90)&amp;(xx&lt;177)&amp;(yy&gt;50)&amp;(yy&lt;87)
+for i in [0,12,16,20,24,28,30,32,34,40,48,60,95]:
+ r,g,b=f[i].transpose(2,0,1); m=reg&amp;(r-g&gt;35)&amp;(r-b&gt;35)
+ print(&#x27;frame&#x27;,i,&#x27;red pixels&#x27;,m.sum(),&#x27;blue pixels&#x27;,(reg&amp;(b-r&gt;40)&amp;(b-g&gt;15)).sum())
+ print(&#x27;\\n&#x27;.join(&#x27;%3d&#x27;%y+&#x27;&#x27;.join(&#x27;R&#x27; if r[y,x]-g[y,x]&gt;35 and r[y,x]-b[y,x]&gt;35 else &#x27;B&#x27; if b[y,x]-r[y,x]&gt;40 and b[y,x]-g[y,x]&gt;15 else &#x27;W&#x27; if min(r[y,x],g[y,x],b[y,x])&gt;240 else &#x27;w&#x27; if min(r[y,x],g[y,x],b[y,x])&gt;225 and max(r[y,x],g[y,x],b[y,x])-min(r[y,x],g[y,x],b[y,x])&lt;30 else &#x27;.&#x27; for x in range(96,176)) for y in range(53,85)))
+print(&#x27;files validation&#x27;,f.shape)
+PY&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-11T11:57:50.542824+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python generate.py &amp;&amp; python - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+import numpy as np
+from PIL import Image
+p=Path(&#x27;.&#x27;)
+z=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;]; assert z.shape==(144,256,96)
+f=np.stack([(z&gt;&gt;16)&amp;255,(z&gt;&gt;8)&amp;255,z&amp;255],2).transpose(3,0,1,2).astype(int)
+y,x=np.indices((144,256)); r,g,b=f.transpose(3,0,1,2)
+region=(x&gt;92)&amp;(x&lt;176)&amp;(y&gt;50)&amp;(y&lt;88)
+remnant=region[None]&amp;(r-g&gt;35)&amp;(r-b&gt;35)
+print(&#x27;Red remnants in intervention area per frame:&#x27;,remnant.sum((1,2)).tolist())
+print(&#x27;RGB frames:&#x27;,len(list(p.glob(&#x27;frames/*.png&#x27;))))
+for name in [&#x27;generate.py&#x27;,&#x27;pixels.npz&#x27;,&#x27;index.html&#x27;,&#x27;inspection.png&#x27;,&#x27;transition_check.png&#x27;]:
+ print(name,(p/name).stat().st_size,&#x27;bytes&#x27;)
+assert not remnant.any()
+assert len(list(p.glob(&#x27;frames/*.png&#x27;)))==96
+assert Image.open(&#x27;frames/95.png&#x27;).size==(256,144)
+PY&quot;</pre></details><p class=muted>保存候选 3 份；完成命令 22 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
