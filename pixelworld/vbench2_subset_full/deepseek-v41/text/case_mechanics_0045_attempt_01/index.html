@@ -1,0 +1,794 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/DeepSeek-V4.1-Flash · mechanics_0045</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/DeepSeek-V4.1-Flash · mechanics_0045</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>4.0 FPS · 20 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_98474ec19bfbd0e9.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;8dceb07c5c86b7778c1954c128ff53d45928f7d858dbd05583171d3ab83aa2e2&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/final/pixels_98474ec19bfbd0e9.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/final/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>文本生成</span><h3 style="margin-top:14px">原始任务</h3><p>A blue pen is used to write on the rough, brown paper of a shopping bag, showcasing the interaction between the pen and the bag&#x27;s surface.</p><div class=facts><div><strong>5.00s</strong>视频时长</div><div><strong>34559</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-11T10:46:01.931618+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_ea023fcdda465d8c.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;de40801126492af3bb0e0662d0556cb56c0e972d14616f4b15cd20b17cfed17d&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_00/pixels_ea023fcdda465d8c.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_00/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_00/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_00/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,425 @@
++from pathlib import Path
++import math
++
++import numpy as np
++from PIL import Image, ImageDraw, ImageFilter
++from scipy.interpolate import splprep, splev
++from scipy.ndimage import distance_transform_edt, gaussian_filter
++
++import artifact_io
++
++
++ROOT = Path(__file__).resolve().parent
++WIDTH, HEIGHT = 256, 144
++FRAMES, FPS = 20, 4.0
++SS = 4
++W, H = WIDTH * SS, HEIGHT * SS
++RNG = np.random.default_rng(45821)
++
++
++def smoothstep(value):
++    value = np.clip(value, 0.0, 1.0)
++    return value * value * (3.0 - 2.0 * value)
++
++
++def fbm(shape, scales, weights, seed):
++    rng = np.random.default_rng(seed)
++    field = np.zeros(shape, dtype=np.float32)
++    for scale, weight in zip(scales, weights):
++        small = rng.normal(0.0, 1.0, (max(2, shape[0] // scale), max(2, shape[1] // scale)))
++        image = Image.fromarray(np.uint8(np.clip(0.5 + small * 0.13, 0.0, 1.0) * 255))
++        image = image.resize((shape[1], shape[0]), Image.Resampling.BICUBIC)
++        field += weight * (np.asarray(image, dtype=np.float32) / 255.0)
++    field -= field.mean()
++    field /= max(field.std(), 1e-5)
++    return field
++
++
++def make_paper_texture():
++    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
++    x = xx / W
++    y = yy / H
++
++    broad = fbm((H, W), [180, 76, 32, 13], [0.45, 0.28, 0.18, 0.09], 11)
++    fine = fbm((H, W), [10, 4, 2], [0.45, 0.34, 0.21], 19)
++    paper = fbm((H, W), [35, 9, 3], [0.44, 0.34, 0.22], 23)
++
++    illumination = (
++        1.055
++        - 0.105 * x
++        + 0.065 * (1.0 - y)
++        + 0.026 * broad
++        + 0.013 * np.sin(yy * 0.070 + 0.5 * np.sin(xx * 0.019))
++    )
++    illumination *= 1.0 - 0.09 * np.exp(-((x - 0.50) ** 2 / 0.22 + (y - 0.54) ** 2 / 0.16))
++
++    base = np.empty((H, W, 3), dtype=np.float32)
++    base[..., 0] = 155.0 * illumination
++    base[..., 1] = 111.0 * illumination
++    base[..., 2] = 66.0 * illumination
++
++    color_noise = 0.030 * paper + 0.019 * fine
++    base[..., 0] *= 1.0 + color_noise
++    base[..., 1] *= 1.0 + color_noise * 0.84
++    base[..., 2] *= 1.0 + color_noise * 0.63
++
++    # Fine horizontal machine grain, kept low contrast so the surface still reads as paper.
++    grain = 1.0 + 0.017 * np.sin(yy * 1.42 + 0.8 * paper)
++    grain += 0.011 * np.sin(yy * 0.40 + 2.0 * fine)
++    base *= grain[..., None]
++
++    # The folded and glued top hem of the paper shopping bag.
++    hem_bottom = 22.0 + 0.85 * np.sin(xx * 0.024)
++    hem = yy &lt; hem_bottom * SS
++    hem_shadow = np.exp(-((yy - hem_bottom * SS) / (2.6 * SS)) ** 2)
++    hem_light = np.exp(-((yy - (hem_bottom - 3.0) * SS) / (2.2 * SS)) ** 2)
++    base[hem] *= np.array([0.98, 0.96, 0.93], dtype=np.float32)
++    base *= (1.0 - 0.18 * hem_shadow[..., None])
++    base += hem_light[..., None] * np.array([10.0, 8.0, 5.0], dtype=np.float32)
++
++    # Folded side gusset at the right edge.
++    seam_x = 235.0 + 1.5 * np.sin(yy * 0.020)
++    seam_dark = np.exp(-((xx - seam_x * SS) / (1.55 * SS)) ** 2)
++    seam_light = np.exp(-((xx - (seam_x - 2.7) * SS) / (1.0 * SS)) ** 2)
++    base *= (1.0 - 0.25 * seam_dark[..., None])
++    base += seam_light[..., None] * np.array([8.0, 7.0, 5.0], dtype=np.float32)
++
++    # A broad diagonal crease gives the bag a handled, imperfect surface.
++    crease_dist = xx - (184.0 * SS + 0.31 * yy)
++    crease = np.exp(-(crease_dist / (3.2 * SS)) ** 2)
++    crease_shadow = np.exp(-((crease_dist - 2.5 * SS) / (2.1 * SS)) ** 2)
++    crease_light = np.exp(-((crease_dist + 2.2 * SS) / (1.35 * SS)) ** 2)
++    base *= (1.0 - 0.075 * crease[..., None])
++    base *= (1.0 - 0.09 * crease_shadow[..., None])
++    base += 0.065 * crease_light[..., None] * np.array([155.0, 111.0, 66.0], dtype=np.float32)
++
++    # Very subtle corner falloff; it helps the eye settle on the writing action.
++    vignette = 1.0 - 0.11 * (
++        smoothstep((np.hypot((x - 0.48) / 0.72, (y - 0.55) / 0.78) - 0.52) / 0.72)
++    )
++    base *= vignette[..., None]
++
++    return np.clip(base, 0.0, 255.0)
++
++
++def add_paper_fibers(image):
++    overlay = Image.new(&quot;RGBA&quot;, (W, H), (0, 0, 0, 0))
++    draw = ImageDraw.Draw(overlay, &quot;RGBA&quot;)
++    rng = np.random.default_rng(944)
++    for _ in range(5200):
++        x = rng.uniform(0, W)
++        y = rng.uniform(23 * SS, H)
++        length = rng.uniform(2.0, 17.0) * SS / 2.2
++        angle = rng.normal(0.04, 0.20)
++        dx = math.cos(angle) * length
++        dy = math.sin(angle) * length
++        if rng.random() &lt; 0.60:
++            color = (70, 46, 25, int(rng.uniform(7, 22)))
++        else:
++            color = (233, 199, 151, int(rng.uniform(7, 19)))
++        width = 1 if rng.random() &lt; 0.80 else 2
++        draw.line((x, y, x + dx, y + dy), fill=color, width=width)
++
++    # Sparse darker flecks make recycled kraft stock feel tactile at this scale.
++    for _ in range(260):
++        x = rng.uniform(0, W)
++        y = rng.uniform(20 * SS, H)
++        radius = rng.uniform(0.45, 1.5) * SS
++        alpha = int(rng.uniform(10, 31))
++        draw.ellipse((x - radius, y - radius * 0.6, x + radius, y + radius * 0.6),
++                     fill=(53, 33, 18, alpha))
++    overlay = overlay.filter(ImageFilter.GaussianBlur(0.42 * SS))
++    base = Image.fromarray(np.uint8(np.clip(image, 0, 255)), &quot;RGB&quot;).convert(&quot;RGBA&quot;)
++    return Image.alpha_composite(base, overlay)
++
++
++def catmull_rom_path(points, samples_per_segment=80):
++    points = np.asarray(points, dtype=np.float64)
++    padded = np.vstack([points[0], points, points[-1]])
++    curve = []
++    for index in range(1, len(padded) - 2):
++        p0, p1, p2, p3 = padded[index - 1:index + 3]
++        for t in np.linspace(0.0, 1.0, samples_per_segment, endpoint=False):
++            t2, t3 = t * t, t * t * t
++            point = 0.5 * (
++                2.0 * p1
++                + (-p0 + p2) * t
++                + (2.0 * p0 - 5.0 * p1 + 4.0 * p2 - p3) * t2
++                + (-p0 + 3.0 * p1 - 3.0 * p2 + p3) * t3
++            )
++            curve.append(point)
++    curve.append(points[-1])
++    curve = np.asarray(curve)
++    lengths = np.r_[0.0, np.cumsum(np.linalg.norm(np.diff(curve, axis=0), axis=1))]
++    return curve, lengths / lengths[-1]
++
++
++CONTROL_POINTS = [
++    (52.0, 80.0), (54.0, 95.0), (61.0, 103.0), (69.0, 98.0),
++    (69.0, 87.0), (61.0, 81.0), (52.0, 84.0), (54.0, 94.0),
++    (67.0, 99.0), (82.0, 96.0), (96.0, 90.0), (108.0, 90.0),
++    (117.0, 98.0), (127.0, 99.0), (136.0, 91.0), (143.0, 79.0),
++    (149.0, 71.0), (154.0, 72.0), (157.0, 82.0), (152.0, 94.0),
++    (142.0, 102.0), (131.0, 101.0), (127.0, 91.0), (132.0, 81.0),
++    (143.0, 75.0), (157.0, 75.0), (173.0, 81.0), (188.0, 87.0),
++    (202.0, 86.0), (214.0, 80.0), (220.0, 80.0), (224.0, 88.0),
++]
++PATH, PATH_T = catmull_rom_path(CONTROL_POINTS)
++
++
++def sample_path(progress):
++    progress = float(np.clip(progress, 0.0, 1.0))
++    index = int(np.searchsorted(PATH_T, progress, side=&quot;right&quot;) - 1)
++    index = max(0, min(index, len(PATH_T) - 2))
++    span = max(PATH_T[index + 1] - PATH_T[index], 1e-8)
++    alpha = (progress - PATH_T[index]) / span
++    return PATH[index] * (1.0 - alpha) + PATH[index + 1] * alpha
++
++
++def draw_ink(progress, frame_index):
++    layer = Image.new(&quot;RGBA&quot;, (W, H), (0, 0, 0, 0))
++    draw = ImageDraw.Draw(layer, &quot;RGBA&quot;)
++    if progress &lt;= 0.002:
++        return layer
++
++    end_index = int(np.searchsorted(PATH_T, progress, side=&quot;right&quot;))
++    end_index = max(2, min(end_index, len(PATH) - 1))
++    pts = PATH[:end_index + 1]
++    if progress &lt; 0.999:
++        pts = np.vstack([pts, sample_path(progress)])
++
++    for index in range(len(pts) - 1):
++        u = index / max(1, len(pts) - 2)
++        pressure = 3.30 + 0.48 * np.sin(u * math.tau * 7.0 + 0.6)
++        pressure += 0.22 * np.sin(u * math.tau * 19.0)
++        radius = pressure * SS * 0.5
++        p0 = pts[index] * SS
++        p1 = pts[index + 1] * SS
++        draw.line((*p0, *p1), fill=(11, 37, 139, 235), width=max(2, int(round(pressure * SS))))
++        draw.ellipse((p1[0] - radius, p1[1] - radius, p1[0] + radius, p1[1] + radius),
++                     fill=(11, 37, 139, 235))
++
++    # Break the edge very slightly where the ink skips over paper fibers.
++    mask = np.asarray(layer.getchannel(&quot;A&quot;), dtype=np.float32) / 255.0
++    tooth = fbm((H, W), [7, 3, 1], [0.50, 0.31, 0.19], 301 + frame_index)
++    rough_edge = np.clip(0.78 + 0.13 * tooth, 0.58, 1.0)
++    inner = gaussian_filter(mask, 1.15 * SS)
++    edge_factor = np.clip(inner * 1.65, 0.0, 1.0)
++    mask = mask * (0.84 + 0.16 * rough_edge)
++    mask *= np.where(edge_factor &lt; 0.90, rough_edge, 1.0)
++    mask = np.clip(mask, 0.0, 1.0)
++
++    edge = np.clip(gaussian_filter(mask, 0.55 * SS) - gaussian_filter(mask, 1.65 * SS), 0.0, 1.0)
++    core = np.clip(mask - gaussian_filter(mask, 1.0 * SS), 0.0, 1.0)
++    alpha = np.clip(mask * 0.95 + edge * 0.05, 0.0, 0.96)
++    rgb = np.zeros((H, W, 3), dtype=np.float32)
++    rgb[:] = np.array([18.0, 53.0, 169.0], dtype=np.float32)
++    rgb += edge[..., None] * np.array([9.0, 28.0, 49.0], dtype=np.float32)
++    rgb -= core[..., None] * np.array([8.0, 12.0, 28.0], dtype=np.float32)
++
++    rgba = np.dstack([np.clip(rgb, 0, 255), alpha * 255.0]).astype(np.uint8)
++    ink = Image.fromarray(rgba, &quot;RGBA&quot;)
++
++    # A narrow, low-opacity halo reads as still-wet ink.
++    halo = layer.filter(ImageFilter.GaussianBlur(2.3 * SS))
++    halo_array = np.asarray(halo, dtype=np.float32)
++    halo_array[..., 0] = 26
++    halo_array[..., 1] = 58
++    halo_array[..., 2] = 139
++    halo_array[..., 3] *= 0.16
++    halo = Image.fromarray(np.uint8(np.clip(halo_array, 0, 255)), &quot;RGBA&quot;)
++    return Image.alpha_composite(halo, ink)
++
++
++def pen_pose(frame_index):
++    if frame_index == 0:
++        tip = sample_path(0.0) + np.array([-9.0, -10.0])
++        progress = 0.0
++        lift = 1.0
++    else:
++        progress = smoothstep((frame_index - 1.0) / 16.0)
++        tip = sample_path(progress)
++        lift = 0.0
++        if frame_index &gt;= 18:
++            lift = (frame_index - 17.0) / 2.0
++            tip = tip + np.array([3.4, -6.5]) * lift
++    angle = math.radians(-37.5 + 1.8 * math.sin(progress * math.tau * 1.7))
++    axis = np.array([math.cos(angle), math.sin(angle)], dtype=np.float32)
++    perp = np.array([-axis[1], axis[0]], dtype=np.float32)
++    return tip.astype(np.float32), axis, perp, progress, lift
++
++
++def pen_masks(tip, axis, perp):
++    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
++    px = xx - tip[0] * SS
++    py = yy - tip[1] * SS
++    along = px * axis[0] + py * axis[1]
++    lateral = px * perp[0] + py * perp[1]
++
++    nib_half = 1.15 * SS + np.maximum(along, 0.0) * 0.35
++    nib = (along &gt;= -0.6 * SS) &amp; (along &lt;= 12.0 * SS) &amp; (np.abs(lateral) &lt;= nib_half)
++    collar = (along &gt;= 11.2 * SS) &amp; (along &lt;= 16.0 * SS) &amp; (np.abs(lateral) &lt;= 6.2 * SS)
++    grip_half = 6.5 * SS + (np.clip(along, 15.0 * SS, 35.0 * SS) - 15.0 * SS) * 0.12
++    grip = (along &gt;= 15.0 * SS) &amp; (along &lt;= 36.0 * SS) &amp; (np.abs(lateral) &lt;= grip_half)
++    barrel_half = 9.0 * SS + 0.018 * np.maximum(along - 36.0 * SS, 0.0)
++    barrel = (along &gt;= 34.0 * SS) &amp; (along &lt;= 190.0 * SS) &amp; (np.abs(lateral) &lt;= barrel_half)
++    clip = (
++        (along &gt;= 52.0 * SS)
++        &amp; (along &lt;= 133.0 * SS)
++        &amp; (lateral &gt;= -7.7 * SS)
++        &amp; (lateral &lt;= -5.9 * SS)
++    )
++    return along, lateral, nib, collar, grip, barrel, clip
++
++
++def render_pen(tip, axis, perp, frame_index, lift):
++    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
++    along, lateral, nib, collar, grip, barrel, clip = pen_masks(tip, axis, perp)
++    rgba = np.zeros((H, W, 4), dtype=np.float32)
++
++    # Barrel: dark cobalt body with a cool specular ridge and a dark lower edge.
++    q = lateral / (9.0 * SS)
++    body_light = np.clip(0.78 - 0.31 * q + 0.09 * np.sin(along / SS * 0.11), 0.30, 1.08)
++    spec = np.exp(-((q + 0.42) / 0.15) ** 2) * 0.80
++    barrel_rgb = np.stack([
++        18.0 + 44.0 * body_light + 94.0 * spec,
++        58.0 + 79.0 * body_light + 114.0 * spec,
++        136.0 + 91.0 * body_light + 93.0 * spec,
++    ], axis=-1)
++    barrel_rgb *= (1.0 - 0.28 * np.clip((q - 0.55) / 0.45, 0.0, 1.0))[..., None]
++    barrel_alpha = barrel.astype(np.float32)
++    barrel_alpha *= 1.0 - 0.32 * np.exp(-((np.abs(q) - 0.91) / 0.06) ** 2)
++    rgba[..., :3] = np.where(barrel[..., None], barrel_rgb, rgba[..., :3])
++    rgba[..., 3] = np.where(barrel, barrel_alpha, rgba[..., 3])
++
++    # Chrome trim rings near the grip and at the far end of the visible barrel.
++    rings = (
++        (barrel | grip)
++        &amp; (
++            ((along &gt;= 31.2 * SS) &amp; (along &lt;= 35.0 * SS))
++            | ((along &gt;= 157.0 * SS) &amp; (along &lt;= 160.0 * SS))
++        )
++    )
++    ring_q = np.clip(lateral / (9.1 * SS), -1.0, 1.0)
++    ring_tone = 128.0 + 72.0 * np.clip(1.0 - np.abs(ring_q + 0.28), 0.0, 1.0)
++    ring_rgb = np.stack([ring_tone * 1.00, ring_tone * 1.03, ring_tone * 1.08], axis=-1)
++    rgba[..., :3] = np.where(rings[..., None], ring_rgb, rgba[..., :3])
++    rgba[..., 3] = np.where(rings, 1.0, rgba[..., 3])
++
++    # Rubber grip with shallow molded rings.
++    grip_half = 6.5 * SS + (np.clip(along, 15.0 * SS, 35.0 * SS) - 15.0 * SS) * 0.12
++    gq = lateral / np.maximum(grip_half, 1.0)
++    grip_shade = np.clip(0.74 - 0.28 * gq, 0.24, 0.92)
++    groove = 0.78 + 0.22 * (0.5 + 0.5 * np.cos(along / SS * 2.05))
++    grip_rgb = np.stack([
++        11.0 + 19.0 * grip_shade,
++        26.0 + 37.0 * grip_shade,
++        53.0 + 55.0 * grip_shade,
++    ], axis=-1) * groove[..., None]
++    rgba[..., :3] = np.where(grip[..., None], grip_rgb, rgba[..., :3])
++    rgba[..., 3] = np.where(grip, 1.0, rgba[..., 3])
++
++    # Polished metal collar and conical nib.
++    nib_half = 1.15 * SS + np.maximum(along, 0.0) * 0.35
++    metal_q = np.clip(lateral / np.maximum(nib_half, 1.0), -1.0, 1.0)
++    nib_light = 1.0 - 0.46 * np.abs(metal_q + 0.18)
++    nib_rgb = np.stack([
++        124.0 + 90.0 * nib_light,
++        137.0 + 92.0 * nib_light,
++        145.0 + 95.0 * nib_light,
++    ], axis=-1)
++    collar_q = np.clip(lateral / (6.2 * SS), -1.0, 1.0)
++    collar_tone = 132.0 + 75.0 * np.clip(1.0 - np.abs(collar_q + 0.30), 0.0, 1.0)
++    collar_rgb = np.stack([collar_tone, collar_tone * 1.04, collar_tone * 1.09], axis=-1)
++    rgba[..., :3] = np.where(nib[..., None], nib_rgb, rgba[..., :3])
++    rgba[..., 3] = np.where(nib, 1.0, rgba[..., 3])
++    rgba[..., :3] = np.where(collar[..., None], collar_rgb, rgba[..., :3])
++    rgba[..., 3] = np.where(collar, 1.0, rgba[..., 3])
++
++    # A slim chrome pocket clip.
++    clip_q = np.clip((lateral + 6.8 * SS) / (0.9 * SS), -1.0, 1.0)
++    clip_tone = 112.0 + 88.0 * np.clip(1.0 - np.abs(clip_q + 0.25), 0.0, 1.0)
++    clip_rgb = np.stack([clip_tone, clip_tone * 1.04, clip_tone * 1.10], axis=-1)
++    rgba[..., :3] = np.where(clip[..., None], clip_rgb, rgba[..., :3])
++    rgba[..., 3] = np.where(clip, 1.0, rgba[..., 3])
++
++    # A small rounded ballpoint at the contact point.
++    tip_px = tip * SS
++    ball_r = 1.35 * SS
++    ball = (xx - tip_px[0]) ** 2 + (yy - tip_px[1]) ** 2 &lt;= ball_r ** 2
++    ball_rgb = np.stack([
++        np.full((H, W), 48.0, dtype=np.float32),
++        np.full((H, W), 55.0, dtype=np.float32),
++        np.full((H, W), 62.0, dtype=np.float32),
++    ], axis=-1)
++    rgba[..., :3] = np.where(ball[..., None], ball_rgb, rgba[..., :3])
++    rgba[..., 3] = np.where(ball, 1.0, rgba[..., 3])
++
++    # Gentle antialiasing at the silhouette.
++    alpha = rgba[..., 3] / 255.0
++    alpha = np.clip(gaussian_filter(alpha, 0.38 * SS) * 1.03, 0.0, 1.0)
++    rgba[..., 3] = alpha * 255.0
++    return Image.fromarray(np.uint8(np.clip(rgba, 0, 255)), &quot;RGBA&quot;)
++
++
++def pen_shadow(tip, axis, perp, lift):
++    _, _, nib, collar, grip, barrel, clip = pen_masks(tip, axis, perp)
++    silhouette = (nib | collar | grip | barrel | clip).astype(np.float32)
++    offset_x = int(round((3.7 + 1.5 * lift) * SS))
++    offset_y = int(round((6.0 + 2.8 * lift) * SS))
++    shifted = np.zeros_like(silhouette)
++    shifted[offset_y:, offset_x:] = silhouette[:-offset_y, :-offset_x]
++    shifted = gaussian_filter(shifted, (3.2 + 2.0 * lift) * SS)
++    shifted = np.clip(shifted * (0.50 - 0.16 * lift), 0.0, 0.42)
++
++    # A tight contact shadow anchors the nib to the paper.
++    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
++    cx = tip[0] * SS + 1.0 * SS
++    cy = tip[1] * SS + 2.0 * SS
++    contact = np.exp(-(((xx - cx) / (4.4 * SS)) ** 2 + ((yy - cy) / (2.2 * SS)) ** 2))
++    shifted += contact * (0.18 - 0.08 * lift)
++    rgba = np.zeros((H, W, 4), dtype=np.float32)
++    rgba[..., 0:3] = np.array([48.0, 29.0, 16.0], dtype=np.float32)
++    rgba[..., 3] = np.clip(shifted, 0.0, 1.0) * 255.0
++    return Image.fromarray(np.uint8(np.clip(rgba, 0, 255)), &quot;RGBA&quot;)
++
++
++def render_frame(frame_index, paper_image):
++    tip, axis, perp, progress, lift = pen_pose(frame_index)
++    image = paper_image.copy()
++
++    ink_progress = smoothstep((frame_index - 1.0) / 16.0) if frame_index &gt;= 1 else 0.0
++    if frame_index &gt;= 18:
++        ink_progress = 1.0
++    ink = draw_ink(ink_progress, frame_index)
++    image = Image.alpha_composite(image, ink)
++
++    shadow = pen_shadow(tip, axis, perp, lift)
++    image = Image.alpha_composite(image, shadow)
++    pen = render_pen(tip, axis, perp, frame_index, lift)
++    image = Image.alpha_composite(image, pen)
++
++    # Tiny frame-to-frame exposure drift keeps the locked camera from feeling synthetic.
++    array = np.asarray(image.convert(&quot;RGB&quot;), dtype=np.float32)
++    array *= 1.0 + 0.006 * math.sin(frame_index * 0.63)
++    array += np.array([1.2, 0.5, -0.4], dtype=np.float32) * (0.5 + 0.5 * math.sin(frame_index * 0.41))
++    array = np.clip(array, 0, 255).astype(np.uint8)
++    low = Image.fromarray(array).resize((WIDTH, HEIGHT), Image.Resampling.LANCZOS)
++
++    # A trace of final-frame luminance variation avoids flat downsampling.
++    out = np.asarray(low, dtype=np.float32)
++    yy, xx = np.mgrid[0:HEIGHT, 0:WIDTH].astype(np.float32)
++    out += 0.55 * np.sin(xx * 1.71 + yy * 2.37 + frame_index * 0.29)[..., None]
++    return np.uint8(np.clip(out, 0, 255))
++
++
++def main():
++    paper = make_paper_texture()
++    paper = add_paper_fibers(paper)
++    frames = [render_frame(index, paper) for index in range(FRAMES)]
++    artifact_io.save(frames, ROOT)
++    print(f&quot;Rendered {len(frames)} frames at {WIDTH}x{HEIGHT}, {FPS:g} fps&quot;)
++
++
++if __name__ == &quot;__main__&quot;:
++    main()
+</pre></details></div></details><details class=candidate><summary><strong>候选 02</strong><span class=status>播放与检查图</span><time>2026-11-11T10:47:19.401665+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_dcacac855f3bbd01.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;e6d56f9980bc6a920ec7caae4014ad507eb4e2b6258ed4987b8e7fe8b126254c&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_01/pixels_dcacac855f3bbd01.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_01/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_01/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_01/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_01/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_01/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -129,7 +129,7 @@
+         draw.ellipse((x - radius, y - radius * 0.6, x + radius, y + radius * 0.6),
+                      fill=(53, 33, 18, alpha))
+     overlay = overlay.filter(ImageFilter.GaussianBlur(0.42 * SS))
+-    base = Image.fromarray(np.uint8(np.clip(image, 0, 255)), &quot;RGB&quot;).convert(&quot;RGBA&quot;)
++    base = Image.fromarray(np.uint8(np.clip(image, 0, 255))).convert(&quot;RGBA&quot;)
+     return Image.alpha_composite(base, overlay)
+ 
+ 
+@@ -155,14 +155,14 @@
+ 
+ 
+ CONTROL_POINTS = [
+-    (52.0, 80.0), (54.0, 95.0), (61.0, 103.0), (69.0, 98.0),
+-    (69.0, 87.0), (61.0, 81.0), (52.0, 84.0), (54.0, 94.0),
+-    (67.0, 99.0), (82.0, 96.0), (96.0, 90.0), (108.0, 90.0),
+-    (117.0, 98.0), (127.0, 99.0), (136.0, 91.0), (143.0, 79.0),
+-    (149.0, 71.0), (154.0, 72.0), (157.0, 82.0), (152.0, 94.0),
+-    (142.0, 102.0), (131.0, 101.0), (127.0, 91.0), (132.0, 81.0),
+-    (143.0, 75.0), (157.0, 75.0), (173.0, 81.0), (188.0, 87.0),
+-    (202.0, 86.0), (214.0, 80.0), (220.0, 80.0), (224.0, 88.0),
++    (43.0, 61.0), (45.0, 78.0), (54.0, 88.0), (64.0, 84.0),
++    (66.0, 70.0), (57.0, 61.0), (45.0, 64.0), (47.0, 78.0),
++    (61.0, 86.0), (78.0, 83.0), (94.0, 76.0), (107.0, 75.0),
++    (118.0, 84.0), (128.0, 87.0), (139.0, 77.0), (147.0, 62.0),
++    (154.0, 54.0), (160.0, 56.0), (163.0, 69.0), (158.0, 84.0),
++    (146.0, 92.0), (133.0, 90.0), (129.0, 77.0), (136.0, 64.0),
++    (149.0, 58.0), (165.0, 59.0), (182.0, 67.0), (197.0, 73.0),
++    (211.0, 72.0), (220.0, 66.0), (224.0, 66.0), (228.0, 74.0),
+ ]
+ PATH, PATH_T = catmull_rom_path(CONTROL_POINTS)
+ 
+@@ -190,8 +190,8 @@
+ 
+     for index in range(len(pts) - 1):
+         u = index / max(1, len(pts) - 2)
+-        pressure = 3.30 + 0.48 * np.sin(u * math.tau * 7.0 + 0.6)
+-        pressure += 0.22 * np.sin(u * math.tau * 19.0)
++        pressure = 3.75 + 0.50 * np.sin(u * math.tau * 7.0 + 0.6)
++        pressure += 0.24 * np.sin(u * math.tau * 19.0)
+         radius = pressure * SS * 0.5
+         p0 = pts[index] * SS
+         p1 = pts[index + 1] * SS
+@@ -218,7 +218,7 @@
+     rgb -= core[..., None] * np.array([8.0, 12.0, 28.0], dtype=np.float32)
+ 
+     rgba = np.dstack([np.clip(rgb, 0, 255), alpha * 255.0]).astype(np.uint8)
+-    ink = Image.fromarray(rgba, &quot;RGBA&quot;)
++    ink = Image.fromarray(rgba)
+ 
+     # A narrow, low-opacity halo reads as still-wet ink.
+     halo = layer.filter(ImageFilter.GaussianBlur(2.3 * SS))
+@@ -227,13 +227,13 @@
+     halo_array[..., 1] = 58
+     halo_array[..., 2] = 139
+     halo_array[..., 3] *= 0.16
+-    halo = Image.fromarray(np.uint8(np.clip(halo_array, 0, 255)), &quot;RGBA&quot;)
++    halo = Image.fromarray(np.uint8(np.clip(halo_array, 0, 255)))
+     return Image.alpha_composite(halo, ink)
+ 
+ 
+ def pen_pose(frame_index):
+     if frame_index == 0:
+-        tip = sample_path(0.0) + np.array([-9.0, -10.0])
++        tip = sample_path(0.0) + np.array([-3.0, -2.0])
+         progress = 0.0
+         lift = 1.0
+     else:
+@@ -359,7 +359,7 @@
+     alpha = rgba[..., 3] / 255.0
+     alpha = np.clip(gaussian_filter(alpha, 0.38 * SS) * 1.03, 0.0, 1.0)
+     rgba[..., 3] = alpha * 255.0
+-    return Image.fromarray(np.uint8(np.clip(rgba, 0, 255)), &quot;RGBA&quot;)
++    return Image.fromarray(np.uint8(np.clip(rgba, 0, 255)))
+ 
+ 
+ def pen_shadow(tip, axis, perp, lift):
+@@ -381,7 +381,7 @@
+     rgba = np.zeros((H, W, 4), dtype=np.float32)
+     rgba[..., 0:3] = np.array([48.0, 29.0, 16.0], dtype=np.float32)
+     rgba[..., 3] = np.clip(shifted, 0.0, 1.0) * 255.0
+-    return Image.fromarray(np.uint8(np.clip(rgba, 0, 255)), &quot;RGBA&quot;)
++    return Image.fromarray(np.uint8(np.clip(rgba, 0, 255)))
+ 
+ 
+ def render_frame(frame_index, paper_image):
+</pre></details></div></details><details class=candidate><summary><strong>候选 03</strong><span class=status>播放与检查图</span><time>2026-11-11T10:47:21.684635+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_dcacac855f3bbd01.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;e6d56f9980bc6a920ec7caae4014ad507eb4e2b6258ed4987b8e7fe8b126254c&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_02/pixels_dcacac855f3bbd01.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_02/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_02/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_02/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_02/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_02/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>代码未变化；重新保存了产物。</pre></details></div></details><details class=candidate><summary><strong>候选 04</strong><span class=status>播放与检查图</span><time>2026-11-11T10:48:43.372295+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_d271b5a99bee9e8a.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;5b1922eade78e44d7d41f4ecd5a97f22169b4c22d9247ab184ad738fd9c707a9&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_03/pixels_d271b5a99bee9e8a.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_03/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_03/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_03/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -304,7 +304,7 @@
+     ring_tone = 128.0 + 72.0 * np.clip(1.0 - np.abs(ring_q + 0.28), 0.0, 1.0)
+     ring_rgb = np.stack([ring_tone * 1.00, ring_tone * 1.03, ring_tone * 1.08], axis=-1)
+     rgba[..., :3] = np.where(rings[..., None], ring_rgb, rgba[..., :3])
+-    rgba[..., 3] = np.where(rings, 1.0, rgba[..., 3])
++    rgba[..., 3] = np.where(rings, 255.0, rgba[..., 3])
+ 
+     # Rubber grip with shallow molded rings.
+     grip_half = 6.5 * SS + (np.clip(along, 15.0 * SS, 35.0 * SS) - 15.0 * SS) * 0.12
+@@ -317,7 +317,7 @@
+         53.0 + 55.0 * grip_shade,
+     ], axis=-1) * groove[..., None]
+     rgba[..., :3] = np.where(grip[..., None], grip_rgb, rgba[..., :3])
+-    rgba[..., 3] = np.where(grip, 1.0, rgba[..., 3])
++    rgba[..., 3] = np.where(grip, 255.0, rgba[..., 3])
+ 
+     # Polished metal collar and conical nib.
+     nib_half = 1.15 * SS + np.maximum(along, 0.0) * 0.35
+@@ -332,16 +332,16 @@
+     collar_tone = 132.0 + 75.0 * np.clip(1.0 - np.abs(collar_q + 0.30), 0.0, 1.0)
+     collar_rgb = np.stack([collar_tone, collar_tone * 1.04, collar_tone * 1.09], axis=-1)
+     rgba[..., :3] = np.where(nib[..., None], nib_rgb, rgba[..., :3])
+-    rgba[..., 3] = np.where(nib, 1.0, rgba[..., 3])
++    rgba[..., 3] = np.where(nib, 255.0, rgba[..., 3])
+     rgba[..., :3] = np.where(collar[..., None], collar_rgb, rgba[..., :3])
+-    rgba[..., 3] = np.where(collar, 1.0, rgba[..., 3])
++    rgba[..., 3] = np.where(collar, 255.0, rgba[..., 3])
+ 
+     # A slim chrome pocket clip.
+     clip_q = np.clip((lateral + 6.8 * SS) / (0.9 * SS), -1.0, 1.0)
+     clip_tone = 112.0 + 88.0 * np.clip(1.0 - np.abs(clip_q + 0.25), 0.0, 1.0)
+     clip_rgb = np.stack([clip_tone, clip_tone * 1.04, clip_tone * 1.10], axis=-1)
+     rgba[..., :3] = np.where(clip[..., None], clip_rgb, rgba[..., :3])
+-    rgba[..., 3] = np.where(clip, 1.0, rgba[..., 3])
++    rgba[..., 3] = np.where(clip, 255.0, rgba[..., 3])
+ 
+     # A small rounded ballpoint at the contact point.
+     tip_px = tip * SS
+@@ -353,7 +353,7 @@
+         np.full((H, W), 62.0, dtype=np.float32),
+     ], axis=-1)
+     rgba[..., :3] = np.where(ball[..., None], ball_rgb, rgba[..., :3])
+-    rgba[..., 3] = np.where(ball, 1.0, rgba[..., 3])
++    rgba[..., 3] = np.where(ball, 255.0, rgba[..., 3])
+ 
+     # Gentle antialiasing at the silhouette.
+     alpha = rgba[..., 3] / 255.0
+</pre></details></div></details><details class=candidate><summary><strong>候选 05</strong><span class=status>播放与检查图</span><time>2026-11-11T10:48:45.870950+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_d271b5a99bee9e8a.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;5b1922eade78e44d7d41f4ecd5a97f22169b4c22d9247ab184ad738fd9c707a9&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_04/pixels_d271b5a99bee9e8a.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_04/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_04/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_04/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_04/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_04/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>代码未变化；重新保存了产物。</pre></details></div></details><details class=candidate><summary><strong>候选 06</strong><span class=status>播放与检查图</span><time>2026-11-11T10:49:45.980600+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_98474ec19bfbd0e9.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;8dceb07c5c86b7778c1954c128ff53d45928f7d858dbd05583171d3ab83aa2e2&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_05/pixels_98474ec19bfbd0e9.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_05/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_05/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_05/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_05/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/193fad45f9a8b3499c44b4f2c8f35ae6ce8d1cbd/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0045_attempt_01/candidate_05/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -287,7 +287,7 @@
+         136.0 + 91.0 * body_light + 93.0 * spec,
+     ], axis=-1)
+     barrel_rgb *= (1.0 - 0.28 * np.clip((q - 0.55) / 0.45, 0.0, 1.0))[..., None]
+-    barrel_alpha = barrel.astype(np.float32)
++    barrel_alpha = barrel.astype(np.float32) * 255.0
+     barrel_alpha *= 1.0 - 0.32 * np.exp(-((np.abs(q) - 0.91) / 0.06) ** 2)
+     rgba[..., :3] = np.where(barrel[..., None], barrel_rgb, rgba[..., :3])
+     rgba[..., 3] = np.where(barrel, barrel_alpha, rgba[..., 3])
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-11T10:43:13.290675+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;pwd &amp;&amp; rg --files -g &#x27;&quot;&#x27;!*node_modules*&#x27;&quot;&#x27; -g &#x27;&quot;&#x27;!*.mp4&#x27;&quot;&#x27; | sort | sed -n &#x27;1,200p&#x27;&quot;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-11T10:43:13.426618+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;sed -n &#x27;1,240p&#x27; prompt.txt&quot;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-11T10:43:13.697480+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;sed -n &#x27;1,280p&#x27; GENERATION_RULES.md&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-11T10:43:14.139011+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;cat task_spec.json&#x27;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-11T10:43:22.415039+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;sed -n &#x27;1,260p&#x27; artifact_io.py&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-11T10:43:22.624891+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;sed -n &#x27;1,260p&#x27; player_template.html&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-11T10:43:22.834337+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import importlib.util
+for m in [&#x27;numpy&#x27;,&#x27;PIL&#x27;,&#x27;cv2&#x27;,&#x27;imageio&#x27;,&#x27;matplotlib&#x27;,&#x27;scipy&#x27;]:
+ print(m, bool(importlib.util.find_spec(m)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-11T10:43:23.186524+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;ffmpeg -version | sed -n &#x27;1,4p&#x27;; ffprobe -version | sed -n &#x27;1,2p&#x27;&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-11T10:43:32.796176+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;find . -maxdepth 2 -type f -printf &#x27;%p %s bytes\\n&#x27; | sort&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-11T10:45:04.752575+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-11T10:45:14.971759+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-11T10:45:25.950704+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-11T10:45:36.325181+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-11T10:46:00.433735+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-11T10:46:09.943469+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;command -v chafa || command -v viu || command -v jp2 || true&#x27;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-11T10:46:10.324172+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;find . -maxdepth 2 -type f -printf &#x27;%p %s bytes\\n&#x27; | sort&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-11T10:46:10.911042+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+z=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;]
+print(&#x27;shape&#x27;,z.shape,z.dtype)
+prev=None
+for i in range(z.shape[2]):
+ p=z[:,:,i]
+ rgb=np.stack([(p&gt;&gt;16)&amp;255,(p&gt;&gt;8)&amp;255,p&amp;255],axis=-1)
+ d=np.abs(rgb.astype(int)-prev.astype(int)).mean() if prev is not None else 0
+ print(i,&#x27;mean&#x27;,np.round(rgb.mean((0,1)),1),&#x27;std&#x27;,round(float(rgb.std()),1),&#x27;change&#x27;,round(float(d),2))
+ prev=rgb
+print(&#x27;frame png sizes&#x27;, [Image.open(f&#x27;frames/{i:02d}.png&#x27;).size for i in range(20)][:3])
+PY&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-11T10:46:18.538963+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+for fi in [0,5,10,15,19]:
+ im=np.array(Image.open(f&#x27;frames/{fi:02d}.png&#x27;))
+ # 2x2 average to 128x72, then 2x2 to 64x36
+ im=im.reshape(36,4,64,4,3).mean((1,3))
+ lum=im.mean(2)
+ r,g,b=im.transpose(2,0,1)
+ out=[]
+ for y in range(36):
+  row=&#x27;&#x27;
+  for x in range(64):
+   R,G,B=im[y,x]
+   if B&gt;R*1.18 and B&gt;G*1.03 and B&gt;65: c=&#x27;B&#x27;
+   elif B&gt;R*1.08 and B&gt;G*1.00 and B&gt;45: c=&#x27;b&#x27;
+   elif max(R,G,B)&lt;75: c=&#x27;#&#x27;
+   elif max(R,G,B)&lt;105: c=&#x27;O&#x27;
+   elif R&gt;G*1.18 and G&gt;B*1.10:
+    c=&#x27;@&#x27; if lum[y,x]&lt;115 else (&#x27;%&#x27; if lum[y,x]&lt;140 else (&#x27;+&#x27; if lum[y,x]&lt;165 else &#x27;.&#x27;))
+   else: c=&#x27; &#x27;
+   row+=c
+  out.append(row)
+ print(&#x27;\\nFRAME&#x27;,fi)
+ print(&#x27;\\n&#x27;.join(out))
+PY&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-11T10:46:34.261708+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;rg -n \&quot;pressure =|fromarray|base =|ink =|halo =|return Image\&quot; generate.py | sed -n &#x27;1,160p&#x27;&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-11T10:46:51.644196+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-11T10:46:55.475707+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;sed -n &#x27;226,252p&#x27; generate.py&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-11T10:47:18.896936+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-11T10:47:24.189258+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+z=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;]
+prev=None
+for i in range(z.shape[2]):
+ p=z[:,:,i]
+ rgb=np.stack([(p&gt;&gt;16)&amp;255,(p&gt;&gt;8)&amp;255,p&amp;255],axis=-1)
+ blue=(rgb[:,:,2]&gt;rgb[:,:,0]*1.18)&amp;(rgb[:,:,2]&gt;rgb[:,:,1]*1.03)&amp;(rgb[:,:,2]&gt;60)
+ d=np.abs(rgb.astype(int)-prev.astype(int)).mean() if prev is not None else 0
+ print(i,&#x27;bluepx&#x27;,int(blue.sum()),&#x27;change&#x27;,round(float(d),2))
+ prev=rgb
+PY&quot;</pre></details><details class=command><summary><strong>命令 24</strong><time>2026-11-11T10:47:37.073140+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+import generate as g
+paper=g.add_paper_fibers(g.make_paper_texture())
+for fi in [0,1,5,10,19]:
+ tip,axis,perp,prog,lift=g.pen_pose(fi)
+ fr=g.render_frame(fi,paper)
+ print(&#x27;\\n&#x27;,fi,&#x27;tip&#x27;,tip,&#x27;axis&#x27;,axis,&#x27;prog&#x27;,prog,&#x27;lift&#x27;,lift)
+ for a in [2,8,15,25,40,60]:
+  p=(tip+axis*a).round().astype(int)
+  if 0&lt;=p[0]&lt;256 and 0&lt;=p[1]&lt;144: print(a,tuple(p),fr[p[1],p[0]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 25</strong><time>2026-11-11T10:47:49.287344+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+import generate as g
+for fi in [1,10,19]:
+ tip,axis,perp,p,lift=g.pen_pose(fi)
+ im=g.render_pen(tip,axis,perp,fi,lift)
+ a=np.array(im)
+ print(fi, &#x27;alpha&gt;0&#x27;,int((a[...,3]&gt;0).sum()),&#x27;alpha max&#x27;,a[...,3].max())
+ for q in [2,8,15,25,40,60,100]:
+  px=(tip+axis*q).round().astype(int)
+  if 0&lt;=px[0]&lt;256 and 0&lt;=px[1]&lt;144: print(q,tuple(px),a[px[1],px[0]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 26</strong><time>2026-11-11T10:47:54.867288+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+import generate as g
+fi=10
+tip,axis,perp,p,lift=g.pen_pose(fi)
+im=g.render_pen(tip,axis,perp,fi,lift)
+a=np.array(im)
+print(&#x27;nonzero coords&#x27;,np.argwhere(a[...,3]&gt;0)[:10], &#x27;max idx&#x27;,np.unravel_index(np.argmax(a[...,3]),a.shape[:2]))
+print(&#x27;tip*4&#x27;,tip*4,&#x27;axis&#x27;,axis,&#x27;perp&#x27;,perp)
+PY&quot;</pre></details><details class=command><summary><strong>命令 27</strong><time>2026-11-11T10:48:02.058129+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+import generate as g
+fi=10
+tip,axis,perp,p,lift=g.pen_pose(fi)
+along,lateral,nib,collar,grip,barrel,clip=g.pen_masks(tip,axis,perp)
+for n,m in [(&#x27;nib&#x27;,nib),(&#x27;collar&#x27;,collar),(&#x27;grip&#x27;,grip),(&#x27;barrel&#x27;,barrel),(&#x27;clip&#x27;,clip)]:
+ print(n,int(m.sum()), np.where(m)[0].min() if m.any() else None,np.where(m)[0].max() if m.any() else None,np.where(m)[1].min() if m.any() else None,np.where(m)[1].max() if m.any() else None)
+PY&quot;</pre></details><details class=command><summary><strong>命令 28</strong><time>2026-11-11T10:48:23.325538+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;sed -n &#x27;260,392p&#x27; generate.py&quot;</pre></details><details class=command><summary><strong>命令 29</strong><time>2026-11-11T10:48:42.886263+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 30</strong><time>2026-11-11T10:48:50.486485+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+import generate as g
+for fi in [0,1,5,10,15,19]:
+ tip,axis,perp,p,lift=g.pen_pose(fi)
+ im=g.render_pen(tip,axis,perp,fi,lift)
+ a=np.array(im)
+ print(fi, &#x27;alpha&gt;0&#x27;,int((a[...,3]&gt;0).sum()),&#x27;max&#x27;,int(a[...,3].max()))
+ for q in [2,8,15,25,40,60]:
+  px=(tip+axis*q).round().astype(int)
+  if 0&lt;=px[0]&lt;256 and 0&lt;=px[1]&lt;144: print(q,tuple(px),a[px[1],px[0]].tolist())
+PY&quot;</pre></details><details class=command><summary><strong>命令 31</strong><time>2026-11-11T10:48:56.072756+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+import generate as g
+fi=10
+tip,axis,perp,p,lift=g.pen_pose(fi)
+for q in [0,2,8,15,25,40,60]:
+ px=(tip+axis*q).round().astype(int)
+ p4=px*4
+ along,lateral,*masks=g.pen_masks(tip,axis,perp)
+ print(q,tuple(px),&#x27;p4&#x27;,tuple(p4),&#x27;along&#x27;,round(float(along[p4[1],p4[0]]/4),1),&#x27;lat&#x27;,round(float(lateral[p4[1],p4[0]]/4),1))
+PY&quot;</pre></details><details class=command><summary><strong>命令 32</strong><time>2026-11-11T10:49:01.910160+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+import generate as g
+fi=10
+tip,axis,perp,p,lift=g.pen_pose(fi)
+im=g.render_pen(tip,axis,perp,fi,lift)
+a=np.array(im)
+ys,xs=np.where(a[...,3]&gt;128)
+print(&#x27;bbox&#x27;,xs.min(),ys.min(),xs.max(),ys.max(),&#x27;count&#x27;,len(xs))
+print(&#x27;sample nonzero&#x27;,a[ys[0],xs[0]].tolist(),(ys[0],xs[0]))
+# rows occupied
+for y in range(0,144,10):
+ n=(a[y,:,3]&gt;128).sum()
+ if n: print(&#x27;row&#x27;,y,&#x27;xspan&#x27;,np.where(a[y,:,3]&gt;128)[0][[0,-1]].tolist(),&#x27;n&#x27;,int(n))
+PY&quot;</pre></details><details class=command><summary><strong>命令 33</strong><time>2026-11-11T10:49:11.149034+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+import generate as g
+fi=10
+tip,axis,perp,p,lift=g.pen_pose(fi)
+along,lateral,nib,collar,grip,barrel,clip=g.pen_masks(tip,axis,perp)
+for q in [0,2,8,15,25,40,60]:
+ px=(tip+axis*q).round().astype(int)*4;y,x=px[1],px[0]
+ print(q,(x,y),&#x27;along&#x27;,round(float(along[y,x]/4),2),&#x27;lat&#x27;,round(float(lateral[y,x]/4),2),&#x27;nib&#x27;,bool(nib[y,x]),&#x27;collar&#x27;,bool(collar[y,x]),&#x27;grip&#x27;,bool(grip[y,x]),&#x27;barrel&#x27;,bool(barrel[y,x]),&#x27;clip&#x27;,bool(clip[y,x]))
+PY&quot;</pre></details><details class=command><summary><strong>命令 34</strong><time>2026-11-11T10:49:16.480828+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+import generate as g
+fi=10
+tip,axis,perp,p,lift=g.pen_pose(fi)
+im=g.render_pen(tip,axis,perp,fi,lift)
+a=np.array(im)
+for q in [2,8,15,25,40,60]:
+ px=(tip+axis*q).round().astype(int); x,y=int(px[0]*4),int(px[1]*4)
+ print(q,(x//4,y//4),a[y,x].tolist())
+PY&quot;</pre></details><details class=command><summary><strong>命令 35</strong><time>2026-11-11T10:49:44.359662+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 36</strong><time>2026-11-11T10:49:51.360865+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+import generate as g
+for fi in [0,1,10,19]:
+ tip,axis,perp,p,lift=g.pen_pose(fi)
+ im=g.render_pen(tip,axis,perp,fi,lift)
+ a=np.array(im)
+ print(&#x27;frame&#x27;,fi,&#x27;opaque pixels&#x27;,int((a[...,3]&gt;128).sum()))
+ for q in [2,8,15,25,40,60]:
+  px=(tip+axis*q).round().astype(int)
+  if 0&lt;=px[0]&lt;256 and 0&lt;=px[1]&lt;144:
+   print(q, a[int(px[1]*4),int(px[0]*4)].tolist())
+PY&quot;</pre></details><p class=muted>保存候选 6 份；完成命令 36 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
