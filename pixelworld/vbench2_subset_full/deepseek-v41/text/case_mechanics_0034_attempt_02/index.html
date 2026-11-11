@@ -1,0 +1,924 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/DeepSeek-V4.1-Flash · mechanics_0034</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/DeepSeek-V4.1-Flash · mechanics_0034</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>4.0 FPS · 20 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_19a5b559e0afc65f.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;3e9da6103a3d7ff6538ba895b51a0069989071e88aecb1606544a50237d32f0c&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/final/pixels_19a5b559e0afc65f.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/final/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>文本生成</span><h3 style="margin-top:14px">原始任务</h3><p>A hand presses a sharp pencil into the surface of a thin rubber glove, with the tip gradually sinking into the material.</p><div class=facts><div><strong>5.00s</strong>视频时长</div><div><strong>49234</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-11T09:20:07.508531+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_18e979155457458b.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;71b1655a1c0207da3ef9d4ff778ed4897dc8e3bbfb123c982691f509c7e23acc&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_00/pixels_18e979155457458b.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_00/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_00/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_00/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,412 @@
++from pathlib import Path
++import math
++
++import numpy as np
++from PIL import Image, ImageDraw, ImageFilter
++
++import artifact_io
++
++
++W, H, N, FPS = 256, 144, 20, 4.0
++SS = 4
++CW, CH = W * SS, H * SS
++CASE_DIR = Path(__file__).resolve().parent
++
++
++def smoothstep(edge0, edge1, x):
++    t = np.clip((x - edge0) / (edge1 - edge0), 0.0, 1.0)
++    return t * t * (3.0 - 2.0 * t)
++
++
++def ease(x):
++    x = np.clip(x, 0.0, 1.0)
++    return x * x * (3.0 - 2.0 * x)
++
++
++def mix_color(a, b, t):
++    return tuple(int(round(a[i] * (1.0 - t) + b[i] * t)) for i in range(3))
++
++
++def line(draw, points, fill, width=1):
++    draw.line([(int(round(x)), int(round(y))) for x, y in points], fill=fill, width=int(width))
++
++
++def canvas():
++    return Image.new(&quot;RGB&quot;, (CW, CH), (28, 38, 45))
++
++
++def gradient_background():
++    y, x = np.mgrid[0:CH, 0:CW].astype(np.float32)
++    u = x / (CW - 1)
++    v = y / (CH - 1)
++    # A cool, softly lit tabletop with a quiet pool of light behind the glove.
++    top = np.array([34, 48, 56], np.float32)
++    bottom = np.array([13, 22, 28], np.float32)
++    t = smoothstep(0.0, 1.0, v)
++    rgb = top[None, None, :] * (1.0 - t[:, :, None]) + bottom[None, None, :] * t[:, :, None]
++    pool = np.exp(-(((u - 0.55) / 0.38) ** 2 + ((v - 0.35) / 0.34) ** 2) * 2.0)
++    rgb += np.array([18, 24, 25], np.float32)[None, None, :] * pool[:, :, None]
++    grain = ((np.sin(x * 0.071 + y * 0.019) + np.sin(y * 0.083 - x * 0.013)) * 0.75).astype(np.float32)
++    rgb += grain[:, :, None]
++    return Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8))
++
++
++def glove_surface(phase):
++    &quot;&quot;&quot;Return the backlit blue glove and its rounded lower-left wrist.&quot;&quot;&quot;
++    im = canvas()
++    d = ImageDraw.Draw(im, &quot;RGBA&quot;)
++
++    # The broad glove palm fills the foreground but leaves the puncture area clear.
++    palm = [
++        (-CW * 0.07, CH * 0.72),
++        (CW * 0.11, CH * 0.56),
++        (CW * 0.31, CH * 0.49),
++        (CW * 0.51, CH * 0.48),
++        (CW * 0.67, CH * 0.53),
++        (CW * 0.84, CH * 0.62),
++        (CW * 1.06, CH * 0.80),
++        (CW * 1.06, CH * 1.08),
++        (-CW * 0.07, CH * 1.08),
++    ]
++    d.polygon([(int(x), int(y)) for x, y in palm], fill=(31, 89, 111, 255))
++
++    # A slightly raised middle ridge catches the cool key light.
++    d.ellipse((int(CW * 0.07), int(CH * 0.56), int(CW * 0.94), int(CH * 1.06)),
++              fill=(39, 107, 126, 255))
++    d.ellipse((int(CW * 0.13), int(CH * 0.58), int(CW * 0.75), int(CH * 0.89)),
++              fill=(49, 124, 140, 190))
++    d.ellipse((int(CW * 0.19), int(CH * 0.60), int(CW * 0.64), int(CH * 0.78)),
++              fill=(72, 148, 157, 90))
++
++    # Rubber is thin and translucent: a warm transmitted band near the upper edge.
++    for k in range(8):
++        y0 = CH * (0.505 + k * 0.007)
++        line(d, [(-CW * 0.03, y0 + CH * 0.12), (CW * 0.20, y0), (CW * 0.47, y0 - CH * 0.012),
++                 (CW * 0.72, y0 + CH * 0.02), (CW * 1.03, y0 + CH * 0.12)],
++             fill=(49 + k * 2, 121 + k * 2, 126, 30), width=SS * 2)
++
++    # Cuff at lower left, with a rolled elastic rim.
++    d.ellipse((int(-CW * 0.20), int(CH * 0.64), int(CW * 0.28), int(CH * 1.25)),
++              fill=(22, 70, 91, 255))
++    d.ellipse((int(-CW * 0.15), int(CH * 0.67), int(CW * 0.24), int(CH * 1.17)),
++              fill=(31, 91, 109, 255))
++    d.arc((int(-CW * 0.14), int(CH * 0.66), int(CW * 0.24), int(CH * 1.17)),
++          188, 338, fill=(77, 145, 148, 180), width=SS * 4)
++    d.arc((int(-CW * 0.18), int(CH * 0.65), int(CW * 0.22), int(CH * 1.20)),
++          185, 333, fill=(13, 46, 61, 210), width=SS * 3)
++
++    # Fine wrinkles propagate away from the growing tension point.
++    cx, cy = CW * 0.56, CH * 0.45
++    for i in range(10):
++        x = CW * (0.16 + i * 0.055)
++        y = CH * (0.61 + 0.014 * math.sin(i * 1.7 + phase * 0.4))
++        dx, dy = x - cx, y - cy
++        length = max(1.0, math.hypot(dx, dy))
++        px, py = -dy / length, dx / length
++        line(d, [(x - px * CW * 0.08, y - py * CH * 0.08),
++                 (x + px * CW * 0.025, y + py * CH * 0.025)],
++             fill=(89, 161, 160, 55), width=SS * 2)
++
++    # Broad soft highlights make the material read as thin rubber, not a flat shape.
++    glow = Image.new(&quot;RGBA&quot;, (CW, CH), (0, 0, 0, 0))
++    gd = ImageDraw.Draw(glow, &quot;RGBA&quot;)
++    gd.ellipse((int(CW * 0.08), int(CH * 0.58), int(CW * 0.47), int(CH * 0.82)),
++               fill=(125, 206, 198, 35))
++    gd.ellipse((int(CW * 0.25), int(CH * 0.56), int(CW * 0.67), int(CH * 0.68)),
++               fill=(166, 226, 210, 28))
++    glow = glow.filter(ImageFilter.GaussianBlur(SS * 14))
++    im = Image.alpha_composite(im.convert(&quot;RGBA&quot;), glow).convert(&quot;RGB&quot;)
++    return im
++
++
++def draw_table_contact(im, alpha=1.0):
++    d = ImageDraw.Draw(im, &quot;RGBA&quot;)
++    # Shadow below the glove grounds it on the table.
++    shadow = Image.new(&quot;RGBA&quot;, (CW, CH), (0, 0, 0, 0))
++    sd = ImageDraw.Draw(shadow, &quot;RGBA&quot;)
++    sd.ellipse((int(-CW * 0.10), int(CH * 0.75), int(CW * 1.06), int(CH * 1.24)),
++               fill=(0, 8, 13, int(118 * alpha)))
++    shadow = shadow.filter(ImageFilter.GaussianBlur(SS * 18))
++    return Image.alpha_composite(im.convert(&quot;RGBA&quot;), shadow).convert(&quot;RGB&quot;)
++
++
++def draw_dimple(im, amount):
++    &quot;&quot;&quot;Pressed rubber: broad depression, bright stretched rim, and dark core.&quot;&quot;&quot;
++    if amount &lt;= 0.01:
++        return im
++    cx, cy = CW * 0.535, CH * 0.435
++    d = ImageDraw.Draw(im, &quot;RGBA&quot;)
++    r = SS * (10 + 8 * amount)
++    d.ellipse((cx - r * 1.7, cy - r * 0.75, cx + r * 1.7, cy + r * 0.75),
++              fill=(11, 41, 54, int(90 * amount)))
++    d.arc((cx - r * 1.8, cy - r * 0.9, cx + r * 1.8, cy + r * 0.9),
++          205, 345, fill=(91, 170, 170, int(110 * amount)), width=SS * 2)
++    d.arc((cx - r * 1.35, cy - r * 0.5, cx + r * 1.35, cy + r * 0.65),
++          20, 160, fill=(4, 31, 42, int(115 * amount)), width=SS * 2)
++    d.ellipse((cx - r * 0.45, cy - r * 0.32, cx + r * 0.45, cy + r * 0.32),
++              fill=(6, 31, 41, int(145 * amount)))
++    # Concentric stretch ridges.
++    for k in range(3):
++        rr = r * (1.15 + 0.22 * k)
++        d.arc((cx - rr, cy - rr * 0.45, cx + rr, cy + rr * 0.45),
++              195, 345, fill=(105, 186, 180, int((45 - 8 * k) * amount)), width=SS)
++    return im
++
++
++def pencil_polygon(cx, tip_y, length=170, width=11):
++    &quot;&quot;&quot;Large-coordinate pencil pointing downward at a small screen angle.&quot;&quot;&quot;
++    # Pencil axis is intentionally near-vertical so its tip, not its length, dominates.
++    top_y = tip_y - length * SS
++    shaft_w = width * SS
++    tip_w = 4.1 * SS
++    tip_h = 13 * SS
++    left = cx - shaft_w * 0.5
++    right = cx + shaft_w * 0.5
++    return [
++        (left, top_y),
++        (right, top_y),
++        (right, tip_y - tip_h),
++        (cx + tip_w * 0.5, tip_y - 2 * SS),
++        (cx, tip_y),
++        (cx - tip_w * 0.5, tip_y - 2 * SS),
++        (left, tip_y - tip_h),
++    ]
++
++
++def draw_pencil(im, cx, tip_y, alpha=255, contact=0.0):
++    d = ImageDraw.Draw(im, &quot;RGBA&quot;)
++    cx, tip_y = int(round(cx)), int(round(tip_y))
++    length = 170
++    width = 12
++    top_y = tip_y - length * SS
++    left = cx - width * SS * 0.5
++    right = cx + width * SS * 0.5
++    tip_h = 14 * SS
++    tip_w = 4.5 * SS
++
++    # Contact shadow just beneath the tip.
++    if contact &gt; 0:
++        rr = SS * (7 + contact * 12)
++        d.ellipse((cx - rr * 1.3, tip_y - rr * 0.22, cx + rr * 1.3, tip_y + rr * 0.35),
++                  fill=(1, 15, 23, int(95 * contact)))
++
++    # Hexagonal wooden barrel, with a golden-yellow lacquer.
++    d.polygon([(left, top_y), (right, top_y), (right, tip_y - tip_h), (left, tip_y - tip_h)],
++              fill=(202, 157, 46, alpha))
++    d.polygon([(left, top_y), (left + SS * 3.2, top_y), (left + SS * 3.2, tip_y - tip_h), (left, tip_y - tip_h)],
++              fill=(239, 196, 71, alpha))
++    d.polygon([(right - SS * 2.6, top_y), (right, top_y), (right, tip_y - tip_h), (right - SS * 2.6, tip_y - tip_h)],
++              fill=(126, 96, 33, alpha))
++    line(d, [(cx - SS * 1.3, top_y), (cx - SS * 1.3, tip_y - tip_h)],
++         fill=(248, 211, 99, int(alpha * 0.85)), width=SS * 1.2)
++    line(d, [(cx + SS * 3.0, top_y), (cx + SS * 3.0, tip_y - tip_h)],
++         fill=(149, 111, 30, int(alpha * 0.8)), width=SS)
++
++    # Sharpened wood cone.
++    wood = [(left, tip_y - tip_h), (right, tip_y - tip_h),
++            (cx + tip_w * 0.55, tip_y - 2 * SS), (cx, tip_y),
++            (cx - tip_w * 0.55, tip_y - 2 * SS)]
++    d.polygon(wood, fill=(219, 166, 101, alpha))
++    d.polygon([(left, tip_y - tip_h), (cx - SS, tip_y - tip_h),
++               (cx - tip_w * 0.5, tip_y - 2 * SS), (cx, tip_y)],
++              fill=(244, 191, 123, alpha))
++    d.polygon([(cx + SS, tip_y - tip_h), (right, tip_y - tip_h),
++               (cx + tip_w * 0.5, tip_y - 2 * SS), (cx, tip_y)],
++              fill=(158, 105, 60, alpha))
++    line(d, [(cx - SS * 3.5, tip_y - tip_h + SS * 2), (cx + SS * 3.5, tip_y - tip_h + SS * 2)],
++         fill=(112, 77, 43, int(alpha * 0.55)), width=SS)
++
++    # Graphite point with a tiny specular edge.
++    d.polygon([(cx - tip_w * 0.55, tip_y - 3 * SS), (cx + tip_w * 0.55, tip_y - 3 * SS),
++               (cx, tip_y)], fill=(34, 37, 41, alpha))
++    line(d, [(cx - tip_w * 0.22, tip_y - 2.2 * SS), (cx, tip_y)],
++         fill=(118, 124, 126, alpha), width=SS)
++
++    # Warm reflected light on the lower barrel.
++    line(d, [(left + SS * 5, tip_y - tip_h - SS * 2), (left + SS * 5, tip_y - tip_h - SS * 22)],
++         fill=(255, 227, 151, 85), width=SS)
++    return im
++
++
++def draw_hand(im, pencil_cx, tip_y, phase):
++    &quot;&quot;&quot;A foreshortened right hand holding the pencil from the upper right.&quot;&quot;&quot;
++    d = ImageDraw.Draw(im, &quot;RGBA&quot;)
++    pencil_cx, tip_y = int(round(pencil_cx)), int(round(tip_y))
++    top_y = tip_y - 170 * SS
++    # Wrist / forearm enters from upper-right.
++    d.polygon([
++        (int(pencil_cx + 13 * SS), -CH * 0.08),
++        (int(pencil_cx + 75 * SS), -CH * 0.08),
++        (int(pencil_cx + 64 * SS), CH * 0.16),
++        (int(pencil_cx + 37 * SS), CH * 0.24),
++        (int(pencil_cx + 17 * SS), CH * 0.18),
++    ], fill=(159, 91, 64, 255))
++    d.polygon([
++        (int(pencil_cx + 22 * SS), -CH * 0.08),
++        (int(pencil_cx + 57 * SS), -CH * 0.08),
++        (int(pencil_cx + 51 * SS), CH * 0.13),
++        (int(pencil_cx + 30 * SS), CH * 0.20),
++    ], fill=(196, 120, 83, 255))
++
++    # Palm mass, with the thumb crossing in front of the barrel.
++    palm = [
++        (int(pencil_cx + 11 * SS), int(top_y + 30 * SS)),
++        (int(pencil_cx + 34 * SS), int(top_y + 22 * SS)),
++        (int(pencil_cx + 58 * SS), int(top_y + 48 * SS)),
++        (int(pencil_cx + 57 * SS), int(top_y + 91 * SS)),
++        (int(pencil_cx + 33 * SS), int(top_y + 111 * SS)),
++        (int(pencil_cx + 8 * SS), int(top_y + 96 * SS)),
++        (int(pencil_cx - 2 * SS), int(top_y + 64 * SS)),
++    ]
++    d.polygon(palm, fill=(185, 108, 75, 255))
++    d.ellipse((int(pencil_cx + 5 * SS), int(top_y + 34 * SS),
++               int(pencil_cx + 58 * SS), int(top_y + 105 * SS)),
++              fill=(199, 120, 82, 255))
++
++    # Curled fingers form three distinct warm bands to the right of the pencil.
++    finger_specs = [
++        (top_y + 44 * SS, 15 * SS, 35 * SS, 31 * SS),
++        (top_y + 65 * SS, 16 * SS, 38 * SS, 29 * SS),
++        (top_y + 85 * SS, 14 * SS, 31 * SS, 24 * SS),
++    ]
++    for i, (yy, xoff, ww, hh) in enumerate(finger_specs):
++        d.rounded_rectangle((int(pencil_cx + xoff), int(yy),
++                             int(pencil_cx + xoff + ww), int(yy + hh)),
++                            radius=int(8 * SS), fill=(193, 113 + i * 3, 78 + i * 4, 255),
++                            outline=(113, 59, 45, 150), width=SS)
++        d.arc((int(pencil_cx + xoff + 3 * SS), int(yy + 2 * SS),
++               int(pencil_cx + xoff + ww - 3 * SS), int(yy + hh - 2 * SS)),
++              195, 335, fill=(239, 164, 116, 105), width=SS * 2)
++
++    # Thumb, angled along the barrel toward the point.
++    thumb = [
++        (int(pencil_cx - 4 * SS), int(top_y + 63 * SS)),
++        (int(pencil_cx + 7 * SS), int(top_y + 59 * SS)),
++        (int(pencil_cx + 24 * SS), int(top_y + 77 * SS)),
++        (int(pencil_cx + 26 * SS), int(top_y + 94 * SS)),
++        (int(pencil_cx + 13 * SS), int(top_y + 101 * SS)),
++        (int(pencil_cx - 1 * SS), int(top_y + 84 * SS)),
++    ]
++    d.polygon(thumb, fill=(215, 139, 96, 255))
++    d.arc((int(pencil_cx - 1 * SS), int(top_y + 63 * SS),
++           int(pencil_cx + 28 * SS), int(top_y + 98 * SS)),
++          200, 338, fill=(249, 182, 133, 150), width=SS * 2)
++    line(d, [(pencil_cx + 3 * SS, top_y + 82 * SS),
++             (pencil_cx + 18 * SS, top_y + 88 * SS)],
++         fill=(132, 73, 53, 100), width=SS)
++
++    # Knuckle creases and a soft thumb highlight.
++    for yy in (top_y + 58 * SS, top_y + 78 * SS):
++        d.arc((int(pencil_cx + 13 * SS), int(yy),
++               int(pencil_cx + 48 * SS), int(yy + 15 * SS)),
++              10, 165, fill=(109, 57, 45, 85), width=SS * 2)
++    line(d, [(pencil_cx + 12 * SS, top_y + 45 * SS),
++             (pencil_cx + 49 * SS, top_y + 38 * SS)],
++         fill=(238, 164, 115, 60), width=SS * 4)
++    return im
++
++
++def draw_penetration(im, amount):
++    &quot;&quot;&quot;Pulled-in rubber throat around the graphite point.&quot;&quot;&quot;
++    if amount &lt;= 0.01:
++        return im
++    cx, cy = CW * 0.535, CH * 0.435
++    d = ImageDraw.Draw(im, &quot;RGBA&quot;)
++    # Elongated opening follows the direction of the pencil.
++    rx = SS * (5 + 9 * amount)
++    ry = SS * (4 + 12 * amount)
++    d.ellipse((cx - rx, cy - ry, cx + rx, cy + ry),
++              fill=(7, 25, 34, int(220 * amount)))
++    d.arc((cx - rx * 1.2, cy - ry * 1.1, cx + rx * 1.2, cy + ry * 1.1),
++          185, 350, fill=(104, 191, 181, int(170 * amount)), width=SS * 2)
++    d.arc((cx - rx * 0.9, cy - ry * 0.85, cx + rx * 0.9, cy + ry * 0.85),
++          8, 165, fill=(2, 18, 27, int(170 * amount)), width=SS * 2)
++    for k in range(3):
++        rr = SS * (16 + 7 * k) * (0.55 + amount * 0.55)
++        d.arc((cx - rr, cy - rr * 0.62, cx + rr, cy + rr * 0.62),
++              200, 340, fill=(91, 171, 168, int(52 * amount / (k + 1))), width=SS)
++    return im
++
++
++def add_glove_lighting(im, phase):
++    # Cool reflected sheen and a soft vignette; keep the image low-noise and legible.
++    y, x = np.mgrid[0:CH, 0:CW].astype(np.float32)
++    u = x / (CW - 1)
++    v = y / (CH - 1)
++    rgb = np.asarray(im, dtype=np.float32)
++    sheen = np.exp(-(((u - 0.37) / 0.19) ** 2 + ((v - 0.60) / 0.10) ** 2))
++    rgb += np.array([19, 45, 48], np.float32)[None, None, :] * sheen[:, :, None]
++    warm = np.exp(-(((u - 0.61) / 0.24) ** 2 + ((v - 0.22) / 0.22) ** 2))
++    rgb += np.array([15, 10, 5], np.float32)[None, None, :] * warm[:, :, None]
++    vig = 1.0 - 0.18 * (((u - 0.5) / 0.7) ** 2 + ((v - 0.5) / 0.8) ** 2)
++    rgb *= vig[:, :, None]
++    return Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8), &quot;RGB&quot;)
++
++
++def add_grain_and_sharpen(im, index):
++    rng = np.random.default_rng(1907 + index * 17)
++    arr = np.asarray(im, np.float32)
++    noise = rng.normal(0.0, 1.15, (H, W, 1)).astype(np.float32)
++    arr = np.clip(arr + noise, 0, 255)
++    small = Image.fromarray(arr.astype(np.uint8), &quot;RGB&quot;)
++    small = small.filter(ImageFilter.UnsharpMask(radius=1.0, percent=75, threshold=2))
++    return small
++
++
++def render_frame(index):
++    t = index / (N - 1)
++    # Slow approach, decisive indentation, then a held penetration beat.
++    approach = ease((t - 0.06) / 0.50)
++    press = ease((t - 0.50) / 0.25)
++    deep = ease((t - 0.75) / 0.20)
++    tip_y = CH * (0.145 + 0.285 * approach + 0.050 * press + 0.032 * deep)
++    cx = CW * (0.535 + 0.003 * math.sin(t * math.pi * 2.0))
++    # Keep contact at a stable point once it is reached.
++    contact_point = CH * 0.435
++    if tip_y &gt; contact_point:
++        tip_y = contact_point + (tip_y - contact_point) * 0.30
++
++    im = gradient_background()
++    im = draw_table_contact(im, 0.65 + 0.35 * approach)
++    im = glove_surface(t)
++
++    # Slight handheld/table drift, applied only to foreground elements.
++    fg = Image.new(&quot;RGBA&quot;, (CW, CH), (0, 0, 0, 0))
++    draw_dimple(fg, max(0.0, press * 0.85 + deep * 0.15))
++    draw_penetration(fg, max(0.0, (press - 0.40) / 0.60))
++
++    # Pencil and hand share the same anchor and motion.
++    draw_pencil(fg, cx, tip_y, 255, max(0.0, press))
++    draw_hand(fg, cx, tip_y, t)
++    # Tiny graphite dust / reflected glints at the puncture.
++    if press &gt; 0.15:
++        pd = ImageDraw.Draw(fg, &quot;RGBA&quot;)
++        for k in range(4):
++            ang = 2.4 + k * 1.4
++            rr = SS * (8 + 9 * press + 2.5 * k)
++            x = cx + math.cos(ang) * rr
++            y = contact_point + math.sin(ang) * rr * 0.45
++            pd.ellipse((x - SS, y - SS, x + SS, y + SS),
++                       fill=(149, 176, 163, int(85 * press)))
++
++    fg = fg.filter(ImageFilter.GaussianBlur(SS * 0.45))
++    im = Image.alpha_composite(im.convert(&quot;RGBA&quot;), fg).convert(&quot;RGB&quot;)
++    im = add_glove_lighting(im, t)
++
++    # 4x supersampling yields crisp but natural small-screen silhouettes.
++    small = im.resize((W, H), Image.Resampling.LANCZOS)
++    return add_grain_and_sharpen(small, index)
++
++
++def main():
++    frames = []
++    for i in range(N):
++        frame = render_frame(i)
++        frames.append(np.asarray(frame, dtype=np.uint8))
++        print(f&quot;rendered {i + 1:02d}/{N}&quot;, flush=True)
++    artifact_io.save(frames, CASE_DIR)
++    print(f&quot;saved {len(frames)} frames to {CASE_DIR}&quot;, flush=True)
++
++
++if __name__ == &quot;__main__&quot;:
++    main()
+</pre></details></div></details><details class=candidate><summary><strong>候选 02</strong><span class=status>播放与检查图</span><time>2026-11-11T09:22:04.467519+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_19a5b559e0afc65f.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;3e9da6103a3d7ff6538ba895b51a0069989071e88aecb1606544a50237d32f0c&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_01/pixels_19a5b559e0afc65f.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_01/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_01/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_01/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_01/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_01/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -58,48 +58,48 @@
+ 
+     # The broad glove palm fills the foreground but leaves the puncture area clear.
+     palm = [
+-        (-CW * 0.07, CH * 0.72),
+-        (CW * 0.11, CH * 0.56),
+-        (CW * 0.31, CH * 0.49),
+-        (CW * 0.51, CH * 0.48),
+-        (CW * 0.67, CH * 0.53),
+-        (CW * 0.84, CH * 0.62),
+-        (CW * 1.06, CH * 0.80),
++        (-CW * 0.07, CH * 0.67),
++        (CW * 0.10, CH * 0.47),
++        (CW * 0.30, CH * 0.415),
++        (CW * 0.51, CH * 0.405),
++        (CW * 0.69, CH * 0.445),
++        (CW * 0.85, CH * 0.54),
++        (CW * 1.06, CH * 0.72),
+         (CW * 1.06, CH * 1.08),
+         (-CW * 0.07, CH * 1.08),
+     ]
+     d.polygon([(int(x), int(y)) for x, y in palm], fill=(31, 89, 111, 255))
+ 
+     # A slightly raised middle ridge catches the cool key light.
+-    d.ellipse((int(CW * 0.07), int(CH * 0.56), int(CW * 0.94), int(CH * 1.06)),
++    d.ellipse((int(CW * 0.07), int(CH * 0.47), int(CW * 0.94), int(CH * 1.06)),
+               fill=(39, 107, 126, 255))
+-    d.ellipse((int(CW * 0.13), int(CH * 0.58), int(CW * 0.75), int(CH * 0.89)),
++    d.ellipse((int(CW * 0.13), int(CH * 0.49), int(CW * 0.75), int(CH * 0.89)),
+               fill=(49, 124, 140, 190))
+-    d.ellipse((int(CW * 0.19), int(CH * 0.60), int(CW * 0.64), int(CH * 0.78)),
++    d.ellipse((int(CW * 0.19), int(CH * 0.51), int(CW * 0.64), int(CH * 0.78)),
+               fill=(72, 148, 157, 90))
+ 
+     # Rubber is thin and translucent: a warm transmitted band near the upper edge.
+     for k in range(8):
+-        y0 = CH * (0.505 + k * 0.007)
++        y0 = CH * (0.425 + k * 0.007)
+         line(d, [(-CW * 0.03, y0 + CH * 0.12), (CW * 0.20, y0), (CW * 0.47, y0 - CH * 0.012),
+                  (CW * 0.72, y0 + CH * 0.02), (CW * 1.03, y0 + CH * 0.12)],
+              fill=(49 + k * 2, 121 + k * 2, 126, 30), width=SS * 2)
+ 
+     # Cuff at lower left, with a rolled elastic rim.
+-    d.ellipse((int(-CW * 0.20), int(CH * 0.64), int(CW * 0.28), int(CH * 1.25)),
++    d.ellipse((int(-CW * 0.20), int(CH * 0.59), int(CW * 0.28), int(CH * 1.20)),
+               fill=(22, 70, 91, 255))
+-    d.ellipse((int(-CW * 0.15), int(CH * 0.67), int(CW * 0.24), int(CH * 1.17)),
++    d.ellipse((int(-CW * 0.15), int(CH * 0.62), int(CW * 0.24), int(CH * 1.12)),
+               fill=(31, 91, 109, 255))
+-    d.arc((int(-CW * 0.14), int(CH * 0.66), int(CW * 0.24), int(CH * 1.17)),
++    d.arc((int(-CW * 0.14), int(CH * 0.61), int(CW * 0.24), int(CH * 1.12)),
+           188, 338, fill=(77, 145, 148, 180), width=SS * 4)
+-    d.arc((int(-CW * 0.18), int(CH * 0.65), int(CW * 0.22), int(CH * 1.20)),
++    d.arc((int(-CW * 0.18), int(CH * 0.60), int(CW * 0.22), int(CH * 1.15)),
+           185, 333, fill=(13, 46, 61, 210), width=SS * 3)
+ 
+     # Fine wrinkles propagate away from the growing tension point.
+     cx, cy = CW * 0.56, CH * 0.45
+     for i in range(10):
+         x = CW * (0.16 + i * 0.055)
+-        y = CH * (0.61 + 0.014 * math.sin(i * 1.7 + phase * 0.4))
++        y = CH * (0.52 + 0.014 * math.sin(i * 1.7 + phase * 0.4))
+         dx, dy = x - cx, y - cy
+         length = max(1.0, math.hypot(dx, dy))
+         px, py = -dy / length, dx / length
+@@ -110,9 +110,9 @@
+     # Broad soft highlights make the material read as thin rubber, not a flat shape.
+     glow = Image.new(&quot;RGBA&quot;, (CW, CH), (0, 0, 0, 0))
+     gd = ImageDraw.Draw(glow, &quot;RGBA&quot;)
+-    gd.ellipse((int(CW * 0.08), int(CH * 0.58), int(CW * 0.47), int(CH * 0.82)),
++    gd.ellipse((int(CW * 0.08), int(CH * 0.49), int(CW * 0.47), int(CH * 0.82)),
+                fill=(125, 206, 198, 35))
+-    gd.ellipse((int(CW * 0.25), int(CH * 0.56), int(CW * 0.67), int(CH * 0.68)),
++    gd.ellipse((int(CW * 0.25), int(CH * 0.47), int(CW * 0.67), int(CH * 0.62)),
+                fill=(166, 226, 210, 28))
+     glow = glow.filter(ImageFilter.GaussianBlur(SS * 14))
+     im = Image.alpha_composite(im.convert(&quot;RGBA&quot;), glow).convert(&quot;RGB&quot;)
+@@ -229,79 +229,81 @@
+ 
+ 
+ def draw_hand(im, pencil_cx, tip_y, phase):
+-    &quot;&quot;&quot;A foreshortened right hand holding the pencil from the upper right.&quot;&quot;&quot;
++    &quot;&quot;&quot;A foreshortened right hand wrapped around the pencil&#x27;s upper shaft.&quot;&quot;&quot;
+     d = ImageDraw.Draw(im, &quot;RGBA&quot;)
+     pencil_cx, tip_y = int(round(pencil_cx)), int(round(tip_y))
+-    top_y = tip_y - 170 * SS
+-    # Wrist / forearm enters from upper-right.
++    grip_y = tip_y - 16 * SS
++
++    # Wrist and forearm enter from the upper-right edge.
+     d.polygon([
+-        (int(pencil_cx + 13 * SS), -CH * 0.08),
+-        (int(pencil_cx + 75 * SS), -CH * 0.08),
+-        (int(pencil_cx + 64 * SS), CH * 0.16),
+-        (int(pencil_cx + 37 * SS), CH * 0.24),
+-        (int(pencil_cx + 17 * SS), CH * 0.18),
++        (int(pencil_cx + 19 * SS), -CH * 0.10),
++        (int(pencil_cx + 92 * SS), -CH * 0.10),
++        (int(pencil_cx + 88 * SS), grip_y - 35 * SS),
++        (int(pencil_cx + 60 * SS), grip_y - 18 * SS),
++        (int(pencil_cx + 31 * SS), grip_y - 29 * SS),
+     ], fill=(159, 91, 64, 255))
+     d.polygon([
+-        (int(pencil_cx + 22 * SS), -CH * 0.08),
+-        (int(pencil_cx + 57 * SS), -CH * 0.08),
+-        (int(pencil_cx + 51 * SS), CH * 0.13),
+-        (int(pencil_cx + 30 * SS), CH * 0.20),
++        (int(pencil_cx + 27 * SS), -CH * 0.10),
++        (int(pencil_cx + 77 * SS), -CH * 0.10),
++        (int(pencil_cx + 75 * SS), grip_y - 42 * SS),
++        (int(pencil_cx + 55 * SS), grip_y - 27 * SS),
++        (int(pencil_cx + 37 * SS), grip_y - 34 * SS),
+     ], fill=(196, 120, 83, 255))
+ 
+-    # Palm mass, with the thumb crossing in front of the barrel.
++    # Palm mass, placed behind the curled fingers.
+     palm = [
+-        (int(pencil_cx + 11 * SS), int(top_y + 30 * SS)),
+-        (int(pencil_cx + 34 * SS), int(top_y + 22 * SS)),
+-        (int(pencil_cx + 58 * SS), int(top_y + 48 * SS)),
+-        (int(pencil_cx + 57 * SS), int(top_y + 91 * SS)),
+-        (int(pencil_cx + 33 * SS), int(top_y + 111 * SS)),
+-        (int(pencil_cx + 8 * SS), int(top_y + 96 * SS)),
+-        (int(pencil_cx - 2 * SS), int(top_y + 64 * SS)),
++        (int(pencil_cx + 8 * SS), int(grip_y - 39 * SS)),
++        (int(pencil_cx + 41 * SS), int(grip_y - 42 * SS)),
++        (int(pencil_cx + 69 * SS), int(grip_y - 27 * SS)),
++        (int(pencil_cx + 75 * SS), int(grip_y + 4 * SS)),
++        (int(pencil_cx + 57 * SS), int(grip_y + 24 * SS)),
++        (int(pencil_cx + 22 * SS), int(grip_y + 19 * SS)),
++        (int(pencil_cx + 3 * SS), int(grip_y - 2 * SS)),
+     ]
+     d.polygon(palm, fill=(185, 108, 75, 255))
+-    d.ellipse((int(pencil_cx + 5 * SS), int(top_y + 34 * SS),
+-               int(pencil_cx + 58 * SS), int(top_y + 105 * SS)),
++    d.ellipse((int(pencil_cx + 9 * SS), int(grip_y - 33 * SS),
++               int(pencil_cx + 72 * SS), int(grip_y + 22 * SS)),
+               fill=(199, 120, 82, 255))
+ 
+-    # Curled fingers form three distinct warm bands to the right of the pencil.
++    # Curled fingers form three distinct warm bands across the barrel.
+     finger_specs = [
+-        (top_y + 44 * SS, 15 * SS, 35 * SS, 31 * SS),
+-        (top_y + 65 * SS, 16 * SS, 38 * SS, 29 * SS),
+-        (top_y + 85 * SS, 14 * SS, 31 * SS, 24 * SS),
++        (grip_y - 34 * SS, -1 * SS, 42 * SS, 13 * SS),
++        (grip_y - 19 * SS, -3 * SS, 48 * SS, 13 * SS),
++        (grip_y - 4 * SS, 0 * SS, 40 * SS, 12 * SS),
+     ]
+     for i, (yy, xoff, ww, hh) in enumerate(finger_specs):
+         d.rounded_rectangle((int(pencil_cx + xoff), int(yy),
+                              int(pencil_cx + xoff + ww), int(yy + hh)),
+-                            radius=int(8 * SS), fill=(193, 113 + i * 3, 78 + i * 4, 255),
++                            radius=int(6 * SS), fill=(193, 113 + i * 3, 78 + i * 4, 255),
+                             outline=(113, 59, 45, 150), width=SS)
+         d.arc((int(pencil_cx + xoff + 3 * SS), int(yy + 2 * SS),
+                int(pencil_cx + xoff + ww - 3 * SS), int(yy + hh - 2 * SS)),
+               195, 335, fill=(239, 164, 116, 105), width=SS * 2)
+ 
+-    # Thumb, angled along the barrel toward the point.
++    # Thumb, angled along the left side of the barrel toward the point.
+     thumb = [
+-        (int(pencil_cx - 4 * SS), int(top_y + 63 * SS)),
+-        (int(pencil_cx + 7 * SS), int(top_y + 59 * SS)),
+-        (int(pencil_cx + 24 * SS), int(top_y + 77 * SS)),
+-        (int(pencil_cx + 26 * SS), int(top_y + 94 * SS)),
+-        (int(pencil_cx + 13 * SS), int(top_y + 101 * SS)),
+-        (int(pencil_cx - 1 * SS), int(top_y + 84 * SS)),
++        (int(pencil_cx - 5 * SS), int(grip_y - 31 * SS)),
++        (int(pencil_cx + 6 * SS), int(grip_y - 34 * SS)),
++        (int(pencil_cx + 16 * SS), int(grip_y - 18 * SS)),
++        (int(pencil_cx + 13 * SS), int(grip_y - 2 * SS)),
++        (int(pencil_cx + 2 * SS), int(grip_y + 3 * SS)),
++        (int(pencil_cx - 7 * SS), int(grip_y - 13 * SS)),
+     ]
+     d.polygon(thumb, fill=(215, 139, 96, 255))
+-    d.arc((int(pencil_cx - 1 * SS), int(top_y + 63 * SS),
+-           int(pencil_cx + 28 * SS), int(top_y + 98 * SS)),
++    d.arc((int(pencil_cx - 7 * SS), int(grip_y - 34 * SS),
++           int(pencil_cx + 17 * SS), int(grip_y + 3 * SS)),
+           200, 338, fill=(249, 182, 133, 150), width=SS * 2)
+-    line(d, [(pencil_cx + 3 * SS, top_y + 82 * SS),
+-             (pencil_cx + 18 * SS, top_y + 88 * SS)],
++    line(d, [(pencil_cx - 2 * SS, grip_y - 8 * SS),
++             (pencil_cx + 9 * SS, grip_y - 5 * SS)],
+          fill=(132, 73, 53, 100), width=SS)
+ 
+-    # Knuckle creases and a soft thumb highlight.
+-    for yy in (top_y + 58 * SS, top_y + 78 * SS):
+-        d.arc((int(pencil_cx + 13 * SS), int(yy),
+-               int(pencil_cx + 48 * SS), int(yy + 15 * SS)),
+-              10, 165, fill=(109, 57, 45, 85), width=SS * 2)
+-    line(d, [(pencil_cx + 12 * SS, top_y + 45 * SS),
+-             (pencil_cx + 49 * SS, top_y + 38 * SS)],
++    # Knuckle creases and a soft highlight along the top of the hand.
++    for yy in (grip_y - 30 * SS, grip_y - 15 * SS):
++        d.arc((int(pencil_cx + 17 * SS), int(yy),
++               int(pencil_cx + 43 * SS), int(yy + 9 * SS)),
++              10, 165, fill=(109, 57, 45, 85), width=SS)
++    line(d, [(pencil_cx + 12 * SS, grip_y - 40 * SS),
++             (pencil_cx + 55 * SS, grip_y - 45 * SS)],
+          fill=(238, 164, 115, 60), width=SS * 4)
+     return im
+ 
+@@ -359,7 +361,7 @@
+     approach = ease((t - 0.06) / 0.50)
+     press = ease((t - 0.50) / 0.25)
+     deep = ease((t - 0.75) / 0.20)
+-    tip_y = CH * (0.145 + 0.285 * approach + 0.050 * press + 0.032 * deep)
++    tip_y = CH * (0.10 + 0.335 * approach + 0.050 * press + 0.032 * deep)
+     cx = CW * (0.535 + 0.003 * math.sin(t * math.pi * 2.0))
+     # Keep contact at a stable point once it is reached.
+     contact_point = CH * 0.435
+</pre></details></div></details><details class=candidate><summary><strong>候选 03</strong><span class=status>播放与检查图</span><time>2026-11-11T09:22:58.718983+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_19a5b559e0afc65f.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;3e9da6103a3d7ff6538ba895b51a0069989071e88aecb1606544a50237d32f0c&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_02/pixels_19a5b559e0afc65f.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_02/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_02/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_02/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_02/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/1f5856177246509a4f1483e266b9f83f07bddc64/pixelworld/vbench2_subset_full/deepseek-v41/text/case_mechanics_0034_attempt_02/candidate_02/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -2,6 +2,7 @@
+ import math
+ 
+ import numpy as np
++import imageio.v2 as imageio
+ from PIL import Image, ImageDraw, ImageFilter
+ 
+ import artifact_io
+@@ -342,7 +343,7 @@
+     rgb += np.array([15, 10, 5], np.float32)[None, None, :] * warm[:, :, None]
+     vig = 1.0 - 0.18 * (((u - 0.5) / 0.7) ** 2 + ((v - 0.5) / 0.8) ** 2)
+     rgb *= vig[:, :, None]
+-    return Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8), &quot;RGB&quot;)
++    return Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8))
+ 
+ 
+ def add_grain_and_sharpen(im, index):
+@@ -350,7 +351,7 @@
+     arr = np.asarray(im, np.float32)
+     noise = rng.normal(0.0, 1.15, (H, W, 1)).astype(np.float32)
+     arr = np.clip(arr + noise, 0, 255)
+-    small = Image.fromarray(arr.astype(np.uint8), &quot;RGB&quot;)
++    small = Image.fromarray(arr.astype(np.uint8))
+     small = small.filter(ImageFilter.UnsharpMask(radius=1.0, percent=75, threshold=2))
+     return small
+ 
+@@ -407,6 +408,15 @@
+         frames.append(np.asarray(frame, dtype=np.uint8))
+         print(f&quot;rendered {i + 1:02d}/{N}&quot;, flush=True)
+     artifact_io.save(frames, CASE_DIR)
++    imageio.mimsave(
++        CASE_DIR / &quot;output.mp4&quot;,
++        frames,
++        fps=FPS,
++        codec=&quot;libx264&quot;,
++        quality=9,
++        pixelformat=&quot;yuv420p&quot;,
++        macro_block_size=1,
++    )
+     print(f&quot;saved {len(frames)} frames to {CASE_DIR}&quot;, flush=True)
+ 
+ 
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-11T09:16:36.764121+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;pwd &amp;&amp; rg --files -g &#x27;&quot;&#x27;!*__pycache__*&#x27;&quot;&#x27; | sed -n &#x27;1,160p&#x27;&quot;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-11T09:16:36.995942+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;printf &#x27;%s\\n&#x27; &#x27;--- prompt.txt ---&#x27;; sed -n &#x27;1,240p&#x27; prompt.txt; printf &#x27;%s\\n&#x27; &#x27;--- GENERATION_RULES.md ---&#x27;; sed -n &#x27;1,280p&#x27; GENERATION_RULES.md; printf &#x27;%s\\n&#x27; &#x27;--- task_spec.json ---&#x27;; cat task_spec.json&quot;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-11T09:16:37.354448+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -c &quot;find . -maxdepth 2 -type f -printf &#x27;%p %s bytes\\n&#x27; | sort | sed -n &#x27;1,200p&#x27;; printf &#x27;%s\\n&#x27; &#x27;--- tools ---&#x27;; command -v ffmpeg; command -v python3; command -v blender; command -v convert; command -v magick; command -v node; command -v npm; command -v chromium; command -v google-chrome&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-11T09:16:44.557770+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;sed -n &#x27;1,260p&#x27; artifact_io.py&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-11T09:16:44.828827+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;sed -n &#x27;1,260p&#x27; player_template.html&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-11T09:16:45.328370+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python3 - &lt;&lt;&#x27;PY&#x27;
+import PIL, numpy
+print(&#x27;Pillow&#x27;, PIL.__version__)
+print(&#x27;numpy&#x27;, numpy.__version__)
+PY&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-11T09:17:32.835844+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;git status --short 2&gt;/dev/null || true; python3 - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+print(&#x27;PIL resampling:&#x27;, hasattr(Image, &#x27;Resampling&#x27;))
+PY&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-11T09:18:52.693379+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -c &#x27;command -v chafa; command -v viu; command -v jp2; command -v img2txt; command -v ffmpeg; command -v gifsicle; command -v vlc&#x27;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-11T09:19:30.125565+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -c &#x27;python3 generate.py&#x27;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-11T09:19:40.399507+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -c &#x27;python3 generate.py&#x27;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-11T09:19:45.536732+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;rg -n &#x27;d\\.line&#x27; generate.py&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-11T09:20:05.044458+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;python3 generate.py&#x27;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-11T09:20:14.346543+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python3 - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+from pathlib import Path
+import numpy as np
+p=Path(&#x27;frames&#x27;)
+for i in [0,5,10,15,19]:
+ a=np.array(Image.open(p/f&#x27;{i:02d}.png&#x27;).convert(&#x27;RGB&#x27;))
+ print(i, &#x27;mean&#x27;, np.round(a.mean((0,1)),1), &#x27;std&#x27;, np.round(a.std((0,1)),1), &#x27;unique&#x27;,len(np.unique(a.reshape(-1,3),axis=0)))
+# Difference sequence establishes actual animation.
+imgs=[np.asarray(Image.open(p/f&#x27;{i:02d}.png&#x27;),dtype=np.float32) for i in range(20)]
+print(&#x27;adjacent MAE&#x27;, [round(float(np.abs(imgs[i]-imgs[i-1]).mean()),2) for i in range(1,20)])
+PY&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-11T09:20:19.749353+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python3 - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+im=Image.open(&#x27;inspection.png&#x27;)
+print(im.size)
+# Convert selected frames to ANSI 24-bit half-block art for terminal inspection.
+for i in [0,6,10,13,16,19]:
+    src=Image.open(f&#x27;frames/{i:02d}.png&#x27;).convert(&#x27;RGB&#x27;).resize((64,36),Image.Resampling.LANCZOS)
+    a=src.load(); print(f&#x27;--- frame {i} ---&#x27;)
+    for y in range(0,36,2):
+        row=[]
+        for x in range(64):
+            r1,g1,b1=a[x,y]; r2,g2,b2=a[x,min(y+1,35)]
+            row.append(f&#x27;\\x1b[38;2;{r1};{g1};{b1}m\\x1b[48;2;{r2};{g2};{b2}mâ&#x27;)
+        print(&#x27;&#x27;.join(row)+&#x27;\\x1b[0m&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-11T09:20:31.744246+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python3 - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+for i in [0,6,10,13,16,19]:
+    im=np.asarray(Image.open(f&#x27;frames/{i:02d}.png&#x27;).convert(&#x27;RGB&#x27;)).astype(float)
+    # downsample to categories by nearest center of 4x4 blocks
+    out=[]
+    for y in range(0,144,4):
+      row=&#x27;&#x27;
+      for x in range(0,256,4):
+        a=im[y:y+4,x:x+4].mean((0,1)); r,g,b=a
+        if r&gt;125 and g&gt;65 and r&gt;g*1.25 and g&gt;b*1.15: c=&#x27;S&#x27;
+        elif r&gt;90 and g&gt;60 and abs(r-g)&lt;35 and b&lt;r*.75: c=&#x27;W&#x27;
+        elif g&gt;75 and b&gt;85 and g&gt;r*1.25: c=&#x27;B&#x27;
+        elif r&gt;100 and g&gt;75 and b&lt;g*.72: c=&#x27;Y&#x27;
+        elif r+g+b&lt;85: c=&#x27;#&#x27;
+        elif r+g+b&lt;130: c=&#x27;.&#x27;
+        elif g&gt;b and b&gt;r*1.2: c=&#x27;b&#x27;
+        else: c=&#x27; &#x27;
+        row+=c
+      out.append(row)
+    print(f&#x27;--- {i} ---&#x27;)
+    print(&#x27;\\n&#x27;.join(out))
+PY&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-11T09:20:37.618250+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python3 - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+# build 4x scale frames as contact sheet for low resolution pixel audit
+ims=[Image.open(f&#x27;frames/{i:02d}.png&#x27;).resize((512,288),Image.Resampling.NEAREST) for i in range(20)]
+out=Image.new(&#x27;RGB&#x27;,(512*4, (288+22)*5),(22,25,30))
+from PIL import ImageDraw
+d=ImageDraw.Draw(out)
+for i,im in enumerate(ims):
+ x=(i%4)*512;y=(i//4)*310
+ d.text((x+4,y+3),f&#x27;frame {i:02d}&#x27;,fill=&#x27;white&#x27;);out.paste(im,(x,y+22))
+out.save(&#x27;audit_sheet.png&#x27;)
+print(out.size)
+PY&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-11T09:21:00.151598+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python3 - &lt;&lt;&#x27;PY&#x27;
+mods=[&#x27;imageio&#x27;,&#x27;imageio_ffmpeg&#x27;,&#x27;cv2&#x27;,&#x27;av&#x27;,&#x27;moviepy&#x27;]
+for m in mods:
+ try:
+  x=__import__(m); print(m, getattr(x,&#x27;__version__&#x27;,&#x27;ok&#x27;))
+ except Exception as e: print(m, &#x27;missing&#x27;)
+try:
+ import imageio_ffmpeg
+ print(&#x27;ffmpeg exe&#x27;,imageio_ffmpeg.get_ffmpeg_exe())
+except Exception as e: print(&#x27;ffmpeg plugin error&#x27;,e)
+PY&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-11T09:21:13.001680+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;nl -ba generate.py | sed -n &#x27;50,150p&#x27;; nl -ba generate.py | sed -n &#x27;225,330p&#x27;; nl -ba generate.py | sed -n &#x27;355,410p&#x27;&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-11T09:21:16.975181+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;sed -n &#x27;56,120p&#x27; generate.py&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-11T09:22:02.697180+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;python3 generate.py&#x27;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-11T09:22:08.274361+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python3 - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+for i in [0,6,10,13,16,19]:
+    im=np.asarray(Image.open(f&#x27;frames/{i:02d}.png&#x27;).convert(&#x27;RGB&#x27;)).astype(float)
+    out=[]
+    for y in range(0,144,4):
+      row=&#x27;&#x27;
+      for x in range(0,256,4):
+        r,g,b=im[y:y+4,x:x+4].mean((0,1))
+        if r&gt;125 and g&gt;65 and r&gt;g*1.25 and g&gt;b*1.15: c=&#x27;S&#x27;
+        elif r&gt;90 and g&gt;60 and abs(r-g)&lt;35 and b&lt;r*.75: c=&#x27;W&#x27;
+        elif g&gt;75 and b&gt;85 and g&gt;r*1.25: c=&#x27;B&#x27;
+        elif r&gt;100 and g&gt;75 and b&lt;g*.72: c=&#x27;Y&#x27;
+        elif r+g+b&lt;85: c=&#x27;#&#x27;
+        elif r+g+b&lt;130: c=&#x27;.&#x27;
+        elif g&gt;b and b&gt;r*1.2: c=&#x27;b&#x27;
+        else: c=&#x27; &#x27;
+        row+=c
+      out.append(row)
+    print(f&#x27;--- {i} ---&#x27;)
+    print(&#x27;\\n&#x27;.join(out))
+PY&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-11T09:22:13.969341+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python3 - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image,ImageDraw
+ims=[Image.open(f&#x27;frames/{i:02d}.png&#x27;).resize((512,288),Image.Resampling.NEAREST) for i in range(20)]
+out=Image.new(&#x27;RGB&#x27;,(2048,1550),(22,25,30));d=ImageDraw.Draw(out)
+for i,im in enumerate(ims):
+ x=(i%4)*512;y=(i//4)*310;d.text((x+4,y+3),f&#x27;frame {i:02d}&#x27;,fill=&#x27;white&#x27;);out.paste(im,(x,y+22))
+out.save(&#x27;audit_sheet.png&#x27;)
+# save six-frame storyboard at 2x
+out2=Image.new(&#x27;RGB&#x27;,(6*512,288),(20,23,27))
+for j,i in enumerate([0,5,9,12,15,19]): out2.paste(ims[i],(j*512,0))
+out2.save(&#x27;storyboard.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-11T09:22:22.045303+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python3 - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+for idx in [0,5,9,12,15,19]:
+ a=np.asarray(Image.open(f&#x27;frames/{idx:02d}.png&#x27;)).astype(float)
+ r,g,b=a[:,:,0],a[:,:,1],a[:,:,2]
+ masks={
+ &#x27;yellow&#x27;:(r&gt;110)&amp;(g&gt;80)&amp;(r&gt;g*1.08)&amp;(g&gt;b*1.7),
+ &#x27;skin&#x27;:(r&gt;100)&amp;(g&gt;45)&amp;(r&gt;g*1.22)&amp;(g&gt;b*1.18),
+ &#x27;blue&#x27;:(g&gt;65)&amp;(b&gt;80)&amp;(g&gt;r*1.35),
+ &#x27;dark&#x27;:(r+g+b&lt;120),
+ }
+ print(&#x27;frame&#x27;,idx)
+ for k,m in masks.items():
+  ys,xs=np.where(m)
+  print(&#x27; &#x27;,k,&#x27;n&#x27;,len(xs),&#x27;bbox&#x27;, (xs.min(),ys.min(),xs.max(),ys.max()) if len(xs) else None)
+PY&quot;</pre></details><details class=command><summary><strong>命令 24</strong><time>2026-11-11T09:22:37.578511+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python3 - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+chars=&#x27;@%#*+=-:. &#x27;
+for idx in [0,9,15,19]:
+ a=np.asarray(Image.open(f&#x27;frames/{idx:02d}.png&#x27;).convert(&#x27;L&#x27;).resize((80,45),Image.Resampling.BILINEAR)).astype(float)
+ print(f&#x27;--- {idx} ---&#x27;)
+ for row in a:
+  print(&#x27;&#x27;.join(chars[min(9,int(v/256*10))] for v in row))
+PY&quot;</pre></details><details class=command><summary><strong>命令 25</strong><time>2026-11-11T09:22:58.338487+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;python3 generate.py&#x27;</pre></details><details class=command><summary><strong>命令 26</strong><time>2026-11-11T09:23:04.948342+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python3 - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+from PIL import Image
+import numpy as np, json, cv2
+spec=json.loads(Path(&#x27;task_spec.json&#x27;).read_text())
+n,h,w,fps=spec[&#x27;frames&#x27;],spec[&#x27;height&#x27;],spec[&#x27;width&#x27;],spec[&#x27;fps&#x27;]
+frames=[np.asarray(Image.open(f&#x27;frames/{i:02d}.png&#x27;).convert(&#x27;RGB&#x27;)) for i in range(n)]
+arr=np.stack(frames)
+z=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;]
+print(&#x27;frames&#x27;,len(frames),&#x27;shape&#x27;,arr.shape,&#x27;dtype&#x27;,arr.dtype)
+print(&#x27;npz&#x27;,z.shape,z.dtype,&#x27;matches PNG&#x27;,np.array_equal(z.transpose(2,0,1),arr))
+cap=cv2.VideoCapture(&#x27;output.mp4&#x27;)
+print(&#x27;video opened&#x27;,cap.isOpened(),&#x27;frames&#x27;,int(cap.get(cv2.CAP_PROP_FRAME_COUNT)),&#x27;fps&#x27;,cap.get(cv2.CAP_PROP_FPS),&#x27;size&#x27;,int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+dec=[]
+while True:
+ ok,fr=cap.read()
+ if not ok: break
+ dec.append(cv2.cvtColor(fr,cv2.COLOR_BGR2RGB))
+cap.release()
+print(&#x27;decoded&#x27;,len(dec),&#x27;shape&#x27;,np.stack(dec).shape)
+if len(dec)==n:
+ print(&#x27;decoded vs source MAE&#x27;,round(float(np.abs(np.stack(dec).astype(float)-arr).mean()),2))
+print(&#x27;files:&#x27;)
+for p in [&#x27;generate.py&#x27;,&#x27;output.mp4&#x27;,&#x27;pixels.npz&#x27;,&#x27;inspection.png&#x27;,&#x27;transition_check.png&#x27;,&#x27;index.html&#x27;]:
+ print(p,Path(p).stat().st_size)
+print(&#x27;adjacent MAE&#x27;, [round(float(np.abs(arr[i].astype(float)-arr[i-1]).mean()),2) for i in range(1,n)])
+PY&quot;</pre></details><details class=command><summary><strong>命令 27</strong><time>2026-11-11T09:23:11.105610+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python3 - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+from PIL import Image
+import numpy as np,json
+spec=json.loads(Path(&#x27;task_spec.json&#x27;).read_text())
+z=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;].astype(np.uint32)
+for i in range(spec[&#x27;frames&#x27;]):
+ p=z[:,:,i]
+ rgb=np.stack([(p&gt;&gt;16)&amp;255,(p&gt;&gt;8)&amp;255,p&amp;255],axis=2)
+ if not np.array_equal(rgb,np.asarray(Image.open(f&#x27;frames/{i:02d}.png&#x27;))):
+  print(&#x27;mismatch&#x27;,i,np.max(np.abs(rgb.astype(int)-np.asarray(Image.open(f&#x27;frames/{i:02d}.png&#x27;)).astype(int))));break
+else: print(&#x27;pixels.npz matches every PNG&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 28</strong><time>2026-11-11T09:23:19.420346+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &quot;python3 - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image,ImageDraw
+import numpy as np
+ims=[Image.open(f&#x27;frames/{i:02d}.png&#x27;).convert(&#x27;RGB&#x27;) for i in range(20)]
+# 4x4 sequence: 4x scale, tight labels, explicit black separators.
+tile_w,tile_h=384,216; label=18; gap=6
+out=Image.new(&#x27;RGB&#x27;,(4*tile_w+5*gap,5*(tile_h+label)+6*gap),(15,19,24));d=ImageDraw.Draw(out)
+for i,im in enumerate(ims):
+ col,row=i%4,i//4;x=gap+col*(tile_w+gap);y=gap+row*(tile_h+label+gap)
+ out.paste(im.resize((tile_w,tile_h),Image.Resampling.LANCZOS),(x,y+label))
+ d.text((x+3,y+3),f&#x27;{i:02d} / {i/4:.2f}s&#x27;,fill=(205,220,225))
+out.save(&#x27;sequence_audit.png&#x27;)
+# Check that each frame has meaningful motion and plausible color populations.
+arr=np.stack([np.asarray(x) for x in ims])
+for i in range(20):
+ r,g,b=arr[i,:,:,0].astype(float),arr[i,:,:,1].astype(float),arr[i,:,:,2].astype(float)
+ blue=((g&gt;65)&amp;(b&gt;80)&amp;(g&gt;r*1.35)).mean()
+ skin=((r&gt;100)&amp;(g&gt;45)&amp;(r&gt;g*1.22)&amp;(g&gt;b*1.18)).mean()
+ yellow=((r&gt;110)&amp;(g&gt;80)&amp;(r&gt;g*1.08)&amp;(g&gt;b*1.7)).mean()
+ print(f&#x27;{i:02d}: blue={blue:.3f} skin={skin:.3f} yellow={yellow:.3f}&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 29</strong><time>2026-11-11T09:23:42.793960+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -c &#x27;unlink audit_sheet.png; unlink storyboard.png; unlink sequence_audit.png; ls -lh generate.py output.mp4 pixels.npz inspection.png transition_check.png index.html task_spec.json prompt.txt GENERATION_RULES.md; find frames -maxdepth 1 -type f | wc -l&#x27;</pre></details><p class=muted>保存候选 3 份；完成命令 29 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
