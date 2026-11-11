@@ -1,0 +1,705 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/GPT-6.1-Sol · pcve_0016</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/GPT-6.1-Sol · pcve_0016</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>24 FPS · 96 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_020ddf7937e1eaff.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;701602686ba24417cad7ad2fe698ee5cfd473a57292ccdb60ac517c1a04e0698&quot;, &quot;pixels&quot;: &quot;final/pixels_020ddf7937e1eaff.rgb.gz&quot;, &quot;poster&quot;: &quot;final/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>视频编辑</span><h3 style="margin-top:14px">原始任务</h3><p>From frame 17 onwards, remove the wooden block from the scene.
+</p><div class=facts><div><strong>4.00s</strong>视频时长</div><div><strong>28974</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=card><h2>编辑前的完整原视频</h2><video controls preload=metadata src="source_video.mp4" style="width:100%;max-height:480px"></video><p class=note>上方为编辑结果；原视频是模型获准使用的输入。下方为逐轮保存的编辑候选。</p></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-11T15:17:40.358462+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_020ddf7937e1eaff.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;701602686ba24417cad7ad2fe698ee5cfd473a57292ccdb60ac517c1a04e0698&quot;, &quot;pixels&quot;: &quot;candidate_00/pixels_020ddf7937e1eaff.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_00/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_00/inspection.png" target=_blank><img loading=lazy src="candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_00/transition_check.png" target=_blank><img loading=lazy src="candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,175 @@
++&quot;&quot;&quot;Remove the block at source frame 17 using only source RGB measurements.
++
++The collision has already happened when the intervention is made.  The sphere
++is separated from the block, so its acquired rolling velocity is retained.
++A temporally recovered clean plate removes the block and its lighting footprint;
++the original moving sphere is composited without changing its trajectory.
++&quot;&quot;&quot;
++from pathlib import Path
++import json
++import warnings
++import numpy as np
++from PIL import Image, ImageDraw
++from scipy.ndimage import (label, binary_dilation, gaussian_filter,
++                           distance_transform_edt, map_coordinates)
++from scipy.spatial import ConvexHull
++import artifact_io
++
++ROOT = Path(__file__).resolve().parent
++Y, X = np.mgrid[:144, :256]
++
++
++def components(mask):
++    lab, _ = label(mask)
++    counts = np.bincount(lab.ravel())
++    counts[0] = 0
++    return lab == counts.argmax()
++
++
++def analyze(source):
++    &quot;&quot;&quot;Find the sphere by its red chroma and block by top/front RGB faces.&quot;&quot;&quot;
++    balls = []
++    blocks = []
++    valid = np.ones(source.shape[:3], bool)
++    for i, f in enumerate(source):
++        r, g, b = f.transpose(2, 0, 1)
++        red = components((r-g &gt; 65) &amp; (r &gt; 130))
++        yy, xx = np.where(red)
++        cx = (xx.min()+xx.max())/2
++        cy = (yy.min()+yy.max())/2 + 1.25
++        rx = (xx.max()-xx.min())/2 + .8
++        ry = (yy.max()-yy.min())/2 + 2.0
++        balls.append((cx, cy, rx, ry))
++        # Color threshold omits the almost-black bottom of the sphere.
++        # This expanded oval excludes those pixels during plate reconstruction.
++        valid[i] &amp;= (((X-cx)/(rx+1.5))**2 +
++                     ((Y-cy)/(ry+1.0))**2 &gt; 1.06)
++        top = ((b/np.maximum(r, 1) &gt; .59) &amp;
++               (g/np.maximum(r, 1) &gt; .72) &amp; (r &lt; 138) &amp;
++               (X &gt; 105) &amp; (X &lt; 250) &amp; (Y &gt; 50) &amp; (Y &lt; 78))
++        top = components(top)
++        yy, xx = np.where(top)
++        left, right, high = xx.min(), xx.max(), yy.min()
++        if i &lt;= 12:
++            bounds = (108, 167, 54, 104)
++        elif i &gt;= 35:
++            bounds = (180, 248, 65, 117)
++        else:
++            bounds = (left-3, right+6, high-2, 108+(i-16)*.55)
++        left, right, high, low = bounds
++        front = ((r &lt; 107) &amp; (g &lt; 73) &amp; (b &lt; 62) &amp;
++                 (X &gt;= left) &amp; (X &lt;= right) &amp; (Y &gt;= high) &amp; (Y &lt; low+1))
++        front &amp;= (((X-cx)/(rx+1))**2 + ((Y-cy)/(ry+1))**2 &gt; 1)
++        points = np.array(np.where((top | front) &amp; (X &gt;= left) &amp;
++                                  (X &lt;= right))).T[:, ::-1]
++        hull = ConvexHull(points)
++        im = Image.new(&#x27;L&#x27;, (256, 144))
++        ImageDraw.Draw(im).polygon([tuple(p) for p in points[hull.vertices]], fill=255)
++        mask = binary_dilation(np.array(im) &gt; 0, iterations=3)
++        blocks.append(mask)
++        valid[i] &amp;= ~mask
++    return np.array(balls), np.array(blocks), valid
++
++
++def clean_plate(source, valid):
++    &quot;&quot;&quot;Upper clear-floor samples reject both moving shadows and dark objects.
++
++    Average genuine RGB triples close to the brightest valid green sample;
++    green is used because it is low on the red sphere, unlike red itself.
++    &quot;&quot;&quot;
++    green = source[:, :, :, 1]
++    score = np.where(valid, green, -999)
++    maximum = score.max(axis=0)
++    weights = valid &amp; (green &gt;= maximum[None]-2.5)
++    plate = (source*weights[..., None]).sum(0) / np.maximum(weights.sum(0)[..., None], 1)
++    missing = weights.sum(0) == 0
++    if missing.any():
++        index = distance_transform_edt(missing, return_distances=False, return_indices=True)
++        plate[missing] = plate[index[0][missing], index[1][missing]]
++    # The floor to the right of the block&#x27;s initial footprint is already
++    # visible in frame 1. Keep that exact original texture and wall junction.
++    base = source[0].copy()
++    patch = np.zeros((144, 256), float)
++    patch[51:, 99:191] = 1
++    patch = gaussian_filter(patch, 2.0)
++    patch[54:135, 107:178] = 1
++    base = base*(1-patch[..., None]) + plate*patch[..., None]
++    return base
++
++
++def ball_shadow_template(source, ball):
++    &quot;&quot;&quot;Transmission of the ball&#x27;s shadow on unobstructed floor, from frame 5.
++
++    Later source pixels reveal the very same wood grain, making the ratio a
++    lighting-only layer rather than a pasted patch of floor texture.
++    &quot;&quot;&quot;
++    f = source[4]
++    empty = source[95]
++    transmission = np.clip((f+1)/(empty+1), .13, 1)
++    transmission = gaussian_filter(transmission, (.55, .55, 0))
++    cx, cy, rx, ry = ball[4]
++    return transmission, (cx, cy, rx, ry)
++
++
++def generate():
++    source = np.load(ROOT/&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(np.float64)
++    balls, blocks, valid = analyze(source)
++    plate = clean_plate(source, valid)
++    transmission, reference = ball_shadow_template(source, balls)
++    refx, refy, refrx, refry = reference
++    result = source.astype(np.uint8).copy()
++    intervention = json.loads((ROOT/&#x27;source_info.json&#x27;).read_text())[&#x27;execution_frame_1based&#x27;]-1
++
++    # Limit the edit to the part of the scene traversed by these two objects.
++    region = np.zeros((144, 256), float)
++    region[48:, 76:] = 1
++    region = gaussian_filter(region, 1.3)
++    region[52:, 80:] = 1
++    for i in range(intervention, len(source)):
++        cx, cy, rx, ry = balls[i]
++        # Match the original sphere&#x27;s cast/contact shadow in projected units.
++        sx = refx + (X-cx)*(refrx/rx)
++        sy = refy + (Y-cy)*(refry/ry)
++        shadow = np.stack([map_coordinates(transmission[:, :, c], [sy, sx],
++                                          order=1, mode=&#x27;constant&#x27;, cval=1)
++                           for c in range(3)], axis=-1)
++        # Only use the shadow below the sphere, never the source sphere&#x27;s
++        # body or any distant source features accidentally sampled by a warp.
++        footprint = np.exp(-((X-cx-.12*rx)/(1.75*rx))**8)
++        footprint *= np.clip((Y-(cy+.65*ry))/(.25*ry), 0, 1)
++        footprint *= np.clip(((cy+4.15*ry)-Y)/(.45*ry), 0, 1)
++        shadow = 1 + (shadow-1)*footprint[..., None]
++        background = plate*shadow
++        frame = source[i]*(1-region[..., None]) + background*region[..., None]
++        # Keep all original ball surface pixels, including dark grooves and
++        # the bottom rim; the ellipse provides a subpixel, antialiased border.
++        radius = np.sqrt(((X-cx)/rx)**2 + ((Y-cy)/ry)**2)
++        keep = np.clip((1.035-radius)*min(rx, ry)/.8, 0, 1)
++        # The brightest red edge sometimes lies just beyond the fitted oval.
++        r, g, b = source[i].transpose(2, 0, 1)
++        red_edge = ((r-g &gt; 65) &amp; (r &gt; 130) &amp; (radius &lt; 1.16))
++        keep[red_edge] = 1
++        frame = frame*(1-keep[..., None]) + source[i]*keep[..., None]
++        result[i] = np.clip(np.rint(frame), 0, 255).astype(np.uint8)
++
++    assert np.array_equal(result[:intervention], source[:intervention].astype(np.uint8))
++    artifact_io.save(result, ROOT)
++    # Additional normal MP4 deliverable, generated from the same submitted RGB.
++    try:
++        import subprocess
++        proc = subprocess.Popen([
++            &#x27;ffmpeg&#x27;, &#x27;-y&#x27;, &#x27;-loglevel&#x27;, &#x27;error&#x27;, &#x27;-f&#x27;, &#x27;rawvideo&#x27;,
++            &#x27;-pixel_format&#x27;, &#x27;rgb24&#x27;, &#x27;-video_size&#x27;, &#x27;256x144&#x27;, &#x27;-framerate&#x27;, &#x27;24&#x27;,
++            &#x27;-i&#x27;, &#x27;pipe:0&#x27;, &#x27;-an&#x27;, &#x27;-c:v&#x27;, &#x27;libx264&#x27;, &#x27;-crf&#x27;, &#x27;16&#x27;,
++            &#x27;-pix_fmt&#x27;, &#x27;yuv420p&#x27;, &#x27;-movflags&#x27;, &#x27;+faststart&#x27;, str(ROOT/&#x27;edited_video.mp4&#x27;)
++        ], stdin=subprocess.PIPE)
++        proc.communicate(result.tobytes())
++        if proc.returncode:
++            raise RuntimeError(&#x27;MP4 encoding failed&#x27;)
++    except FileNotFoundError:
++        pass
++    print(&#x27;Saved 96 RGB frames at 256x144, 24 fps. Frames 1â16 are exact source RGB.&#x27;)
++
++
++if __name__ == &#x27;__main__&#x27;:
++    generate()
+</pre></details></div></details><details class=candidate><summary><strong>候选 02</strong><span class=status>播放与检查图</span><time>2026-11-11T15:18:44.079618+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_020ddf7937e1eaff.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;701602686ba24417cad7ad2fe698ee5cfd473a57292ccdb60ac517c1a04e0698&quot;, &quot;pixels&quot;: &quot;candidate_01/pixels_020ddf7937e1eaff.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_01/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_01/inspection.png" target=_blank><img loading=lazy src="candidate_01/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_01/transition_check.png" target=_blank><img loading=lazy src="candidate_01/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -157,8 +157,13 @@
+     # Additional normal MP4 deliverable, generated from the same submitted RGB.
+     try:
+         import subprocess
++        import shutil
++        encoder = shutil.which(&#x27;ffmpeg&#x27;)
++        if encoder is None:
++            import imageio_ffmpeg
++            encoder = imageio_ffmpeg.get_ffmpeg_exe()
+         proc = subprocess.Popen([
+-            &#x27;ffmpeg&#x27;, &#x27;-y&#x27;, &#x27;-loglevel&#x27;, &#x27;error&#x27;, &#x27;-f&#x27;, &#x27;rawvideo&#x27;,
++            encoder, &#x27;-y&#x27;, &#x27;-loglevel&#x27;, &#x27;error&#x27;, &#x27;-f&#x27;, &#x27;rawvideo&#x27;,
+             &#x27;-pixel_format&#x27;, &#x27;rgb24&#x27;, &#x27;-video_size&#x27;, &#x27;256x144&#x27;, &#x27;-framerate&#x27;, &#x27;24&#x27;,
+             &#x27;-i&#x27;, &#x27;pipe:0&#x27;, &#x27;-an&#x27;, &#x27;-c:v&#x27;, &#x27;libx264&#x27;, &#x27;-crf&#x27;, &#x27;16&#x27;,
+             &#x27;-pix_fmt&#x27;, &#x27;yuv420p&#x27;, &#x27;-movflags&#x27;, &#x27;+faststart&#x27;, str(ROOT/&#x27;edited_video.mp4&#x27;)
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-11T15:04:13.759518+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la&#x27;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-11T15:04:22.175487+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat prompt.txt &amp;&amp; cat GENERATION_RULES.md &amp;&amp; cat source_info.json &amp;&amp; cat artifact_io.py&#x27;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-11T15:04:36.671011+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+z=np.load(&#x27;source_pixels.npz&#x27;);print(z.files)
+a=z[z.files[0]];print(a.shape,a.dtype)
+for i in [0,15,16,24,40,60,80,95]:
+ f=a[i];print(&#x27;\\nFRAME&#x27;,i)
+ # text with color labels for each 4x4 region
+ pal=np.array([[210,213,220],[100,110,120],[35,40,50],[145,93,50],[225,155,80],[210,40,35],[30,160,65],[35,70,210],[235,225,100],[245,245,245]])
+ chars=&#x27;.:#wWrgbY &#x27;
+ for y in range(0,144,4):
+  s=&#x27;&#x27;
+  for x in range(0,256,4):
+   p=f[y:y+4,x:x+4].mean((0,1));s+=chars[np.argmin(((pal-p)**2).sum(1))]
+  print(s)
+PY&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-11T15:04:50.868902+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.cluster.vq import kmeans2
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+rng=np.random.default_rng(4);v=A.reshape(-1,3);c,l=kmeans2(v[rng.choice(len(v),50000,False)].astype(float),20,minit=&#x27;++&#x27;,seed=4);c=c[np.argsort(c.mean(1))]
+print([(chr(65+i),tuple(np.round(p).astype(int))) for i,p in enumerate(c)])
+for i in [0,16,24,40,95]:
+ f=A[i];print(&#x27;\\nFrame&#x27;,i)
+ for y in range(60,118):
+  p=f[y,80:250:2];ix=np.argmin(((p[:,None]-c[None])**2).sum(2),1)
+  print(f&#x27;{y:3} &#x27;+&#x27;&#x27;.join(chr(65+k) for k in ix))
+print(&#x27;\\nRGB samples frame 0&#x27;)
+for y in [0,45,65,70,75,80,85,90,100,110,120]:
+ print(y,[(x,tuple(A[0,y,x])) for x in [0,60,90,110,120,130,140,150,160,180,220,255]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-11T15:05:07.360815+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for i in [0,4,8,12,15,16,20,24,28,32,40,48,60,72,84,95]:
+ f=A[i];m=(f[:,:,0]-f[:,:,1]&gt;70)&amp;(f[:,:,0]&gt;140)
+ L,n=label(m); ss=np.bincount(L.ravel());ss[0]=0;l=ss.argmax();ys,xs=np.where(L==l)
+ print(i,&#x27;orange&#x27;,len(xs), &#x27;bbox&#x27;,(xs.min(),ys.min(),xs.max(),ys.max()),&#x27;center&#x27;,np.round([xs.mean(),ys.mean()],2))
+ if i in [0,15,24,40,95]:
+  print(&#x27;Orange mask:&#x27;)
+  for y in range(45,120,2):
+   print(f&#x27;{y:3} &#x27;+&#x27;&#x27;.join(&#x27;O&#x27; if m[y:y+2,x:x+2].mean()&gt;.6 else &#x27;+&#x27; if m[y:y+2,x:x+2].mean()&gt;0 else &#x27; &#x27; for x in range(80,180,2)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-11T15:05:33.044809+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import binary_fill_holes,label
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for i in range(0,37):
+ f=A[i];r,g,b=f.transpose(2,0,1);m=(r-g&gt;65)&amp;(r&gt;130);l,n=label(m);s=np.bincount(l.ravel());s[0]=0;m=binary_fill_holes(l==s.argmax());yy,xx=np.where(m)
+ # block darkest aggregate excluding sphere.
+ p=(r&lt;100)&amp;(g&lt;70)&amp;(b&lt;60);p[:45]=False;p[115:]=False;p[:,:70]=False;p[:,250:]=False;p[m]=False
+ l,n=label(p);s=np.bincount(l.ravel());s[0]=0;y,x=np.where(l==s.argmax())
+ print(i,&#x27;ball&#x27;,len(xx),np.round([xx.mean(),yy.mean()],2),&#x27;bbox&#x27;,xx.min(),yy.min(),xx.max(),yy.max(),&#x27;block&#x27;,x.min(),y.min(),x.max(),y.max(),np.round([x.mean(),y.mean()],2))
+PY&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-11T15:05:57.457405+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label,binary_fill_holes
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for i in [0,9,12,13,14,15,16,18,20,24,30,40,95]:
+ f=A[i]; print(&#x27;\\nFRAME&#x27;,i,&#x27;cubes and sphere, x80..249 in units of 2&#x27;)
+ for y in range(48,122,2):
+  s=&#x27;&#x27;
+  for x in range(80,250,2):
+   r,g,b=f[y:y+2,x:x+2].mean((0,1));
+   s += &#x27;O&#x27; if r-g&gt;65 and r&gt;130 else &#x27;B&#x27; if r&lt;105 and g&lt;70 else &#x27;t&#x27; if 100&lt;r&lt;128 and g&gt;76 and b&gt;60 else &#x27;.&#x27;
+  print(f&#x27;{y:3} &#x27;+s)
+PY&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-11T15:06:35.122601+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+# difference at initial cube vs clean t24 and95
+for i in [0,16,24,40]:
+ bg=A[0].copy();bg[:,70:138]=A[95,:,70:138];bg[:,138:174]=A[24,:,138:174];
+ d=np.max(abs(A[i]-bg),axis=2)
+ print(&#x27;\\nDIFFERENCE&#x27;,i,&#x27;x80:250 2px: .&lt;6 +6 #&gt;15 X&gt;30&#x27;)
+ for y in range(40,131,2):
+  print(f&#x27;{y:3} &#x27;+&#x27;&#x27;.join(&#x27;.&#x27; if v&lt;6 else &#x27;+&#x27; if v&lt;15 else &#x27;#&#x27; if v&lt;30 else &#x27;X&#x27; for v in [d[y:y+2,x:x+2].mean() for x in range(80,250,2)]))
+PY&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-11T15:07:04.256718+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label,binary_fill_holes
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for i in [12,13,14,15,16,17,18,20,24,30,40,60,80,95]:
+ f=A[i];r,g,b=f.transpose(2,0,1);m=(r-g&gt;65)&amp;(r&gt;130);l,n=label(m);s=np.bincount(l.ravel());s[0]=0;m=binary_fill_holes(l==s.argmax());
+ yy,xx=np.where(m)
+ # Fit boundary ellipse? print row min max every4px
+ print(&#x27;frame&#x27;,i,&#x27;bounds&#x27;,(xx.min(),xx.max(),yy.min(),yy.max()))
+ print([(y,*([int(np.where(m[y])[0].min()),int(np.where(m[y])[0].max())] if m[y].any() else [-1,-1])) for y in range(yy.min(),yy.max()+1,4)])
+PY&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-11T15:08:06.261648+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+# region spatial temporal brightening with orange sphere exclusion via center estimated from leftmost plus radius
+Y,X=np.mgrid[:144,:256];clean=np.ones(A.shape[:3],bool)
+for i,f in enumerate(A):
+ r,g,b=f.transpose(2,0,1);m=(r-g&gt;65)&amp;(r&gt;130)
+ from scipy.ndimage import label
+ l,n=label(m);s=np.bincount(l.ravel());s[0]=0;ys,xs=np.where(l==s.argmax())
+ cx=(xs.min()+xs.max())/2;cy=(ys.min()+ys.max())/2;rx=(xs.max()-xs.min())/2+2;ry=(ys.max()-ys.min())/2+2
+ clean[i] &amp;= (((X-cx)/rx)**2+((Y-cy)/ry)**2&gt;1.12)
+ # exclude ball cast shadow lower, using measured offset y+22 x+5
+ clean[i] &amp;= (((X-cx-5)/(rx*1.3))**2+((Y-cy-ry-6)/(ry*.75))**2&gt;1.1)
+V=np.where(clean[...,None],A,np.nan);bg=np.nanpercentile(V,85,axis=0)
+for i in [0,16,24,40,95]:
+ d=np.mean(bg-A[i],axis=2)
+ print(&#x27;\\nDARK&#x27;,i)
+ for y in range(48,141,3):
+  print(f&#x27;{y:3} &#x27;+&#x27;&#x27;.join(&#x27; &#x27; if v&lt;3 else &#x27;.&#x27; if v&lt;6 else &#x27;+&#x27; if v&lt;12 else &#x27;#&#x27; if v&lt;25 else &#x27;X&#x27; for v in [d[y:y+3,x:x+3].mean() for x in range(80,256,3)]))
+print(&#x27;BG pixels with no valid&#x27;,np.sum(~clean.any(axis=0)))
+for y in [60,70,80,90,100,110,120,130]:
+ print(y,[(x,tuple(bg[y,x].round().astype(int)), int(clean[:,y,x].sum())) for x in [100,110,120,130,140,150,160,170,180,200,220,240]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-11T15:08:48.856982+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for i in [0,16,24,40]:
+ print(&#x27;\\nFRAME&#x27;,i,&#x27;x90...249&#x27;)
+ f=A[i]
+ for y in range(45,116):
+  s=&#x27;&#x27;
+  for x in range(90,250,2):
+   r,g,b=f[y,x]
+   s+= &#x27;O&#x27; if r-g&gt;65 and r&gt;130 else &#x27;D&#x27; if r&lt;105 and g/r&lt;.72 else &#x27;T&#x27; if (b/r&gt;.59 and g/r&gt;.73 and r&lt;135) else &#x27;.&#x27;
+  print(f&#x27;{y:3} {s}&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-11T15:09:29.088869+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+for i in [16,24,40,95]:
+ f=A[i].astype(float);r,g,b=f.transpose(2,0,1);m=(r-g&gt;65)&amp;(r&gt;130)
+ from scipy.ndimage import label
+ l,n=label(m);s=np.bincount(l.ravel());s[0]=0;ys,xs=np.where(l==s.argmax());x0=xs.min()-3;x1=xs.max()+4;y0=ys.min()-3;y1=ys.max()+9
+ print(&#x27;\\nFRAME&#x27;,i,&#x27;x&#x27;,x0,x1,&#x27;y&#x27;,y0,y1)
+ for y in range(y0,y1):
+  print(y,&#x27;&#x27;.join(&#x27;O&#x27; if r[y,x]&gt;170 and r[y,x]-g[y,x]&gt;65 else &#x27;o&#x27; if r[y,x]&gt;130 and r[y,x]-g[y,x]&gt;65 else &#x27;d&#x27; if r[y,x]&gt;105 and r[y,x]-g[y,x]&gt;65 else &#x27;#&#x27; if r[y,x]&lt;105 else &#x27;.&#x27; for x in range(x0,x1)))
+ print(&#x27;row colors&#x27;)
+ for y in range(y1-13,y1-4):
+  print(y,[(x,tuple(f[y,x].astype(int))) for x in range(x0+8,x1-8,4)])
+PY&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-11T15:09:52.656644+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for i in [0,12,16,20,24,30,40,95]:
+ f=A[i]; r,g,b=f.transpose(2,0,1)
+ # cube top chroma high b/r; rule polygon rows
+ t=(b/r&gt;.59)&amp;(g/r&gt;.72)&amp;(r&lt;138);t[:50]=False;t[78:]=False;t[:,:105]=False;t[:,250:]=False
+ from scipy.ndimage import label
+ l,n=label(t);s=np.bincount(l.ravel());s[0]=0;yy,xx=np.where(l==s.argmax());
+ print(i, &#x27;top&#x27;,len(xx),&#x27;bbox&#x27;,xx.min(),yy.min(),xx.max(),yy.max(),&#x27;rows&#x27;,[(y,(np.where(l[y]==s.argmax())[0].min(),np.where(l[y]==s.argmax())[0].max())) for y in range(yy.min(),yy.max()+1) if (l[y]==s.argmax()).any()])
+PY&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-11T15:10:15.717050+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+# vertical brightness profiles at initial and later background pixels
+for y in [65,75,85,95,105,115,125,135]:
+ print(&#x27;y&#x27;,y)
+ for i in [0,16,24,40,95]:
+  print(i,&#x27; &#x27;.join(&#x27;%3d&#x27;%A[i,y,x:x+5,0].mean() for x in range(80,251,10)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-11T15:11:01.204036+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; .tmp/check_background.py &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label,binary_fill_holes
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float);Y,X=np.mgrid[:144,:256]
+valid=np.ones(A.shape[:3],bool); balls=[]; cubes=[]
+for i,f in enumerate(A):
+ r,g,b=f.transpose(2,0,1);o=(r-g&gt;65)&amp;(r&gt;130);l,n=label(o);s=np.bincount(l.ravel());s[0]=0;yy,xx=np.where(l==s.argmax())
+ cx=(xx.min()+xx.max())/2;cy=(yy.min()+yy.max())/2;rx=(xx.max()-xx.min())/2+1.6;ry=(yy.max()-yy.min())/2+1.6
+ balls.append((cx,cy,rx,ry))
+ # full color body+shadow+soft illumination exclusion
+ valid[i]&amp;=~((X&gt;cx-rx-9)&amp;(X&lt;cx+rx+15)&amp;(Y&gt;cy-ry-5)&amp;(Y&lt;cy+ry+43))
+ t=(b/np.maximum(r,1)&gt;.59)&amp;(g/np.maximum(r,1)&gt;.72)&amp;(r&lt;138)&amp;(X&gt;105)&amp;(X&lt;250)&amp;(Y&gt;50)&amp;(Y&lt;78)
+ l,n=label(t);s=np.bincount(l.ravel());s[0]=0;yy,xx=np.where(l==s.argmax());L=xx.min();R=xx.max();T=yy.min();cubes.append((L,R,T))
+ valid[i]&amp;=~((X&gt;L-12)&amp;(X&lt;R+65)&amp;(Y&gt;T-7))
+print(&#x27;unseen pixels&#x27;,np.sum(~valid.any(0)))
+for y,x in zip(*np.where(~valid.any(0))):
+ if x%10==0 and y%10==0:print(&#x27;missing&#x27;,x,y)
+# Nanmedian masked samples
+V=np.where(valid[...,None],A,np.nan)
+import warnings
+with warnings.catch_warnings():
+ warnings.simplefilter(&#x27;ignore&#x27;);BG=np.nanmedian(V,axis=0)
+# fill hole via closest observed if any
+from scipy.ndimage import distance_transform_edt
+bad=np.isnan(BG[:,:,0]);ids=distance_transform_edt(bad,return_distances=False,return_indices=True);BG[bad]=BG[ids[0][bad],ids[1][bad]]
+np.savez(&#x27;.tmp/background_check.npz&#x27;,bg=BG,balls=balls,cubes=cubes,valid=valid)
+for y in [60,70,80,90,100,110,120,130]:
+ print(y,[(x,tuple(BG[y,x].astype(int)),int(valid[:,y,x].sum())) for x in [100,110,120,130,140,150,160,170,180,200,220,240]])
+PY
+python .tmp/check_background.py&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-11T15:12:15.887043+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+from scipy.ndimage import label
+from scipy.spatial import ConvexHull
+for i in [16,24,40,95]:
+ f=A[i];r,g,b=f.transpose(2,0,1);t=(b/r&gt;.59)&amp;(g/r&gt;.72)&amp;(r&lt;138);t[:50]=False;t[78:]=False;t[:,:105]=False;t[:,250:]=False
+ l,n=label(t);s=np.bincount(l.ravel());s[0]=0;y,x=np.where(l==s.argmax()); pts=np.array([x,y]).T;h=ConvexHull(pts);print(i,pts[h.vertices].tolist())
+PY&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-11T15:14:05.702663+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; .tmp/plate_test.py &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label,binary_fill_holes,binary_dilation,gaussian_filter
+from scipy.spatial import ConvexHull
+from PIL import Image,ImageDraw
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float);Y,X=np.mgrid[:144,:256]
+valid=np.ones(A.shape[:3],bool);balls=[];cubes=[];body=[]
+for i,f in enumerate(A):
+ r,g,b=f.transpose(2,0,1);o=(r-g&gt;65)&amp;(r&gt;130);l,n=label(o);s=np.bincount(l.ravel());s[0]=0;yy,xx=np.where(l==s.argmax())
+ cx=(xx.min()+xx.max())/2;cy=(yy.min()+yy.max())/2;rx=(xx.max()-xx.min())/2+1.5;ry=(yy.max()-yy.min())/2+1.7
+ balls.append((cx,cy,rx,ry))
+ valid[i]&amp;=(((X-cx)/rx)**2+((Y-cy)/ry)**2&gt;1.05)
+ # hard cube segmentation bounded by top and dark front face
+ t=(b/np.maximum(r,1)&gt;.59)&amp;(g/np.maximum(r,1)&gt;.72)&amp;(r&lt;138)&amp;(X&gt;105)&amp;(X&lt;250)&amp;(Y&gt;50)&amp;(Y&lt;78)
+ l,n=label(t);s=np.bincount(l.ravel());s[0]=0;top=l==s.argmax();yy,xx=np.where(top);L=xx.min();R=xx.max();T=yy.min()
+ # discard stray floor stripe tail at right top by using trajectory-guided bounds
+ if i&lt;=12: bounds=(108,167,54,104)
+ elif i&gt;=35:bounds=(180,248,65,117)
+ else:bounds=(L-3,R+6,T-2,108+(i-16)*.55)
+ left,right,topp,bottom=bounds
+ dark=(r&lt;107)&amp;(g&lt;73)&amp;(b&lt;62)&amp;(X&gt;=left)&amp;(X&lt;=right)&amp;(Y&gt;=T)&amp;(Y&lt;bottom+1)
+ dark&amp;=(((X-cx)/rx)**2+((Y-cy)/ry)**2&gt;1)
+ pts=np.array(np.where((top|dark)&amp;(X&gt;=left)&amp;(X&lt;=right))).T[:,::-1]
+ h=ConvexHull(pts); poly=Image.new(&#x27;L&#x27;,(256,144));ImageDraw.Draw(poly).polygon([tuple(v) for v in pts[h.vertices]],fill=255);cm=np.array(poly)&gt;0
+ cm=binary_dilation(cm,iterations=2);cubes.append(cm);valid[i]&amp;=~cm
+# Green near-upper quantile ensures clean plate, while preserving real RGB triples.
+scores=np.where(valid,A[:,:,:,1],-999)
+q=np.nanpercentile(np.where(valid,A[:,:,:,1],np.nan),85,axis=0)
+# average actual samples whose green is within 2 units of q (keeps texture without channel fringe)
+w=valid&amp;(abs(A[:,:,:,1]-q)&lt;2.1)
+BG=(A*w[:,:,:,None]).sum(0)/np.maximum(w.sum(0)[:,:,None],1)
+bad=w.sum(0)==0
+print(&#x27;missing&#x27;,bad.sum())
+for y in [70,80,90,100,110]:
+ print(y,[(x,tuple(BG[y,x].astype(int)), int(valid[:,y,x].sum())) for x in [110,120,125,130,135,140,150,160,180,220]])
+np.savez(&#x27;.tmp/plate_test.npz&#x27;,bg=BG,balls=balls,cubes=cubes,missing=bad)
+PY
+python .tmp/plate_test.py&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-11T15:14:43.014119+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import gaussian_filter
+z=np.load(&#x27;.tmp/plate_test.npz&#x27;);B=z[&#x27;bg&#x27;];A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float);d=B-A[0]
+print(&#x27;Initial scene vs plate averaged wood deviations&#x27;)
+for y in range(48,144,3):
+ v=[d[y:y+3,x:x+3,1].mean() for x in range(70,256,3)]
+ print(y,&#x27;&#x27;.join(&#x27; &#x27; if abs(p)&lt;2.5 else &#x27;.&#x27; if p&lt;5 else &#x27;+&#x27; if p&lt;10 else &#x27;#&#x27; if p&lt;20 else &#x27;X&#x27; for p in v))
+print(&#x27;missing&#x27;,np.argwhere(z[&#x27;missing&#x27;]).tolist())
+print(&#x27;frame16 local floor RGB diff BG-sphere&#x27;)
+f=A[16];delta=gaussian_filter((B-f)[:,:,1],1)
+for y in range(90,132,3):
+ print(y,[(x,round(delta[y,x],1)) for x in range(85,141,5)])
+PY&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-11T15:15:20.889436+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+# difference shadow isolated using future floor A95 on ball first positions x&lt;=80
+for i in [1,4,8,16,40,95]:
+ f=A[i];r,g,b=f.transpose(2,0,1)
+ from scipy.ndimage import label
+ l,n=label((r-g&gt;65)&amp;(r&gt;130));s=np.bincount(l.ravel());s[0]=0;y,x=np.where(l==s.argmax());cx=(x.min()+x.max())/2;cy=(y.min()+y.max())/2;rx=(x.max()-x.min())/2;ry=(y.max()-y.min())/2
+ print(i,(cx,cy,rx,ry))
+ if i&gt;8:continue
+ d=(A[95]-f).mean(2)
+ for y0 in range(int(cy+ry)-2,int(cy+ry)+19,2):
+  print(y0,[(x0,round(d[y0,x0],1)) for x0 in range(max(int(cx-rx),0),int(cx+rx+17),4)])
+PY&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-11T15:15:34.479965+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+for y in [75,80,85,87,90,93,96,100,110,120]:
+ print(y,[(x,tuple(A[95,y,x])) for x in range(120,141,4)])
+PY&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-11T15:17:28.580067+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; generate.py &lt;&lt;&#x27;PY&#x27;
+\&quot;\&quot;\&quot;Remove the block at source frame 17 using only source RGB measurements.
+
+The collision has already happened when the intervention is made.  The sphere
+is separated from the block, so its acquired rolling velocity is retained.
+A temporally recovered clean plate removes the block and its lighting footprint;
+the original moving sphere is composited without changing its trajectory.
+\&quot;\&quot;\&quot;
+from pathlib import Path
+import json
+import warnings
+import numpy as np
+from PIL import Image, ImageDraw
+from scipy.ndimage import (label, binary_dilation, gaussian_filter,
+                           distance_transform_edt, map_coordinates)
+from scipy.spatial import ConvexHull
+import artifact_io
+
+ROOT = Path(__file__).resolve().parent
+Y, X = np.mgrid[:144, :256]
+
+
+def components(mask):
+    lab, _ = label(mask)
+    counts = np.bincount(lab.ravel())
+    counts[0] = 0
+    return lab == counts.argmax()
+
+
+def analyze(source):
+    \&quot;\&quot;\&quot;Find the sphere by its red chroma and block by top/front RGB faces.\&quot;\&quot;\&quot;
+    balls = []
+    blocks = []
+    valid = np.ones(source.shape[:3], bool)
+    for i, f in enumerate(source):
+        r, g, b = f.transpose(2, 0, 1)
+        red = components((r-g &gt; 65) &amp; (r &gt; 130))
+        yy, xx = np.where(red)
+        cx = (xx.min()+xx.max())/2
+        cy = (yy.min()+yy.max())/2 + 1.25
+        rx = (xx.max()-xx.min())/2 + .8
+        ry = (yy.max()-yy.min())/2 + 2.0
+        balls.append((cx, cy, rx, ry))
+        # Color threshold omits the almost-black bottom of the sphere.
+        # This expanded oval excludes those pixels during plate reconstruction.
+        valid[i] &amp;= (((X-cx)/(rx+1.5))**2 +
+                     ((Y-cy)/(ry+1.0))**2 &gt; 1.06)
+        top = ((b/np.maximum(r, 1) &gt; .59) &amp;
+               (g/np.maximum(r, 1) &gt; .72) &amp; (r &lt; 138) &amp;
+               (X &gt; 105) &amp; (X &lt; 250) &amp; (Y &gt; 50) &amp; (Y &lt; 78))
+        top = components(top)
+        yy, xx = np.where(top)
+        left, right, high = xx.min(), xx.max(), yy.min()
+        if i &lt;= 12:
+            bounds = (108, 167, 54, 104)
+        elif i &gt;= 35:
+            bounds = (180, 248, 65, 117)
+        else:
+            bounds = (left-3, right+6, high-2, 108+(i-16)*.55)
+        left, right, high, low = bounds
+        front = ((r &lt; 107) &amp; (g &lt; 73) &amp; (b &lt; 62) &amp;
+                 (X &gt;= left) &amp; (X &lt;= right) &amp; (Y &gt;= high) &amp; (Y &lt; low+1))
+        front &amp;= (((X-cx)/(rx+1))**2 + ((Y-cy)/(ry+1))**2 &gt; 1)
+        points = np.array(np.where((top | front) &amp; (X &gt;= left) &amp;
+                                  (X &lt;= right))).T[:, ::-1]
+        hull = ConvexHull(points)
+        im = Image.new(&#x27;L&#x27;, (256, 144))
+        ImageDraw.Draw(im).polygon([tuple(p) for p in points[hull.vertices]], fill=255)
+        mask = binary_dilation(np.array(im) &gt; 0, iterations=3)
+        blocks.append(mask)
+        valid[i] &amp;= ~mask
+    return np.array(balls), np.array(blocks), valid
+
+
+def clean_plate(source, valid):
+    \&quot;\&quot;\&quot;Upper clear-floor samples reject both moving shadows and dark objects.
+
+    Average genuine RGB triples close to the brightest valid green sample;
+    green is used because it is low on the red sphere, unlike red itself.
+    \&quot;\&quot;\&quot;
+    green = source[:, :, :, 1]
+    score = np.where(valid, green, -999)
+    maximum = score.max(axis=0)
+    weights = valid &amp; (green &gt;= maximum[None]-2.5)
+    plate = (source*weights[..., None]).sum(0) / np.maximum(weights.sum(0)[..., None], 1)
+    missing = weights.sum(0) == 0
+    if missing.any():
+        index = distance_transform_edt(missing, return_distances=False, return_indices=True)
+        plate[missing] = plate[index[0][missing], index[1][missing]]
+    # The floor to the right of the block&#x27;s initial footprint is already
+    # visible in frame 1. Keep that exact original texture and wall junction.
+    base = source[0].copy()
+    patch = np.zeros((144, 256), float)
+    patch[51:, 99:191] = 1
+    patch = gaussian_filter(patch, 2.0)
+    patch[54:135, 107:178] = 1
+    base = base*(1-patch[..., None]) + plate*patch[..., None]
+    return base
+
+
+def ball_shadow_template(source, ball):
+    \&quot;\&quot;\&quot;Transmission of the ball&#x27;s shadow on unobstructed floor, from frame 5.
+
+    Later source pixels reveal the very same wood grain, making the ratio a
+    lighting-only layer rather than a pasted patch of floor texture.
+    \&quot;\&quot;\&quot;
+    f = source[4]
+    empty = source[95]
+    transmission = np.clip((f+1)/(empty+1), .13, 1)
+    transmission = gaussian_filter(transmission, (.55, .55, 0))
+    cx, cy, rx, ry = ball[4]
+    return transmission, (cx, cy, rx, ry)
+
+
+def generate():
+    source = np.load(ROOT/&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(np.float64)
+    balls, blocks, valid = analyze(source)
+    plate = clean_plate(source, valid)
+    transmission, reference = ball_shadow_template(source, balls)
+    refx, refy, refrx, refry = reference
+    result = source.astype(np.uint8).copy()
+    intervention = json.loads((ROOT/&#x27;source_info.json&#x27;).read_text())[&#x27;execution_frame_1based&#x27;]-1
+
+    # Limit the edit to the part of the scene traversed by these two objects.
+    region = np.zeros((144, 256), float)
+    region[48:, 76:] = 1
+    region = gaussian_filter(region, 1.3)
+    region[52:, 80:] = 1
+    for i in range(intervention, len(source)):
+        cx, cy, rx, ry = balls[i]
+        # Match the original sphere&#x27;s cast/contact shadow in projected units.
+        sx = refx + (X-cx)*(refrx/rx)
+        sy = refy + (Y-cy)*(refry/ry)
+        shadow = np.stack([map_coordinates(transmission[:, :, c], [sy, sx],
+                                          order=1, mode=&#x27;constant&#x27;, cval=1)
+                           for c in range(3)], axis=-1)
+        # Only use the shadow below the sphere, never the source sphere&#x27;s
+        # body or any distant source features accidentally sampled by a warp.
+        footprint = np.exp(-((X-cx-.12*rx)/(1.75*rx))**8)
+        footprint *= np.clip((Y-(cy+.65*ry))/(.25*ry), 0, 1)
+        footprint *= np.clip(((cy+4.15*ry)-Y)/(.45*ry), 0, 1)
+        shadow = 1 + (shadow-1)*footprint[..., None]
+        background = plate*shadow
+        frame = source[i]*(1-region[..., None]) + background*region[..., None]
+        # Keep all original ball surface pixels, including dark grooves and
+        # the bottom rim; the ellipse provides a subpixel, antialiased border.
+        radius = np.sqrt(((X-cx)/rx)**2 + ((Y-cy)/ry)**2)
+        keep = np.clip((1.035-radius)*min(rx, ry)/.8, 0, 1)
+        # The brightest red edge sometimes lies just beyond the fitted oval.
+        r, g, b = source[i].transpose(2, 0, 1)
+        red_edge = ((r-g &gt; 65) &amp; (r &gt; 130) &amp; (radius &lt; 1.16))
+        keep[red_edge] = 1
+        frame = frame*(1-keep[..., None]) + source[i]*keep[..., None]
+        result[i] = np.clip(np.rint(frame), 0, 255).astype(np.uint8)
+
+    assert np.array_equal(result[:intervention], source[:intervention].astype(np.uint8))
+    artifact_io.save(result, ROOT)
+    # Additional normal MP4 deliverable, generated from the same submitted RGB.
+    try:
+        import subprocess
+        proc = subprocess.Popen([
+            &#x27;ffmpeg&#x27;, &#x27;-y&#x27;, &#x27;-loglevel&#x27;, &#x27;error&#x27;, &#x27;-f&#x27;, &#x27;rawvideo&#x27;,
+            &#x27;-pixel_format&#x27;, &#x27;rgb24&#x27;, &#x27;-video_size&#x27;, &#x27;256x144&#x27;, &#x27;-framerate&#x27;, &#x27;24&#x27;,
+            &#x27;-i&#x27;, &#x27;pipe:0&#x27;, &#x27;-an&#x27;, &#x27;-c:v&#x27;, &#x27;libx264&#x27;, &#x27;-crf&#x27;, &#x27;16&#x27;,
+            &#x27;-pix_fmt&#x27;, &#x27;yuv420p&#x27;, &#x27;-movflags&#x27;, &#x27;+faststart&#x27;, str(ROOT/&#x27;edited_video.mp4&#x27;)
+        ], stdin=subprocess.PIPE)
+        proc.communicate(result.tobytes())
+        if proc.returncode:
+            raise RuntimeError(&#x27;MP4 encoding failed&#x27;)
+    except FileNotFoundError:
+        pass
+    print(&#x27;Saved 96 RGB frames at 256x144, 24 fps. Frames 1â16 are exact source RGB.&#x27;)
+
+
+if __name__ == &#x27;__main__&#x27;:
+    generate()
+PY
+python generate.py&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-11T15:17:45.456856+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for i in [16,24,40,95]:
+ f=np.asarray(Image.open(f&#x27;frames/{i:02}.png&#x27;)).astype(float);r,g,b=f.transpose(2,0,1)
+ print(&#x27;\\nOUTPUT&#x27;,i)
+ for y in range(50,132,3):
+  print(y,&#x27;&#x27;.join(&#x27;O&#x27; if rr-gg&gt;65 and rr&gt;130 else &#x27;#&#x27; if rr&lt;105 and gg&lt;70 else &#x27;t&#x27; if bb/rr&gt;.61 and rr&lt;140 else &#x27;.&#x27; for rr,gg,bb in [f[y:y+3,x:x+3].mean((0,1)) for x in range(80,256,3)]))
+# unchanged dark cube colored pixels expected none in main removal region
+f=np.asarray(Image.open(&#x27;frames/40.png&#x27;));print(&#x27;mean removed-cube&#x27;,f[79:110,190:238].mean((0,1)), &#x27;original&#x27;,A[40,79:110,190:238].mean((0,1)))
+print(&#x27;artifacts exist&#x27;)
+import os
+print([(n,os.path.getsize(n)) for n in [&#x27;pixels.npz&#x27;,&#x27;index.html&#x27;,&#x27;edited_video.mp4&#x27;,&#x27;inspection.png&#x27;,&#x27;generate.py&#x27;]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-11T15:18:04.056193+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import importlib.util,os,numpy as np
+from PIL import Image
+for m in [&#x27;imageio_ffmpeg&#x27;,&#x27;imageio&#x27;,&#x27;cv2&#x27;,&#x27;av&#x27;]:
+ print(m,bool(importlib.util.find_spec(m)))
+z=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;];print(&#x27;packed tensor&#x27;,z.shape,z.dtype)
+A=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;];B=np.stack([np.array(Image.open(f&#x27;frames/{i:02d}.png&#x27;)) for i in range(96)])
+print(&#x27;shape/dtype&#x27;,B.shape,B.dtype,&#x27;history exact&#x27;,np.array_equal(A[:16],B[:16]))
+print(&#x27;outputs&#x27;,[(n,os.path.getsize(n)) for n in [&#x27;pixels.npz&#x27;,&#x27;index.html&#x27;,&#x27;inspection.png&#x27;,&#x27;transition_check.png&#x27;,&#x27;generate.py&#x27;]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 24</strong><time>2026-11-11T15:18:42.393378+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;python generate.py &amp;&amp; ls -lh edited_video.mp4 pixels.npz index.html&#x27;</pre></details><p class=muted>保存候选 2 份；完成命令 24 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
