@@ -1,0 +1,765 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/GPT-6.1-Sol · pcve_0051</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/GPT-6.1-Sol · pcve_0051</h1></section><div class=case-meta><span class=badge>vision-agent</span><span class=pill>256×144</span><span class=pill>24 FPS · 96 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_dd64a05e0aadf646.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;4f9e97bf2529bef1ed809c840f1776aaf0e521d4960338396fa74629d55e87a9&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/final/pixels_dd64a05e0aadf646.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/final/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>视频编辑</span><h3 style="margin-top:14px">原始任务</h3><p>From frame 1 onwards, reduce the red stone&#x27;s initial speed to 0.5 times its original value.
+</p><div class=facts><div><strong>4.00s</strong>视频时长</div><div><strong>24202</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=card><h2>编辑前的完整原视频</h2><video controls preload=metadata src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/source_video.mp4" style="width:100%;max-height:480px"></video><p class=note>上方为编辑结果；原视频是模型获准使用的输入。下方为逐轮保存的编辑候选。</p></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-12T04:27:48.870072+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_369e64ff15c2babb.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;bcaab3574e001c110e5b4330d79e3ab8df69f417b12e75dc6df62368aa58a78f&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_00/pixels_369e64ff15c2babb.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_00/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_00/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_00/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,174 @@
++&quot;&quot;&quot;Counterfactual curling edit: halve red&#x27;s initial velocity at source time zero.
++Only source pixels supply the setting and the two stone appearances.
++&quot;&quot;&quot;
++from pathlib import Path
++import numpy as np
++import cv2
++from PIL import Image
++import artifact_io
++
++ROOT=Path(__file__).resolve().parent
++
++def source_high():
++    cap=cv2.VideoCapture(str(ROOT/&#x27;source_video.mp4&#x27;))
++    ims=[]
++    while True:
++        ok,bgr=cap.read()
++        if not ok: break
++        ims.append(cv2.cvtColor(bgr,cv2.COLOR_BGR2RGB))
++    cap.release()
++    return np.asarray(ims)
++
++def centers(src):
++    tracks=[]
++    yy,xx=np.indices(src.shape[1:3])
++    for i,im in enumerate(src):
++        r,g,b=im.astype(float).transpose(2,0,1)
++        expected=min(47.5+2.03*i,122.5 if i&lt;40 else 122.5-.155*(i-40))*5
++        masks=[(r-g&gt;90)&amp;(r-b&gt;75)&amp;(abs(xx-expected)&lt;30)&amp;(yy&gt;300)&amp;(yy&lt;385),
++               (r-b&gt;70)&amp;(g-b&gt;60)&amp;(yy&gt;300)&amp;(yy&lt;410)]
++        pair=[]
++        for m in masks:
++            n,l,st,c=cv2.connectedComponentsWithStats(m.astype(np.uint8))
++            k=1+np.argmax(st[1:,4])
++            ys,xs=np.where(l==k)
++            pair.extend([xs.mean()/5,ys.mean()/5])
++        tracks.append(pair)
++    return np.asarray(tracks)
++
++def make_sprite(im,bg,handle):
++    # Sprite is centered on the colored handle; source-ground pixels are
++    # removed through a matte. Gray body, highlights and handle remain native.
++    cx,cy=np.round(np.asarray(handle)*5).astype(int)
++    x0,y0=cx-43,cy-24
++    rgb=im[y0:y0+77,x0:x0+86].astype(np.float32)
++    back=bg[y0:y0+77,x0:x0+86].astype(np.float32)
++    diff=back-rgb
++    dark=diff.mean(axis=2)&gt;15
++    rr,gg,bb=rgb.transpose(2,0,1)
++    colored=((rr-gg&gt;75)&amp;(rr-bb&gt;65))|((rr-bb&gt;65)&amp;(gg-bb&gt;55))
++    raw=(dark|colored).astype(np.uint8)
++    raw=cv2.morphologyEx(raw,cv2.MORPH_CLOSE,np.ones((3,3),np.uint8))
++    contours,_=cv2.findContours(raw,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
++    solid=np.zeros(raw.shape,np.uint8)
++    cv2.drawContours(solid,[max(contours,key=cv2.contourArea)],-1,1,-1)
++    # Include original antialiased edge samples and feather only the perimeter.
++    a=cv2.GaussianBlur(cv2.dilate(solid,np.ones((3,3),np.uint8)).astype(float),(5,5),.75)
++    a=np.maximum(a,solid.astype(float))
++    # Gentle shadow outside the opaque stone, taken from its original ice.
++    yy,xx=np.indices(a.shape)
++    shadow_zone=((xx-43)/37)**2+((yy-39)/21)**2&lt;1
++    shade=np.clip(diff.mean(axis=2)/np.maximum(back.mean(axis=2),1),0,.2)
++    shade*=shadow_zone*(1-a)
++    shade=cv2.GaussianBlur(shade,(5,5),1)
++    # Premultiplied foreground accounts for source background at soft edges.
++    premul=rgb-(1-a[:,:,None])*back
++    premul*=a[:,:,None]&gt;0.001
++    return premul.astype(np.float32),a.astype(np.float32),shade.astype(np.float32),np.array([x0,y0],float)-np.asarray(handle)*5
++
++def paste(dst,sprite,handle,scale=1.):
++    premul,a,shadow,offset=sprite
++    # All translations occur at native 1280x720 resolution before Lanczos.
++    where=np.asarray(handle)*5+offset*scale
++    x0,y0=np.floor(where).astype(int)
++    wh=(int(np.ceil(a.shape[1]*scale))+2,int(np.ceil(a.shape[0]*scale))+2)
++    mat=np.array([[scale,0,where[0]-x0],[0,scale,where[1]-y0]],np.float32)
++    af=cv2.warpAffine(a,mat,wh,flags=cv2.INTER_LINEAR)
++    pf=cv2.warpAffine(premul,mat,wh,flags=cv2.INTER_LINEAR)
++    sh=cv2.warpAffine(shadow,mat,wh,flags=cv2.INTER_LINEAR)
++    region=dst[y0:y0+wh[1],x0:x0+wh[0]]
++    region[:]=region*(1-sh[:,:,None])
++    region[:]=region*(1-af[:,:,None])+pf
++
++def trajectories(p):
++    # The measured incoming red path is slightly projective. Halving world
++    # speed halves its linear term and quarters its perspective-curvature term.
++    fit=np.polyfit(np.arange(38),p[:38,0],2)
++    r0=p[0,0];rv=fit[1]*.5;rc=fit[0]*.25
++    yfit=np.polyfit(np.arange(15,38),p[15:38,2],2)
++    yc=yfit[0];yv=2*yc*38+yfit[1];y0=p[38,2]
++    def incoming(t):
++        red=r0+rv*t+rc*t*t
++        if t&lt;=38:
++            yellow=np.interp(t,np.arange(39),p[:39,2])
++        else:
++            dt=t-38;yellow=y0+yv*dt+yc*dt*dt
++        return red,yellow
++    # The factual first contact records the projected equal-radius spacing.
++    spacing=p[38,2]-p[38,0]
++    lo,hi=38.,70.
++    for _ in range(50):
++        mid=(lo+hi)*.5
++        rr,yy=incoming(mid)
++        if yy-rr&gt;spacing:lo=mid
++        else:hi=mid
++    hit=(lo+hi)/2
++    rh,yh=incoming(hit)
++    u1=rv+2*rc*hit;u2=yv+2*yc*(hit-38)
++    # Estimate restitution from the factual immediate separating motion.
++    v1=np.polyfit(np.arange(41,61),p[41:61,0],1)[0]
++    v2=np.polyfit(np.arange(41,61),p[41:61,2],1)[0]
++    original_rel=(fit[1]+2*fit[0]*38)-(yfit[1]+2*yc*38)
++    restitution=np.clip((v2-v1)/original_rel,.04,.15)
++    mean=(u1+u2)/2
++    out1=mean-restitution*(u1-u2)/2
++    out2=mean+restitution*(u1-u2)/2
++    drag=.0011
++    result=[]
++    for i in range(96):
++        if i&lt;=hit:
++            rx,yx=incoming(float(i))
++        else:
++            dt=i-hit
++            def travel(v):
++                t=min(dt,abs(v)/drag)
++                return v*t-np.sign(v)*drag*t*t*.5
++            rx=rh+travel(out1);yx=yh+travel(out2)
++        # Both glide along the same rink centerline in perspective.
++        ry=p[0,1]+.061*(rx-r0)
++        yy=p[0,3]+.061*(yx-p[0,2])
++        if i&lt;=38:yy=p[i,3]
++        result.append([rx,ry,yx,yy])
++    print(f&#x27;contact: frame {hit+1:.2f}, red x={rh:.2f}, yellow x={yh:.2f}; &#x27;
++          f&#x27;restitution={restitution:.3f}; post velocities={out1:.3f},{out2:.3f} px/frame&#x27;)
++    return np.asarray(result)
++
++def main():
++    src=source_high()
++    low=np.load(ROOT/&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
++    p=centers(src)
++    bg=np.median(src[:38],axis=0).astype(np.uint8)
++    motion=trajectories(p)
++    # Use the source stone appearance at corresponding rink positions, so
++    # metal reflections and the small perspective scale changes stay native.
++    reds=[make_sprite(src[j],bg,p[j,:2]) for j in range(38)]
++    yellows=[make_sprite(src[j],bg,p[j,2:]) for j in range(38)]
++    frames=[]
++    for i,(rx,ry,yx,yy) in enumerate(motion):
++        if i==0:
++            frames.append(low[0].copy());continue
++        canvas=src[i].astype(np.float32)
++        # Erase only the two factual stones. The median here is static rink
++        # footage with both stone silhouettes absent (no scene regeneration).
++        for k in [0,2]:
++            cx,cy=np.round(p[i,k:k+2]*5).astype(int)
++            x0,y0=cx-48,cy-26
++            canvas[y0:y0+85,x0:x0+98]=bg[y0:y0+85,x0:x0+98]
++        rj=int(np.argmin(abs(p[:38,0]-rx)))
++        yj=i if i&lt;38 else min(37,int(np.argmin(abs(p[:38,2]-yx))))
++        # Retain native yellow motion until the later counterfactual impact.
++        rs=reds[rj];ys=yellows[yj]
++        # Near-depth correction for the yellow going beyond its last clean
++        # observed appearance, less than one percent of its diameter.
++        yellow_scale=1+0.00032*(yx-p[yj,2])
++        # Depth sorting: yellow is very slightly nearer the fixed camera.
++        paste(canvas,rs,[rx,ry])
++        paste(canvas,ys,[yx,yy],yellow_scale)
++        frame=np.asarray(Image.fromarray(np.uint8(np.clip(canvas,0,255))).resize((256,144),Image.Resampling.LANCZOS))
++        frames.append(frame)
++    frames=np.asarray(frames,dtype=np.uint8)
++    artifact_io.save(frames,ROOT)
++    np.save(ROOT/&#x27;.tmp/counterfactual_tracks.npy&#x27;,motion)
++    print(&#x27;Saved&#x27;,frames.shape,&#x27;to&#x27;,ROOT/&#x27;pixels.npz&#x27;)
++
++if __name__==&#x27;__main__&#x27;:main()
+</pre></details></div></details><details class=candidate><summary><strong>候选 02</strong><span class=status>播放与检查图</span><time>2026-11-12T04:30:12.369151+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_d7321e9764a100af.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;69a344ffcdbd221824c8c23e53ee8b74be9cef3ceded807a368022fad51b9e81&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_01/pixels_d7321e9764a100af.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_01/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_01/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_01/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_01/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_01/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -43,27 +43,35 @@
+     x0,y0=cx-43,cy-24
+     rgb=im[y0:y0+77,x0:x0+86].astype(np.float32)
+     back=bg[y0:y0+77,x0:x0+86].astype(np.float32)
+-    diff=back-rgb
+-    dark=diff.mean(axis=2)&gt;15
++    # Native silhouettes measured on frame one. A geometric matte avoids
++    # accidentally treating the painted red target or line as an object.
++    red=rgb[:,:,0].max()-rgb[:,:,1].max()&gt;8
++    # Use the handle&#x27;s high-chroma pixels to identify the stone, not the rink.
+     rr,gg,bb=rgb.transpose(2,0,1)
+-    colored=((rr-gg&gt;75)&amp;(rr-bb&gt;65))|((rr-bb&gt;65)&amp;(gg-bb&gt;55))
+-    raw=(dark|colored).astype(np.uint8)
+-    raw=cv2.morphologyEx(raw,cv2.MORPH_CLOSE,np.ones((3,3),np.uint8))
+-    contours,_=cv2.findContours(raw,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+-    solid=np.zeros(raw.shape,np.uint8)
+-    cv2.drawContours(solid,[max(contours,key=cv2.contourArea)],-1,1,-1)
+-    # Include original antialiased edge samples and feather only the perimeter.
+-    a=cv2.GaussianBlur(cv2.dilate(solid,np.ones((3,3),np.uint8)).astype(float),(5,5),.75)
+-    a=np.maximum(a,solid.astype(float))
+-    # Gentle shadow outside the opaque stone, taken from its original ice.
++    red=np.count_nonzero((rr-gg&gt;85)&amp;(rr-bb&gt;75))&gt;np.count_nonzero((gg-bb&gt;70)&amp;(rr-bb&gt;70))
++    if red:
++        outline=[(33,12),(49,13),(56,15),(60,19),(65,22),(68,27),
++                 (69,32),(68,37),(65,41),(59,45),(50,48),(39,49),
++                 (31,46),(26,44),(22,40),(20,34),(21,29),(24,24),
++                 (28,20),(31,18)]
++        shadow_center=(45,47)
++    else:
++        outline=[(29,12),(46,12),(50,14),(52,17),(58,19),(61,22),
++                 (64,28),(65,33),(64,38),(61,43),(55,47),(45,50),
++                 (31,51),(23,48),(17,45),(14,40),(12,35),(12,29),
++                 (14,24),(17,20),(22,17),(26,15)]
++        shadow_center=(38.5,50)
++    high=np.zeros((77*4,86*4),np.uint8)
++    cv2.fillPoly(high,[np.round(np.asarray(outline)*4).astype(np.int32)],255)
++    a=cv2.resize(high,(86,77),interpolation=cv2.INTER_AREA).astype(np.float32)/255
++    a=cv2.GaussianBlur(a,(3,3),.5)
+     yy,xx=np.indices(a.shape)
+-    shadow_zone=((xx-43)/37)**2+((yy-39)/21)**2&lt;1
+-    shade=np.clip(diff.mean(axis=2)/np.maximum(back.mean(axis=2),1),0,.2)
+-    shade*=shadow_zone*(1-a)
+-    shade=cv2.GaussianBlur(shade,(5,5),1)
+-    # Premultiplied foreground accounts for source background at soft edges.
+-    premul=rgb-(1-a[:,:,None])*back
+-    premul*=a[:,:,None]&gt;0.001
++    sx,sy=shadow_center
++    shade=.055*np.exp(-.5*(((xx-sx)/26)**2+((yy-sy)/9)**2))
++    shade*=1-a
++    # At the already antialiased native perimeter, retain genuine pixels;
++    # only the feathered half-pixel boundary is blended to the new ground.
++    premul=rgb*a[:,:,None]
+     return premul.astype(np.float32),a.astype(np.float32),shade.astype(np.float32),np.array([x0,y0],float)-np.asarray(handle)*5
+ 
+ def paste(dst,sprite,handle,scale=1.):
+@@ -141,8 +149,8 @@
+     motion=trajectories(p)
+     # Use the source stone appearance at corresponding rink positions, so
+     # metal reflections and the small perspective scale changes stay native.
+-    reds=[make_sprite(src[j],bg,p[j,:2]) for j in range(38)]
+-    yellows=[make_sprite(src[j],bg,p[j,2:]) for j in range(38)]
++    reds=[make_sprite(src[0],bg,p[0,:2]) for j in range(38)]
++    yellows=[make_sprite(src[0],bg,p[0,2:]) for j in range(38)]
+     frames=[]
+     for i,(rx,ry,yx,yy) in enumerate(motion):
+         if i==0:
+@@ -160,9 +168,9 @@
+         rs=reds[rj];ys=yellows[yj]
+         # Near-depth correction for the yellow going beyond its last clean
+         # observed appearance, less than one percent of its diameter.
+-        yellow_scale=1+0.00032*(yx-p[yj,2])
++        yellow_scale=1+0.00032*(yx-p[0,2])
+         # Depth sorting: yellow is very slightly nearer the fixed camera.
+-        paste(canvas,rs,[rx,ry])
++        paste(canvas,rs,[rx,ry],1+0.00032*(rx-p[0,0]))
+         paste(canvas,ys,[yx,yy],yellow_scale)
+         frame=np.asarray(Image.fromarray(np.uint8(np.clip(canvas,0,255))).resize((256,144),Image.Resampling.LANCZOS))
+         frames.append(frame)
+</pre></details></div></details><details class=candidate><summary><strong>候选 03</strong><span class=status>播放与检查图</span><time>2026-11-12T04:30:19.759073+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_d7321e9764a100af.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;69a344ffcdbd221824c8c23e53ee8b74be9cef3ceded807a368022fad51b9e81&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_02/pixels_d7321e9764a100af.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_02/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_02/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_02/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_02/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_02/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>代码未变化；重新保存了产物。</pre></details></div></details><details class=candidate><summary><strong>候选 04</strong><span class=status>播放与检查图</span><time>2026-11-12T04:31:22.488763+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_dd64a05e0aadf646.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;4f9e97bf2529bef1ed809c840f1776aaf0e521d4960338396fa74629d55e87a9&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_03/pixels_dd64a05e0aadf646.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_03/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_03/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_03/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_03/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/candidate_03/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -25,7 +25,7 @@
+     for i,im in enumerate(src):
+         r,g,b=im.astype(float).transpose(2,0,1)
+         expected=min(47.5+2.03*i,122.5 if i&lt;40 else 122.5-.155*(i-40))*5
+-        masks=[(r-g&gt;90)&amp;(r-b&gt;75)&amp;(abs(xx-expected)&lt;30)&amp;(yy&gt;300)&amp;(yy&lt;385),
++        masks=[(r-g&gt;90)&amp;(r-b&gt;75)&amp;(abs(xx-expected)&lt;30)&amp;(yy&gt;300)&amp;(yy&lt;365),
+                (r-b&gt;70)&amp;(g-b&gt;60)&amp;(yy&gt;300)&amp;(yy&lt;410)]
+         pair=[]
+         for m in masks:
+@@ -45,7 +45,6 @@
+     back=bg[y0:y0+77,x0:x0+86].astype(np.float32)
+     # Native silhouettes measured on frame one. A geometric matte avoids
+     # accidentally treating the painted red target or line as an object.
+-    red=rgb[:,:,0].max()-rgb[:,:,1].max()&gt;8
+     # Use the handle&#x27;s high-chroma pixels to identify the stone, not the rink.
+     rr,gg,bb=rgb.transpose(2,0,1)
+     red=np.count_nonzero((rr-gg&gt;85)&amp;(rr-bb&gt;75))&gt;np.count_nonzero((gg-bb&gt;70)&amp;(rr-bb&gt;70))
+@@ -147,8 +146,7 @@
+     p=centers(src)
+     bg=np.median(src[:38],axis=0).astype(np.uint8)
+     motion=trajectories(p)
+-    # Use the source stone appearance at corresponding rink positions, so
+-    # metal reflections and the small perspective scale changes stay native.
++    # Source frame-one appearances with projected scale correction.
+     reds=[make_sprite(src[0],bg,p[0,:2]) for j in range(38)]
+     yellows=[make_sprite(src[0],bg,p[0,2:]) for j in range(38)]
+     frames=[]
+@@ -164,7 +162,7 @@
+             canvas[y0:y0+85,x0:x0+98]=bg[y0:y0+85,x0:x0+98]
+         rj=int(np.argmin(abs(p[:38,0]-rx)))
+         yj=i if i&lt;38 else min(37,int(np.argmin(abs(p[:38,2]-yx))))
+-        # Retain native yellow motion until the later counterfactual impact.
++        # Retain native yellow trajectory until the later impact.
+         rs=reds[rj];ys=yellows[yj]
+         # Near-depth correction for the yellow going beyond its last clean
+         # observed appearance, less than one percent of its diameter.
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-12T04:19:48.230756+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la &amp;&amp; cat prompt.txt &amp;&amp; cat GENERATION_RULES.md&#x27;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-12T04:19:54.850144+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat source_info.json; cat task_spec.json; cat artifact_io.py&#x27;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-12T04:20:08.754738+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image,ImageDraw
+z=np.load(&#x27;source_pixels.npz&#x27;);print(z.files)
+a=z[z.files[0]];print(a.shape)
+if a.shape==(144,256,96):
+ a=a.transpose(2,0,1);a=np.stack([(a&gt;&gt;16)&amp;255,(a&gt;&gt;8)&amp;255,a&amp;255],-1).astype(&#x27;uint8&#x27;)
+np.save(&#x27;.tmp/source.npy&#x27;,a)
+s=Image.new(&#x27;RGB&#x27;,(768,648))
+for j,i in enumerate([0,5,10,15,20,25,30,32,34,36,40,50]):
+ im=Image.fromarray(a[i]).crop((30,56,227,88)).resize((768,125))
+ # another layout
+ im=Image.fromarray(a[i]).resize((512,288))
+ # crop around stones scaled
+ im=Image.fromarray(a[i]).crop((30,58,228,87)).resize((594,87))
+ x=(j%1)*594;y=j*54
+ # create only 12 stacked strips
+ im=Image.fromarray(a[i]).crop((30,60,228,86)).resize((594,78))
+# simple contact strip
+s=Image.new(&#x27;RGB&#x27;,(792,12*104))
+d=ImageDraw.Draw(s)
+for j,i in enumerate([0,5,10,15,20,25,30,32,34,36,40,50]):
+ s.paste(Image.fromarray(a[i]).crop((30,60,228,86)).resize((792,104)),(0,j*104)); d.text((0,j*104),str(i),fill=&#x27;black&#x27;)
+s.save(&#x27;.tmp/strips.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-12T04:20:32.324070+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np,cv2
+s=np.load(&#x27;.tmp/source.npy&#x27;).astype(float)
+for i in range(0,96):
+ a=s[i];r,g,b=a.transpose(2,0,1)
+ masks=[(r-g&gt;65)&amp;(r-b&gt;60)&amp;(np.indices(r.shape)[0]&gt;60)&amp;(np.indices(r.shape)[0]&lt;80),(r-b&gt;65)&amp;(g-b&gt;50)]
+ p=[]
+ for m in masks:
+  n,labels,stats,cen=cv2.connectedComponentsWithStats(m.astype(&#x27;uint8&#x27;))
+  if n&gt;1:
+   ix=1+np.argmax(stats[1:,4]); yy,xx=np.where(labels==ix); weights=(r-g)[yy,xx] if len(p)==0 else (g-b)[yy,xx];p.append([np.average(xx,weights=weights),np.average(yy,weights=weights)])
+  else:p.append([float(&#x27;nan&#x27;)]*2)
+ if i%3==0 or 37&lt;=i&lt;=49:print(i,np.round(p,3))
+PY&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-12T04:21:00.738279+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2, numpy as np
+from PIL import Image
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);a=[]
+while True:
+ ok,f=cap.read()
+ if not ok: break
+ a.append(cv2.cvtColor(f,cv2.COLOR_BGR2RGB))
+a=np.array(a); print(a.shape)
+np.save(&#x27;.tmp/high.npy&#x27;,a)
+Image.fromarray(a[0]).crop((205,290,280,370)).resize((375,400)).save(&#x27;.tmp/red.png&#x27;)
+# Find handles by chroma using expected subregions, outside any bullseye
+ps=[]
+for i,im in enumerate(a):
+ r,g,b=im.astype(float).transpose(2,0,1);yy,xx=np.indices(r.shape)
+ # within object y band, split ring and object by high saturation.
+ # limiting expected x removes ring
+ expect=min(47.5+2.03*i,119 if i&lt;40 else 119-.075*(i-40))*5
+ m=(r-g&gt;90)&amp;(r-b&gt;75)&amp;(abs(xx-expect)&lt;30)&amp;(yy&gt;300)&amp;(yy&lt;375)
+ n,lab,stats,cen=cv2.connectedComponentsWithStats(m.astype(&#x27;uint8&#x27;))
+ if n&gt;1:
+  k=1+np.argmax(stats[1:,4]);ys,xs=np.where(lab==k);rp=[np.mean(xs)/5,np.mean(ys)/5]
+ else:rp=[np.nan,np.nan]
+ m=(r-b&gt;70)&amp;(g-b&gt;60)&amp;(yy&gt;300)&amp;(yy&lt;410)
+ n,lab,stats,cen=cv2.connectedComponentsWithStats(m.astype(&#x27;uint8&#x27;))
+ k=1+np.argmax(stats[1:,4]);ys,xs=np.where(lab==k);yp=[np.mean(xs)/5,np.mean(ys)/5]
+ ps.append(rp+yp)
+ if i%4==0: print(i, np.round(ps[-1],3))
+np.save(&#x27;.tmp/tracks.npy&#x27;,ps)
+PY&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-12T04:21:34.860649+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+p=np.load(&#x27;.tmp/tracks.npy&#x27;);print(p[:11]); print(p[34:43]);print(&#x27;red fits&#x27;,np.polyfit(np.arange(36),p[:36,0],2));print(&#x27;yel fits&#x27;,np.polyfit(np.arange(4,38),p[4:38,2],2));print(&#x27;red post&#x27;,np.polyfit(np.arange(42,96)-39,p[42:,0],2));print(&#x27;yellow post&#x27;,np.polyfit(np.arange(42,96)-39,p[42:,2],2))
+PY&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-12T04:22:22.599435+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np,cv2
+from PIL import Image
+s=np.load(&#x27;.tmp/high.npy&#x27;)
+bg=np.median(s[:38],axis=0).astype(&#x27;uint8&#x27;);np.save(&#x27;.tmp/bg.npy&#x27;,bg)
+Image.fromarray(bg).resize((768,432)).save(&#x27;.tmp/bg.png&#x27;)
+for i,ix,x,y in [(0,0,47.5,68),(25,0,97,71),(34,1,141.3,73)]:
+ a=s[i]; crop=a[int(y*5)-25:int(y*5)+35,int(x*5)-40:int(x*5)+40];bc=bg[int(y*5)-25:int(y*5)+35,int(x*5)-40:int(x*5)+40];diff=np.max(np.abs(crop.astype(float)-bc),axis=-1)
+ Image.fromarray(np.uint8(np.clip(diff*4,0,255))).resize((400,300)).save(f&#x27;.tmp/diff{i}.png&#x27;)
+ Image.fromarray(crop).resize((400,300)).save(f&#x27;.tmp/crop{i}.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-12T04:23:33.996298+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np,cv2
+from PIL import Image
+s=np.load(&#x27;.tmp/high.npy&#x27;);bg=np.load(&#x27;.tmp/bg.npy&#x27;);p=np.load(&#x27;.tmp/tracks.npy&#x27;)
+for i in [0,10,20,30,36,37,38]:
+ for k in [0,1]:
+  x,y=p[i,k*2:k*2+2]*5
+  x0=int(round(x))-40;y0=int(round(y))-18
+  a=s[i,y0:y0+55,x0:x0+80];b=bg[y0:y0+55,x0:x0+80]
+  d=np.mean(b.astype(float)-a,axis=-1)
+  mask=(d&gt;20).astype(&#x27;uint8&#x27;)
+  n,l,st,c=cv2.connectedComponentsWithStats(mask)
+  if n&gt;1:
+   z=1+np.argmax(st[1:,4]);ys,xs=np.where(l==z)
+   print(i,k,&#x27;bounds&#x27;, ((xs.min()+x0)/5,(xs.max()+x0)/5,(ys.min()+y0)/5,(ys.max()+y0)/5),&#x27;area&#x27;,len(xs))
+PY&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-12T04:24:05.963434+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+s=np.load(&#x27;.tmp/high.npy&#x27;);bg=np.load(&#x27;.tmp/bg.npy&#x27;)
+for k,x,y in [(0,47.5,66.6),(1,214.34,76.81)]:
+ x0=int(x*5)-45;y0=int(y*5)-25
+ crop=s[0,y0:y0+75,x0:x0+90];b=bg[y0:y0+75,x0:x0+90]
+ Image.fromarray(crop).resize((540,450),Image.Resampling.NEAREST).save(f&#x27;.tmp/obj{k}.png&#x27;)
+ Image.fromarray((np.mean(b.astype(float)-crop,axis=-1)&gt;18).astype(&#x27;uint8&#x27;)*255).resize((540,450)).save(f&#x27;.tmp/mask{k}.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-12T04:25:04.220015+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+s=np.load(&#x27;.tmp/source.npy&#x27;); bg=np.median(s[:38],axis=0)
+for i in [0,30,60,95]:
+ d=np.abs(s[i].astype(float)-bg);print(i, np.mean(d[:50]),np.mean(d[85:]),np.percentile(d,[50,90,99]))
+p=np.load(&#x27;.tmp/tracks.npy&#x27;)
+print(&#x27;pre slopes red first and last&#x27;,np.polyfit(np.arange(0,14),p[:14,0],1),np.polyfit(np.arange(24,38),p[24:38,0],1))
+print(&#x27;pre yellow&#x27;,np.polyfit(np.arange(10,24),p[10:24,2],1),np.polyfit(np.arange(24,38),p[24:38,2],1))
+PY&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-12T04:25:22.367135+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+p=np.load(&#x27;.tmp/tracks.npy&#x27;)
+for b,e in [(0,38),(5,38),(10,38),(15,38)]:
+ for k in [0,2]:print(b,e,k,np.polyfit(np.arange(b,e),p[b:e,k],2))
+# high texture difference map of shape in template compared with median firstframes
+PY&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-12T04:26:09.280272+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np,cv2
+from PIL import Image
+hi=np.load(&#x27;.tmp/high.npy&#x27;,mmap_mode=&#x27;r&#x27;);lo=np.load(&#x27;.tmp/source.npy&#x27;)
+for res in [Image.Resampling.LANCZOS,Image.Resampling.BICUBIC,Image.Resampling.BILINEAR,Image.Resampling.BOX]:
+ a=np.asarray(Image.fromarray(hi[0]).resize((256,144),res));print(res,np.abs(a.astype(float)-lo[0]).mean(),np.abs(a.astype(float)-lo[0]).max())
+PY&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-12T04:27:42.656884+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; generate.py &lt;&lt;&#x27;PY&#x27;
+\&quot;\&quot;\&quot;Counterfactual curling edit: halve red&#x27;s initial velocity at source time zero.
+Only source pixels supply the setting and the two stone appearances.
+\&quot;\&quot;\&quot;
+from pathlib import Path
+import numpy as np
+import cv2
+from PIL import Image
+import artifact_io
+
+ROOT=Path(__file__).resolve().parent
+
+def source_high():
+    cap=cv2.VideoCapture(str(ROOT/&#x27;source_video.mp4&#x27;))
+    ims=[]
+    while True:
+        ok,bgr=cap.read()
+        if not ok: break
+        ims.append(cv2.cvtColor(bgr,cv2.COLOR_BGR2RGB))
+    cap.release()
+    return np.asarray(ims)
+
+def centers(src):
+    tracks=[]
+    yy,xx=np.indices(src.shape[1:3])
+    for i,im in enumerate(src):
+        r,g,b=im.astype(float).transpose(2,0,1)
+        expected=min(47.5+2.03*i,122.5 if i&lt;40 else 122.5-.155*(i-40))*5
+        masks=[(r-g&gt;90)&amp;(r-b&gt;75)&amp;(abs(xx-expected)&lt;30)&amp;(yy&gt;300)&amp;(yy&lt;385),
+               (r-b&gt;70)&amp;(g-b&gt;60)&amp;(yy&gt;300)&amp;(yy&lt;410)]
+        pair=[]
+        for m in masks:
+            n,l,st,c=cv2.connectedComponentsWithStats(m.astype(np.uint8))
+            k=1+np.argmax(st[1:,4])
+            ys,xs=np.where(l==k)
+            pair.extend([xs.mean()/5,ys.mean()/5])
+        tracks.append(pair)
+    return np.asarray(tracks)
+
+def make_sprite(im,bg,handle):
+    # Sprite is centered on the colored handle; source-ground pixels are
+    # removed through a matte. Gray body, highlights and handle remain native.
+    cx,cy=np.round(np.asarray(handle)*5).astype(int)
+    x0,y0=cx-43,cy-24
+    rgb=im[y0:y0+77,x0:x0+86].astype(np.float32)
+    back=bg[y0:y0+77,x0:x0+86].astype(np.float32)
+    diff=back-rgb
+    dark=diff.mean(axis=2)&gt;15
+    rr,gg,bb=rgb.transpose(2,0,1)
+    colored=((rr-gg&gt;75)&amp;(rr-bb&gt;65))|((rr-bb&gt;65)&amp;(gg-bb&gt;55))
+    raw=(dark|colored).astype(np.uint8)
+    raw=cv2.morphologyEx(raw,cv2.MORPH_CLOSE,np.ones((3,3),np.uint8))
+    contours,_=cv2.findContours(raw,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+    solid=np.zeros(raw.shape,np.uint8)
+    cv2.drawContours(solid,[max(contours,key=cv2.contourArea)],-1,1,-1)
+    # Include original antialiased edge samples and feather only the perimeter.
+    a=cv2.GaussianBlur(cv2.dilate(solid,np.ones((3,3),np.uint8)).astype(float),(5,5),.75)
+    a=np.maximum(a,solid.astype(float))
+    # Gentle shadow outside the opaque stone, taken from its original ice.
+    yy,xx=np.indices(a.shape)
+    shadow_zone=((xx-43)/37)**2+((yy-39)/21)**2&lt;1
+    shade=np.clip(diff.mean(axis=2)/np.maximum(back.mean(axis=2),1),0,.2)
+    shade*=shadow_zone*(1-a)
+    shade=cv2.GaussianBlur(shade,(5,5),1)
+    # Premultiplied foreground accounts for source background at soft edges.
+    premul=rgb-(1-a[:,:,None])*back
+    premul*=a[:,:,None]&gt;0.001
+    return premul.astype(np.float32),a.astype(np.float32),shade.astype(np.float32),np.array([x0,y0],float)-np.asarray(handle)*5
+
+def paste(dst,sprite,handle,scale=1.):
+    premul,a,shadow,offset=sprite
+    # All translations occur at native 1280x720 resolution before Lanczos.
+    where=np.asarray(handle)*5+offset*scale
+    x0,y0=np.floor(where).astype(int)
+    wh=(int(np.ceil(a.shape[1]*scale))+2,int(np.ceil(a.shape[0]*scale))+2)
+    mat=np.array([[scale,0,where[0]-x0],[0,scale,where[1]-y0]],np.float32)
+    af=cv2.warpAffine(a,mat,wh,flags=cv2.INTER_LINEAR)
+    pf=cv2.warpAffine(premul,mat,wh,flags=cv2.INTER_LINEAR)
+    sh=cv2.warpAffine(shadow,mat,wh,flags=cv2.INTER_LINEAR)
+    region=dst[y0:y0+wh[1],x0:x0+wh[0]]
+    region[:]=region*(1-sh[:,:,None])
+    region[:]=region*(1-af[:,:,None])+pf
+
+def trajectories(p):
+    # The measured incoming red path is slightly projective. Halving world
+    # speed halves its linear term and quarters its perspective-curvature term.
+    fit=np.polyfit(np.arange(38),p[:38,0],2)
+    r0=p[0,0];rv=fit[1]*.5;rc=fit[0]*.25
+    yfit=np.polyfit(np.arange(15,38),p[15:38,2],2)
+    yc=yfit[0];yv=2*yc*38+yfit[1];y0=p[38,2]
+    def incoming(t):
+        red=r0+rv*t+rc*t*t
+        if t&lt;=38:
+            yellow=np.interp(t,np.arange(39),p[:39,2])
+        else:
+            dt=t-38;yellow=y0+yv*dt+yc*dt*dt
+        return red,yellow
+    # The factual first contact records the projected equal-radius spacing.
+    spacing=p[38,2]-p[38,0]
+    lo,hi=38.,70.
+    for _ in range(50):
+        mid=(lo+hi)*.5
+        rr,yy=incoming(mid)
+        if yy-rr&gt;spacing:lo=mid
+        else:hi=mid
+    hit=(lo+hi)/2
+    rh,yh=incoming(hit)
+    u1=rv+2*rc*hit;u2=yv+2*yc*(hit-38)
+    # Estimate restitution from the factual immediate separating motion.
+    v1=np.polyfit(np.arange(41,61),p[41:61,0],1)[0]
+    v2=np.polyfit(np.arange(41,61),p[41:61,2],1)[0]
+    original_rel=(fit[1]+2*fit[0]*38)-(yfit[1]+2*yc*38)
+    restitution=np.clip((v2-v1)/original_rel,.04,.15)
+    mean=(u1+u2)/2
+    out1=mean-restitution*(u1-u2)/2
+    out2=mean+restitution*(u1-u2)/2
+    drag=.0011
+    result=[]
+    for i in range(96):
+        if i&lt;=hit:
+            rx,yx=incoming(float(i))
+        else:
+            dt=i-hit
+            def travel(v):
+                t=min(dt,abs(v)/drag)
+                return v*t-np.sign(v)*drag*t*t*.5
+            rx=rh+travel(out1);yx=yh+travel(out2)
+        # Both glide along the same rink centerline in perspective.
+        ry=p[0,1]+.061*(rx-r0)
+        yy=p[0,3]+.061*(yx-p[0,2])
+        if i&lt;=38:yy=p[i,3]
+        result.append([rx,ry,yx,yy])
+    print(f&#x27;contact: frame {hit+1:.2f}, red x={rh:.2f}, yellow x={yh:.2f}; &#x27;
+          f&#x27;restitution={restitution:.3f}; post velocities={out1:.3f},{out2:.3f} px/frame&#x27;)
+    return np.asarray(result)
+
+def main():
+    src=source_high()
+    low=np.load(ROOT/&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+    p=centers(src)
+    bg=np.median(src[:38],axis=0).astype(np.uint8)
+    motion=trajectories(p)
+    # Use the source stone appearance at corresponding rink positions, so
+    # metal reflections and the small perspective scale changes stay native.
+    reds=[make_sprite(src[j],bg,p[j,:2]) for j in range(38)]
+    yellows=[make_sprite(src[j],bg,p[j,2:]) for j in range(38)]
+    frames=[]
+    for i,(rx,ry,yx,yy) in enumerate(motion):
+        if i==0:
+            frames.append(low[0].copy());continue
+        canvas=src[i].astype(np.float32)
+        # Erase only the two factual stones. The median here is static rink
+        # footage with both stone silhouettes absent (no scene regeneration).
+        for k in [0,2]:
+            cx,cy=np.round(p[i,k:k+2]*5).astype(int)
+            x0,y0=cx-48,cy-26
+            canvas[y0:y0+85,x0:x0+98]=bg[y0:y0+85,x0:x0+98]
+        rj=int(np.argmin(abs(p[:38,0]-rx)))
+        yj=i if i&lt;38 else min(37,int(np.argmin(abs(p[:38,2]-yx))))
+        # Retain native yellow motion until the later counterfactual impact.
+        rs=reds[rj];ys=yellows[yj]
+        # Near-depth correction for the yellow going beyond its last clean
+        # observed appearance, less than one percent of its diameter.
+        yellow_scale=1+0.00032*(yx-p[yj,2])
+        # Depth sorting: yellow is very slightly nearer the fixed camera.
+        paste(canvas,rs,[rx,ry])
+        paste(canvas,ys,[yx,yy],yellow_scale)
+        frame=np.asarray(Image.fromarray(np.uint8(np.clip(canvas,0,255))).resize((256,144),Image.Resampling.LANCZOS))
+        frames.append(frame)
+    frames=np.asarray(frames,dtype=np.uint8)
+    artifact_io.save(frames,ROOT)
+    np.save(ROOT/&#x27;.tmp/counterfactual_tracks.npy&#x27;,motion)
+    print(&#x27;Saved&#x27;,frames.shape,&#x27;to&#x27;,ROOT/&#x27;pixels.npz&#x27;)
+
+if __name__==&#x27;__main__&#x27;:main()
+PY
+python generate.py&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-12T04:27:57.712904+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image,ImageDraw
+import numpy as np
+s=Image.new(&#x27;RGB&#x27;,(792,8*104));d=ImageDraw.Draw(s)
+for j,i in enumerate([1,14,27,41,50,54,68,95]):
+ a=Image.open(f&#x27;frames/{i:02d}.png&#x27;)
+ s.paste(a.crop((30,60,228,86)).resize((792,104)),(0,j*104));d.text((0,j*104),str(i),fill=&#x27;black&#x27;)
+s.save(&#x27;.tmp/output_strips.png&#x27;)
+print(np.load(&#x27;.tmp/counterfactual_tracks.npy&#x27;)[[0,1,50,95]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-12T04:28:21.801885+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+import generate
+src=generate.source_high();p=generate.centers(src);bg=np.median(src[:38],0).astype(&#x27;uint8&#x27;)
+for j,k in [(37,1),(33,1),(25,0)]:
+ spr=generate.make_sprite(src[j],bg,p[j,2*k:2*k+2]);pm,a,sh,off=spr
+ cx,cy=np.round(p[j,2*k:2*k+2]*5).astype(int);x0,y0=cx-43,cy-24
+ im=src[j,y0:y0+77,x0:x0+86];back=bg[y0:y0+77,x0:x0+86]
+ sheet=Image.new(&#x27;RGB&#x27;,(4*344,308));sheet.paste(Image.fromarray(im).resize((344,308)),(0,0));sheet.paste(Image.fromarray(back).resize((344,308)),(344,0));sheet.paste(Image.fromarray(np.uint8(a*255)).convert(&#x27;RGB&#x27;).resize((344,308)),(688,0));sheet.paste(Image.fromarray(np.uint8(np.clip(pm,0,255))).resize((344,308)),(1032,0));sheet.save(f&#x27;.tmp/spr{j}-{k}.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-12T04:29:02.603133+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import generate,numpy as np
+from PIL import Image
+s=generate.source_high();p=generate.centers(s);b=np.median(s[:38],0).astype(&#x27;uint8&#x27;)
+for k in [0,1]:
+ pm,a,sh,off=generate.make_sprite(s[0],b,p[0,2*k:2*k+2]); cx,cy=np.round(p[0,2*k:2*k+2]*5).astype(int);im=s[0,cy-24:cy+53,cx-43:cx+43]
+ sheet=Image.new(&#x27;RGB&#x27;,(1032,308));sheet.paste(Image.fromarray(im).resize((344,308)));sheet.paste(Image.fromarray(np.uint8(a*255)).convert(&#x27;RGB&#x27;).resize((344,308)),(344,0));sheet.paste(Image.fromarray(np.uint8(np.clip(pm,0,255))).resize((344,308)),(688,0));sheet.save(f&#x27;.tmp/spr0-{k}.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-12T04:29:34.607680+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+p=np.load(&#x27;.tmp/tracks.npy&#x27;);s=np.load(&#x27;.tmp/high.npy&#x27;);from PIL import Image
+for k in [0,1]:
+ cx,cy=np.round(p[0,2*k:2*k+2]*5).astype(int)
+ a=s[0,cy-24:cy+53,cx-43:cx+43]
+ # print gray dark pixels rows extents
+ rgb=a.astype(float);sat=rgb.max(-1)-rgb.min(-1);m=(sat&lt;65)&amp;(rgb.mean(-1)&lt;181)
+ for y in range(8,56,2):
+  x=np.where(m[y])[0]; print(k,y, (x.min(),x.max()) if len(x) else &#x27;-&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-12T04:30:08.186571+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+p=&#x27;generate.py&#x27;
+s=open(p).read();start=s.index(&#x27;    diff=back-rgb&#x27;);end=s.index(&#x27;    return premul.astype&#x27;,start)
+s=s[:start]+&#x27;&#x27;&#x27;    # Native silhouettes measured on frame one. A geometric matte avoids
+    # accidentally treating the painted red target or line as an object.
+    red=rgb[:,:,0].max()-rgb[:,:,1].max()&gt;8
+    # Use the handle&#x27;s high-chroma pixels to identify the stone, not the rink.
+    rr,gg,bb=rgb.transpose(2,0,1)
+    red=np.count_nonzero((rr-gg&gt;85)&amp;(rr-bb&gt;75))&gt;np.count_nonzero((gg-bb&gt;70)&amp;(rr-bb&gt;70))
+    if red:
+        outline=[(33,12),(49,13),(56,15),(60,19),(65,22),(68,27),
+                 (69,32),(68,37),(65,41),(59,45),(50,48),(39,49),
+                 (31,46),(26,44),(22,40),(20,34),(21,29),(24,24),
+                 (28,20),(31,18)]
+        shadow_center=(45,47)
+    else:
+        outline=[(29,12),(46,12),(50,14),(52,17),(58,19),(61,22),
+                 (64,28),(65,33),(64,38),(61,43),(55,47),(45,50),
+                 (31,51),(23,48),(17,45),(14,40),(12,35),(12,29),
+                 (14,24),(17,20),(22,17),(26,15)]
+        shadow_center=(38.5,50)
+    high=np.zeros((77*4,86*4),np.uint8)
+    cv2.fillPoly(high,[np.round(np.asarray(outline)*4).astype(np.int32)],255)
+    a=cv2.resize(high,(86,77),interpolation=cv2.INTER_AREA).astype(np.float32)/255
+    a=cv2.GaussianBlur(a,(3,3),.5)
+    yy,xx=np.indices(a.shape)
+    sx,sy=shadow_center
+    shade=.055*np.exp(-.5*(((xx-sx)/26)**2+((yy-sy)/9)**2))
+    shade*=1-a
+    # At the already antialiased native perimeter, retain genuine pixels;
+    # only the feathered half-pixel boundary is blended to the new ground.
+    premul=rgb*a[:,:,None]
+&#x27;&#x27;&#x27; +s[end:]
+s=s.replace(&#x27;reds=[make_sprite(src[j],bg,p[j,:2]) for j in range(38)]&#x27;,&#x27;reds=[make_sprite(src[0],bg,p[0,:2]) for j in range(38)]&#x27;).replace(&#x27;yellows=[make_sprite(src[j],bg,p[j,2:]) for j in range(38)]&#x27;,&#x27;yellows=[make_sprite(src[0],bg,p[0,2:]) for j in range(38)]&#x27;)
+s=s.replace(&#x27;yellow_scale=1+0.00032*(yx-p[yj,2])&#x27;,&#x27;yellow_scale=1+0.00032*(yx-p[0,2])&#x27;)
+s=s.replace(&#x27;paste(canvas,rs,[rx,ry])&#x27;,&#x27;paste(canvas,rs,[rx,ry],1+0.00032*(rx-p[0,0]))&#x27;)
+open(p,&#x27;w&#x27;).write(s)
+PY
+python generate.py&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-12T04:30:17.745313+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image,ImageDraw
+s=Image.new(&#x27;RGB&#x27;,(792,8*104));d=ImageDraw.Draw(s)
+for j,i in enumerate([1,14,27,41,50,54,68,95]):
+ a=Image.open(f&#x27;frames/{i:02d}.png&#x27;)
+ s.paste(a.crop((30,60,228,86)).resize((792,104)),(0,j*104));d.text((0,j*104),str(i),fill=&#x27;black&#x27;)
+s.save(&#x27;.tmp/output_strips_v2.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-12T04:30:42.750475+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import generate,numpy as np
+from PIL import Image
+s=generate.source_high();p=generate.centers(s)
+print(p[[38,50,60,68,95]])
+for i in [68,95]:
+ Image.fromarray(s[i]).crop((500,330,650,410)).resize((600,320)).save(f&#x27;.tmp/actual{i}.png&#x27;)
+ a=np.asarray(Image.open(f&#x27;frames/{i:02d}.png&#x27;)); Image.fromarray(a).crop((100,65,130,84)).resize((600,380)).save(f&#x27;.tmp/finaldetail{i}.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-12T04:31:15.150140+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+p=&#x27;generate.py&#x27;;s=open(p).read().replace(&#x27;(yy&lt;385)&#x27;,&#x27;(yy&lt;365)&#x27;);s=s.replace(&#x27;    red=rgb[:,:,0].max()-rgb[:,:,1].max()&gt;8\\n&#x27;,&#x27;&#x27;);s=s.replace(&#x27;    # Use the source stone appearance at corresponding rink positions, so\\n    # metal reflections and the small perspective scale changes stay native.\\n&#x27;,&#x27;    # Source frame-one appearances with projected scale correction.\\n&#x27;);s=s.replace(&#x27;        # Retain native yellow motion until the later counterfactual impact.\\n&#x27;,&#x27;        # Retain native yellow trajectory until the later impact.\\n&#x27;);open(p,&#x27;w&#x27;).write(s)
+PY
+python generate.py&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-12T04:31:42.084599+00:00</time><span class=pill>exit 127</span></summary><pre>/bin/bash -lc &quot;ffmpeg -y -loglevel error -framerate 24 -i frames/%02d.png -c:v libx264 -crf 18 -pix_fmt yuv420p -movflags +faststart edited_video.mp4 &amp;&amp; python - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+import numpy as np
+p=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;]
+print(&#x27;Saved tensor:&#x27;,p.shape,p.dtype)
+print(&#x27;Frame count:&#x27;,len(list(Path(&#x27;frames&#x27;).glob(&#x27;*.png&#x27;))))
+print(&#x27;Required outputs:&#x27;,[(n,Path(n).stat().st_size) for n in [&#x27;generate.py&#x27;,&#x27;pixels.npz&#x27;,&#x27;index.html&#x27;,&#x27;inspection.png&#x27;,&#x27;edited_video.mp4&#x27;]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-12T04:31:52.094497+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+import numpy as np
+p=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;]
+print(&#x27;Saved tensor:&#x27;,p.shape,p.dtype)
+print(&#x27;Frame count:&#x27;,len(list(Path(&#x27;frames&#x27;).glob(&#x27;*.png&#x27;))))
+print(&#x27;Required outputs:&#x27;,[(n,Path(n).stat().st_size) for n in [&#x27;generate.py&#x27;,&#x27;pixels.npz&#x27;,&#x27;index.html&#x27;,&#x27;inspection.png&#x27;]])
+try:
+ import imageio_ffmpeg
+ print(&#x27;ffmpeg&#x27;,imageio_ffmpeg.get_ffmpeg_exe())
+ import subprocess
+ subprocess.run([imageio_ffmpeg.get_ffmpeg_exe(),&#x27;-y&#x27;,&#x27;-loglevel&#x27;,&#x27;error&#x27;,&#x27;-framerate&#x27;,&#x27;24&#x27;,&#x27;-i&#x27;,&#x27;frames/%02d.png&#x27;,&#x27;-c:v&#x27;,&#x27;libx264&#x27;,&#x27;-crf&#x27;,&#x27;18&#x27;,&#x27;-pix_fmt&#x27;,&#x27;yuv420p&#x27;,&#x27;-movflags&#x27;,&#x27;+faststart&#x27;,&#x27;edited_video.mp4&#x27;],check=True)
+ print(&#x27;MP4 saved&#x27;)
+except ImportError: pass
+PY&quot;</pre></details><details class=tool-image><summary>视觉工具实际返回图片 1</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_01.png"></details><details class=tool-image><summary>视觉工具实际返回图片 2</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_02.png"></details><details class=tool-image><summary>视觉工具实际返回图片 3</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_03.png"></details><details class=tool-image><summary>视觉工具实际返回图片 4</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_04.png"></details><details class=tool-image><summary>视觉工具实际返回图片 5</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_05.png"></details><details class=tool-image><summary>视觉工具实际返回图片 6</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_06.png"></details><details class=tool-image><summary>视觉工具实际返回图片 7</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_07.png"></details><details class=tool-image><summary>视觉工具实际返回图片 8</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_08.png"></details><details class=tool-image><summary>视觉工具实际返回图片 9</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_09.png"></details><details class=tool-image><summary>视觉工具实际返回图片 10</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_10.png"></details><details class=tool-image><summary>视觉工具实际返回图片 11</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_11.png"></details><details class=tool-image><summary>视觉工具实际返回图片 12</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_12.png"></details><details class=tool-image><summary>视觉工具实际返回图片 13</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_13.png"></details><details class=tool-image><summary>视觉工具实际返回图片 14</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_14.png"></details><details class=tool-image><summary>视觉工具实际返回图片 15</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_15.png"></details><details class=tool-image><summary>视觉工具实际返回图片 16</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/699a2754fb72d9450af1e070bc4d2e631ae45eee/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0051_attempt_01/tool_view_16.png"></details><p class=muted>保存候选 4 份；完成命令 23 次；可验证图片返回 16 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
