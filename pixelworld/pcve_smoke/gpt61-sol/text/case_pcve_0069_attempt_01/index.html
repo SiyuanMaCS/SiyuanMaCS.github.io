@@ -1,0 +1,999 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/GPT-6.1-Sol · pcve_0069</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/GPT-6.1-Sol · pcve_0069</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>24 FPS · 96 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_990e227e0cc02ca6.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;2d025e1e1bcfa7ac14702120a96d5ea1323071270fc1f8395bdd3f3690dab8c6&quot;, &quot;pixels&quot;: &quot;final/pixels_990e227e0cc02ca6.rgb.gz&quot;, &quot;poster&quot;: &quot;final/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>视频编辑</span><h3 style="margin-top:14px">原始任务</h3><p>From frame 1 onwards, remove the second domino from the scene.
+</p><div class=facts><div><strong>4.00s</strong>视频时长</div><div><strong>53668</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=card><h2>编辑前的完整原视频</h2><video controls preload=metadata src="source_video.mp4" style="width:100%;max-height:480px"></video><p class=note>上方为编辑结果；原视频是模型获准使用的输入。下方为逐轮保存的编辑候选。</p></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-12T04:16:10.842852+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_5af08a754559a237.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;19c907754b98a5a93766340011556d403dcb1b2da1ded9414404eb18b3632cd2&quot;, &quot;pixels&quot;: &quot;candidate_00/pixels_5af08a754559a237.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_00/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_00/inspection.png" target=_blank><img loading=lazy src="candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_00/transition_check.png" target=_blank><img loading=lazy src="candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,267 @@
++&quot;&quot;&quot;Pixel-based counterfactual: remove domino two and interrupt the cascade.
++
++The static camera and all textures come from the supplied clip.  A projective
++cuboid fitted to the first two dominoes is used only to continue the first
++one&#x27;s now-unimpeded fall.  There is no external renderer or learned model.
++&quot;&quot;&quot;
++from pathlib import Path
++import numpy as np
++import cv2
++from scipy.ndimage import gaussian_filter
++from scipy.optimize import least_squares
++from scipy.integrate import solve_ivp
++import artifact_io
++
++ROOT = Path(__file__).resolve().parent
++S = np.load(ROOT / &#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
++H, W = 144, 256
++SS = 4
++
++
++def world_vertices(angle):
++    e = [-.4 * np.cos(angle), .4 * np.sin(angle), 0.]
++    bottom = np.array([e, [0., 0., 0.], [0., 0., 1.], [e[0], e[1], 1.]])
++    return np.concatenate([bottom, bottom + [3*np.sin(angle), 3*np.cos(angle), 0.]])
++
++
++def fit_camera():
++    ids = [0, 1, 2, 4, 5, 6, 7]
++    first = np.array([[58.5,97.8],[68.1,100.6],[75.1,90.2],
++                      [67.2,38.7],[77.6,41.1],[84.2,35.8],[74.6,33.4]])
++    second = np.array([[103.3,101.3],[112.5,101.4],[115.,90.5],
++                       [101.3,39.],[111.2,39.],[115.1,34.5],[105.8,34.2]])
++    init = np.array([[23.,-3.,11.,68.],[0.,-21.,-10.,100.],[0.,0.,0.,1.]])
++    def unpack(p):
++        return np.r_[p[:11], 1.].reshape(3,4)
++    def project(v, P):
++        q = np.c_[v, np.ones(len(v))] @ P.T
++        return q[:,:2] / q[:,2,None]
++    def residual(p):
++        P=unpack(p)
++        return np.r_[(project(world_vertices(p[11])[ids], P)-first).ravel(),
++                     (project((world_vertices(0)+[p[12],0,0])[ids], P)-second).ravel()]
++    fit=least_squares(residual,np.r_[init.ravel()[:11],.14,1.65],max_nfev=2000)
++    return unpack(fit.x), float(fit.x[11])
++
++P, A0 = fit_camera()
++
++def project(v):
++    q=np.c_[v,np.ones(len(v))] @ P.T
++    return q[:,:2]/q[:,2,None]
++
++# Pixel corner corrections are small; they reconcile antialiased measured
++# silhouettes with the projective fit without changing world reach.
++POSE0=np.array([[58.5,97.8],[68.1,100.6],[75.1,90.2],[65.5,87.5],
++                [67.2,38.7],[77.6,41.1],[84.2,35.8],[74.6,33.4]])
++CORR=POSE0-project(world_vertices(A0))
++
++
++def polygon_mask(points, scale=SS):
++    mask=np.zeros((H*scale,W*scale),np.uint8)
++    cv2.fillConvexPoly(mask,np.round(np.asarray(points)*scale*16).astype(np.int32),255,shift=4)
++    return mask.astype(np.float32)/255
++
++
++def static_background():
++    &quot;&quot;&quot;Recover the ground occluded by the removed domino and moving one.
++
++    Late source frames expose the upper region perfectly.  In the lower
++    region the entire factual cascade is an occluder, so interpolate the
++    smoothly lit green surface between observed samples on either side.
++    This removes the second domino&#x27;s shadow as well as its body.
++    &quot;&quot;&quot;
++    b=S[0].astype(np.float32).copy()
++    late=np.median(S[56:88].astype(np.float32),axis=0)
++    # The late clip has no dominoes above row 70, and the camera is fixed.
++    upper=np.zeros((H,W),np.float32)
++    upper[32:70,55:128]=1
++    upper=gaussian_filter(upper,.65)
++    # Keep clear surface at the seam, copy exposed pixels across both holes.
++    b=b*(1-upper[...,None])+late*upper[...,None]
++    # The sparse interpolation preserves row-wise ground lighting changes.
++    floor=b.copy()
++    for y in range(67,H):
++        left=np.median(late[y,46:55],axis=0)
++        # Right anchor is left of domino three; its real ambient shadow stays.
++        right=np.median(S[0,y,130:135].astype(float),axis=0)
++        u=np.clip((np.arange(W)-51.)/(133.-51.),0,1)
++        row=left[None,:]*(1-u[:,None])+right[None,:]*u[:,None]
++        floor[y,54:134]=row[54:134]
++    # Blend only clear green ground.  Main standing objects are untouched.
++    yy,xx=np.indices((H,W))
++    region=np.clip((xx-53)/5,0,1)*np.clip((136-xx)/5,0,1)
++    region*=np.clip((yy-65)/5,0,1)
++    b=b*(1-region[...,None])+floor*region[...,None]
++    return np.clip(b,0,255)
++
++BG=static_background()
++BGHI=cv2.resize(BG,(W*SS,H*SS),interpolation=cv2.INTER_CUBIC)
++
++# Decode original RGB solely to recover crisp texture coordinates at 5x scale.
++cap=cv2.VideoCapture(str(ROOT/&#x27;source_video.mp4&#x27;))
++ok, original=cap.read()
++cap.release()
++if not ok:
++    raise RuntimeError(&#x27;Cannot decode source texture frame&#x27;)
++original=cv2.cvtColor(original,cv2.COLOR_BGR2RGB).astype(np.float32)
++RATIO=original.shape[1]/W
++
++
++def extract_texture(ids):
++    corners=(POSE0[ids]*RATIO).astype(np.float32)
++    tw,th=128,384
++    uv=np.array([[0,th-1],[tw-1,th-1],[tw-1,0],[0,0]],np.float32)
++    T=cv2.getPerspectiveTransform(corners,uv)
++    return cv2.warpPerspective(original,T,(tw,th),flags=cv2.INTER_LINEAR,
++                               borderMode=cv2.BORDER_REPLICATE)
++
++FRONT=extract_texture([0,1,5,4])
++RIGHT=extract_texture([1,2,6,5])
++TOP=extract_texture([4,5,6,7])
++# The opposite flank is initially hidden.  Use the unmarked source material
++# instead of mirroring the visible pip-marked face onto a different side.
++q=np.median(FRONT[36:350,20:108],axis=(0,1))
++Y,X=np.indices(FRONT.shape[:2])
++LEFT=np.broadcast_to(q,FRONT.shape).copy()
++LEFT += (1.2*(X/127-.5)-1.3*(Y/383-.5))[...,None]
++
++
++def signed_area(p):
++    return .5*np.sum(p[:,0]*np.roll(p[:,1],-1)-p[:,1]*np.roll(p[:,0],-1))
++
++
++def paste_face(image, points, tex):
++    if abs(signed_area(points))&lt;.02:
++        return image
++    th,tw=tex.shape[:2]
++    uv=np.array([[0,th-1],[tw-1,th-1],[tw-1,0],[0,0]],np.float32)
++    T=cv2.getPerspectiveTransform(uv,(points*SS).astype(np.float32))
++    warped=cv2.warpPerspective(tex,T,(W*SS,H*SS),flags=cv2.INTER_LINEAR,
++                              borderMode=cv2.BORDER_REPLICATE)
++    alpha=polygon_mask(points)[...,None]
++    return image*(1-alpha)+warped*alpha
++
++
++def shadow(image, angle):
++    v=world_vertices(angle)
++    # Area-light shadows: a compact cast silhouette plus a wider, softer lobe.
++    shadow_sum=np.zeros((H*SS,W*SS),np.float32)
++    for dx,dz,opacity,blur in [(.10,-.33,.38,2.2),(.06,-.60,.18,5.0)]:
++        sh=v.copy()
++        sh[:,0]+=dx*sh[:,1]
++        sh[:,2]+=dz*sh[:,1]
++        sh[:,1]=0
++        pts=project(sh)
++        hull=cv2.convexHull(pts.astype(np.float32)).reshape(-1,2)
++        mask=polygon_mask(hull)
++        # The shadow gets sharper as the cuboid meets the floor.
++        sigma=(.45+blur*max(0,np.cos(angle)))*SS
++        mask=gaussian_filter(mask,sigma)
++        shadow_sum+=opacity*mask
++    # Small contact/ambient shadow surrounds the immediate silhouette.
++    sh=v.copy();sh[:,1]=0
++    hull=cv2.convexHull(project(sh).astype(np.float32)).reshape(-1,2)
++    contact=gaussian_filter(polygon_mask(hull),.70*SS)
++    shadow_sum+=.24*contact
++    shadow_sum=np.clip(shadow_sum,0,.70)
++    return image*(1-shadow_sum[...,None])
++
++
++# Read the first domino&#x27;s observed pre-contact rotations numerically.
++# Values are best silhouette fits before its first factual collision.
++OBS=A0+np.array([-.006,-.001,-.001,0,.002,.012,.015,.021,.027,.040,
++                 .051,.062,.078,.094,.116,.140,.171,.203,.241,.281])
++
++# Integrate only the unsupported fall.  Continuity of rotation and velocity
++# at the first factual collision is maintained; there is now no second body.
++start_time=19/24
++start_angle=float(OBS[-1])
++start_speed=float((OBS[-1]-OBS[-2])*24)
++def dynamics(t,z):
++    return [z[1],10.8*np.sin(z[0])-.10*z[1]]
++def contact_event(t,z):
++    return z[0]-np.pi/2
++contact_event.terminal=True
++contact_event.direction=1
++sol=solve_ivp(dynamics,(0,2),[start_angle,start_speed],events=contact_event,
++              max_step=.003,dense_output=True,rtol=1e-8,atol=1e-9)
++impact=start_time+float(sol.t_events[0][0])
++
++
++def angle_at(t):
++    if t&lt;=start_time:
++        return float(np.interp(t*24,np.arange(len(OBS)),OBS))
++    if t&lt;impact:
++        return float(sol.sol(t-start_time)[0])
++    tau=t-impact
++    # A brief small rebound, then a genuinely stable resting pose.
++    if tau&lt;.23:
++        return np.pi/2-.034*np.exp(-tau*13)*np.sin(np.pi*tau/.23)
++    return np.pi/2
++
++
++def source_first_mask(frame):
++    a=frame.astype(np.float32)
++    # Convex silhouette of the separate first body, avoiding domino two.
++    chroma=cv2.GaussianBlur(a[:,:,1]-a[:,:,0],(3,3),.5)
++    yy,xx=np.indices((H,W))
++    m=((chroma&lt;14)&amp;(yy&gt;=32)&amp;(yy&lt;102)&amp;(xx&gt;=56)&amp;(xx&lt;102)).astype(np.uint8)
++    cs,_=cv2.findContours(m,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
++    c=max(cs,key=cv2.contourArea)
++    hull=cv2.convexHull(c).reshape(-1,2).astype(float)
++    # Pixel-center hull needs a fraction of a pixel coverage expansion.
++    center=hull.mean(0)
++    hull=center+(hull-center)*[1.045,1.018]
++    hi=polygon_mask(hull)
++    return cv2.resize(hi,(W,H),interpolation=cv2.INTER_AREA)
++
++
++def render_mesh(angle):
++    image=shadow(BGHI.copy(),angle)
++    v=world_vertices(angle)
++    # Measurement correction smoothly decreases as the body leaves its
++    # initial pose; it does not alter the final floor-contact geometry.
++    mix=max(0,1-(angle-A0)/(np.pi/2-A0))
++    points=project(v)+CORR*mix
++    # Lighting on the broad face follows its normal rotating toward the light.
++    r=np.clip((angle-A0)/(np.pi/2-A0),0,1)
++    gain=1+(.76*r**1.6)
++    front=FRONT*gain
++    # Preserve the source&#x27;s warmer illumination on the now upward-facing face.
++    front=front*np.array([1.,1-.11*r,1-.075*r])
++    left=LEFT*(.92+.06*r)
++    right=RIGHT*(1-.03*r)
++    faces=[([0,1,5,4],front),([1,2,6,5],right),
++           ([4,5,6,7],TOP),([3,0,4,7],left)]
++    visible=[]
++    for ids,tex in faces:
++        pp=points[ids]
++        if signed_area(pp)&lt;-.01:
++            depth=np.mean((np.c_[v[ids],np.ones(4)]@P.T)[:,2])
++            visible.append((depth,pp,tex))
++    for _,pp,tex in sorted(visible,key=lambda row:row[0],reverse=True):
++        image=paste_face(image,pp,tex)
++    return cv2.resize(image,(W,H),interpolation=cv2.INTER_AREA)
++
++
++def main():
++    frames=[]
++    for i in range(96):
++        t=i/24
++        angle=angle_at(t)
++        if i&lt;20:
++            image=cv2.resize(shadow(BGHI.copy(),angle),(W,H),interpolation=cv2.INTER_AREA)
++            m=source_first_mask(S[i])[...,None]
++            image=image*(1-m)+S[i].astype(float)*m
++        else:
++            # Temporal supersampling only during the fast unsupported motion.
++            offsets=[-.17/24,0.,.17/24] if t&lt;impact+.25 else [0.]
++            image=np.mean([render_mesh(angle_at(max(0,t+o))) for o in offsets],axis=0)
++        frames.append(np.clip(np.rint(image),0,255).astype(np.uint8))
++    frames=np.stack(frames)
++    artifact_io.save(frames,ROOT)
++    print(&#x27;Saved&#x27;,frames.shape,&#x27;RGB; unsupported first domino contacts floor at&#x27;,round(impact,3),&#x27;s&#x27;)
++    print(&#x27;Unaffected third/fourth upright; final first reach:&#x27;,project(world_vertices(np.pi/2))[4:].round(2).tolist())
++
++if __name__==&#x27;__main__&#x27;:
++    main()
+</pre></details></div></details><details class=candidate><summary><strong>候选 02</strong><span class=status>播放与检查图</span><time>2026-11-12T04:17:45.183167+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_990e227e0cc02ca6.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;2d025e1e1bcfa7ac14702120a96d5ea1323071270fc1f8395bdd3f3690dab8c6&quot;, &quot;pixels&quot;: &quot;candidate_01/pixels_990e227e0cc02ca6.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_01/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_01/inspection.png" target=_blank><img loading=lazy src="candidate_01/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_01/transition_check.png" target=_blank><img loading=lazy src="candidate_01/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -200,12 +200,18 @@
+     return np.pi/2
+ 
+ 
+-def source_first_mask(frame):
++def source_first_mask(frame, angle):
+     a=frame.astype(np.float32)
+     # Convex silhouette of the separate first body, avoiding domino two.
+     chroma=cv2.GaussianBlur(a[:,:,1]-a[:,:,0],(3,3),.5)
+     yy,xx=np.indices((H,W))
+-    m=((chroma&lt;14)&amp;(yy&gt;=32)&amp;(yy&lt;102)&amp;(xx&gt;=56)&amp;(xx&lt;102)).astype(np.uint8)
++    # Constrain segmentation to the cuboid, not its low-chroma contact
++    # shadow or the almost-touching edge of the second factual domino.
++    points=project(world_vertices(angle))+CORR
++    center=points.mean(0)
++    allowed=polygon_mask(center+(points-center)*[1.025,1.009])
++    allowed=cv2.resize(allowed,(W,H),interpolation=cv2.INTER_AREA)
++    m=((chroma&lt;14)&amp;(yy&gt;=32)&amp;(yy&lt;102)&amp;(xx&gt;=56)&amp;(allowed&gt;.12)).astype(np.uint8)
+     cs,_=cv2.findContours(m,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+     c=max(cs,key=cv2.contourArea)
+     hull=cv2.convexHull(c).reshape(-1,2).astype(float)
+@@ -213,7 +219,7 @@
+     center=hull.mean(0)
+     hull=center+(hull-center)*[1.045,1.018]
+     hi=polygon_mask(hull)
+-    return cv2.resize(hi,(W,H),interpolation=cv2.INTER_AREA)
++    return np.minimum(cv2.resize(hi,(W,H),interpolation=cv2.INTER_AREA),allowed)
+ 
+ 
+ def render_mesh(angle):
+@@ -225,11 +231,11 @@
+     points=project(v)+CORR*mix
+     # Lighting on the broad face follows its normal rotating toward the light.
+     r=np.clip((angle-A0)/(np.pi/2-A0),0,1)
+-    gain=1+(.76*r**1.6)
+-    front=FRONT*gain
+-    # Preserve the source&#x27;s warmer illumination on the now upward-facing face.
+-    front=front*np.array([1.,1-.11*r,1-.075*r])
+-    left=LEFT*(.92+.06*r)
++    # FRONT is the narrow end face: after falling it is still near vertical.
++    # The previously hidden broad LEFT face rotates upward and receives the
++    # same warm illumination as the exposed upper surface in the source.
++    front=FRONT*(1-.04*r)
++    left=LEFT*(.94+.78*r**1.4)*np.array([1.,1-.11*r,1-.075*r])
+     right=RIGHT*(1-.03*r)
+     faces=[([0,1,5,4],front),([1,2,6,5],right),
+            ([4,5,6,7],TOP),([3,0,4,7],left)]
+@@ -251,7 +257,7 @@
+         angle=angle_at(t)
+         if i&lt;20:
+             image=cv2.resize(shadow(BGHI.copy(),angle),(W,H),interpolation=cv2.INTER_AREA)
+-            m=source_first_mask(S[i])[...,None]
++            m=source_first_mask(S[i],angle)[...,None]
+             image=image*(1-m)+S[i].astype(float)*m
+         else:
+             # Temporal supersampling only during the fast unsupported motion.
+</pre></details></div></details><details class=candidate><summary><strong>候选 03</strong><span class=status>播放与检查图</span><time>2026-11-12T04:17:52.426576+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_990e227e0cc02ca6.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;2d025e1e1bcfa7ac14702120a96d5ea1323071270fc1f8395bdd3f3690dab8c6&quot;, &quot;pixels&quot;: &quot;candidate_02/pixels_990e227e0cc02ca6.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_02/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_02/inspection.png" target=_blank><img loading=lazy src="candidate_02/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_02/transition_check.png" target=_blank><img loading=lazy src="candidate_02/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>代码未变化；重新保存了产物。</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-12T03:07:35.752320+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la &amp;&amp; cat prompt.txt &amp;&amp; cat GENERATION_RULES.md&#x27;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-12T03:07:39.885507+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat source_info.json &amp;&amp; cat task_spec.json &amp;&amp; cat artifact_io.py&#x27;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-12T03:07:50.217627+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+z=np.load(&#x27;source_pixels.npz&#x27;);print([(k,z[k].shape,z[k].dtype) for k in z.files])
+f=z[z.files[0]]
+for i in [0,12,24,48,72,95]:
+ a=f[i];print(&#x27;FRAME&#x27;,i)
+ # ascii image colored clusters approximate
+ s=Image.fromarray(a).resize((85,48)); b=np.array(s).astype(int)
+ lum=b.mean(2);r,g,bb=b.transpose(2,0,1)
+ out=np.full(lum.shape,&#x27; &#x27;,dtype=&#x27;&lt;U1&#x27;)
+ out[lum&lt;180]=&#x27;.&#x27;;out[lum&lt;120]=&#x27;:&#x27;;out[lum&lt;80]=&#x27;o&#x27;;out[lum&lt;40]=&#x27;#&#x27;
+ out[(r&gt;g*1.3)&amp;(r&gt;bb*1.3)&amp;(r&gt;60)]=&#x27;R&#x27;
+ out[(g&gt;r*1.25)&amp;(g&gt;bb*1.15)&amp;(g&gt;60)]=&#x27;G&#x27;
+ out[(bb&gt;r*1.3)&amp;(bb&gt;g*1.1)&amp;(bb&gt;60)]=&#x27;B&#x27;
+ out[(r&gt;bb*1.4)&amp;(g&gt;bb*1.3)&amp;(r&gt;80)&amp;(g&gt;60)]=&#x27;Y&#x27;
+ for row in out:print(&#x27;&#x27;.join(row))
+PY&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-12T03:08:03.860786+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;];a=f[0]
+for y in [30,35,40,45,50,60,70,80,90,95,100,105,110,120,130,140]:
+ print(&#x27;y&#x27;,y,[(x,a[y,x].tolist()) for x in [0,30,55,60,65,70,75,90,96,100,105,110,115,120,130,138,143,148,155,170,178,182,187,194,205,230,250]])
+print(&#x27;ascii bbox 45:125 30:115&#x27;)
+b=a[30:115,45:125].astype(float).mean(2)
+for y in range(0,len(b),2):
+ print(f&#x27;{y+30:3d}&#x27;, &#x27;&#x27;.join(&#x27; &#x27; if z&gt;155 else &#x27;.&#x27; if z&gt;115 else &#x27;:&#x27; if z&gt;80 else &#x27;o&#x27; if z&gt;55 else &#x27;#&#x27; if z&gt;30 else &#x27;@&#x27; for z in b[y]))
+print(&#x27;mean difference frames&#x27;,[(i,round(np.abs(f[i].astype(float)-f[0]).mean(),2)) for i in range(0,96,4)])
+PY&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-12T03:08:24.331031+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(int)
+for t in [0,16,20,24,28,32,36,40,44,48,60]:
+ a=f[t];m=(a[:,:,1]-a[:,:,0]&lt;10)&amp;(a.mean(2)&lt;110)
+ m[:35]=False;m[105:]=False;m[:,:48]=False;m[:,135:]=False
+ lab,n=label(m)
+ print(&#x27;\\nframe&#x27;,t,&#x27;components&#x27;,[(i,(int(np.where(lab==i)[1].min()),int(np.where(lab==i)[0].min()),int(np.where(lab==i)[1].max()),int(np.where(lab==i)[0].max())),int((lab==i).sum())) for i in range(1,n+1) if (lab==i).sum()&gt;20])
+ for y in range(35,105,3):
+  print(f&#x27;{y:3}&#x27;, &#x27;&#x27;.join(&#x27;#&#x27; if m[y,x] else &#x27; &#x27; for x in range(48,135)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-12T03:08:49.242308+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;];
+for t in [0,18,28,48,95]:
+ print(&#x27;\\nFRAME&#x27;,t)
+ for y in [80,90,100,105,110,115,120,130,140]:
+  print(y,&#x27; &#x27;.join(f&#x27;{x}:{tuple(f[t,y,x])}&#x27; for x in range(80,161,10)))
+ # Object threshold boundaries for first only by row
+ for y in [35,36,37,38,39,40,50,60,70,80,90,95,98,100,101,102]:
+  a=f[t,y].astype(int); mask=(a[:,1]-a[:,0]&lt;10)&amp;(a.mean(1)&lt;120); ids=np.where(mask&amp;(np.arange(256)&gt;50)&amp;(np.arange(256)&lt;136))[0]
+  print(&#x27;obj&#x27;,y,ids.tolist())
+PY&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-12T03:09:07.532372+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+im=np.array(Image.open(&#x27;first_frame.png&#x27;));print(im.shape)
+a=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;][0].astype(int)
+# classify with larger chars over first scene
+for y in range(30,107):
+ b=a[y,54:86];z=b.mean(1);d=b[:,1]-b[:,0]
+ print(f&#x27;{y:3d}&#x27;, &#x27;&#x27;.join(&#x27; &#x27; if dv&gt;15 else &#x27;.&#x27; if v&gt;140 else &#x27;-&#x27; if v&gt;100 else &#x27;+&#x27; if v&gt;70 else &#x27;o&#x27; if v&gt;50 else &#x27;#&#x27; if v&gt;35 else &#x27;@&#x27; for v,dv in zip(z,d)))
+print(&#x27;values second crop top&#x27;)
+for y in range(30,43): print(y, [tuple(x) for x in a[y,99:118]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-12T03:09:35.763189+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(int)
+for t in [0,19,30,50,95]:
+ print(&#x27;\\nframe&#x27;,t)
+ for y in range(68,104):
+  a=f[t,y,55:150];lum=a.mean(1);d=a[:,1]-a[:,0]
+  print(f&#x27;{y:3}&#x27;, &#x27;&#x27;.join(&#x27; &#x27; if dv&gt;15 else &#x27;.&#x27; if v&gt;120 else &#x27;-&#x27; if v&gt;95 else &#x27;+&#x27; if v&gt;65 else &#x27;o&#x27; if v&gt;50 else &#x27;#&#x27; if v&gt;34 else &#x27;@&#x27; for v,dv in zip(lum,d)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-12T03:09:54.804228+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for t in [0,4,8,12,16,18,19,20]:
+ a=f[t]; d=a[:,:,1]-a[:,:,0]
+ print(&#x27;FRAME&#x27;,t)
+ for y in range(30,105):
+  # object from chroma
+  m=np.where((d[y]&lt;14)&amp;(np.arange(256)&gt;52)&amp;(np.arange(256)&lt;101))[0]
+  if len(m)&gt;2: print(y,m[0],m[-1],end=&#x27;; &#x27;)
+ print()
+PY&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-12T03:10:49.561138+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);ok,a=cap.read();a=cv2.cvtColor(a,cv2.COLOR_BGR2RGB);print(a.shape)
+# Gradients dark/pale boundaries at front first y200 (40low) etc
+for y in [170,180,190,195,200,220,300,400,450,470,480,490,500]:
+ b=a[y,270:440].astype(int);l=b.mean(1);d=b[:,1]-b[:,0]
+ ids=np.where((l&lt;130)&amp;(d&lt;12))[0]+270
+ print(y, [(int(s),int(e)) for s,e in zip(ids[np.r_[True,np.diff(ids)&gt;1]],ids[np.r_[np.diff(ids)&gt;1,True]])] if len(ids) else [])
+ print(&#x27;grad&#x27;, [(i+270,round(v,1)) for i,v in enumerate(np.abs(np.diff(l))) if v&gt;20])
+PY&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-12T03:12:32.963327+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np,cv2
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);_,im=cap.read();a=cv2.cvtColor(im,cv2.COLOR_BGR2RGB)
+for yr in [(155,210),(450,508)]:
+ for y in range(*yr,2):
+  b=a[y,285:435:2].astype(float);lum=b.mean(1);d=b[:,1]-b[:,0]
+  print(f&#x27;{y:3}&#x27;, &#x27;&#x27;.join(&#x27; &#x27; if dv&gt;15 else &#x27;.&#x27; if v&gt;130 else &#x27;-&#x27; if v&gt;100 else &#x27;+&#x27; if v&gt;70 else &#x27;o&#x27; if v&gt;50 else &#x27;#&#x27; if v&gt;35 else &#x27;@&#x27; for v,dv in zip(lum,d)))
+for y in [193,194,195,196,205,250,300,350,400,440,449,459,469,479,489,499]:
+ b=a[y].astype(float);l=b.mean(1);d=b[:,1]-b[:,0];
+ print(&#x27;row&#x27;,y,&#x27;RGB points&#x27;,[(x,a[y,x].tolist()) for x in [292,295,300,310,320,330,340,345,350,355,360,365,370,375,380,385,390,395,400,405,410,415,420]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-12T03:13:14.756675+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);_,b=cap.read();a=cv2.cvtColor(b,cv2.COLOR_BGR2RGB)
+for y in range(165,209):
+ q=a[y,325:432].astype(float);lum=q.mean(1);d=q[:,1]-q[:,0]
+ # splits color gradients to understand top polygon
+ ids=np.where(d&lt;12)[0]+325
+ print(y, (ids.min(),ids.max()) if len(ids) else None)
+# downsample wider ascii surface, excluding dots detect dark front, lighter side
+for y in range(185,503,8):
+ b=a[y,280:430:2].astype(float);lum=b.mean(1);d=b[:,1]-b[:,0]
+ print(f&#x27;{y:3}&#x27;, &#x27;&#x27;.join(&#x27; &#x27; if dv&gt;15 else &#x27;.&#x27; if v&gt;130 else &#x27;-&#x27; if v&gt;100 else &#x27;+&#x27; if v&gt;75 else &#x27;o&#x27; if v&gt;55 else &#x27;#&#x27; if v&gt;35 else &#x27;@&#x27; for v,dv in zip(lum,d)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-12T03:13:44.970670+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;)
+for t in range(20):
+ _,im=cap.read()
+ if t not in [0,8,16,18,19]:continue
+ a=cv2.cvtColor(im,cv2.COLOR_BGR2RGB).astype(float)
+ q=cv2.GaussianBlur(a[:,:,1]-a[:,:,0],(5,5),.8)
+ m=((q&lt;12)&amp;(np.indices(q.shape)[1]&gt;270)&amp;(np.indices(q.shape)[1]&lt;505)&amp;(np.indices(q.shape)[0]&gt;150)&amp;(np.indices(q.shape)[0]&lt;508)).astype(&#x27;uint8&#x27;)
+ contours,_=cv2.findContours(m,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE);c=max(contours,key=cv2.contourArea);h=cv2.convexHull(c)
+ p=cv2.approxPolyDP(h,2,True).reshape(-1,2)/5
+ print(&#x27;frame&#x27;,t,&#x27;area&#x27;,cv2.contourArea(c)/25,&#x27;hull&#x27;,p.tolist())
+PY&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-12T03:15:22.219778+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; .tmp/geometry_test.py &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.optimize import least_squares
+from math import sin,cos,pi
+# E F G H A B C D
+im=np.array([[58.5,97.8],[68.1,100.6],[75.1,90.2],[65.5,87.5],[67.2,38.7],[77.6,41.1],[84.2,35.8],[74.6,33.4]])
+H=3;T=.4;W=1
+
+def verts(theta):
+ e=[-T*cos(theta),T*sin(theta),0];f=[0,0,0];g=[0,0,W];h=[e[0],e[1],W]; v=np.array([H*sin(theta),H*cos(theta),0]);b=np.array([e,f,g,h]);return np.r_[b,b+v]
+v=verts(.14);X=np.c_[v,np.ones(8)];rows=[]
+for p,(u,w) in zip(X,im):
+ rows.append(np.r_[p,[0]*4,-u*p]);rows.append(np.r_[[0]*4,p,-w*p])
+_,_,vv=np.linalg.svd(rows);P=vv[-1].reshape(3,4);P/=P[2,3]
+def proj(v):
+ q=np.c_[v,np.ones(len(v))]@P.T;return q[:,:2]/q[:,2,None]
+print(&#x27;P&#x27;,P);print(&#x27;fit&#x27;,proj(v));print(&#x27;error&#x27;,proj(v)-im)
+for t in [0,.14,.4,.8,1.2,1.35,1.57]:print(&#x27;theta&#x27;,t,np.round(proj(verts(t)),2).tolist())
+PY
+python .tmp/geometry_test.py&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-12T03:15:45.129527+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; .tmp/geometry_test.py &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.optimize import least_squares
+im=np.array([[58.5,97.8],[68.1,100.6],[75.1,90.2],[65.5,87.5],[67.2,38.7],[77.6,41.1],[84.2,35.8],[74.6,33.4]])
+H=3;T=.4;W=1
+
+def verts(theta):
+ e=[0,T*np.sin(theta),-T*np.cos(theta)];f=[W,T*np.sin(theta),-T*np.cos(theta)];g=[W,0,0];h=[0,0,0];v=np.array([0,H*np.cos(theta),H*np.sin(theta)]);b=np.array([e,f,g,h]);return np.r_[b,b+v]
+def camera(th):
+ v=verts(th);X=np.c_[v,np.ones(8)];rows=[]
+ for p,(u,w) in zip(X,im):
+  rows.append(np.r_[p,[0]*4,-u*p]);rows.append(np.r_[[0]*4,p,-w*p])
+ _,_,vv=np.linalg.svd(rows);P=vv[-1].reshape(3,4);P/=P[2,3];return P
+def proj(v,P):
+ q=np.c_[v,np.ones(len(v))]@P.T;return q[:,:2]/q[:,2,None]
+for th in [.07,.14,.2]:
+ P=camera(th);print(&#x27;theta init&#x27;,th,&#x27;P&#x27;,P,&#x27;err&#x27;, np.abs(proj(verts(th),P)-im).mean());print(&#x27;final&#x27;,np.round(proj(verts(np.pi/2),P),2).tolist())
+ for t in [.3,.4,.6,.8,1.1,1.3]:print(&#x27;t&#x27;,t,np.round(proj(verts(t),P)[4:],2).tolist())
+PY
+python .tmp/geometry_test.py&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-12T03:16:32.159219+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);_,im=cap.read();a=cv2.cvtColor(im,cv2.COLOR_BGR2RGB).astype(float);q=cv2.GaussianBlur(a[:,:,1]-a[:,:,0],(5,5),.8)
+yy,xx=np.indices(q.shape)
+for low,hi in [(490,606),(675,790),(865,987)]:
+ m=((q&lt;12)&amp;(xx&gt;low)&amp;(xx&lt;hi)&amp;(yy&gt;150)&amp;(yy&lt;517)).astype(&#x27;uint8&#x27;);cs,_=cv2.findContours(m,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE);c=max(cs,key=cv2.contourArea)
+ print(&#x27;obj&#x27;,low,&#x27;hull&#x27;, (cv2.approxPolyDP(cv2.convexHull(c),2,True).reshape(-1,2)/5).tolist())
+ for y in [168,172,178,185,192,196,205,250,350,445,470,485,495,505,512]:
+  b=a[y,low:hi:2];lum=b.mean(1);d=b[:,1]-b[:,0]
+  print(f&#x27;{y:3}&#x27;, &#x27;&#x27;.join(&#x27; &#x27; if dv&gt;15 else &#x27;.&#x27; if v&gt;130 else &#x27;-&#x27; if v&gt;100 else &#x27;+&#x27; if v&gt;75 else &#x27;o&#x27; if v&gt;55 else &#x27;#&#x27; if v&gt;35 else &#x27;@&#x27; for v,dv in zip(lum,d)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-12T03:19:15.597681+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+im=np.array([[58.5,97.8],[68.1,100.6],[75.1,90.2],[65.5,87.5],[67.2,38.7],[77.6,41.1],[84.2,35.8],[74.6,33.4]])
+for th in [0,.05,.1,.14,.2,.3]:
+ e=[-.4*np.cos(th),.4*np.sin(th),0];f=[0,0,0];g=[0,0,1];h=[e[0],e[1],1];vv=np.array([3*np.sin(th),3*np.cos(th),0]);v=np.array([e,f,g,h]);v=np.r_[v,v+vv];X=np.c_[v,np.ones(8)];rows=[]
+ for p,(u,w) in zip(X,im):rows.extend([np.r_[p,[0]*4,-u*p],np.r_[[0]*4,p,-w*p]])
+ _,_,vv=np.linalg.svd(rows);P=vv[-1].reshape(3,4);P/=P[2,3]
+ p0=P[:,3];p1=P[:,0]+p0;xy0=p0[:2]/p0[2];xy1=p1[:2]/p1[2];print(th,xy1-xy0,&#x27;flat&#x27;, ((P@np.array([3,.4,0,1]))[:2]/(P@np.array([3,.4,0,1]))[2]))
+PY&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-12T03:22:24.433666+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+exec(open(&#x27;.tmp/geometry_test.py&#x27;).read().split(&#x27;for th in [.07&#x27;)[0])
+# same orig first model theta candidates
+im=np.array([[58.5,97.8],[68.1,100.6],[75.1,90.2],[65.5,87.5],[67.2,38.7],[77.6,41.1],[84.2,35.8],[74.6,33.4]])
+for th in [.4,.5,.6,.7]:
+ e=[-.4*np.cos(th),.4*np.sin(th),0];f=[0,0,0];g=[0,0,1];h=[e[0],e[1],1];v=np.array([e,f,g,h]);v=np.r_[v,v+np.array([3*np.sin(th),3*np.cos(th),0])];X=np.c_[v,np.ones(8)];rows=[]
+ for p,(u,w) in zip(X,im):rows.extend([np.r_[p,[0]*4,-u*p],np.r_[[0]*4,p,-w*p]])
+ _,_,vv=np.linalg.svd(rows);P=vv[-1].reshape(3,4);P/=P[2,3]
+ print(th,&#x27;P&#x27;,P)
+ for t in [th,th+.2,1.3,1.57]:
+  e=[-.4*np.cos(t),.4*np.sin(t),0];v=np.array([e,[0,0,0],[0,0,1],[e[0],e[1],1]]);v=np.r_[v,v+np.array([3*np.sin(t),3*np.cos(t),0])];q=np.c_[v,np.ones(8)]@P.T;print(t,np.round(q[:,:2]/q[:,2,None],1)[4:].tolist())
+PY&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-12T03:23:02.977840+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np,cv2
+cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);cap.set(0,0);cap.set(cv2.CAP_PROP_POS_FRAMES,70);_,b=cap.read();a=cv2.cvtColor(b,cv2.COLOR_BGR2RGB)
+for y in range(340,516,4):
+ b=a[y,315:700:4].astype(float);lum=b.mean(1);d=b[:,1]-b[:,0]
+ print(f&#x27;{y/5:5.1f}&#x27;, &#x27;&#x27;.join(&#x27; &#x27; if dv&gt;15 else &#x27;.&#x27; if v&gt;130 else &#x27;-&#x27; if v&gt;100 else &#x27;+&#x27; if v&gt;65 else &#x27;o&#x27; if v&gt;50 else &#x27;#&#x27; if v&gt;35 else &#x27;@&#x27; for v,dv in zip(lum,d)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-12T03:24:02.299094+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; .tmp/fit.py &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.optimize import least_squares
+np.set_printoptions(precision=3,suppress=True)
+H=3;T=.4;W=1
+
+def verts(th):
+ e=[-T*np.cos(th),T*np.sin(th),0];v=np.array([e,[0,0,0],[0,0,1],[e[0],e[1],1]]);return np.r_[v,v+np.array([H*np.sin(th),H*np.cos(th),0])]
+# visible E F G A B C D
+ix=[0,1,2,4,5,6,7]
+pts=np.array([[58.5,97.8],[68.1,100.6],[75.1,90.2],[67.2,38.7],[77.6,41.1],[84.2,35.8],[74.6,33.4]])
+second=np.array([[103.3,101.3],[112.5,101.4],[115,90.5],[101.3,39],[111.2,39],[115.1,34.5],[105.8,34.2]])
+# camera init orthographic
+P=np.array([[23,-3,11,68],[0,-21,-10,100],[0,0,0,1.]])
+p0=np.r_[P.ravel()[:11],.14,1.65] # actually last coord excluded yes flatten includes last 1 last
+
+def unpack(p):return np.r_[p[:11],1].reshape(3,4)
+def project(v,P):
+ q=np.c_[v,np.ones(len(v))]@P.T;return q[:,:2]/q[:,2,None]
+def fun(p):
+ P=unpack(p);a=p[11];g=p[12]
+ return np.r_[(project(verts(a)[ix],P)-pts).ravel(), (project((verts(0)+[g,0,0])[ix],P)-second).ravel()]
+r=least_squares(fun,p0,max_nfev=10000);P=unpack(r.x);th,g=r.x[11:];print(&#x27;err&#x27;,np.sqrt(np.mean(r.fun**2)),&#x27;th&#x27;,th,&#x27;gap&#x27;,g,&#x27;P&#x27;,P);print(&#x27;pose0&#x27;,project(verts(th),P));print(&#x27;flat&#x27;,project(verts(np.pi/2),P));
+for a in [th+.05,th+.14,th+.35,th+.45]:print(a,project(verts(a),P))
+np.savez(&#x27;.tmp/geometry.npz&#x27;,P=P,theta=th,gap=g)
+PY
+python .tmp/fit.py&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-12T03:25:46.734522+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+from scipy.optimize import minimize_scalar
+z=np.load(&#x27;.tmp/geometry.npz&#x27;);P=z[&#x27;P&#x27;];a0=float(z[&#x27;theta&#x27;]);S=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+H=3;T=.4
+def vertices(a):
+ e=[-T*np.cos(a),T*np.sin(a),0];v=np.array([e,[0,0,0],[0,0,1],[e[0],e[1],1]]);v=np.r_[v,v+np.array([H*np.sin(a),H*np.cos(a),0])];q=np.c_[v,np.ones(8)]@P.T;return q[:,:2]/q[:,2,None]
+ix=[0,1,2,4,5,6,7];pose=np.array([[58.5,97.8],[68.1,100.6],[75.1,90.2],[65.5,87.5],[67.2,38.7],[77.6,41.1],[84.2,35.8],[74.6,33.4]]);diff=pose-vertices(a0)
+for t in range(20):
+ src=S[t];target=(src[:,:,1]-src[:,:,0]&lt;13).astype(np.uint8);target[:30]=0;target[102:]=0;target[:,:53]=0;target[:,101:]=0
+ best=None
+ for a in np.arange(a0-.01,a0+.6,.001):
+  pts=vertices(a)+diff
+  m=np.zeros((144,256),np.uint8);cv2.fillConvexPoly(m,cv2.convexHull(np.round(pts*8).astype(np.int32)),1,shift=3);m[:,:53]=0;m[:,101:]=0
+  err=np.count_nonzero(m&quot;&#x27;!=target)
+  if best is None or err&lt;best[0]:best=(err,a)
+ print(t,*best)
+PY&#x27;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-12T03:26:51.986797+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+z=np.load(&#x27;.tmp/geometry.npz&#x27;);P=z[&#x27;P&#x27;];
+for v in [[0,0,-3],[0,0,-4],[.3,0,-3],[.6,0,-3],[1,0,-3],[0,0,-2]]:
+ q=P@np.r_[v,1];print(v,q[:2]/q[2])
+PY&quot;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-12T04:07:51.338198+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import gaussian_filter
+s=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float);a=s[0];b=np.median(s[55:],axis=0)
+for y in [75,80,85,90,95,100,105,110,115,120,125,130,135,140]:
+ print(&#x27;y&#x27;,y)
+ print(&#x27;orig G&#x27;,&#x27; &#x27;.join(f&#x27;{int(a[y,x,1]):3}&#x27; for x in range(35,161,5)))
+ print(&#x27;end  G&#x27;,&#x27; &#x27;.join(f&#x27;{int(b[y,x,1]):3}&#x27; for x in range(35,161,5)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 24</strong><time>2026-11-12T04:09:58.638760+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; .tmp/bgtest.py &lt;&lt;&#x27;PY&#x27;
+import numpy as np,cv2
+from scipy.ndimage import gaussian_filter
+s=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float);b=s[0];h,w=b.shape[:2];yy,xx=np.indices((h,w));end=np.median(s[60:],0)
+# upper background use final scene with exclusions lower object silhouettes and shadow edge
+base=b.copy();base[32:68,90:125]=end[32:68,90:125]
+# extend rows within localized patch y&gt;=68 reconstruct second and its shadow by x interpolation
+for y in range(68,144):
+ left=int(round(92-12*min(1,(y-68)/65)))
+ right=128
+ u=np.clip((np.arange(w)-left)/(right-left),0,1)
+ val=base[y,left-1]*(1-u[:,None])+base[y,right+1]*u[:,None]
+ # region visible second object starts at ~100. Avoid existing first and third.
+ l=97 if y&lt;95 else 87 if y&lt;118 else 84
+ base[y,l:126]=val[l:126]
+print(&#x27;bg sample&#x27;)
+for y in [70,80,90,100,105,110,115,120,130,140]:print(y,base[y,106])
+PY
+python .tmp/bgtest.py&quot;</pre></details><details class=command><summary><strong>命令 25</strong><time>2026-11-12T04:10:33.765008+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+s=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float);q=s[:,:,:,1]-s[:,:,:,0];v=np.where((q&gt;16)[...,None],s,np.nan);b=np.nanmax(v,axis=0)
+for y in [65,70,80,90,95,100,105,110,115,120,130,140]:
+ print(y,[(x,np.round(b[y,x]).tolist()) for x in [48,55,70,85,90,95,120,125,130,135]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 26</strong><time>2026-11-12T04:10:54.930475+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from scipy.integrate import solve_ivp
+import numpy as np
+th=.50399;w=(.50399-.46399)*24
+for k in [8,10,12,14,16]:
+ r=solve_ivp(lambda t,v:[v[1],k*np.sin(v[0])-.08*v[1]],(0,1),[th,w],events=lambda t,v:v[0]-np.pi/2,max_step=.002,dense_output=True)
+ ts=np.arange(0,.7,.05);vals=r.sol(ts)[0];print(k,list(zip(ts,np.round(vals,2))))
+PY&quot;</pre></details><details class=command><summary><strong>命令 27</strong><time>2026-11-12T04:11:18.881136+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+z=np.load(&#x27;.tmp/geometry.npz&#x27;);P=z[&#x27;P&#x27;];
+for n in [-.1,.1,.2]:
+ # project shadow top with ray dx per unit y=.1 dyz=-.3
+ a=.223;T=.4;h=3;e=[-T*np.cos(a),T*np.sin(a),0];v=np.array([e,[0,0,0],[0,0,1],[e[0],e[1],1]]);v=np.r_[v,v+np.array([h*np.sin(a),h*np.cos(a),0])];v[:,0]+=n*v[:,1];v[:,2]-=.33*v[:,1];v[:,1]=0;q=np.c_[v,np.ones(8)]@P.T;print(n,np.round(q[:,:2]/q[:,2,None],1).tolist())
+PY&quot;</pre></details><details class=command><summary><strong>命令 28</strong><time>2026-11-12T04:12:02.558636+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+s=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float);a=s[0];q=a[:,:,1]-a[:,:,0]
+for y in range(68,144,3):
+ print(y,[int(a[y,x,1]) for x in [45,50,53,57,80,85,90,95,98,120,124,127,130,133,136]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 29</strong><time>2026-11-12T04:13:37.158001+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+z=np.load(&#x27;.tmp/geometry.npz&#x27;);P=z[&#x27;P&#x27;]
+def v(th):
+ e=[-.4*np.cos(th),.4*np.sin(th),0];x=np.array([e,[0,0,0],[0,0,1],[e[0],e[1],1]]);x=np.r_[x,x+[3*np.sin(th),3*np.cos(th),0]];q=np.c_[x,np.ones(8)]@P.T;return q[:,:2]/q[:,2,None]
+for a in [.223,.5,.8,1.1,1.4,1.57]:
+ x=v(a);print(a,[(idx,round(.5*np.sum(x[idx,0]*np.roll(x[idx,1],-1)-x[idx,1]*np.roll(x[idx,0],-1)),2)) for idx in [[0,1,5,4],[1,2,6,5],[4,5,6,7],[3,0,4,7],[2,3,7,6]]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 30</strong><time>2026-11-12T04:13:45.007295+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2,numpy as np
+for t in [0,8,16,19]:
+ cap=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);cap.set(cv2.CAP_PROP_POS_FRAMES,t);_,b=cap.read();a=cv2.cvtColor(b,cv2.COLOR_BGR2RGB);q=cv2.GaussianBlur(a.mean(2).astype(&#x27;float32&#x27;),(5,5),.9)
+ print(&#x27;FRAME&#x27;,t)
+ for yl in [40,50,60,70,80,90]:
+  y=yl*5;b=q[y];diff=np.diff(b);xx=np.where((diff[:-1]&gt;6)&amp;(np.arange(1278)&gt;280)&amp;(np.arange(1278)&lt;503))[0];print(yl,[(round(x/5,1),round(float(diff[x]),1)) for x in xx])
+PY&quot;</pre></details><details class=command><summary><strong>命令 31</strong><time>2026-11-12T04:16:04.975330+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; generate.py &lt;&lt;&#x27;PY&#x27;
+\&quot;\&quot;\&quot;Pixel-based counterfactual: remove domino two and interrupt the cascade.
+
+The static camera and all textures come from the supplied clip.  A projective
+cuboid fitted to the first two dominoes is used only to continue the first
+one&#x27;s now-unimpeded fall.  There is no external renderer or learned model.
+\&quot;\&quot;\&quot;
+from pathlib import Path
+import numpy as np
+import cv2
+from scipy.ndimage import gaussian_filter
+from scipy.optimize import least_squares
+from scipy.integrate import solve_ivp
+import artifact_io
+
+ROOT = Path(__file__).resolve().parent
+S = np.load(ROOT / &#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+H, W = 144, 256
+SS = 4
+
+
+def world_vertices(angle):
+    e = [-.4 * np.cos(angle), .4 * np.sin(angle), 0.]
+    bottom = np.array([e, [0., 0., 0.], [0., 0., 1.], [e[0], e[1], 1.]])
+    return np.concatenate([bottom, bottom + [3*np.sin(angle), 3*np.cos(angle), 0.]])
+
+
+def fit_camera():
+    ids = [0, 1, 2, 4, 5, 6, 7]
+    first = np.array([[58.5,97.8],[68.1,100.6],[75.1,90.2],
+                      [67.2,38.7],[77.6,41.1],[84.2,35.8],[74.6,33.4]])
+    second = np.array([[103.3,101.3],[112.5,101.4],[115.,90.5],
+                       [101.3,39.],[111.2,39.],[115.1,34.5],[105.8,34.2]])
+    init = np.array([[23.,-3.,11.,68.],[0.,-21.,-10.,100.],[0.,0.,0.,1.]])
+    def unpack(p):
+        return np.r_[p[:11], 1.].reshape(3,4)
+    def project(v, P):
+        q = np.c_[v, np.ones(len(v))] @ P.T
+        return q[:,:2] / q[:,2,None]
+    def residual(p):
+        P=unpack(p)
+        return np.r_[(project(world_vertices(p[11])[ids], P)-first).ravel(),
+                     (project((world_vertices(0)+[p[12],0,0])[ids], P)-second).ravel()]
+    fit=least_squares(residual,np.r_[init.ravel()[:11],.14,1.65],max_nfev=2000)
+    return unpack(fit.x), float(fit.x[11])
+
+P, A0 = fit_camera()
+
+def project(v):
+    q=np.c_[v,np.ones(len(v))] @ P.T
+    return q[:,:2]/q[:,2,None]
+
+# Pixel corner corrections are small; they reconcile antialiased measured
+# silhouettes with the projective fit without changing world reach.
+POSE0=np.array([[58.5,97.8],[68.1,100.6],[75.1,90.2],[65.5,87.5],
+                [67.2,38.7],[77.6,41.1],[84.2,35.8],[74.6,33.4]])
+CORR=POSE0-project(world_vertices(A0))
+
+
+def polygon_mask(points, scale=SS):
+    mask=np.zeros((H*scale,W*scale),np.uint8)
+    cv2.fillConvexPoly(mask,np.round(np.asarray(points)*scale*16).astype(np.int32),255,shift=4)
+    return mask.astype(np.float32)/255
+
+
+def static_background():
+    \&quot;\&quot;\&quot;Recover the ground occluded by the removed domino and moving one.
+
+    Late source frames expose the upper region perfectly.  In the lower
+    region the entire factual cascade is an occluder, so interpolate the
+    smoothly lit green surface between observed samples on either side.
+    This removes the second domino&#x27;s shadow as well as its body.
+    \&quot;\&quot;\&quot;
+    b=S[0].astype(np.float32).copy()
+    late=np.median(S[56:88].astype(np.float32),axis=0)
+    # The late clip has no dominoes above row 70, and the camera is fixed.
+    upper=np.zeros((H,W),np.float32)
+    upper[32:70,55:128]=1
+    upper=gaussian_filter(upper,.65)
+    # Keep clear surface at the seam, copy exposed pixels across both holes.
+    b=b*(1-upper[...,None])+late*upper[...,None]
+    # The sparse interpolation preserves row-wise ground lighting changes.
+    floor=b.copy()
+    for y in range(67,H):
+        left=np.median(late[y,46:55],axis=0)
+        # Right anchor is left of domino three; its real ambient shadow stays.
+        right=np.median(S[0,y,130:135].astype(float),axis=0)
+        u=np.clip((np.arange(W)-51.)/(133.-51.),0,1)
+        row=left[None,:]*(1-u[:,None])+right[None,:]*u[:,None]
+        floor[y,54:134]=row[54:134]
+    # Blend only clear green ground.  Main standing objects are untouched.
+    yy,xx=np.indices((H,W))
+    region=np.clip((xx-53)/5,0,1)*np.clip((136-xx)/5,0,1)
+    region*=np.clip((yy-65)/5,0,1)
+    b=b*(1-region[...,None])+floor*region[...,None]
+    return np.clip(b,0,255)
+
+BG=static_background()
+BGHI=cv2.resize(BG,(W*SS,H*SS),interpolation=cv2.INTER_CUBIC)
+
+# Decode original RGB solely to recover crisp texture coordinates at 5x scale.
+cap=cv2.VideoCapture(str(ROOT/&#x27;source_video.mp4&#x27;))
+ok, original=cap.read()
+cap.release()
+if not ok:
+    raise RuntimeError(&#x27;Cannot decode source texture frame&#x27;)
+original=cv2.cvtColor(original,cv2.COLOR_BGR2RGB).astype(np.float32)
+RATIO=original.shape[1]/W
+
+
+def extract_texture(ids):
+    corners=(POSE0[ids]*RATIO).astype(np.float32)
+    tw,th=128,384
+    uv=np.array([[0,th-1],[tw-1,th-1],[tw-1,0],[0,0]],np.float32)
+    T=cv2.getPerspectiveTransform(corners,uv)
+    return cv2.warpPerspective(original,T,(tw,th),flags=cv2.INTER_LINEAR,
+                               borderMode=cv2.BORDER_REPLICATE)
+
+FRONT=extract_texture([0,1,5,4])
+RIGHT=extract_texture([1,2,6,5])
+TOP=extract_texture([4,5,6,7])
+# The opposite flank is initially hidden.  Use the unmarked source material
+# instead of mirroring the visible pip-marked face onto a different side.
+q=np.median(FRONT[36:350,20:108],axis=(0,1))
+Y,X=np.indices(FRONT.shape[:2])
+LEFT=np.broadcast_to(q,FRONT.shape).copy()
+LEFT += (1.2*(X/127-.5)-1.3*(Y/383-.5))[...,None]
+
+
+def signed_area(p):
+    return .5*np.sum(p[:,0]*np.roll(p[:,1],-1)-p[:,1]*np.roll(p[:,0],-1))
+
+
+def paste_face(image, points, tex):
+    if abs(signed_area(points))&lt;.02:
+        return image
+    th,tw=tex.shape[:2]
+    uv=np.array([[0,th-1],[tw-1,th-1],[tw-1,0],[0,0]],np.float32)
+    T=cv2.getPerspectiveTransform(uv,(points*SS).astype(np.float32))
+    warped=cv2.warpPerspective(tex,T,(W*SS,H*SS),flags=cv2.INTER_LINEAR,
+                              borderMode=cv2.BORDER_REPLICATE)
+    alpha=polygon_mask(points)[...,None]
+    return image*(1-alpha)+warped*alpha
+
+
+def shadow(image, angle):
+    v=world_vertices(angle)
+    # Area-light shadows: a compact cast silhouette plus a wider, softer lobe.
+    shadow_sum=np.zeros((H*SS,W*SS),np.float32)
+    for dx,dz,opacity,blur in [(.10,-.33,.38,2.2),(.06,-.60,.18,5.0)]:
+        sh=v.copy()
+        sh[:,0]+=dx*sh[:,1]
+        sh[:,2]+=dz*sh[:,1]
+        sh[:,1]=0
+        pts=project(sh)
+        hull=cv2.convexHull(pts.astype(np.float32)).reshape(-1,2)
+        mask=polygon_mask(hull)
+        # The shadow gets sharper as the cuboid meets the floor.
+        sigma=(.45+blur*max(0,np.cos(angle)))*SS
+        mask=gaussian_filter(mask,sigma)
+        shadow_sum+=opacity*mask
+    # Small contact/ambient shadow surrounds the immediate silhouette.
+    sh=v.copy();sh[:,1]=0
+    hull=cv2.convexHull(project(sh).astype(np.float32)).reshape(-1,2)
+    contact=gaussian_filter(polygon_mask(hull),.70*SS)
+    shadow_sum+=.24*contact
+    shadow_sum=np.clip(shadow_sum,0,.70)
+    return image*(1-shadow_sum[...,None])
+
+
+# Read the first domino&#x27;s observed pre-contact rotations numerically.
+# Values are best silhouette fits before its first factual collision.
+OBS=A0+np.array([-.006,-.001,-.001,0,.002,.012,.015,.021,.027,.040,
+                 .051,.062,.078,.094,.116,.140,.171,.203,.241,.281])
+
+# Integrate only the unsupported fall.  Continuity of rotation and velocity
+# at the first factual collision is maintained; there is now no second body.
+start_time=19/24
+start_angle=float(OBS[-1])
+start_speed=float((OBS[-1]-OBS[-2])*24)
+def dynamics(t,z):
+    return [z[1],10.8*np.sin(z[0])-.10*z[1]]
+def contact_event(t,z):
+    return z[0]-np.pi/2
+contact_event.terminal=True
+contact_event.direction=1
+sol=solve_ivp(dynamics,(0,2),[start_angle,start_speed],events=contact_event,
+              max_step=.003,dense_output=True,rtol=1e-8,atol=1e-9)
+impact=start_time+float(sol.t_events[0][0])
+
+
+def angle_at(t):
+    if t&lt;=start_time:
+        return float(np.interp(t*24,np.arange(len(OBS)),OBS))
+    if t&lt;impact:
+        return float(sol.sol(t-start_time)[0])
+    tau=t-impact
+    # A brief small rebound, then a genuinely stable resting pose.
+    if tau&lt;.23:
+        return np.pi/2-.034*np.exp(-tau*13)*np.sin(np.pi*tau/.23)
+    return np.pi/2
+
+
+def source_first_mask(frame):
+    a=frame.astype(np.float32)
+    # Convex silhouette of the separate first body, avoiding domino two.
+    chroma=cv2.GaussianBlur(a[:,:,1]-a[:,:,0],(3,3),.5)
+    yy,xx=np.indices((H,W))
+    m=((chroma&lt;14)&amp;(yy&gt;=32)&amp;(yy&lt;102)&amp;(xx&gt;=56)&amp;(xx&lt;102)).astype(np.uint8)
+    cs,_=cv2.findContours(m,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+    c=max(cs,key=cv2.contourArea)
+    hull=cv2.convexHull(c).reshape(-1,2).astype(float)
+    # Pixel-center hull needs a fraction of a pixel coverage expansion.
+    center=hull.mean(0)
+    hull=center+(hull-center)*[1.045,1.018]
+    hi=polygon_mask(hull)
+    return cv2.resize(hi,(W,H),interpolation=cv2.INTER_AREA)
+
+
+def render_mesh(angle):
+    image=shadow(BGHI.copy(),angle)
+    v=world_vertices(angle)
+    # Measurement correction smoothly decreases as the body leaves its
+    # initial pose; it does not alter the final floor-contact geometry.
+    mix=max(0,1-(angle-A0)/(np.pi/2-A0))
+    points=project(v)+CORR*mix
+    # Lighting on the broad face follows its normal rotating toward the light.
+    r=np.clip((angle-A0)/(np.pi/2-A0),0,1)
+    gain=1+(.76*r**1.6)
+    front=FRONT*gain
+    # Preserve the source&#x27;s warmer illumination on the now upward-facing face.
+    front=front*np.array([1.,1-.11*r,1-.075*r])
+    left=LEFT*(.92+.06*r)
+    right=RIGHT*(1-.03*r)
+    faces=[([0,1,5,4],front),([1,2,6,5],right),
+           ([4,5,6,7],TOP),([3,0,4,7],left)]
+    visible=[]
+    for ids,tex in faces:
+        pp=points[ids]
+        if signed_area(pp)&lt;-.01:
+            depth=np.mean((np.c_[v[ids],np.ones(4)]@P.T)[:,2])
+            visible.append((depth,pp,tex))
+    for _,pp,tex in sorted(visible,key=lambda row:row[0],reverse=True):
+        image=paste_face(image,pp,tex)
+    return cv2.resize(image,(W,H),interpolation=cv2.INTER_AREA)
+
+
+def main():
+    frames=[]
+    for i in range(96):
+        t=i/24
+        angle=angle_at(t)
+        if i&lt;20:
+            image=cv2.resize(shadow(BGHI.copy(),angle),(W,H),interpolation=cv2.INTER_AREA)
+            m=source_first_mask(S[i])[...,None]
+            image=image*(1-m)+S[i].astype(float)*m
+        else:
+            # Temporal supersampling only during the fast unsupported motion.
+            offsets=[-.17/24,0.,.17/24] if t&lt;impact+.25 else [0.]
+            image=np.mean([render_mesh(angle_at(max(0,t+o))) for o in offsets],axis=0)
+        frames.append(np.clip(np.rint(image),0,255).astype(np.uint8))
+    frames=np.stack(frames)
+    artifact_io.save(frames,ROOT)
+    print(&#x27;Saved&#x27;,frames.shape,&#x27;RGB; unsupported first domino contacts floor at&#x27;,round(impact,3),&#x27;s&#x27;)
+    print(&#x27;Unaffected third/fourth upright; final first reach:&#x27;,project(world_vertices(np.pi/2))[4:].round(2).tolist())
+
+if __name__==&#x27;__main__&#x27;:
+    main()
+PY
+python generate.py&quot;</pre></details><details class=command><summary><strong>命令 32</strong><time>2026-11-12T04:16:15.762724+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+z=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;];f=np.stack([(z&gt;&gt;16)&amp;255,(z&gt;&gt;8)&amp;255,z&amp;255],axis=-1).transpose(2,0,1,3).astype(&#x27;uint8&#x27;);s=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+for i in [0,18,19,20,24,28,30,40,95]:
+ a=f[i].astype(float);print(&#x27;\\nFRAME&#x27;,i)
+ for y in range(32,109,3):
+  b=a[y,52:197];lum=b.mean(1);d=b[:,1]-b[:,0]
+  print(f&#x27;{y:3}&#x27;, &#x27;&#x27;.join(&#x27; &#x27; if dv&gt;15 else &#x27;.&#x27; if v&gt;135 else &#x27;-&#x27; if v&gt;100 else &#x27;+&#x27; if v&gt;70 else &#x27;o&#x27; if v&gt;50 else &#x27;#&#x27; if v&gt;35 else &#x27;@&#x27; for v,dv in zip(lum,d)))
+print(&#x27;frame deltas&#x27;,[(i,round(np.abs(f[i].astype(float)-f[i-1]).mean(),3)) for i in range(1,40)])
+print(&#x27;preserved 3/4&#x27;,np.abs(f[95,32:106,138:198].astype(float)-s[0,32:106,138:198]).mean())
+print(&#x27;range shape&#x27;,f.shape,f.min(),f.max())
+PY&quot;</pre></details><details class=command><summary><strong>命令 33</strong><time>2026-11-12T04:16:28.956584+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+for y in [70,83,86,90,95,100,102,105,110]:
+ a=np.array(Image.open(&#x27;frames/95.png&#x27;));print(y,[(x,a[y,x].tolist()) for x in [65,70,80,90,100,110,120,130,136,140]])
+a=np.array(Image.open(&#x27;frames/00.png&#x27;));print(&#x27;first&#x27;,(a[98,85]).tolist())
+PY&quot;</pre></details><details class=command><summary><strong>命令 34</strong><time>2026-11-12T04:16:35.725455+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import generate as g, numpy as np
+f=g.FRONT
+for y in [40,80,160,250,320]:print(y,[(x,np.round(f[y,x]).tolist()) for x in [10,40,60,100,120]])
+print(&#x27;original vals&#x27;,[g.S[0,60,x].tolist() for x in range(64,80)])
+PY&quot;</pre></details><details class=command><summary><strong>命令 35</strong><time>2026-11-12T04:17:40.632309+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;python generate.py&#x27;</pre></details><details class=command><summary><strong>命令 36</strong><time>2026-11-12T04:17:56.372256+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+from pathlib import Path
+z=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;]; f=np.stack([(z&gt;&gt;16)&amp;255,(z&gt;&gt;8)&amp;255,z&amp;255],axis=-1).transpose(2,0,1,3).astype(&#x27;uint8&#x27;);s=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+assert f.shape==(96,144,256,3)
+for i in [0,18,19,20,24,28,30,40,95]:
+ a=f[i].astype(float);mask=(a[:,:,1]-a[:,:,0]&lt;12)&amp;(a.mean(2)&lt;110)
+ count=mask[34:70,101:117].sum()
+ print(&#x27;frame&#x27;,i,&#x27;second upright area body pixels=&#x27;,count,&#x27;top&#x27;,f[i,88,100].tolist(),&#x27;first-shadow sample&#x27;,f[i,96,83].tolist())
+print(&#x27;framewise deltas&#x27;,[round(np.abs(f[i].astype(float)-f[i-1]).mean(),3) for i in range(16,35)])
+print(&#x27;static final equality&#x27;,np.array_equal(f[40],f[95]))
+print(&#x27;output artifacts&#x27;,[(p,Path(p).stat().st_size) for p in [&#x27;generate.py&#x27;,&#x27;pixels.npz&#x27;,&#x27;index.html&#x27;,&#x27;inspection.png&#x27;,&#x27;transition_check.png&#x27;]])
+print(&#x27;frame PNG count&#x27;,len(list(Path(&#x27;frames&#x27;).glob(&#x27;*.png&#x27;))))
+print(&#x27;Third fourth preservation MAE&#x27;,np.abs(f[-1,32:106,138:198].astype(float)-s[0,32:106,138:198]).mean())
+PY&quot;</pre></details><p class=muted>保存候选 3 份；完成命令 36 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
