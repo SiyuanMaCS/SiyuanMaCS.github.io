@@ -1,0 +1,694 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/GPT-6.1-Sol · pcve_0010</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/GPT-6.1-Sol · pcve_0010</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>24 FPS · 96 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_1d27268543854116.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;175ae2d319ea1f03656b9abc16f4e685f591d1bddc4dfe4d1fa43377ffd9a58e&quot;, &quot;pixels&quot;: &quot;final/pixels_1d27268543854116.rgb.gz&quot;, &quot;poster&quot;: &quot;final/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>视频编辑</span><h3 style="margin-top:14px">原始任务</h3><p>From frame 1 onwards, increase the wooden block&#x27;s mass to 10 times its original value.
+</p><div class=facts><div><strong>4.00s</strong>视频时长</div><div><strong>28569</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=card><h2>编辑前的完整原视频</h2><video controls preload=metadata src="source_video.mp4" style="width:100%;max-height:480px"></video><p class=note>上方为编辑结果；原视频是模型获准使用的输入。下方为逐轮保存的编辑候选。</p></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-11T12:54:00.125771+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_1d27268543854116.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;175ae2d319ea1f03656b9abc16f4e685f591d1bddc4dfe4d1fa43377ffd9a58e&quot;, &quot;pixels&quot;: &quot;candidate_00/pixels_1d27268543854116.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_00/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_00/inspection.png" target=_blank><img loading=lazy src="candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_00/transition_check.png" target=_blank><img loading=lazy src="candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,170 @@
++&quot;&quot;&quot;Edit the original rigid-body shot: wooden block mass is multiplied by ten.
++
++The scene is reconstructed from the supplied RGB sequence.  The initial rolling
++approach is unchanged.  A two-body collision is integrated at the observed
++contact time, with Coulomb sliding, rolling inertia and the block&#x27;s increased
++mass.  Source surface pixels provide the object appearance; there is no external
++renderer or model.
++&quot;&quot;&quot;
++from pathlib import Path
++import numpy as np
++from scipy.ndimage import map_coordinates, gaussian_filter
++from PIL import Image, ImageDraw
++import artifact_io
++
++ROOT = Path(__file__).resolve().parent
++FPS = 24
++H, W = 144, 256
++Y, X = np.mgrid[:H, :W].astype(float)
++
++
++def sample(rgb, x, y):
++    return np.stack([map_coordinates(rgb[..., c], [y, x], order=1,
++                                    mode=&#x27;nearest&#x27;) for c in range(3)], -1)
++
++
++def ball_geometry(t):
++    return (15.3 + 6.92*t + .014*t*t,
++            56.25 + 1.31*t + .010*t*t,
++            15.15 + .215*t, 14.55 + .205*t)
++
++
++def polygon_mask(points, scale=4):
++    im = Image.new(&#x27;L&#x27;, (W*scale, H*scale))
++    ImageDraw.Draw(im).polygon([(round(x*scale), round(y*scale)) for x,y in points], fill=255)
++    return np.asarray(im.resize((W,H), Image.Resampling.LANCZOS), float)/255
++
++
++def main():
++    source = np.load(ROOT / &#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
++    # The left-hand tabletop is revealed after the projectile has passed it.
++    # Temporal median retains the original photographic wood texture.
++    clean = np.median(source[26:96], axis=0)
++    base = source[0].copy()
++    erase = np.zeros((H,W), float)
++    erase[38:96, :58] = 1
++    erase = gaussian_filter(erase, .6)
++    base = base*(1-erase[...,None]) + clean*erase[...,None]
++
++    # Background for source sphere mattes is visible in the later shot.
++    sphere_bg = np.median(source[50:96], axis=0)
++    body_polygon = np.array([[109,60.5],[126.5,55.2],[164.5,61.0],
++                             [164.1,95.2],[149.5,103.5],[109.0,94.8]])
++    block_mask = polygon_mask(body_polygon)
++
++    # A smooth local warp moves the textured block and its contact shadow while
++    # leaving the camera, wall, table boundary and remote tabletop untouched.
++    region = polygon_mask([[105,55],[126,49],[169,57],[181,96],
++                           [174,119],[104,112],[98,68]])
++    region = gaussian_filter(region, 4.5)
++    region = np.maximum(region, block_mask)
++
++    # Impact measured at original frame 13 (t=.5 s), immediately after the
++    # factual approach.  Inferred original masses are approximately equal.
++    contact = 12.0
++    initial_x, initial_y, _, _ = ball_geometry(contact)
++    vin = 7.15                 # projected incoming speed, pixels/frame
++    restitution = .78
++    mass_ball, mass_block = 1.0, 10.0
++    vb0 = (1+restitution)*mass_ball/(mass_ball+mass_block)*vin
++    vs0 = (mass_ball-restitution*mass_block)/(mass_ball+mass_block)*vin
++
++    # A sphere keeps some pre-impact spin: sliding friction brings linear and
++    # angular velocities back to rolling. Low rolling resistance then carries
++    # the rebounding projectile back along the tabletop rather than freezing it.
++    sphere_x = initial_x
++    sphere_v = vs0
++    spin_surface_v = vin
++    block_x, block_v = 0.0, vb0
++    track = []
++    for i in range(96):
++        if i &lt; contact:
++            track.append((ball_geometry(i)[0], 0.0))
++            continue
++        if i &gt; contact:
++            for _ in range(32):
++                dt = 1/32
++                slip = sphere_v-spin_surface_v
++                if abs(slip) &gt; .018:
++                    accel = -.31*np.sign(slip)
++                    # I=2/5 mr^2 for a solid rolling sphere.
++                    next_v = sphere_v+accel*dt
++                    next_spin = spin_surface_v-2.5*accel*dt
++                    if (next_v-next_spin)*slip &lt; 0:
++                        next_v = next_spin = (sphere_v+.4*spin_surface_v)/1.4
++                    sphere_v, spin_surface_v = next_v, next_spin
++                else:
++                    speed = max(0, abs(sphere_v)-.0025*dt)
++                    sphere_v = np.sign(sphere_v)*speed
++                    spin_surface_v = sphere_v
++                sphere_x += sphere_v*dt
++                if block_v &gt; 0:
++                    vnext = max(0, block_v-.29*dt)
++                    block_x += (block_v+vnext)*.5*dt
++                    block_v = vnext
++        track.append((sphere_x, block_x))
++
++    frames = np.empty((96,H,W,3), np.uint8)
++    for i, (cx, dx) in enumerate(track):
++        if i &lt; 12:
++            frames[i] = source[i].astype(np.uint8)
++            continue
++        dy = .185*dx
++        # Increased inertia also suppresses the source&#x27;s large yaw of the cube.
++        theta = np.deg2rad(.32*dx)
++        pivot = np.array([137,82.0])
++        # Smooth inverse transform, including the table-side contact shadow.
++        xr, yr = X-dx*region, Y-dy*region
++        ang = theta*region
++        u, v = xr-pivot[0], yr-pivot[1]
++        xr = pivot[0] + np.cos(ang)*u + np.sin(ang)*v
++        yr = pivot[1] - np.sin(ang)*u + np.cos(ang)*v
++        scene = sample(base,xr,yr)
++        occlusion = map_coordinates(block_mask,[yr,xr],order=1,mode=&#x27;constant&#x27;,cval=0)
++
++        # The rebound follows the same plane and perspective as the approach.
++        phase = np.clip((-6.92+np.sqrt(6.92**2+4*.014*max(0,cx-15.3)))/(.028),0,10)
++        sy = 56.25 + .19*(cx-15.3)
++        rx = max(13.2,15.15+.031*(cx-15.3))
++        ry = max(12.7,14.55+.0296*(cx-15.3))
++        rr = np.sqrt(((X-cx)/rx)**2 + ((Y-sy)/ry)**2)
++        alpha = np.clip((1-rr)*min(rx,ry)+.55,0,1)
++
++        k0 = int(np.floor(phase)); k1 = min(10,k0+1); mix = phase-k0
++        colors=[]
++        shadows=[]
++        for k in (k0,k1):
++            sx, yy, arx, ary = ball_geometry(k)
++            tx = sx+(X-cx)*arx/rx
++            ty = yy+(Y-sy)*ary/ry
++            pix = sample(source[k],tx,ty)
++            back = sample(sphere_bg,tx,ty)
++            # Undo the original edge&#x27;s background contribution before compositing.
++            a0 = np.clip((1-rr)*min(arx,ary)+.55,0,1)
++            color = (pix-back*(1-a0[...,None]))/np.maximum(a0[...,None],.15)
++            colors.append(np.clip(color,0,255))
++            ratio = np.clip(pix/np.maximum(back,1),.35,1.0)
++            shadows.append(ratio)
++        color = (1-mix)*colors[0]+mix*colors[1]
++        shadow = (1-mix)*shadows[0]+mix*shadows[1]
++        # The source soft shadow occupies the floor below and to the right of
++        # the sphere.  Its residual multiplies, rather than replacing, wood grain.
++        sm = np.exp(-(((X-(cx+7))/(rx*1.2))**2 +
++                       ((Y-(sy+ry+3))/(ry*.56))**2)*.8)
++        sm *= (1-alpha) * (1-occlusion)
++        sm *= np.clip((Y-(sy+ry*.35))/5,0,1)
++        scene *= 1-sm[...,None]*(1-shadow)
++        a = alpha*(1-occlusion)
++        scene = scene*(1-a[...,None])+color*a[...,None]
++        frames[i] = np.clip(np.round(scene),0,255).astype(np.uint8)
++    # The first RGB frame is exactly the factual initial state; changing mass
++    # has no instantaneous visual effect on shape, material, or position.
++    frames[0] = source[0].astype(np.uint8)
++    artifact_io.save(frames, ROOT)
++    print(&#x27;Saved&#x27;,frames.shape,&#x27;at&#x27;,FPS,&#x27;fps&#x27;)
++    print(&#x27;Collision sphere velocity:&#x27;,round(vs0,3),&#x27;block velocity:&#x27;,round(vb0,3))
++    print(&#x27;Block final displacement:&#x27;,np.round(track[-1][1],3),
++          &#x27;sphere final x:&#x27;,round(track[-1][0],3))
++
++if __name__ == &#x27;__main__&#x27;:
++    main()
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-11T12:38:01.138291+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;ls -la &amp;&amp; cat prompt.txt &amp;&amp; printf &#x27;\\n---RULES---\\n&#x27; &amp;&amp; cat GENERATION_RULES.md&quot;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-11T12:38:39.124210+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat source_info.json &amp;&amp; cat task_spec.json &amp;&amp; cat artifact_io.py&#x27;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-11T12:39:17.975390+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from collections import Counter
+z=np.load(&#x27;source_pixels.npz&#x27;); print(z.files)
+f=z[z.files[0]]; print(f.shape,f.dtype)
+for t in [0,12,24,36,48,60,72,84,95]:
+ a=f[t]; print(t,Counter(map(tuple,a.reshape(-1,3)//16*16)).most_common(12))
+a=f[0]
+for y in range(0,144,4):
+ s=&#x27;&#x27;
+ for x in range(0,256,4):
+  r,g,b=a[y:y+4,x:x+4].mean((0,1));
+  if r&gt;g*1.3 and r&gt;b*1.5: c=&#x27;W&#x27;
+  elif b&gt;r*1.3 and b&gt;g*1.1:c=&#x27;B&#x27;
+  elif g&gt;r*1.25 and g&gt;b*1.15:c=&#x27;G&#x27;
+  elif max(r,g,b)-min(r,g,b)&lt;15:c=&#x27;.&#x27; if r&gt;180 else (&#x27;-&#x27; if r&gt;100 else &#x27;#&#x27;)
+  elif r&gt;130 and g&gt;90 and b&lt;g*.8:c=&#x27;w&#x27;
+  else:c=&#x27;o&#x27;
+  s+=c
+ print(&#x27;%03d&#x27;%y,s)
+PY&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-11T12:39:54.763277+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for t in [1,4,8,12,16,24,36,60,95]:
+ d=np.max(abs(f[t]-f[0]),2);lab,n=label(d&gt;30)
+ print(&#x27;\\nDIFF&#x27;,t)
+ for i in range(1,n+1):
+  y,x=np.where(lab==i)
+  if len(x)&gt;12:print(len(x),[x.min(),y.min(),x.max(),y.max()], &#x27;ctr&#x27;,x.mean().round(1),y.mean().round(1))
+# Show grayscale at 2 pixel resolution throughout object region
+for t in [0,24,95]:
+ print(&#x27;\\nFRAME&#x27;,t)
+ a=f[t]; c=&#x27; .,:;irsXA253hMHGS#9B&amp;@&#x27;
+ for y in range(35,110,2):
+  print(&#x27;%03d &#x27;%y+&#x27;&#x27;.join(c[min(len(c)-1,int(np.mean(a[y:y+2,x:x+2])*len(c)/256))] for x in range(0,256,2)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-11T12:40:38.054349+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for t in [0,6,10,12,14,16,18,24,36,60,95]:
+ print(&#x27;\\nFRAME&#x27;,t)
+ # print region char quantitative red relative ground red (ground=140)
+ a=f[t]
+ for y in range(40,111,2):
+  s=&#x27;&#x27;
+  for x in range(0,245,2):
+   r,g,b=a[y:y+2,x:x+2].mean((0,1))
+   if g&gt;140 and abs(r-g)&lt;20:c=&#x27; &#x27;
+   elif g&lt;40:c=&#x27;@&#x27;
+   elif g&lt;50:c=&#x27;#&#x27;
+   elif g&lt;60:c=&#x27;O&#x27;
+   elif g&lt;70:c=&#x27;o&#x27;
+   elif g&lt;80:c=&#x27;:&#x27;
+   elif g&lt;90:c=&#x27;.&#x27;
+   elif g&lt;100:c=&#x27;-&#x27;
+   elif g&lt;115:c=&#x27;=&#x27;
+   else:c=&#x27;+&#x27;
+   s+=c
+  print(&#x27;%03d &#x27;%y+s)
+PY&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-11T12:41:17.897700+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+g=f[:,:,:,1]; inds=np.argsort(g,axis=0)[-20:]; bg=np.median(np.take_along_axis(f,inds[:,:,:,None],axis=0),axis=0)
+for t in [0,4,8,11,12,13,14,16,20,24,36,95]:
+ a=f[t];d=np.mean(bg-a,axis=2);lab,n=label(d&gt;18)
+ print(&#x27;FRAME&#x27;,t)
+ for i in range(1,n+1):
+  y,x=np.where(lab==i)
+  if len(x)&gt;100:print(&#x27;shape&#x27;,len(x),(x.min(),y.min(),x.max(),y.max()),np.round([x.mean(),y.mean()],1))
+ if t in [0,4,12]:
+  for y in range(40,108,2):
+   print(&#x27;%03d &#x27;%y+&#x27;&#x27;.join(&#x27; &#x27; if k&lt;8 else (&#x27;.&#x27; if k&lt;18 else (&#x27;o&#x27; if k&lt;35 else (&#x27;#&#x27; if k&lt;55 else &#x27;@&#x27;))) for k in d[y:y+2,:180].reshape(2,90,2).mean((0,2))))
+PY&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-11T12:42:00.624612+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;];bg=np.max(f.astype(float),axis=0)
+for t in [0,3,7,10,12,16,24,36,60,95]:
+ a=f[t].astype(float);print(&#x27;\\nFRAME&#x27;,t)
+ # Values, 1 pixel green crop around projectile + big block
+ for y in range(41 if t==0 else 55,105,2):
+  x0=0 if t==0 else 75
+  x1=171
+  s=&#x27;&#x27;
+  for x in range(x0,x1,2):
+   r,g,b=a[y:y+2,x:x+2].mean((0,1)); d=(bg[y:y+2,x:x+2]-a[y:y+2,x:x+2]).mean()
+   if d&lt;7 and x&gt;30: c=&#x27; &#x27;
+   elif g&lt;25:c=&#x27;@&#x27;
+   elif g&lt;35:c=&#x27;#&#x27;
+   elif g&lt;45:c=&#x27;8&#x27;
+   elif g&lt;55:c=&#x27;O&#x27;
+   elif g&lt;65:c=&#x27;o&#x27;
+   elif g&lt;75:c=&#x27;:&#x27;
+   elif g&lt;85:c=&#x27;.&#x27;
+   elif g&lt;100:c=&#x27;-&#x27;
+   elif g&lt;120:c=&#x27;=&#x27;
+   else:c=&#x27;+&#x27;
+   s+=c
+  print(&#x27;%03d&#x27;%y,s)
+PY&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-11T12:42:39.034068+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+# Pick clean background first object from f36. Print ratios
+for t,x0,x1,y0,y1,bgt in [(0,0,45,36,83,36),(4,24,80,40,91,36),(8,52,109,46,98,60),(0,97,174,53,112,50),(36,175,251,63,130,0)]:
+ a=f[t];bg=f[bgt];diff=np.mean(bg-a,2)
+ print(&#x27;\\nOBJ&#x27;,t,&#x27;x&#x27;,x0,x1,&#x27;y&#x27;,y0,y1)
+ for y in range(y0,y1):
+  s=&#x27;&#x27;
+  for x in range(x0,x1):
+   r,g,b=a[y,x];d=diff[y,x]
+   if d&lt;-5:c=&#x27;+&#x27; # highlights brighter than ground
+   elif d&lt;7:c=&#x27; &#x27;
+   elif d&lt;18:c=&#x27;.&#x27;
+   elif d&lt;32:c=&#x27;o&#x27;
+   elif d&lt;47:c=&#x27;O&#x27;
+   elif d&lt;62:c=&#x27;#&#x27;
+   else:c=&#x27;@&#x27;
+   s+=c
+  print(&#x27;%03d &#x27;%y+s)
+PY&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-11T12:43:17.740495+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label
+from scipy.spatial import ConvexHull
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+# clean table bg first where obj0 was using frame24; big using frame60
+for t in [0,4,8,10,11,12,13,14,16,20,24,36,60,95]:
+ a=f[t];d=(a-f[95]).mean(2); hi=(d&gt;10)&amp;(np.indices(d.shape)[1]&lt;110)
+ lab,n=label(hi)
+ print(&#x27;frame&#x27;,t)
+ for i in range(1,n+1):
+  y,x=np.where(lab==i)
+  if len(x)&gt;25:
+   pts=np.stack([x,y],1);h=ConvexHull(pts)
+   print(&#x27;lighter&#x27;,len(x),np.round(pts.mean(0),1),&#x27;hull&#x27;,pts[h.vertices].tolist())
+PY&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-11T12:44:07.124774+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for t in [0,12,24,36]:
+ print(&#x27;\\nBLOCK&#x27;,t)
+ a=f[t]; x0=100 if t&lt;24 else (157 if t==24 else 177); x1=x0+73
+ for y in range(52 if t&lt;24 else 64,110 if t&lt;24 else 123):
+  s=&#x27;&#x27;
+  for x in range(x0,x1):
+   r,g,b=a[y,x]
+   if r&lt;80: c=&#x27;#&#x27;
+   elif r&lt;95:c=&#x27;O&#x27;
+   elif r&lt;110:c=&#x27;o&#x27;
+   elif r&lt;125:c=&#x27;.&#x27;
+   elif r&lt;140:c=&#x27; &#x27;
+   elif r&lt;160:c=&#x27;+&#x27;
+   else:c=&#x27;x&#x27;
+   s+=c
+  print(&#x27;%03d&#x27;%y,s)
+PY&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-11T12:44:40.982765+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+# Compare block rigid translation at frame0 vs36 and small at 4 vs8: template matching
+from scipy.ndimage import shift
+for t in [1,4,8,10,11,12,13,14,16,20,24,28,32,36,48,60,95]:
+ ref=f[0,62:97,111:156]; a=f[t]
+ best=[]
+ for dy in range(-2,25):
+  for dx in range(-2,100):
+   if 156+dx&gt;=256:continue
+   p=a[62+dy:97+dy,111+dx:156+dx]
+   err=np.mean(abs(p-ref))
+   best.append((err,dx,dy))
+ print(t, sorted(best)[:3])
+PY&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-11T12:45:06.124097+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+# small object translation reference frame4, core without shadow
+for t in range(12):
+ ref=f[4,49:75,30:57];best=[]
+ for dy in range(-8,11):
+  for dx in range(-29,60):
+   if 30+dx&lt;0 or 57+dx&gt;256:continue
+   p=f[t,49+dy:75+dy,30+dx:57+dx];err=np.mean(abs(p-ref));best.append((err,dx,dy))
+ print(&#x27;small&#x27;,t,sorted(best)[:2])
+# list color samples block edge rows as intensity contrast to clean bg median max
+bg=np.median(f[30:],axis=0)
+for y in [54,55,56,57,58,59,60,61,62,63,64,65,68,70,71,72,73,80,94,95,96,97,98,99,100,101,102,103,104]:
+ a=f[0,y]; b=bg[y];d=(b-a).mean(1)
+ print(y,&#x27; &#x27;.join(f&#x27;{x}:{d[x]:.0f}&#x27; for x in range(100,169) if abs(d[x])&gt;7))
+PY&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-11T12:46:24.237244+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for t in range(10,37):
+ r,g,b=f[t].transpose(2,0,1);mask=(r&lt;110)&amp;(g&lt;65)&amp;(np.indices(r.shape)[1]&gt;155)&amp;(np.indices(r.shape)[0]&gt;58)&amp;(np.indices(r.shape)[0]&lt;120)
+ y,x=np.where(mask)
+ print(t,x.max(),np.percentile(x,99),y.min(),y.max())
+# ball first texture dims and approximate luminance
+PY&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-11T12:47:08.705874+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+# threshold sphere lighter than tabletop from late frame. Print strongest bright object&#x27;s bounds for all times.
+Y,X=np.indices((144,256));bg=np.median(f[36:],axis=0)
+for t in [0,1,4,8,10,11,12,13,14,16,20,24,36,48,60,72,84,95]:
+ a=f[t];m=(a[:,:,0]&gt;150)&amp;(a[:,:,1]&gt;90)&amp;(Y&gt;40)&amp;(Y&lt;115)&amp;((a-bg).mean(2)&gt;7)
+ lab,n=label(m)
+ for i in range(1,n+1):
+  y,x=np.where(lab==i)
+  if len(x)&gt;35: print(t,len(x),(x.min(),y.min(),x.max(),y.max()),np.round([x.mean(),y.mean()],2))
+PY&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-11T12:47:45.724368+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+a=f[10];bg=f[95];d=(bg-a).mean(2)
+print(&#x27;Frame10, object detail x60..111&#x27;)
+for y in range(48,100):
+ s=&#x27;&#x27;
+ for x in range(60,112):
+  r,g,b=a[y,x]; k=d[y,x]
+  if k&lt;-8:c=&#x27;+&#x27; if r&lt;175 else &#x27;x&#x27;
+  elif k&lt;8:c=&#x27; &#x27;
+  elif k&lt;17:c=&#x27;.&#x27;
+  elif k&lt;28:c=&#x27;o&#x27;
+  elif k&lt;42:c=&#x27;O&#x27;
+  elif k&lt;55:c=&#x27;#&#x27;
+  else:c=&#x27;@&#x27;
+  s+=c
+ print(y,s)
+PY&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-11T12:48:12.455630+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from scipy.ndimage import label
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float); Y,X=np.indices((144,256))
+for t in range(10,40):
+ d=(f[0]-f[t]).mean(2)
+ mask=(f[t,:,:,0]&lt;115)&amp;(Y&gt;64)&amp;(Y&lt;115)&amp;(X&gt;150)&amp;(X&lt;249)
+ lab,n=label(mask)
+ vals=[]
+ for i in range(1,n+1):
+  yy,xx=np.where(lab==i)
+  if len(xx)&gt;150: vals.append((len(xx),xx.max(),yy.max(),xx.min()))
+ print(t,sorted(vals,reverse=True)[:2])
+PY&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-11T12:49:59.798277+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+# ball source outline compare ellipse plus diff stats per row to find hull
+bg=f[95];a=f[0];dif=(a-bg).mean(2)
+for y in range(40,76):
+ inds=np.where(np.max(abs(a[y,:42]-bg[y,:42]),axis=1)&gt;20)[0]
+ print(y,(inds.min(),inds.max()) if len(inds) else None)
+PY&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-11T12:50:53.924157+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+f=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+for t in [0,2,4,6,8,10,11]:
+ a=f[t];bg=f[95]; d=np.max(abs(a-bg),2)
+ print(&#x27;FRAME&#x27;,t)
+ xp=round(7.08*t)
+ for y in range(40+round(1.3*t),75+round(1.3*t)):
+  lo=max(0,xp-5);hi=min(109,xp+39)
+  inds=np.where(d[y,lo:hi]&gt;18)[0]+lo
+  if len(inds):print(y,(int(inds.min()),int(inds.max())))
+PY&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-11T12:53:51.024907+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; generate.py &lt;&lt;&#x27;PY&#x27;
+\&quot;\&quot;\&quot;Edit the original rigid-body shot: wooden block mass is multiplied by ten.
+
+The scene is reconstructed from the supplied RGB sequence.  The initial rolling
+approach is unchanged.  A two-body collision is integrated at the observed
+contact time, with Coulomb sliding, rolling inertia and the block&#x27;s increased
+mass.  Source surface pixels provide the object appearance; there is no external
+renderer or model.
+\&quot;\&quot;\&quot;
+from pathlib import Path
+import numpy as np
+from scipy.ndimage import map_coordinates, gaussian_filter
+from PIL import Image, ImageDraw
+import artifact_io
+
+ROOT = Path(__file__).resolve().parent
+FPS = 24
+H, W = 144, 256
+Y, X = np.mgrid[:H, :W].astype(float)
+
+
+def sample(rgb, x, y):
+    return np.stack([map_coordinates(rgb[..., c], [y, x], order=1,
+                                    mode=&#x27;nearest&#x27;) for c in range(3)], -1)
+
+
+def ball_geometry(t):
+    return (15.3 + 6.92*t + .014*t*t,
+            56.25 + 1.31*t + .010*t*t,
+            15.15 + .215*t, 14.55 + .205*t)
+
+
+def polygon_mask(points, scale=4):
+    im = Image.new(&#x27;L&#x27;, (W*scale, H*scale))
+    ImageDraw.Draw(im).polygon([(round(x*scale), round(y*scale)) for x,y in points], fill=255)
+    return np.asarray(im.resize((W,H), Image.Resampling.LANCZOS), float)/255
+
+
+def main():
+    source = np.load(ROOT / &#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+    # The left-hand tabletop is revealed after the projectile has passed it.
+    # Temporal median retains the original photographic wood texture.
+    clean = np.median(source[26:96], axis=0)
+    base = source[0].copy()
+    erase = np.zeros((H,W), float)
+    erase[38:96, :58] = 1
+    erase = gaussian_filter(erase, .6)
+    base = base*(1-erase[...,None]) + clean*erase[...,None]
+
+    # Background for source sphere mattes is visible in the later shot.
+    sphere_bg = np.median(source[50:96], axis=0)
+    body_polygon = np.array([[109,60.5],[126.5,55.2],[164.5,61.0],
+                             [164.1,95.2],[149.5,103.5],[109.0,94.8]])
+    block_mask = polygon_mask(body_polygon)
+
+    # A smooth local warp moves the textured block and its contact shadow while
+    # leaving the camera, wall, table boundary and remote tabletop untouched.
+    region = polygon_mask([[105,55],[126,49],[169,57],[181,96],
+                           [174,119],[104,112],[98,68]])
+    region = gaussian_filter(region, 4.5)
+    region = np.maximum(region, block_mask)
+
+    # Impact measured at original frame 13 (t=.5 s), immediately after the
+    # factual approach.  Inferred original masses are approximately equal.
+    contact = 12.0
+    initial_x, initial_y, _, _ = ball_geometry(contact)
+    vin = 7.15                 # projected incoming speed, pixels/frame
+    restitution = .78
+    mass_ball, mass_block = 1.0, 10.0
+    vb0 = (1+restitution)*mass_ball/(mass_ball+mass_block)*vin
+    vs0 = (mass_ball-restitution*mass_block)/(mass_ball+mass_block)*vin
+
+    # A sphere keeps some pre-impact spin: sliding friction brings linear and
+    # angular velocities back to rolling. Low rolling resistance then carries
+    # the rebounding projectile back along the tabletop rather than freezing it.
+    sphere_x = initial_x
+    sphere_v = vs0
+    spin_surface_v = vin
+    block_x, block_v = 0.0, vb0
+    track = []
+    for i in range(96):
+        if i &lt; contact:
+            track.append((ball_geometry(i)[0], 0.0))
+            continue
+        if i &gt; contact:
+            for _ in range(32):
+                dt = 1/32
+                slip = sphere_v-spin_surface_v
+                if abs(slip) &gt; .018:
+                    accel = -.31*np.sign(slip)
+                    # I=2/5 mr&quot;&#x27;^2 for a solid rolling sphere.
+                    next_v = sphere_v+accel*dt
+                    next_spin = spin_surface_v-2.5*accel*dt
+                    if (next_v-next_spin)*slip &lt; 0:
+                        next_v = next_spin = (sphere_v+.4*spin_surface_v)/1.4
+                    sphere_v, spin_surface_v = next_v, next_spin
+                else:
+                    speed = max(0, abs(sphere_v)-.0025*dt)
+                    sphere_v = np.sign(sphere_v)*speed
+                    spin_surface_v = sphere_v
+                sphere_x += sphere_v*dt
+                if block_v &gt; 0:
+                    vnext = max(0, block_v-.29*dt)
+                    block_x += (block_v+vnext)*.5*dt
+                    block_v = vnext
+        track.append((sphere_x, block_x))
+
+    frames = np.empty((96,H,W,3), np.uint8)
+    for i, (cx, dx) in enumerate(track):
+        if i &lt; 12:
+            frames[i] = source[i].astype(np.uint8)
+            continue
+        dy = .185*dx
+        # Increased inertia also suppresses the source&#x27;&quot;&#x27;s large yaw of the cube.
+        theta = np.deg2rad(.32*dx)
+        pivot = np.array([137,82.0])
+        # Smooth inverse transform, including the table-side contact shadow.
+        xr, yr = X-dx*region, Y-dy*region
+        ang = theta*region
+        u, v = xr-pivot[0], yr-pivot[1]
+        xr = pivot[0] + np.cos(ang)*u + np.sin(ang)*v
+        yr = pivot[1] - np.sin(ang)*u + np.cos(ang)*v
+        scene = sample(base,xr,yr)
+        occlusion = map_coordinates(block_mask,[yr,xr],order=1,mode=&#x27;constant&#x27;,cval=0)
+
+        # The rebound follows the same plane and perspective as the approach.
+        phase = np.clip((-6.92+np.sqrt(6.92**2+4*.014*max(0,cx-15.3)))/(.028),0,10)
+        sy = 56.25 + .19*(cx-15.3)
+        rx = max(13.2,15.15+.031*(cx-15.3))
+        ry = max(12.7,14.55+.0296*(cx-15.3))
+        rr = np.sqrt(((X-cx)/rx)**2 + ((Y-sy)/ry)**2)
+        alpha = np.clip((1-rr)*min(rx,ry)+.55,0,1)
+
+        k0 = int(np.floor(phase)); k1 = min(10,k0+1); mix = phase-k0
+        colors=[]
+        shadows=[]
+        for k in (k0,k1):
+            sx, yy, arx, ary = ball_geometry(k)
+            tx = sx+(X-cx)*arx/rx
+            ty = yy+(Y-sy)*ary/ry
+            pix = sample(source[k],tx,ty)
+            back = sample(sphere_bg,tx,ty)
+            # Undo the original edge&#x27;s background contribution before compositing.
+            a0 = np.clip((1-rr)*min(arx,ary)+.55,0,1)
+            color = (pix-back*(1-a0[...,None]))/np.maximum(a0[...,None],.15)
+            colors.append(np.clip(color,0,255))
+            ratio = np.clip(pix/np.maximum(back,1),.35,1.0)
+            shadows.append(ratio)
+        color = (1-mix)*colors[0]+mix*colors[1]
+        shadow = (1-mix)*shadows[0]+mix*shadows[1]
+        # The source soft shadow occupies the floor below and to the right of
+        # the sphere.  Its residual multiplies, rather than replacing, wood grain.
+        sm = np.exp(-(((X-(cx+7))/(rx*1.2))**2 +
+                       ((Y-(sy+ry+3))/(ry*.56))**2)*.8)
+        sm *= (1-alpha) * (1-occlusion)
+        sm *= np.clip((Y-(sy+ry*.35))/5,0,1)
+        scene *= 1-sm[...,None]*(1-shadow)
+        a = alpha*(1-occlusion)
+        scene = scene*(1-a[...,None])+color*a[...,None]
+        frames[i] = np.clip(np.round(scene),0,255).astype(np.uint8)
+    # The first RGB frame is exactly the factual initial state; changing mass
+    # has no instantaneous visual effect on shape, material, or position.
+    frames[0] = source[0].astype(np.uint8)
+    artifact_io.save(frames, ROOT)
+    print(&#x27;Saved&#x27;,frames.shape,&#x27;at&#x27;,FPS,&#x27;fps&#x27;)
+    print(&#x27;Collision sphere velocity:&#x27;,round(vs0,3),&#x27;block velocity:&#x27;,round(vb0,3))
+    print(&#x27;Block final displacement:&#x27;,np.round(track[-1][1],3),
+          &#x27;sphere final x:&#x27;,round(track[-1][0],3))
+
+if __name__ == &#x27;__main__&#x27;:
+    main()
+PY
+python generate.py&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-11T12:54:55.724202+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+s=np.load(&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;].astype(float)
+p=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;].transpose(2,0,1)
+f=np.stack([(p&gt;&gt;16)&amp;255,(p&gt;&gt;8)&amp;255,p&amp;255],-1).astype(float)
+print(&#x27;First frame exact:&#x27;,np.array_equal(s[0],f[0]))
+print(&#x27;Unchanged approach:&#x27;,np.array_equal(s[:12],f[:12]))
+for t in [10,11,12,13,14,16,20,24,36,60,95]:
+ print(t,&#x27;ball positive colors&#x27;,int((f[t,:,:,0]&gt;170).sum()),&#x27;step MAD&#x27;,round(np.mean(abs(f[t]-f[max(0,t-1)])),3),&#x27;changed bbox&#x27;,end=&#x27; &#x27;)
+ m=np.max(abs(f[t]-s[0]),2)&gt;25;y,x=np.where(m);print((x.min(),y.min(),x.max(),y.max()))
+# Report grayscale/RGB outline of ball around contact, ascii color thresholds.
+for t in [11,12,13,16,24,36,60,95]:
+ print(&#x27;\\nOUT&#x27;,t)
+ # difference from initial static scene: useful ball figure + block unaffected mask
+ for y in range(35,101,3):
+  st=&#x27;&#x27;
+  for x in range(0,181,3):
+   r,g,b=f[t,y:y+3,x:x+3].mean((0,1))
+   if g&gt;140 and abs(r-g)&lt;20:c=&#x27; &#x27;
+   elif g&lt;35:c=&#x27;#&#x27;
+   elif g&lt;50:c=&#x27;O&#x27;
+   elif g&lt;65:c=&#x27;o&#x27;
+   elif g&lt;75:c=&#x27;:&#x27;
+   elif g&lt;85:c=&#x27;.&#x27;
+   elif g&lt;100:c=&#x27;-&#x27;
+   else:c=&#x27;+&#x27;
+   st+=c
+  print(y,st)
+PY&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-11T12:55:33.737620+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+import numpy as np
+root=Path(&#x27;.&#x27;)
+for name in [&#x27;generate.py&#x27;,&#x27;pixels.npz&#x27;,&#x27;index.html&#x27;,&#x27;inspection.png&#x27;,&#x27;transition_check.png&#x27;]:
+ p=root/name; assert p.is_file() and p.stat().st_size&gt;0; print(name,p.stat().st_size)
+assert len(list((root/&#x27;frames&#x27;).glob(&#x27;*.png&#x27;)))==96
+p=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;]; assert p.shape==(144,256,96)
+print(&#x27;Verified 96 RGB frames, 256x144, 24 fps, 4 seconds.&#x27;)
+PY&quot;</pre></details><p class=muted>保存候选 1 份；完成命令 21 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
