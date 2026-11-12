@@ -1,0 +1,2224 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>gemini-3.8-flash · 0098</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>gemini-3.8-flash · 0098</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>4.0 FPS · 20 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_9fa0dd8734fc3b57.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;eef568f237fa777d51db6f9ee5d41393dd8ea293cdceea32e850f7645785c971&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/f669be0dbbc556f0448a853eb6859d685a6aed16/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0098_attempt_02/final/pixels_9fa0dd8734fc3b57.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/f669be0dbbc556f0448a853eb6859d685a6aed16/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0098_attempt_02/final/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>首帧续写</span><h3 style="margin-top:14px">原始任务</h3><p>Static locked-off single-shot with fixed frame throughout filmed with constant framerate in real-time. The scene shows a realistic scientific demonstration. The scene only contains the described setup and actions. The clear acrylic box was suspended over the tennis ball with a smiley face. The tennis ball with the smiley is positioned on a wooden table. The clear acrylic box hanging from an orange cord lowers to cover the tennis ball with a smiley face.
+</p><div class=facts><div><strong>5.00s</strong>视频时长</div><div><strong>32689</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-12T13:29:53.927978+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_9fa0dd8734fc3b57.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;eef568f237fa777d51db6f9ee5d41393dd8ea293cdceea32e850f7645785c971&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/f669be0dbbc556f0448a853eb6859d685a6aed16/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0098_attempt_02/candidate_00/pixels_9fa0dd8734fc3b57.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/f669be0dbbc556f0448a853eb6859d685a6aed16/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0098_attempt_02/candidate_00/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/f669be0dbbc556f0448a853eb6859d685a6aed16/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0098_attempt_02/candidate_00/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/f669be0dbbc556f0448a853eb6859d685a6aed16/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0098_attempt_02/candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/f669be0dbbc556f0448a853eb6859d685a6aed16/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0098_attempt_02/candidate_00/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/f669be0dbbc556f0448a853eb6859d685a6aed16/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0098_attempt_02/candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,81 @@
++from pathlib import Path
++import cv2
++import numpy as np
++from PIL import Image
++from scipy.ndimage import map_coordinates
++
++import artifact_io
++
++
++def generate_video():
++    case_dir = Path(__file__).parent
++    first_frame_path = case_dir / &quot;first_frame.png&quot;
++    first_frame = np.array(Image.open(first_frame_path))
++
++    # Inpaint clean background where the suspended acrylic box is located
++    inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
++    inpaint_mask[0:86, 104:148] = 255
++    bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
++
++    # Compute delta layer for the box assembly
++    delta = first_frame.astype(float) - bg.astype(float)
++    box_region = np.zeros((144, 256), dtype=bool)
++    box_region[0:86, 104:148] = True
++    delta[~box_region] = 0.0
++
++    # Vertical cord pattern to extend as the box lowers
++    cord_delta = delta[0:20, 124:131].copy()
++
++    def shift_layer(delta_img, dy):
++        y_coords, x_coords = np.indices(delta_img.shape[:2])
++        src_y = y_coords - dy
++        shifted = np.zeros_like(delta_img)
++        for c in range(3):
++            shifted[:, :, c] = map_coordinates(
++                delta_img[:, :, c],
++                [src_y, x_coords],
++                order=1,
++                mode=&quot;constant&quot;,
++                cval=0.0,
++            )
++        return shifted
++
++    def render(dy):
++        if dy == 0.0:
++            return first_frame.copy()
++        shifted = shift_layer(delta, dy)
++        max_cord_y = int(np.ceil(dy))
++        for y in range(max_cord_y):
++            src_y = y % 20
++            shifted[y, 124:131] = cord_delta[src_y]
++        composite = np.clip(bg.astype(float) + shifted, 0, 255).astype(np.uint8)
++        return composite
++
++    frames = []
++    total_frames = 20
++    max_dy = 32.0  # acrylic box lowers by 32px to cover tennis ball on table
++
++    for t in range(total_frames):
++        if t == 0:
++            dy = 0.0
++        elif t &gt;= 16:
++            dy = max_dy
++        else:
++            # Quintic smoothstep easing
++            p = t / 16.0
++            s = p * p * (3.0 - 2.0 * p)
++            dy = s * max_dy
++        frames.append(render(dy))
++
++    frames = np.array(frames)
++
++    # Verify frame 0 is pixel-identical to first_frame.png
++    assert np.array_equal(frames[0], first_frame), &quot;Frame 00 must be pixel-identical to first_frame.png&quot;
++    assert frames.shape == (20, 144, 256, 3)
++
++    artifact_io.save(frames, case_dir)
++    print(&quot;Video generated and artifacts saved successfully.&quot;)
++
++
++if __name__ == &quot;__main__&quot;:
++    generate_video()
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-12T13:11:02.114244+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la&#x27;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-12T13:11:07.434673+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat prompt.txt; echo &quot;---&quot;; cat GENERATION_RULES.md&#x27;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-12T13:11:11.535642+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat artifact_io.py&#x27;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-12T13:12:35.660805+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+print(&#x27;Dimensions:&#x27;, img.size, img.mode)
+arr = np.array(img)
+print(&#x27;Shape:&#x27;, arr.shape, &#x27;dtype:&#x27;, arr.dtype)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-12T13:12:42.507171+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Mean RGB:&#x27;, img.mean(axis=(0,1)))
+print(&#x27;Min/Max RGB:&#x27;, img.min(axis=(0,1)), img.max(axis=(0,1)))
+
+# Let&#x27;s inspect where orange cord might be (high R, medium G, low B?)
+# Look for tennis ball (yellowish/greenish?)
+# Look for table (wooden?)
+# Let&#x27;s do some stats across rows and cols
+print(&#x27;Row mean RGB at selected rows:&#x27;)
+for r in [10, 30, 50, 70, 90, 110, 130]:
+    print(f&#x27;Row {r:3d}: {img[r].mean(axis=0).astype(int)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-12T13:12:48.887068+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Find orange cord: R is high, G medium, B low, or distinct hue
+# Tennis ball: bright yellow/green (high R, high G, lower B)
+# Let&#x27;s inspect where R &gt; 150 and G &gt; 150 and B &lt; 100
+ball_mask = (img[:, :, 0] &gt; 140) &amp; (img[:, :, 1] &gt; 140) &amp; (img[:, :, 2] &lt; 80)
+print(&#x27;Ball mask pixels count:&#x27;, np.sum(ball_mask))
+if np.sum(ball_mask) &gt; 0:
+    ys, xs = np.where(ball_mask)
+    print(f&#x27;Ball bounding box: y=[{ys.min()}, {ys.max()}], x=[{xs.min()}, {xs.max()}]&#x27;)
+
+# Find orange cord:
+cord_mask = (img[:, :, 0] &gt; 150) &amp; (img[:, :, 1] &lt; 120) &amp; (img[:, :, 2] &lt; 80)
+print(&#x27;Cord mask count:&#x27;, np.sum(cord_mask))
+if np.sum(cord_mask) &gt; 0:
+    ys, xs = np.where(cord_mask)
+    print(f&#x27;Cord bounding box: y=[{ys.min()}, {ys.max()}], x=[{xs.min()}, {xs.max()}]&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-12T13:12:54.870436+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect rows 0 to 80 around x ~ 128 (center)
+print(&#x27;Looking for cord / box in top half:&#x27;)
+# Check center column x from 100 to 150, rows 0 to 80
+for y in range(0, 90, 5):
+    # print max R/B ratio or colors around x=128
+    strip = img[y, 110:146]
+    max_r = strip[:, 0].max()
+    print(f&#x27;y={y:2d}: center RGB={img[y, 128]}, strip R range=[{strip[:,0].min()}, {strip[:,0].max()}]&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-12T13:13:02.594142+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the entire image features by looking at color variations and gradients
+# Background seems to be around [140, 134, 140]
+bg_color = np.median(img[:60, :50], axis=(0,1))
+print(&#x27;Background color estimate:&#x27;, bg_color)
+
+# Difference from background
+diff = np.linalg.norm(img.astype(float) - bg_color, axis=-1)
+# Find regions where diff &gt; 30 in top half (y &lt; 85)
+box_region = diff[:85, :] &gt; 25
+ys, xs = np.where(box_region)
+print(f&#x27;Diff &gt; 25 in top half: count={len(ys)}, y=[{ys.min() if len(ys) else None}, {ys.max() if len(ys) else None}], x=[{xs.min() if len(xs) else None}, {xs.max() if len(xs) else None}]&#x27;)
+
+# Let&#x27;s print out what is happening at each row in top half where there are non-bg pixels
+for y in range(0, 85, 3):
+    row_diff = diff[y]
+    interesting = np.where(row_diff &gt; 25)[0]
+    if len(interesting) &gt; 0:
+        print(f&#x27;y={y:2d}: count={len(interesting):3d}, x_min={interesting.min():3d}, x_max={interesting.max():3d}, samples: x={interesting[0]} rgb={img[y, interesting[0]]}, x={interesting[-1]} rgb={img[y, interesting[-1]]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-12T13:13:08.184612+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s print out what is around x in [120..135] for y in 0..50
+print(&#x27;Central column strip (x=124..132):&#x27;)
+for y in range(0, 50):
+    row_vals = [&#x27; &#x27;.join(f&#x27;{c:3d}&#x27; for c in img[y, x]) for x in range(126, 130)]
+    print(f&#x27;y={y:2d}: &#x27; + &#x27; | &#x27;.join(row_vals))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-12T13:13:15.218221+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect where orange or colorful cord is:
+# Maybe the cord is elsewhere, or what are the colors with high saturation?
+hsv = Image.fromarray(img).convert(&#x27;HSV&#x27;)
+hsv_arr = np.array(hsv)
+# H, S, V: S &gt; 50?
+print(&#x27;Max saturation:&#x27;, hsv_arr[:, :, 1].max())
+sat_mask = hsv_arr[:, :, 1] &gt; 40
+ys, xs = np.where(sat_mask)
+print(f&#x27;S &gt; 40: count={len(ys)}, y=[{ys.min() if len(ys) else -1}, {ys.max() if len(ys) else -1}]&#x27;)
+
+# Print pixels with highest saturation:
+top_sat_idx = np.argsort(hsv_arr[:, :, 1].ravel())[-20:]
+for idx in top_sat_idx:
+    y, x = np.unravel_index(idx, hsv_arr.shape[:2])
+    print(f&#x27;y={y}, x={x}, HSV={hsv_arr[y,x]}, RGB={img[y,x]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-12T13:13:23.691044+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+hsv = np.array(Image.fromarray(img).convert(&#x27;HSV&#x27;))
+
+# Look at y &lt; 85 where S &gt; 30
+box_area_sat = (hsv[:85, :, 1] &gt; 30)
+ys, xs = np.where(box_area_sat)
+print(f&#x27;In top half (y&lt;85), count with S&gt;30: {len(ys)}&#x27;)
+for y, x in zip(ys[::len(ys)//10], xs[::len(ys)//10]):
+    print(f&#x27;y={y}, x={x}, HSV={hsv[y, x]}, RGB={img[y, x]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-12T13:13:30.574748+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Compute vertical Sobel / gradient
+gy = np.abs(np.diff(img.astype(float), axis=0))
+gx = np.abs(np.diff(img.astype(float), axis=1))
+
+print(&#x27;Horizontal edges (large gy):&#x27;)
+# Sum across channels
+mag_y = gy.sum(axis=-1)
+# print top rows with strong horizontal edges in top 80 rows
+row_edge_strength = mag_y[:80, :].mean(axis=1)
+for r in np.argsort(row_edge_strength)[-10:]:
+    print(f&#x27;Row {r}: mean edge = {row_edge_strength[r]:.2f}&#x27;)
+
+print(&#x27;Vertical edges (large gx):&#x27;)
+mag_x = gx.sum(axis=-1)
+col_edge_strength = mag_x[:80, :].mean(axis=0)
+for c in np.argsort(col_edge_strength)[-10:]:
+    print(f&#x27;Col {c}: mean edge = {col_edge_strength[c]:.2f}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-12T13:13:36.777958+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+gy = np.abs(np.diff(img.astype(float), axis=0)).sum(axis=-1)
+gx = np.abs(np.diff(img.astype(float), axis=1)).sum(axis=-1)
+
+# Mask out col 120..135 to find outer edges of the box
+mag_x_outside = gx[:80, :].copy()
+mag_x_outside[:, 120:136] = 0
+col_edge_outside = mag_x_outside.mean(axis=0)
+for c in np.argsort(col_edge_outside)[-15:]:
+    print(f&#x27;Col {c}: edge = {col_edge_outside[c]:.2f}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-12T13:13:42.388928+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Print rows 40 to 52 across cols 100 to 155
+# To make it readable, let&#x27;s print intensity (mean RGB) or character representation
+sub = img[40:53, 100:156]
+for y in range(40, 53):
+    line = &#x27;&#x27;.join(&#x27;#&#x27; if img[y, x].mean() &lt; 60 else &#x27;.&#x27; if img[y, x].mean() &gt; 130 else &#x27;+&#x27; for x in range(100, 156))
+    print(f&#x27;y={y:2d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-12T13:13:48.973543+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire box region: from y=0 to y=60, x=80 to x=180
+# Print as ASCII map
+print(&#x27;ASCII map (y=0..52, step y=2, step x=2):&#x27;)
+for y in range(0, 52, 2):
+    line = &#x27;&#x27;.join(&#x27;#&#x27; if img[y, x].mean() &lt; 60 else &#x27;+&#x27; if img[y, x].mean() &lt; 125 else &#x27; &#x27; for x in range(80, 180, 2))
+    print(f&#x27;y={y:2d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-12T13:14:04.982657+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire image (y=0..144, x=0..256)
+# Look at the table edge, ball, box, etc.
+# What is the table surface?
+# Let&#x27;s check mean RGB per row for all rows:
+for y in range(0, 144, 4):
+    print(f&#x27;y={y:3d}: left={img[y, :10].mean(axis=0).astype(int)} mid={img[y, 120:136].mean(axis=0).astype(int)} right={img[y, 246:].mean(axis=0).astype(int)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-12T13:14:13.810159+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the entire image edges to locate the clear acrylic box&quot;&#x27;!
+# Clear acrylic boxes have specular highlights or subtle refraction edges.
+# Let&#x27;&quot;&#x27;s look at row differences or high-pass filter across rows 0..90
+gray = img.mean(axis=2)
+# Sobel filters
+from scipy.ndimage import sobel
+sx = sobel(gray, axis=1)
+sy = sobel(gray, axis=0)
+grad = np.hypot(sx, sy)
+
+print(&#x27;Max grad in various regions (y&lt;90):&#x27;)
+# Find where grad &gt; 20
+ys, xs = np.where((grad &gt; 20) &amp; (np.arange(144)[:, None] &lt; 90))
+print(f&#x27;Count of strong edges (y&lt;90): {len(ys)}&#x27;)
+print(f&#x27;Y range: {ys.min()} to {ys.max()}&#x27;)
+print(f&#x27;X range: {xs.min()} to {xs.max()}&#x27;)
+
+# Print a 2D map of where grad &gt; 15 in y &lt; 90
+for y in range(0, 90, 3):
+    line = &#x27;&#x27;.join(&#x27;#&#x27; if grad[y, x] &gt; 20 else &#x27;+&#x27; if grad[y, x] &gt; 10 else &#x27;.&#x27; for x in range(0, 256, 4))
+    print(f&#x27;y={y:2d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-12T13:15:18.909068+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Save a version of the image that highlights differences and print specific regions
+# What is between y=40 and y=85, x=80 and x=180?
+# Let&#x27;s inspect the values across x at y=50, 60, 70
+for y in [42, 45, 48, 50, 55, 60, 65, 70, 75, 80]:
+    row = img[y, 90:170]
+    # find where row differs significantly from background [140, 134, 140]
+    dev = np.abs(row - np.array([140, 134, 140])).max(axis=-1)
+    large = np.where(dev &gt; 15)[0] + 90
+    print(f&#x27;y={y:2d}: count={len(large)}, min_x={large.min() if len(large) else None}, max_x={large.max() if len(large) else None}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-12T13:15:27.695740+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Image shape:&#x27;, img.shape)
+
+# Let&#x27;s inspect rows 0 to 55 across ALL columns, what is non-background?
+# First, estimate background per row (e.g. median of left 30 pixels and right 30 pixels)
+bg_left = img[:, :30].mean(axis=1)
+bg_right = img[:, 226:].mean(axis=1)
+bg = (bg_left + bg_right) / 2.0
+
+diff_from_bg = np.abs(img - bg[:, None, :]).max(axis=-1)
+
+# Find coordinates where diff_from_bg &gt; 12 in rows 0..70
+for y in range(0, 55):
+    idx = np.where(diff_from_bg[y] &gt; 12)[0]
+    if len(idx) &gt; 0:
+        print(f&#x27;y={y:2d}: count={len(idx):3d}, range=[{idx.min():3d}, {idx.max():3d}], segments:&#x27;)
+        # print continuous segments
+        splits = np.where(np.diff(idx) &gt; 1)[0]
+        starts = np.r_[0, splits + 1]
+        ends = np.r_[splits, len(idx) - 1]
+        segs = [f&#x27;[{idx[s]}-{idx[e]}]&#x27; for s, e in zip(starts, ends)]
+        print(&#x27;    &#x27; + &#x27; &#x27;.join(segs))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-12T13:15:35.787104+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Image top-left (y=0..5, x=0..5):&#x27;, img[0, 0], img[0, 5])
+print(&#x27;Image top-mid (y=0..5, x=125..130):&#x27;, img[0, 127])
+print(&#x27;Image top-right (y=0..5, x=250..255):&#x27;, img[0, 255])
+print(&#x27;Image mid-mid (y=70, x=128):&#x27;, img[70, 128])
+print(&#x27;Image ball center (y=100, x=128):&#x27;, img[100, 128])
+print(&#x27;Image table (y=130, x=128):&#x27;, img[130, 128])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-12T13:15:44.251249+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire image by printing out a downsampled description
+# E.g. grid of 16x16 blocks
+H, W = 144, 256
+bh, bw = 8, 16 # 18x16 grid
+print(&#x27;Grid means (R,G,B):&#x27;)
+for r in range(144 // 8):
+    row_strs = []
+    for c in range(256 // 16):
+        block = img[r*8:(r+1)*8, c*16:(c+1)*16]
+        m = block.mean(axis=(0,1)).astype(int)
+        row_strs.append(f&#x27;{m[0]:3d},{m[1]:3d},{m[2]:3d}&#x27;)
+    # print selected columns to avoid too wide output
+    print(f&#x27;r={r*8:3d}:&#x27;, &#x27; &#x27;.join(row_strs[6:11]))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-12T13:16:13.244083+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect rows 38 to 52 across cols 105 to 150:
+print(&#x27;Cols 110 to 146 for row 40 to 50:&#x27;)
+for y in range(40, 52):
+    vals = [f&#x27;{img[y,x].mean():.0f}&#x27; for x in range(112, 144)]
+    print(f&#x27;y={y:2d}: &#x27; + &#x27; &#x27;.join(vals))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-12T13:16:45.373793+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire row 42 to 50:
+for y in [42, 44, 46, 48, 50]:
+    row = img[y]
+    # find all x where row mean is far from bg
+    diff = np.abs(row.mean(axis=1) - 140)
+    sig = np.where(diff &gt; 15)[0]
+    print(f&#x27;y={y}: min_x={sig.min() if len(sig) else None}, max_x={sig.max() if len(sig) else None}, count={len(sig)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 24</strong><time>2026-11-12T13:16:54.573999+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire ball region y in 85..120, x in 100..160
+ball_crop = img[88:115, 115:142]
+print(&#x27;Ball crop shape:&#x27;, ball_crop.shape)
+# Print RGB values of ball center
+print(&#x27;Ball center at y=100, x=128: RGB =&#x27;, img[100, 128])
+# Find the extent of the tennis ball
+is_ball = (img[:, :, 0] &gt; 80) &amp; (img[:, :, 1] &gt; 80) &amp; (img[:, :, 2] &lt; 50)
+ys, xs = np.where(is_ball)
+print(f&#x27;Ball bbox: y=[{ys.min()}, {ys.max()}], x=[{xs.min()}, {xs.max()}]&#x27;)
+print(f&#x27;Ball center: y={(ys.min()+ys.max())/2:.1f}, x={(xs.min()+xs.max())/2:.1f}&#x27;)
+print(f&#x27;Ball diameter approx: dy={ys.max()-ys.min()+1}, dx={xs.max()-xs.min()+1}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 25</strong><time>2026-11-12T13:17:04.666959+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Print ball area pixels with ASCII art
+for y in range(90, 116):
+    line = &#x27;&#x27;
+    for x in range(114, 142):
+        r, g, b = img[y, x]
+        if r &gt; 100 and g &gt; 100 and b &lt; 50:
+            line += &#x27;O&#x27;
+        elif r &lt; 60 and g &lt; 60 and b &lt; 60:
+            line += &#x27;:&#x27; # smiley face feature?
+        elif r &gt; 80 and g &gt; 60 and b &lt; 60:
+            line += &#x27;.&#x27; # shadow or wood
+        else:
+            line += &#x27; &#x27;
+    print(f&#x27;{y:3d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 26</strong><time>2026-11-12T13:17:12.478311+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire image top region (y &lt; 55) to understand the acrylic box&quot;&#x27;!
+# What are all pixels with RGB significantly different from the background wall?
+# What is the background wall color?
+# Wall is above table: table starts around y ~ 87
+# At y=0..85, what is the wall color as a function of x and y?
+# Let&#x27;&quot;&#x27;s check left side (x=10) and right side (x=245)
+print(&#x27;Left wall (x=10) vs Right wall (x=245):&#x27;)
+for y in range(0, 85, 10):
+    print(f&#x27;y={y:2d}: left={img[y, 10]}, right={img[y, 245]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 27</strong><time>2026-11-12T13:17:21.006658+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Build smooth background wall model: linear interpolation between left and right
+x_coords = np.arange(256)
+y_coords = np.arange(86)
+# Left is col 0..15, right is col 240..255
+wall_left = img[:86, :15].mean(axis=1) # (86, 3)
+wall_right = img[:86, 240:].mean(axis=1) # (86, 3)
+
+# Linear blend
+bg_wall = (wall_left[:, None, :] * (255 - x_coords[None, :, None]) + wall_right[:, None, :] * x_coords[None, :, None]) / 255.0
+
+residual = np.abs(img[:86].astype(float) - bg_wall).mean(axis=-1)
+print(&#x27;Residual stats: max=&#x27;, residual.max(), &#x27;mean=&#x27;, residual.mean())
+
+# Print map of residual &gt; 5 in y=0..86, step y=2, step x=4
+for y in range(0, 86, 2):
+    line = &#x27;&#x27;.join(&#x27; &#x27; if residual[y, x] &lt; 4 else &#x27;.&#x27; if residual[y, x] &lt; 10 else &#x27;+&#x27; if residual[y, x] &lt; 20 else &#x27;#&#x27; for x in range(0, 256, 4))
+    print(f&#x27;{y:2d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 28</strong><time>2026-11-12T13:17:28.691955+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the columns of the &#x27;#&#x27;:
+# At row 60, where are the &#x27;#&#x27; pixels?
+for y in [52, 60, 68, 76]:
+    sharp_x = np.where(img[y].mean(axis=-1) &lt; 130)[0] # or check differences
+    print(f&#x27;y={y}:&#x27;)
+    # print all pixels along x with their values around x in [60..200]
+    # let&#x27;s find the prominent features
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 29</strong><time>2026-11-12T13:17:41.081261+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+x_coords = np.arange(256)
+wall_left = img[:86, :15].mean(axis=1)
+wall_right = img[:86, 240:].mean(axis=1)
+bg_wall = (wall_left[:, None, :] * (255 - x_coords[None, :, None]) + wall_right[:, None, :] * x_coords[None, :, None]) / 255.0
+residual = np.abs(img[:86].astype(float) - bg_wall).mean(axis=-1)
+
+for y in [52, 60, 68, 76]:
+    sharp_x = np.where(residual[y] &gt; 20)[0]
+    print(f&#x27;y={y}: sharp_x min={sharp_x.min() if len(sharp_x) else None}, max={sharp_x.max() if len(sharp_x) else None}, clusters:&#x27;)
+    if len(sharp_x):
+        splits = np.where(np.diff(sharp_x) &gt; 3)[0]
+        starts = np.r_[0, splits + 1]
+        ends = np.r_[splits, len(sharp_x) - 1]
+        for s, e in zip(starts, ends):
+            print(f&#x27;   x=[{sharp_x[s]}-{sharp_x[e]}] mean_color={img[y, sharp_x[s]:sharp_x[e]+1].mean(axis=0).astype(int)} residual={residual[y, sharp_x[s]:sharp_x[e]+1].mean():.1f}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 30</strong><time>2026-11-12T13:17:48.981227+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the prompt again:
+# &#x27;The clear acrylic box was suspended over the tennis ball with a smiley face. The tennis ball with the smiley is positioned on a wooden table. The clear acrylic box hanging from an orange cord lowers to cover the tennis ball with a smiley face.&#x27;
+# Where is the orange cord in first_frame.png?
+# Let&#x27;s inspect rows 0 to 45, columns 120 to 135
+cord_crop = img[0:45, 122:134]
+print(&#x27;Cord crop shape:&#x27;, cord_crop.shape)
+# Print RGB of cord at y=0, 5, 10, 15, 20, 25, 30, 35, 40
+for y in range(0, 45, 3):
+    print(f&#x27;y={y:2d}:&#x27;, img[y, 124:132].tolist())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 31</strong><time>2026-11-12T13:17:56.677707+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the R-G, R-B values across the cord region (y=0..45, x=122..134)
+cord = img[0:45, 122:134]
+print(&#x27;Max R - B in cord:&#x27;, (cord[:, :, 0].astype(int) - cord[:, :, 2].astype(int)).max())
+print(&#x27;Max R - G in cord:&#x27;, (cord[:, :, 0].astype(int) - cord[:, :, 1].astype(int)).max())
+
+# Where in the cord is R - B &gt; 10?
+ys, xs = np.where((cord[:, :, 0].astype(int) - cord[:, :, 2].astype(int)) &gt; 5)
+for y, x in zip(ys, xs):
+    print(f&#x27;cord y={y}, x={x+122}, RGB={cord[y, x]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 32</strong><time>2026-11-12T13:18:05.412174+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire box structure
+# Where are the edges of the box?
+# Let&#x27;s check where pixels change sharply or have specular lines.
+# An acrylic box has:
+# - top face (or top attachment where the cord is attached)
+# - vertical edges (left edge, right edge, back edges)
+# - bottom edge (lip/rim of the box)
+# Let&#x27;s find vertical lines across the image
+# Compute horizontal gradient |img[:, x+1] - img[:, x-1]|
+gx = np.abs(img[:, 2:].astype(float) - img[:, :-2].astype(float)).mean(axis=-1)
+# Average gx along y from y=30 to y=85
+v_edge_profile = gx[30:85].mean(axis=0)
+print(&#x27;Peaks in vertical gradient across x (x=0..254):&#x27;)
+for x in range(1, 253):
+    if v_edge_profile[x] &gt; 4 and v_edge_profile[x] &gt;= v_edge_profile[x-1] and v_edge_profile[x] &gt;= v_edge_profile[x+1]:
+        print(f&#x27;x={x+1:3d}: edge_strength={v_edge_profile[x]:.2f}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 33</strong><time>2026-11-12T13:18:13.003846+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect rows 20 to 90, cols 100 to 155
+# For each column from 100 to 155, print the average value and min/max
+for x in range(100, 155, 2):
+    col = img[40:85, x]
+    print(f&#x27;x={x:3d}: mean={col.mean(axis=0).astype(int)}, min={col.min(axis=0)}, max={col.max(axis=0)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 34</strong><time>2026-11-12T13:18:20.393130+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect rows 40 to 90
+# Where are the min values located in each row?
+print(&#x27;Location of minimum value in each row (y=40..90):&#x27;)
+for y in range(40, 90, 2):
+    m = img[y, 90:160].mean(axis=-1)
+    darkest = np.where(m &lt; 50)[0] + 90
+    brightest = np.where(m &gt; 200)[0] + 90
+    print(f&#x27;y={y:2d}: dark={darkest.tolist()} bright={brightest.tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 35</strong><time>2026-11-12T13:18:29.081444+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire box region y in [25..55] and x in [100..160]
+# What does this object look like?
+# Let&#x27;s print the RGB values of a grid or render an ASCII art with more detail
+for y in range(25, 52):
+    row_chars = []
+    for x in range(105, 150):
+        r, g, b = img[y, x]
+        v = (int(r) + int(g) + int(b)) // 3
+        # if very bright
+        if v &gt; 180:
+            row_chars.append(&#x27;*&#x27;)
+        elif v &lt; 40:
+            row_chars.append(&#x27;#&#x27;)
+        elif v &lt; 80:
+            row_chars.append(&#x27;x&#x27;)
+        elif v &lt; 120:
+            row_chars.append(&#x27;+&#x27;)
+        elif v &lt; 145:
+            row_chars.append(&#x27;.&#x27;)
+        else:
+            row_chars.append(&#x27; &#x27;)
+    print(f&#x27;y={y:2d}: &#x27; + &#x27;&#x27;.join(row_chars))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 36</strong><time>2026-11-12T13:18:36.572758+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the width of the box at y=48..80
+# Where are the edges across rows 40 to 90?
+for y in range(40, 85, 2):
+    row = img[y]
+    # find where row has edges / gradient
+    grad = np.abs(row[2:].astype(float) - row[:-2].astype(float)).mean(axis=-1)
+    peaks = np.where(grad &gt; 6)[0] + 1
+    if len(peaks):
+        print(f&#x27;y={y:2d}: peaks at x={peaks.tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 37</strong><time>2026-11-12T13:18:44.686654+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the bottom edge of the box around y=80..85
+print(&#x27;Box bottom inspection:&#x27;)
+for y in range(78, 86):
+    line = img[y, 100:155].mean(axis=-1)
+    print(f&#x27;y={y:2d}: left_edge(x=105)={img[y, 105].tolist()}, right_edge(x=145)={img[y, 145].tolist()}&#x27;)
+    # Check middle values
+    print(f&#x27;      mid(x=115..135): min={line[15:36].min():.1f}, max={line[15:36].max():.1f}, mean={line[15:36].mean():.1f}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 38</strong><time>2026-11-12T13:18:52.574501+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire box region in first_frame.png
+# Let&#x27;s check vertical slices across x=100 to 150
+# Specifically, where are the bottom horizontal edges?
+# Compute gy = |img[y+1] - img[y-1]|
+gy = np.abs(img[2:, 100:150].astype(float) - img[:-2, 100:150].astype(float)).mean(axis=-1)
+# gy has shape (142, 50), corresponding to y=1..142
+for y in range(65, 87):
+    row_gy = gy[y-1]
+    peaks = np.where(row_gy &gt; 4)[0] + 100
+    if len(peaks):
+        print(f&#x27;y={y:2d}: max_gy={row_gy.max():.2f} at x={np.argmax(row_gy)+100}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 39</strong><time>2026-11-12T13:19:01.089871+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the table surface and the ball position
+# Where is the table horizon?
+# Let&#x27;s find where the wall meets the table across all columns
+# Wood table is brownish (R &gt; G &gt; B)
+is_wood = (img[:, :, 0] &gt; img[:, :, 1]) &amp; (img[:, :, 1] &gt; img[:, :, 2]) &amp; (img[:, :, 0] &gt; 70) &amp; (img[:, :, 2] &lt; 70)
+for x in [20, 50, 80, 100, 128, 160, 180, 210, 240]:
+    ys = np.where(is_wood[:, x])[0]
+    print(f&#x27;x={x:3d}: first wood row={ys[0] if len(ys) else None}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 40</strong><time>2026-11-12T13:19:10.078053+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire ball area and surrounding table
+# Tennis ball with smiley face:
+# Ball is at x in [114..139], y in [92..112]
+# Center of ball: x ~ 127, y ~ 102
+# Table top horizon: y ~ 88
+# Table contact point of ball: y ~ 112 (bottom of ball)
+print(&#x27;Ball bottom is around y=112&#x27;)
+# Acrylic box at frame 0:
+# Left edge: x ~ 105
+# Right edge: x ~ 146 (width ~ 41-42 pixels)
+# Box top: y ~ 42..48
+# Box bottom: y ~ 83..85 (height ~ 40-42 pixels&quot;&#x27;!)
+# Note: 41 x 41 x 41 is a cube! An acrylic cube box!
+# When lowered onto the table, its bottom edge will reach the table around y ~ 115..125!
+print(&#x27;&quot;&#x27;Width of box:&#x27;, 146 - 105, &#x27;Height of box:&#x27;, 84 - 43)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 41</strong><time>2026-11-12T13:19:17.610374+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the 3D perspective of the box:
+# Does the box have a top face with perspective?
+# At y=42 to 48, what are the corners?
+for y in range(40, 52):
+    # find where values are distinctly edge-like
+    row = img[y]
+    print(f&#x27;y={y:2d}:&#x27;)
+    for x in range(100, 155):
+        # if significant gradient
+        if abs(int(row[x+1].mean()) - int(row[x-1].mean())) &gt; 15:
+            print(f&#x27;   x={x}: rgb={row[x].tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 42</strong><time>2026-11-12T13:19:25.990708+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire box region:
+# Top knot / loop: y ~ 25 to 40, x ~ 122 to 134
+# Cord: y ~ 0 to 25, x ~ 126 to 128
+# Box top surface: around y ~ 42 to 50
+# Left edge: x ~ 105
+# Right edge: x ~ 146
+# Bottom edge: around y ~ 84
+# Ball: x in [115..138], y in [92..112]
+# Table surface: y &gt;= 88
+print(&#x27;Cord x:&#x27;, 127)
+print(&#x27;Box bounds at frame 0:&#x27;)
+print(&#x27;  x_min:&#x27;, 105, &#x27;x_max:&#x27;, 146, &#x27;width:&#x27;, 41)
+print(&#x27;  y_top (box roof): ~ 45, y_bottom (box rim): ~ 84, height: ~ 39-40&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 43</strong><time>2026-11-12T13:19:35.764520+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Contact with table:
+# Where should the bottom rim land?
+# The table is horizontal around y=88 (table back edge) to y=144 (foreground).
+# The ball is resting on the table.
+# The ball bottom is at y=112.
+# In perspective projection, an object resting on the table around x=127 at the same depth as the ball center (y=102) or slightly forward/backward:
+# The ball touches the table at y=112.
+# The box is centered on the ball (x ~ 126, width ~ 41, so x in [105..146], depth similar).
+# When the box rests on the table, where will its bottom edges be?
+# The front bottom edge should be around y = 112 + something, and rear bottom edge around y = 112 - something&quot;&#x27;!
+# Specifically, if the ball center is at depth z, touching at y=112, the bottom face of the box resting on the table would have:
+# rear edge at y ~ 108..110, front edge at y ~ 116..118!
+# That means the box lowers by about Delta Y = (116 - 84) = 32 pixels!
+# Let&#x27;&quot;&#x27;s verify: if box top was at y=45, lowering by 32 pixels puts box top at y=77.
+# Top of ball is at y=92. Box height is 40.
+# So box top at y=77 is 15 pixels ABOVE the ball top (y=92)&quot;&#x27;!
+# And box bottom at y=117 is 5 pixels BELOW ball bottom (y=112)!
+# Thus the box completely covers the tennis ball!
+print(&#x27;&quot;&#x27;Delta Y ~ 32 to 34 pixels&quot;&#x27;!&#x27;&quot;&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 44</strong><time>2026-11-12T13:19:45.553664+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the prompt again carefully:
+# &#x27;Static locked-off single-shot with fixed frame throughout filmed with constant framerate in real-time. The scene shows a realistic scientific demonstration. The scene only contains the described setup and actions. The clear acrylic box was suspended over the tennis ball with a smiley face. The tennis ball with the smiley is positioned on a wooden table. The clear acrylic box hanging from an orange cord lowers to cover the tennis ball with a smiley face.&#x27;
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 45</strong><time>2026-11-12T13:19:54.509755+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Inspect columns 50 to 200, rows 0 to 86 (the background wall)
+# Check how uniform the wall is across y when subtracting the linear horizontal gradient
+wall_left = img[:86, :20].mean(axis=1) # (86, 3)
+wall_right = img[:86, 236:].mean(axis=1) # (86, 3)
+x_coords = np.arange(256)[None, :, None]
+bg = (wall_left[:, None, :] * (255 - x_coords) + wall_right[:, None, :] * x_coords) / 255.0
+
+diff = np.abs(img[:86] - bg)
+print(&#x27;Diff outside box (x &lt; 100 or x &gt; 150): mean =&#x27;, diff[:, :100].mean(), diff[:, 150:].mean())
+print(&#x27;Diff inside box (x in [105..146], y in [50..80]): mean =&#x27;, diff[50:80, 105:146].mean())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 46</strong><time>2026-11-12T13:20:02.090960+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire ball region and its shadow
+print(&#x27;Ball rows 88 to 118, cols 110 to 142&#x27;)
+# Look at pixels around the ball:
+# Is there a shadow under the ball?
+table_around_ball = img[108:125, 110:145]
+# Let&#x27;s see the colors on the table around the ball
+print(&#x27;Table color under ball (y=112..118, x=115..138):&#x27;)
+for y in range(111, 118):
+    print(f&#x27;y={y}: min={img[y, 115:138].min(axis=0)}, max={img[y, 115:138].max(axis=0)}, mean={img[y, 115:138].mean(axis=0).astype(int)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 47</strong><time>2026-11-12T13:20:09.479814+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire box in detail
+# What are the coordinates of the box features?
+# 1. Cord: x = 127, y from 0 to 26
+# 2. Loop / knot at top of box: y from 26 to 41, x from 122 to 132
+# 3. Top of acrylic box: y from 42 to 49, x from 105 to 148
+# 4. Vertical left edge: x ~ 105, y from 48 to 84
+# 5. Vertical right edge: x ~ 145-146, y from 48 to 84
+# 6. Bottom edge / rim: y ~ 83-85, x from 105 to 146
+# 7. Interior of box: clear acrylic, slightly altering wall background
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 48</strong><time>2026-11-12T13:20:18.154878+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the vertical edges in detail:
+# Row by row from y=48 to 85, where is the left edge and right edge?
+for y in range(48, 86, 2):
+    # Left edge search in x in [103..108]
+    left_gx = np.abs(img[y, 105:109].mean(axis=-1) - img[y, 101:105].mean(axis=-1))
+    # Right edge search in x in [143..148]
+    right_gx = np.abs(img[y, 145:149].mean(axis=-1) - img[y, 141:145].mean(axis=-1))
+    print(f&#x27;y={y:2d}: left_gx={left_gx:.1f}, right_gx={right_gx:.1f}, x105={img[y,105].tolist()}, x145={img[y,145].tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 49</strong><time>2026-11-12T13:20:26.679811+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+for y in range(48, 86, 2):
+    # Left edge search in x in [103..108]
+    left_gx = float(np.abs(img[y, 105:109].mean() - img[y, 101:105].mean()))
+    right_gx = float(np.abs(img[y, 145:149].mean() - img[y, 141:145].mean()))
+    print(f&#x27;y={y:2d}: left_gx={left_gx:.1f}, right_gx={right_gx:.1f}, x105={img[y,105].tolist()}, x145={img[y,145].tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 50</strong><time>2026-11-12T13:20:35.776356+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire box region y in [24..85], x in [103..148]
+# What is outside x in [105..146]?
+# Check row profiles at y=55, y=65, y=75
+for y in [55, 65, 75]:
+    outside_left = img[y, 90:105].mean(axis=0)
+    inside_left = img[y, 106:115].mean(axis=0)
+    inside_mid = img[y, 120:132].mean(axis=0)
+    inside_right = img[y, 137:145].mean(axis=0)
+    outside_right = img[y, 147:160].mean(axis=0)
+    print(f&#x27;y={y}:&#x27;)
+    print(f&#x27;  out_L: {outside_left.astype(int)}&#x27;)
+    print(f&#x27;   in_L: {inside_left.astype(int)}&#x27;)
+    print(f&#x27;    mid: {inside_mid.astype(int)}&#x27;)
+    print(f&#x27;   in_R: {inside_right.astype(int)}&#x27;)
+    print(f&#x27;  out_R: {outside_right.astype(int)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 51</strong><time>2026-11-12T13:20:44.741153+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire image y=0..86, x=90..160
+# Where does the cord start and end?
+# Cord: x=127, y=0..26
+# Top fixture: y=26..42
+# Box roof: y=42..49
+# Box bottom rim: y=84
+# Height of box from roof (y=42) to rim (y=84) is 42 pixels&quot;&#x27;!
+# Height of fixture: 16 pixels (y=26..42)
+# Cord above fixture: y=0..26
+print(&#x27;&quot;&#x27;Everything aligns consistently&quot;&#x27;!&#x27;&quot;&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 52</strong><time>2026-11-12T13:20:52.972366+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the table area between y=88 and 130
+# If the acrylic box covers the ball:
+# The ball is inside the box&quot;&#x27;!
+# Acrylic is transparent! When an acrylic box covers an object, you STILL SEE the object through the acrylic!
+# Plus, the box walls and edges pass in front of and around the object!
+# And the bottom rim rests on the table around the ball!
+print(&#x27;&quot;&#x27;Acrylic transparency confirmed by prompt: \\\&quot;The clear acrylic box hanging from an orange cord lowers to cover the tennis ball with a smiley face.\\\&quot;&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 53</strong><time>2026-11-12T13:21:00.782383+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the cord and fixture in detail:
+# Print RGB of cord at y=10..24, x=125..129
+print(&#x27;Cord profile:&#x27;)
+for y in range(5, 26, 2):
+    print(f&#x27;y={y:2d}:&#x27;, [img[y, x].tolist() for x in range(125, 130)])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 54</strong><time>2026-11-12T13:21:11.081318+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire ball region y in [92..112], x in [115..138]
+# What happens when clear acrylic is placed in front of an object?
+# The clear acrylic box has:
+# - An acrylic wall in front of the tennis ball.
+# - Subtle reflections / specular glints (the vertical edges at x=105 and x=146, and front/back edges).
+# - A bottom rim resting on the table around y ~ 116.
+# - Top roof at y ~ 76.
+# - Attachment loop / fixture at y ~ 58..74.
+# - Orange cord hanging from above down to y ~ 58.
+# When the box lowers:
+# The box (edges, roof, attachment, reflections, rim) moves downwards&quot;&#x27;!
+# The cord extends / moves down with it!
+# Above the fixture, the cord comes into the frame from the top (as it is being unspooled/lowered).
+print(&#x27;&quot;&#x27;Physical model is clean, elegant, and directly matches the description.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 55</strong><time>2026-11-12T13:21:18.630311+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+
+# Total frames = 20 (0 to 19).
+# Frame 0: dy = 0.
+# Box rests on table: dy_target ~ 32 pixels.
+# Let&#x27;s see: smooth ease-in ease-out curve for lowering:
+for t in range(20):
+    # s-curve: e.g. 0.5 * (1 - cos(pi * min(1, t / 16)))
+    # or starts lowering around frame 2, finishes around frame 16, rests at frames 17-19
+    progress = min(1.0, max(0.0, (t - 1) / 15.0))
+    # smoothstep
+    s = progress * progress * (3 - 2 * progress)
+    dy = s * 32.0
+    print(f&#x27;frame {t:02d}: progress={progress:.2f}, dy={dy:.1f}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 56</strong><time>2026-11-12T13:21:26.178304+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire ball region y in [85..120], x in [100..155]
+# And the table surface
+# What is the perspective angle of the table?
+# Table edge in background:
+# row 88 at x=50..200
+# ball bottom: row 112 at x=127
+# front edge of table (if visible, or bottom of frame: row 144)
+print(&#x27;Table runs from row 88 to 144.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 57</strong><time>2026-11-12T13:21:35.184621+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire image around x in [100..155]
+# Let&#x27;s check the bottom rim of the box at frame 0:
+# Left vertical edge: x=105, y from 48 to 84
+# Right vertical edge: x=146, y from 48 to 84
+# Bottom rim: y ~ 84.
+# Notice that at y=84, x goes from 105 to 146.
+# If the rim is at y=84, is it horizontal?
+# Let&#x27;s check gy or edge intensity along y at each x between 105 and 146
+for x in range(105, 147, 5):
+    # find row near 84 with maximum vertical gradient
+    g = np.abs(img[75:88, x].astype(float) - img[74:87, x].astype(float)).mean(axis=-1)
+    best_y = np.argmax(g) + 75
+    print(f&#x27;x={x:3d}: edge at y={best_y}, grad={g.max():.2f}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 58</strong><time>2026-11-12T13:21:44.686191+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect rows 75 to 88, cols 100 to 155 in detail:
+for y in range(75, 88):
+    # Print mean RGB along segments: x=102..108, x=122..128, x=142..148
+    print(f&#x27;y={y:2d}: [102..108]={img[y, 102:108].mean(axis=0).astype(int)} [122..128]={img[y, 122:128].mean(axis=0).astype(int)} [142..148]={img[y, 142:148].mean(axis=0).astype(int)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 59</strong><time>2026-11-12T13:21:58.982689+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire row 85 across all x:
+for y in range(85, 90):
+    wood_start = np.where(img[y, :, 0] &gt; img[y, :, 2] + 20)[0]
+    print(f&#x27;y={y}: wood starts at x={wood_start.min() if len(wood_start) else None}, ends at x={wood_start.max() if len(wood_start) else None}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 60</strong><time>2026-11-12T13:22:07.595798+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire ball region:
+# ball is at y in [92..112], x in [114..139]
+# Table is at y in [88..144]
+# What is the box?
+# Box top: y=42..48
+# Box fixture: y=26..42
+# Cord: y=0..26
+# Left edge: x=105
+# Right edge: x=146
+# Bottom edge: y=84
+print(&#x27;Box height = 84 - 42 = 42 pixels&#x27;)
+print(&#x27;Box width = 146 - 105 = 41 pixels&#x27;)
+print(&#x27;Box depth (perspective) = ~ 41 pixels&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 61</strong><time>2026-11-12T13:22:16.286951+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the specular highlights and edges on the box:
+# Top face: y=42..50, x=105..146
+# Notice that at y=46..48, there is a very bright highlight at x=131-132:
+print(&#x27;Highlight at (y=47, x=131..132):&#x27;, img[47, 131], img[47, 132])
+# And at x=119-120:
+print(&#x27;Highlight at (y=47, x=119..120):&#x27;, img[47, 119], img[47, 120])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 62</strong><time>2026-11-12T13:22:26.227008+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Inpainting the wall behind the suspended box (y in 0..86, x in 95..155):
+# Outside the box, the wall is smooth:
+# Let&#x27;s see how well a 2D polynomial or thin plate spline / harmonic inpaint fits the wall:
+mask = np.zeros((87, 256), dtype=bool)
+# Box and cord mask:
+mask[0:87, 100:152] = True
+# Table starts at y=87
+# Fit a smooth 2D surface to img[:87] where mask is False:
+Y, X = np.indices((87, 256))
+train_y = Y[~mask]
+train_x = X[~mask]
+
+# Fit 2D degree 2 or 3 polynomial for each channel:
+A = np.column_stack([
+    np.ones_like(train_y),
+    train_x, train_y,
+    train_x**2, train_x*train_y, train_y**2,
+    train_x**3, (train_x**2)*train_y, train_x*(train_y**2), train_y**3
+])
+
+full_A = np.column_stack([
+    np.ones_like(Y.ravel()),
+    X.ravel(), Y.ravel(),
+    X.ravel()**2, X.ravel()*Y.ravel(), Y.ravel()**2,
+    X.ravel()**3, (X.ravel()**2)*Y.ravel(), X.ravel()*(Y.ravel()**2), Y.ravel()**3
+])
+
+pred = np.zeros((87, 256, 3))
+for c in range(3):
+    train_vals = img[:87, :, c][~mask]
+    coeff, _, _, _ = np.linalg.lstsq(A, train_vals, rcond=None)
+    pred[:, :, c] = full_A.dot(coeff).reshape(87, 256)
+
+# Check error on unmasked wall:
+err = np.abs(img[:87][~mask] - pred[~mask]).mean()
+print(&#x27;Wall fit mean absolute error on background:&#x27;, err)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 63</strong><time>2026-11-12T13:22:36.384846+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+mask = np.zeros((87, 256), dtype=bool)
+mask[0:87, 100:152] = True
+Y, X = np.indices((87, 256))
+train_y = Y[~mask]
+train_x = X[~mask]
+
+# Fit harmonic inpainting (biharmonic or solve Laplace equation)
+import scipy.ndimage as ndi
+from scipy.sparse import lil_matrix
+from scipy.sparse.linalg import spsolve
+
+# Or biharmonic equation via iterative diffusion or OpenCV inpaint
+import cv2
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:87, 103:148] = 255
+# Using cv2.inpaint
+dst = cv2.inpaint(img, inpaint_mask, 5, cv2.INPAINT_TELEA)
+print(&#x27;Inpaint success, diff outside mask:&#x27;, np.abs(img[inpaint_mask == 0] - dst[inpaint_mask == 0]).max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 64</strong><time>2026-11-12T13:22:46.354054+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:87, 103:148] = 255
+dst = cv2.inpaint(img, inpaint_mask, 5, cv2.INPAINT_TELEA)
+
+# Look at the inpainted region
+inpainted_strip = dst[0:87, 103:148]
+print(&#x27;Inpainted mean:&#x27;, inpainted_strip.mean(axis=(0,1)))
+# Check continuity at borders:
+print(&#x27;Border diff left (x=102 vs 103):&#x27;, np.abs(dst[:87, 102].astype(float) - dst[:87, 103].astype(float)).mean())
+print(&#x27;Border diff right (x=147 vs 148):&#x27;, np.abs(dst[:87, 147].astype(float) - dst[:87, 148].astype(float)).mean())
+print(&#x27;Border diff bottom (y=86 vs 87):&#x27;, np.abs(dst[86, 103:148].astype(float) - dst[87, 103:148].astype(float)).mean())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 65</strong><time>2026-11-12T13:22:56.912534+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Create background image where box is absent
+# Box is in y=0..86, x=103..148
+# Inpaint only up to y=85 so table is not touched&quot;&#x27;!
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(img, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Now, what is the box layer?
+# The box layer at frame 0 is:
+# In the region y=0..86, x=103..148, how does img differ from bg?
+diff = img.astype(float) - bg.astype(float)
+print(&#x27;&quot;&#x27;Box layer diff range:&#x27;, diff[0:86, 104:148].min(), diff[0:86, 104:148].max())
+print(&#x27;Box layer mean absolute diff:&#x27;, np.abs(diff[0:86, 104:148]).mean())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 66</strong><time>2026-11-12T13:23:07.269660+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(img, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Let&#x27;s inspect the opacity alpha and foreground color:
+# For an object (acrylic box + cord):
+# The cord and fixture are opaque (alpha ~ 1).
+# The acrylic walls are semi-transparent with specular reflections.
+# Let&#x27;s see: diff = img - bg.
+# When the box shifts down by dy:
+# For the cord (above the fixture):
+# The cord is a vertical line at x=127&quot;&#x27;!
+# As it lowers, the cord extends from y=0 downwards to the fixture!
+# For the fixture and acrylic box:
+# They shift downwards by dy!
+print(&#x27;&quot;&#x27;Testing composition...&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 67</strong><time>2026-11-12T13:23:17.299995+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(img, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Cord pattern at y=0..25, x=124..130:
+cord_pattern = img[0:25, 124:130]
+print(&#x27;Cord pattern shape:&#x27;, cord_pattern.shape)
+print(&#x27;Cord pattern mean:&#x27;, cord_pattern.mean(axis=0))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 68</strong><time>2026-11-12T13:23:28.758767+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(img, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Let&#x27;s test a simple shift:
+# Foreground is everything in box region:
+# cord, fixture, and box: y in [0..85], x in [103..148]
+# When shifted down by dy:
+# What happens at the top (y in 0..dy)? The cord extends from y=0 down to dy&quot;&#x27;!
+# What happens in the middle? The box overlays on top of the background!
+# But wait: is the box solid or transparent?
+# Inside the box:
+# At frame 0, behind the acrylic was the wall.
+# At dy=32, behind the acrylic is the tennis ball and table!
+# If we simply shift the pixels of the acrylic box:
+# At frame 0, the acrylic box pixels have the wall color modulated by the acrylic refraction/transmission!
+# Let&#x27;&quot;&#x27;s analyze how acrylic affects background:
+# acrylic_color = alpha * C_box + (1 - alpha) * C_bg
+# If we can separate alpha and C_box, or transmission T = (img / bg) or diff = (img - bg)&quot;&#x27;!
+&quot;&#x27;</pre></details><details class=command><summary><strong>命令 69</strong><time>2026-11-12T13:23:38.276381+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(img, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Box interior: y in [52..82], x in [107..143]
+interior_img = img[52:82, 107:144].astype(float)
+interior_bg = bg[52:82, 107:144].astype(float)
+
+ratio = interior_img / np.maximum(interior_bg, 1.0)
+diff = interior_img - interior_bg
+print(&#x27;Interior ratio mean:&#x27;, ratio.mean(axis=(0,1)), &#x27;std:&#x27;, ratio.std(axis=(0,1)))
+print(&#x27;Interior diff mean:&#x27;, diff.mean(axis=(0,1)), &#x27;std:&#x27;, diff.std(axis=(0,1)))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 70</strong><time>2026-11-12T13:23:49.107871+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(img, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+diff = img.astype(float) - bg.astype(float)
+# Where is |diff| &gt; 10?
+# cord: y in 0..26, x in 124..130
+# fixture: y in 26..42, x in 118..136
+# top edges / reflections: y in 42..51, x in 105..148
+# vertical edges: x in [104..107] and x in [143..147], y in [48..84]
+# bottom rim: y in [82..85], x in [104..147]
+# Let&#x27;s check how much |diff| there is in the central interior (y in 52..80, x in 110..140):
+print(&#x27;Center interior |diff| mean:&#x27;, np.abs(diff[55:78, 112:138]).mean())
+print(&#x27;Vertical edge |diff| mean:&#x27;, np.abs(diff[55:78, 104:108]).mean(), np.abs(diff[55:78, 143:147]).mean())
+print(&#x27;Roof |diff| mean:&#x27;, np.abs(diff[42:50, 105:146]).mean())
+print(&#x27;Fixture |diff| mean:&#x27;, np.abs(diff[26:42, 120:134]).mean())
+print(&#x27;Cord |diff| mean:&#x27;, np.abs(diff[0:26, 125:129]).mean())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 71</strong><time>2026-11-12T13:23:57.450958+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s check the interior of the box:
+# Why does diff have mean ~ 11 in the center interior?
+# Because the inpainting of the wall in that strip was slightly different from the actual wall,
+# OR because the acrylic box dims the light behind it slightly (acrylic transmission ~ 92%)&quot;&#x27;!
+# Typical clear acrylic has 92% light transmittance, so it dims the background by ~8%!
+# Let&#x27;&quot;&#x27;s check: 146 * 0.92 = 134.3. 146 - 134.3 = 11.7&quot;&#x27;!
+# That matches 92% transmittance of clear acrylic!
+print(&#x27;&quot;&#x27;Theoretical transmittance of clear acrylic is exactly 92%&quot;&#x27;!&#x27;&quot;&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 72</strong><time>2026-11-12T13:24:07.842890+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire box layer and composite with dy:
+# What components does the lowering assembly have?
+# 1. Cord extending down: cord is at x in [124..130], y from 0 down to fixture.
+# 2. Fixture: attached to top of box.
+# 3. Box top roof: opaque / reflective top face with bevels and highlights.
+# 4. Box side edges: left vertical edge at x in [104..107], right vertical edge at x in [143..147].
+# 5. Box bottom rim: front and back bottom edges around y ~ 84.
+# 6. Box acrylic faces: slight tint (0.92 transmission) and faint vertical reflections.
+# When the assembly moves down by dy:
+# - All these elements move down by dy&quot;&#x27;!
+# - Behind the box, what is revealed at the top (where the box used to be)?
+#   The wall! And the extended cord passing through!
+# - In front of what does the box move?
+#   The wall, then the tennis ball, then the table!
+# - When the bottom rim reaches the table (dy ~ 32), the box sits on the table covering the tennis ball!
+print(&#x27;&quot;&#x27;Perfect physical model&quot;&#x27;!&#x27;&quot;&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 73</strong><time>2026-11-12T13:24:17.741227+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# 1. Background inpainting
+# We know the box is suspended between x in [103..148], y in [0..86]
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Let&#x27;s inspect the cord template (y in 0..25, x in 124..130)
+cord_slice = first_frame[0:25, 124:130].copy()
+
+# The fixture + roof + box edges
+# Let&#x27;s see: if we shift the entire box layer by dy:
+# At dy = 0, the output must be EXACTLY first_frame&quot;&#x27;!
+# That is a crucial requirement: &#x27;&quot;&#x27;Frame 00 must be pixel-identical to first_frame.png&#x27;.
+print(&#x27;Frame 0 identity requirement is paramount.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 74</strong><time>2026-11-12T13:24:30.050930+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the box region in first_frame:
+# Box horizontal span: x in [104, 147] (width 44)
+# Box vertical span:
+# - cord: y in [0, 26], x in [125, 129]
+# - fixture: y in [26, 42], x in [120, 134]
+# - roof: y in [42, 50], x in [104, 147]
+# - walls: y in [50, 84], x in [104, 147]
+# - rim: y in [82, 85], x in [104, 147]
+
+# Let&#x27;s see what happens to the background image:
+# In the original image:
+# - Below y=85, the scene contains:
+#   * Wall at y in [85, 88]
+#   * Table wood from y=88 down to 144
+#   * Tennis ball at y in [92, 112], x in [114, 139]
+#   * Ball shadow on table at y in [110, 118], x in [115, 140]
+# When the box lowers by dy:
+# The box covers the tennis ball&quot;&#x27;!
+# The box consists of:
+# - Front face
+# - Back face
+# - Left face
+# - Right face
+# - Top face (roof)
+# - Bottom (open or rim)
+# The box is an inverted clear acrylic container (open at the bottom) lowering over the ball!
+print(&#x27;&quot;&#x27;Inverted container confirmed: \\\&quot;lowers to cover the tennis ball\\\&quot;&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 75</strong><time>2026-11-12T13:24:40.898712+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# 1. Clean background inpainting
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Let&#x27;s inspect the cord:
+# The cord enters the frame at the top (x in 125..129) and hangs down to y=26.
+# If cord is lowering, cord pixels at the top continue entering the frame.
+# We can repeat / tile or seamlessly extend the cord texture from y=0..20.
+
+# 2. Box segmentation:
+# Cord + Fixture + Roof:
+# These are solid/opaque features.
+# Let&#x27;s see: for y in [0..50], x in [104..148]:
+# Is roof completely opaque?
+# At y=42..50, x in [104..148]:
+# It is the top acrylic plate with bevels and fixture mounting.
+# In the original image, behind this top plate was the wall.
+# When it lowers, it covers whatever is behind it (wall, then ball).
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 76</strong><time>2026-11-12T13:24:51.844637+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# What is the box structure?
+# Let&#x27;s inspect the alpha matte of the box:
+# At y in [0..26], x in [124..130]: cord
+# At y in [26..42], x in [118..136]: fixture
+# At y in [42..51], x in [104..148]: top acrylic plate / roof
+# At y in [51..85], x in [104..148]: side walls and bottom rim
+# Left vertical edge: x in [104..107]
+# Right vertical edge: x in [143..147]
+# Bottom rim: y in [82..85], x in [104..147]
+# Front / back face reflections &amp; tint: y in [51..82], x in [107..143]
+
+# In the interior (y in [51..82], x in [107..143]):
+# The transmission is ~ 0.92 (or alpha ~ 0.08 tint + specular reflection).
+# Along the edges (left, right, bottom):
+# The edges are distinct refraction/specular lines&quot;&#x27;!
+# Along the roof (y in [42..51]):
+# It is the top plate of the acrylic box, highly visible and reflective.
+# Along the fixture (y in [26..42]):
+# Opaque mounting / knob / ring where the cord attaches!
+# Along the cord (y in [0..26]):
+# Opaque cord!
+print(&#x27;&quot;&#x27;Structure decomposed cleanly.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 77</strong><time>2026-11-12T13:25:01.433632+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Inpainted clean background (without the suspended box)
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Let&#x27;s verify what happens if we shift the original image region:
+# If dy = 0, we can ensure frame 0 is EXACTLY first_frame.png:
+# &quot;&#x27;`if dy == 0: return first_frame.copy()`
+# This guarantees 100% bitwise pixel-identity for frame 0!
+print(&#x27;&quot;&#x27;Bitwise identity for frame 0 guaranteed by direct assignment.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 78</strong><time>2026-11-12T13:25:12.063709+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Inpainted clean background (without the suspended box)
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Let&#x27;s inspect the opacity alpha across the box:
+# Fixture and cord: alpha = 1.0
+# Roof: y in [42..50], x in [104..148]:
+# Is the roof fully opaque or mostly reflective?
+# In first_frame, roof has strong specular reflections, knob, etc.
+# What about the walls (y in [51..85], x in [104..148])?
+# - Left wall (x in [104..107]) and right wall (x in [143..147]):
+#   These are acrylic edges with specular reflection.
+# - Bottom rim (y in [82..85], x in [104..147]):
+#   Edge reflection.
+# - Interior (y in [51..82], x in [107..143]):
+#   Transparent acrylic&quot;&#x27;! The tennis ball is clearly seen through it!
+#   Light passes through front and back acrylic walls:
+#   Transmittance is ~ 0.92, plus faint surface reflection.
+print(&#x27;&quot;&#x27;Physics of transparent acrylic box is well understood.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 79</strong><time>2026-11-12T13:25:21.567455+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Inpainting background
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Let&#x27;s inspect the alpha mask construction:
+# Box bounding box:
+# x in [104, 147]
+# y in [26, 85]
+# Plus cord: x in [124, 130], y in [0, 26]
+
+# Alpha values:
+# Cord (y in 0..26, x in 124..130): 1.0 (smooth boundary)
+# Fixture (y in 26..42, x in 118..136): 1.0
+# Roof (y in 42..51, x in 104..147): 0.85 - 1.0
+# Side edges (x in [104..107] and x in [143..147], y in [51..85]): 0.5 - 0.9
+# Bottom rim (y in [82..85], x in [104..147]): 0.4 - 0.7
+# Interior (y in [51..82], x in [107..143]): 0.08 - 0.12 (transmittance = 0.90 - 0.92)
+print(&#x27;Alpha construction ready.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 80</strong><time>2026-11-12T13:25:33.747809+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Generate alpha mask
+alpha = np.zeros((144, 256), dtype=np.float32)
+
+# 1. Cord: x in [125..129], y in [0..26]
+for y in range(0, 26):
+    for x in range(124, 131):
+        dist_x = abs(x - 127.0)
+        if dist_x &lt;= 1.5:
+            alpha[y, x] = 1.0
+        elif dist_x &lt;= 2.5:
+            alpha[y, x] = 0.5
+
+# 2. Fixture: y in [26..42], x in [118..136]
+# Let&#x27;s inspect where first_frame differs from wall in y in [26..42]
+diff_fixture = np.abs(first_frame[26:42, 116:138].astype(float) - [148, 142, 148]).mean(axis=-1)
+fixture_mask = (diff_fixture &gt; 15).astype(float)
+fixture_mask = cv2.GaussianBlur(fixture_mask, (3, 3), 0.8)
+alpha[26:42, 116:138] = np.maximum(alpha[26:42, 116:138], np.clip(fixture_mask * 1.5, 0, 1))
+
+# 3. Roof: y in [42..51], x in [104..147]
+# Roof has high opacity/specular reflection
+alpha[42:51, 104:148] = 0.90
+# Smooth roof edges
+alpha[41:43, 104:148] = np.maximum(alpha[41:43, 104:148], 0.5)
+
+# 4. Vertical walls &amp; bottom rim:
+# Left edge: x in [104..107], y in [51..85]
+alpha[51:85, 104:108] = 0.70
+# Right edge: x in [143..147], y in [51..85]
+alpha[51:85, 143:147] = 0.70
+# Bottom rim: y in [82..85], x in [104..148]
+alpha[82:85, 104:148] = np.maximum(alpha[82:85, 104:148], 0.60)
+
+# 5. Interior transparent acrylic:
+alpha[51:82, 108:143] = 0.08
+
+# Blur alpha slightly for natural soft edges
+alpha = cv2.GaussianBlur(alpha, (3, 3), 0.5)
+print(&#x27;Alpha range:&#x27;, alpha.min(), alpha.max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 81</strong><time>2026-11-12T13:25:43.795658+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Inpaint background
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Let&#x27;s inspect the foreground layer:
+# For opaque parts (cord, fixture, roof):
+# FG is taken directly from first_frame.
+# For transparent parts (edges, rim, interior):
+# In first_frame, C_obs = alpha * C_fg + (1 - alpha) * C_bg
+# Therefore: C_fg = (C_obs - (1 - alpha) * C_bg) / alpha  (clamped to [0, 255])
+# Or, if alpha is small (interior), C_obs is mostly C_bg with slight attenuation and reflection&quot;&#x27;!
+# When lowered over the tennis ball:
+# C_composite = alpha * C_box + (1 - alpha) * C_ball_scene
+# where C_box is the reflection/glint, and (1 - alpha) is transmission (0.92)!
+print(&#x27;&quot;&#x27;Composite formula aligns with physical optics.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 82</strong><time>2026-11-12T13:25:59.613938+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Inpaint clean background
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Let&#x27;s inspect cord segment:
+# Cord at y in [0..26], x in [124..130]
+# When box moves down by dy, cord extends from y=0 down to (26 + dy).
+# We can repeat cord profile:
+cord_unit = first_frame[0:20, 124:131]
+
+# Now let&#x27;s test a render function for any dy:
+def render_frame(dy):
+    if dy == 0:
+        return first_frame.copy()
+    
+    # Start with background (which has wall and untouched ball and table)
+    out = bg.astype(np.float32).copy()
+    
+    # 1. Extended cord from top (y=0) to fixture top (y=26 + dy)
+    fixture_top = int(round(26 + dy))
+    for y in range(0, fixture_top):
+        src_y = y % 20
+        out[y, 124:131] = cord_unit[src_y]
+        
+    # 2. Box elements:
+    # Fixture (y in [26..42], x in [116..138]):
+    # Roof (y in [42..51], x in [104..148]):
+    # Walls and rim (y in [51..85], x in [104..148]):
+    # Let&#x27;s map coordinates:
+    for y in range(144):
+        src_y = y - dy
+        if 26 &lt;= src_y &lt;= 85:
+            # Source pixel in first_frame:
+            # We can sample first_frame at src_y with bilinear interpolation
+            y0 = int(np.floor(src_y))
+            y1 = min(143, y0 + 1)
+            wy1 = src_y - y0
+            wy0 = 1.0 - wy1
+            
+            for x in range(104, 148):
+                c0 = first_frame[y0, x].astype(float)
+                c1 = first_frame[y1, x].astype(float)
+                c_src = wy0 * c0 + wy1 * c1
+                
+                # Determine alpha based on location in box:
+                if src_y &lt; 42: # fixture
+                    # opaque
+                    a = 1.0 if (121 &lt;= x &lt;= 133) else 0.7 if (118 &lt;= x &lt;= 136) else 0.0
+                elif src_y &lt; 51: # roof
+                    a = 0.92
+                elif (x &lt;= 107) or (x &gt;= 143): # side vertical walls
+                    a = 0.75
+                elif src_y &gt;= 82: # bottom rim
+                    a = 0.65
+                else: # interior transparent face
+                    a = 0.12 # 88% transmittance
+                
+                # Blend with existing scene:
+                out[y, x] = a * c_src + (1.0 - a) * out[y, x]
+                
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+test_f0 = render_frame(0)
+test_f10 = render_frame(16)
+test_f19 = render_frame(32)
+
+print(&#x27;Diff frame 0 with first_frame:&#x27;, np.abs(test_f0.astype(int) - first_frame.astype(int)).max())
+print(&#x27;Render successful&quot;&#x27;!&#x27;&quot;&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 83</strong><time>2026-11-12T13:26:12.291454+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+cord_unit = first_frame[0:20, 124:131]
+
+def render_frame(dy):
+    if dy == 0:
+        return first_frame.copy()
+    out = bg.astype(np.float32).copy()
+    fixture_top = int(round(26 + dy))
+    for y in range(0, fixture_top):
+        src_y = y % 20
+        out[y, 124:131] = cord_unit[src_y]
+        
+    for y in range(144):
+        src_y = y - dy
+        if 26 &lt;= src_y &lt;= 85:
+            y0 = int(np.floor(src_y))
+            y1 = min(143, y0 + 1)
+            wy1 = src_y - y0
+            wy0 = 1.0 - wy1
+            
+            for x in range(104, 148):
+                c0 = first_frame[y0, x].astype(float)
+                c1 = first_frame[y1, x].astype(float)
+                c_src = wy0 * c0 + wy1 * c1
+                
+                if src_y &lt; 42:
+                    a = 1.0 if (121 &lt;= x &lt;= 133) else 0.7 if (118 &lt;= x &lt;= 136) else 0.0
+                elif src_y &lt; 51:
+                    a = 0.92
+                elif (x &lt;= 107) or (x &gt;= 143):
+                    a = 0.75
+                elif src_y &gt;= 82:
+                    a = 0.65
+                else:
+                    a = 0.12
+                
+                out[y, x] = a * c_src + (1.0 - a) * out[y, x]
+                
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+# Check continuity between frame 0 and frame 1 (dy = 0.4)
+f0 = render_frame(0)
+f1 = render_frame(0.4)
+diff = np.abs(f1.astype(float) - f0.astype(float))
+print(&#x27;Max diff f0 to f1:&#x27;, diff.max(), &#x27;Mean diff:&#x27;, diff.mean())
+print(&#x27;Pixels changed count:&#x27;, np.sum(diff &gt; 1))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 84</strong><time>2026-11-12T13:26:24.037818+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+cord_unit = first_frame[0:20, 124:131]
+
+# What is f(dy=0) in the render_frame formula?
+def render_formula(dy):
+    out = bg.astype(np.float32).copy()
+    fixture_top = int(round(26 + dy))
+    for y in range(0, fixture_top):
+        src_y = y % 20
+        out[y, 124:131] = cord_unit[src_y]
+        
+    for y in range(144):
+        src_y = y - dy
+        if 26 &lt;= src_y &lt;= 85:
+            y0 = int(np.floor(src_y))
+            y1 = min(143, y0 + 1)
+            wy1 = src_y - y0
+            wy0 = 1.0 - wy1
+            
+            for x in range(104, 148):
+                c0 = first_frame[y0, x].astype(float)
+                c1 = first_frame[y1, x].astype(float)
+                c_src = wy0 * c0 + wy1 * c1
+                
+                if src_y &lt; 42:
+                    a = 1.0 if (121 &lt;= x &lt;= 133) else 0.7 if (118 &lt;= x &lt;= 136) else 0.0
+                elif src_y &lt; 51:
+                    a = 0.92
+                elif (x &lt;= 107) or (x &gt;= 143):
+                    a = 0.75
+                elif src_y &gt;= 82:
+                    a = 0.65
+                else:
+                    a = 0.12
+                
+                out[y, x] = a * c_src + (1.0 - a) * out[y, x]
+                
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+f_formula_0 = render_formula(0)
+err = np.abs(first_frame.astype(float) - f_formula_0.astype(float))
+print(&#x27;Error between first_frame and formula(0): max =&#x27;, err.max(), &#x27;mean =&#x27;, err.mean())
+ys, xs = np.where(err &gt; 10)
+print(&#x27;Where does error occur? y range:&#x27;, ys.min() if len(ys) else None, ys.max() if len(ys) else None, &#x27;x range:&#x27;, xs.min() if len(xs) else None, xs.max() if len(xs) else None)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 85</strong><time>2026-11-12T13:26:37.793698+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+cord_unit = first_frame[0:20, 124:131]
+
+def render_formula(dy):
+    out = bg.astype(np.float32).copy()
+    fixture_top = int(round(26 + dy))
+    for y in range(0, fixture_top):
+        src_y = y % 20
+        out[y, 124:131] = cord_unit[src_y]
+        
+    for y in range(144):
+        src_y = y - dy
+        if 26 &lt;= src_y &lt;= 85:
+            y0 = int(np.floor(src_y))
+            y1 = min(143, y0 + 1)
+            wy1 = src_y - y0
+            wy0 = 1.0 - wy1
+            
+            for x in range(104, 148):
+                c0 = first_frame[y0, x].astype(float)
+                c1 = first_frame[y1, x].astype(float)
+                c_src = wy0 * c0 + wy1 * c1
+                
+                if src_y &lt; 42:
+                    a = 1.0 if (121 &lt;= x &lt;= 133) else 0.7 if (118 &lt;= x &lt;= 136) else 0.0
+                elif src_y &lt; 51:
+                    a = 0.92
+                elif (x &lt;= 107) or (x &gt;= 143):
+                    a = 0.75
+                elif src_y &gt;= 82:
+                    a = 0.65
+                else:
+                    a = 0.12
+                
+                out[y, x] = a * c_src + (1.0 - a) * out[y, x]
+                
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+f_formula_0 = render_formula(0)
+err = np.abs(first_frame.astype(float) - f_formula_0.astype(float))
+ys, xs, cs = np.where(err &gt; 10)
+print(&#x27;y range:&#x27;, ys.min(), ys.max(), &#x27;x range:&#x27;, xs.min(), xs.max())
+print(&#x27;Mean err in that region:&#x27;, err[ys, xs, cs].mean())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 86</strong><time>2026-11-12T13:26:47.262999+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# If in first_frame, C_obs = C_box + C_bg (or C_obs = (1 - alpha) * C_bg + C_box_specular)
+# Then delta_layer = first_frame - bg&quot;&#x27;!
+# When dy = 0: bg + delta_layer = first_frame!
+# EXACTLY!
+delta_layer = first_frame.astype(float) - bg.astype(float)
+print(&#x27;&quot;&#x27;Max delta error at dy=0:&#x27;, np.abs((bg.astype(float) + delta_layer) - first_frame.astype(float)).max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 87</strong><time>2026-11-12T13:26:57.247103+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Let&#x27;s inspect delta_layer:
+delta = first_frame.astype(float) - bg.astype(float)
+# Only inside the box region:
+box_region = np.zeros((144, 256), dtype=bool)
+box_region[0:86, 104:148] = True
+delta[~box_region] = 0.0
+
+# When shifted down by dy:
+# For any pixel (y, x):
+# It samples delta at (y - dy, x).
+# And for cord at y in [0, dy], it adds the cord&quot;&#x27;!
+# At dy = 0, delta shifted by 0 is delta!
+# So bg + shifted_delta is EXACTLY first_frame!
+# And as dy increases smoothly, the box shifts down smoothly!
+print(&#x27;&quot;&#x27;Testing delta shift at dy = 0, 0.4, 2.0, 16.0, 32.0...&#x27;)
+
+from scipy.ndimage import map_coordinates
+
+def shift_layer(delta, dy):
+    Y, X = np.indices(delta.shape[:2])
+    src_Y = Y - dy
+    shifted = np.zeros_like(delta)
+    for c in range(3):
+        shifted[:, :, c] = map_coordinates(delta[:, :, c], [src_Y, X], order=1, mode=&#x27;constant&#x27;, cval=0.0)
+    return shifted
+
+s0 = shift_layer(delta, 0.0)
+print(&#x27;Diff at dy=0:&#x27;, np.abs(s0 - delta).max())
+s_small = shift_layer(delta, 0.4)
+print(&#x27;Diff between dy=0 and dy=0.4:&#x27;, np.abs(s_small - s0).max(), &#x27;mean:&#x27;, np.abs(s_small - s0).mean())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 88</strong><time>2026-11-12T13:27:09.808944+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+from scipy.ndimage import map_coordinates
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+delta = first_frame.astype(float) - bg.astype(float)
+box_region = np.zeros((144, 256), dtype=bool)
+box_region[0:86, 104:148] = True
+delta[~box_region] = 0.0
+
+def shift_layer(delta, dy):
+    Y, X = np.indices(delta.shape[:2])
+    src_Y = Y - dy
+    shifted = np.zeros_like(delta)
+    for c in range(3):
+        shifted[:, :, c] = map_coordinates(delta[:, :, c], [src_Y, X], order=1, mode=&#x27;constant&#x27;, cval=0.0)
+    return shifted
+
+# Cord extension:
+cord_pattern = delta[0:20, 124:131].copy()
+
+def render(dy):
+    shifted_delta = shift_layer(delta, dy)
+    # Extend cord from y=0 to dy
+    if dy &gt; 0:
+        for y in range(int(np.ceil(dy))):
+            src_y = y % 20
+            shifted_delta[y, 124:131] = cord_pattern[src_y]
+    out = np.clip(bg.astype(float) + shifted_delta, 0, 255).astype(np.uint8)
+    return out
+
+f0 = render(0.0)
+f10 = render(16.0)
+f19 = render(32.0)
+
+print(&#x27;f0 diff with first_frame:&#x27;, np.abs(f0.astype(int) - first_frame.astype(int)).max())
+# Save sample images into .tmp/
+Path = cv2.imwrite(&#x27;.tmp/frame_00.png&#x27;, cv2.cvtColor(f0, cv2.COLOR_RGB2BGR))
+Path = cv2.imwrite(&#x27;.tmp/frame_10.png&#x27;, cv2.cvtColor(f10, cv2.COLOR_RGB2BGR))
+Path = cv2.imwrite(&#x27;.tmp/frame_19.png&#x27;, cv2.cvtColor(f19, cv2.COLOR_RGB2BGR))
+print(&#x27;Saved test frames to .tmp/&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 89</strong><time>2026-11-12T13:27:37.508608+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+f19 = np.array(Image.open(&#x27;.tmp/frame_19.png&#x27;))
+# Remember cv2 wrote BGR&quot;&#x27;! Let&#x27;&quot;&#x27;s check f19 center ball
+# In f19:
+# Box top is at y ~ 45 + 32 = 77
+# Box bottom is at y ~ 84 + 32 = 116
+# Ball is at y in [92..112]
+# So ball is completely inside the box&quot;&#x27;!
+# What are the ball colors in f19 vs first_frame?
+f0 = np.array(Image.open(&#x27;&quot;&#x27;first_frame.png&#x27;))
+ball_f0 = f0[98:106, 124:132]
+# In f19 (RGB):
+f19_rgb = f19[:, :, ::-1]
+ball_f19 = f19_rgb[98:106, 124:132]
+print(&#x27;Ball center mean RGB in f0:&#x27;, ball_f0.mean(axis=(0,1)))
+print(&#x27;Ball center mean RGB in f19:&#x27;, ball_f19.mean(axis=(0,1)))
+print(&#x27;Notice that ball is fully preserved and visible with acrylic subtle reflections&quot;&#x27;!&#x27;&quot;&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 90</strong><time>2026-11-12T13:27:46.401148+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(f0, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+delta = f0.astype(float) - bg.astype(float)
+# What is delta at y=68, x=128 (inside the box)?
+print(&#x27;Wall at (y=68, x=128): f0 =&#x27;, f0[68, 128], &#x27;bg =&#x27;, bg[68, 128])
+print(&#x27;Delta at (y=68, x=128):&#x27;, delta[68, 128])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 91</strong><time>2026-11-12T13:27:55.006002+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(f0, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+# Let&#x27;s inspect bg at (y=100, x=128):
+print(&#x27;bg at ball center:&#x27;, bg[100, 128])
+print(&#x27;f0 at ball center:&#x27;, f0[100, 128])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 92</strong><time>2026-11-12T13:28:04.432908+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(f0, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+delta = f0.astype(float) - bg.astype(float)
+box_region = np.zeros((144, 256), dtype=bool)
+box_region[0:86, 104:148] = True
+delta[~box_region] = 0.0
+
+from scipy.ndimage import map_coordinates
+def shift_layer(delta, dy):
+    Y, X = np.indices(delta.shape[:2])
+    src_Y = Y - dy
+    shifted = np.zeros_like(delta)
+    for c in range(3):
+        shifted[:, :, c] = map_coordinates(delta[:, :, c], [src_Y, X], order=1, mode=&#x27;constant&#x27;, cval=0.0)
+    return shifted
+
+s32 = shift_layer(delta, 32.0)
+ball_after = bg[100, 128].astype(float) + s32[100, 128]
+print(&#x27;Original ball center RGB:&#x27;, bg[100, 128])
+print(&#x27;Shifted delta at ball center:&#x27;, s32[100, 128])
+print(&#x27;Ball center after addition:&#x27;, ball_after)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 93</strong><time>2026-11-12T13:28:13.885435+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Save directly as RGB with PIL
+Image.fromarray(f0).save(&#x27;.tmp/test_pil.png&#x27;)
+print(&#x27;PIL saves directly in RGB&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 94</strong><time>2026-11-12T13:28:24.932877+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+from scipy.ndimage import map_coordinates
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Inpaint background wall
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+delta = first_frame.astype(float) - bg.astype(float)
+box_region = np.zeros((144, 256), dtype=bool)
+box_region[0:86, 104:148] = True
+delta[~box_region] = 0.0
+
+def shift_layer(delta, dy):
+    Y, X = np.indices(delta.shape[:2])
+    src_Y = Y - dy
+    shifted = np.zeros_like(delta)
+    for c in range(3):
+        shifted[:, :, c] = map_coordinates(delta[:, :, c], [src_Y, X], order=1, mode=&#x27;constant&#x27;, cval=0.0)
+    return shifted
+
+# For cord, we take delta at y=0..20, x=124..131
+cord_delta = delta[0:20, 124:131].copy()
+
+def render(dy):
+    if dy == 0:
+        return first_frame.copy()
+    shifted = shift_layer(delta, dy)
+    # Fill in cord from y=0 to dy
+    for y in range(int(np.ceil(dy))):
+        src_y = y % 20
+        shifted[y, 124:131] = cord_delta[src_y]
+    out = np.clip(bg.astype(float) + shifted, 0, 255).astype(np.uint8)
+    return out
+
+f0 = render(0.0)
+f10 = render(16.0)
+f19 = render(32.0)
+
+Image.fromarray(f0).save(&#x27;.tmp/rgb_00.png&#x27;)
+Image.fromarray(f10).save(&#x27;.tmp/rgb_10.png&#x27;)
+Image.fromarray(f19).save(&#x27;.tmp/rgb_19.png&#x27;)
+print(&#x27;Frames generated and saved via PIL successfully&quot;&#x27;!&#x27;&quot;&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 95</strong><time>2026-11-12T13:28:35.602226+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;.tmp/rgb_00.png&#x27;))
+f19 = np.array(Image.open(&#x27;.tmp/rgb_19.png&#x27;))
+
+print(&#x27;=== INSPECTION AT FINAL FRAME (dy=32) ===&#x27;)
+# 1. Cord at top:
+print(&#x27;Top cord at y=10, x=127: f0 =&#x27;, f0[10, 127], &#x27;f19 =&#x27;, f19[10, 127])
+# 2. Wall revealed where box used to be (e.g. y=35, x=127, or y=60, x=105):
+print(&#x27;Wall at (y=60, x=105) [old left edge]: f0 =&#x27;, f0[60, 105], &#x27;f19 =&#x27;, f19[60, 105])
+# 3. New box top roof at y=45 + 32 = 77:
+print(&#x27;Roof highlight at (y=47+32=79, x=132): f0 =&#x27;, f0[79, 132], &#x27;f19 =&#x27;, f19[79, 132])
+# 4. Ball center at y=100, x=128:
+print(&#x27;Ball center (y=100, x=128): f0 =&#x27;, f0[100, 128], &#x27;f19 =&#x27;, f19[100, 128])
+# 5. Table wood outside box at (y=120, x=50):
+print(&#x27;Table outside box (y=120, x=50): f0 =&#x27;, f0[120, 50], &#x27;f19 =&#x27;, f19[120, 50])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 96</strong><time>2026-11-12T13:28:46.775822+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(f0, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+print(&#x27;Diff between f0 and bg outside mask (should be exactly 0):&#x27;)
+print(np.abs(f0[inpaint_mask == 0] - bg[inpaint_mask == 0]).max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 97</strong><time>2026-11-12T13:28:57.146144+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;python3 -c &quot;
+import numpy as np
+
+# Total frames = 20: 0 to 19
+# Frame 0: suspended at rest (dy = 0)
+# Frame 1 to 16: lowering smoothly
+# Frame 17 to 19: resting on the table over the tennis ball (dy = 32)
+dys = []
+for t in range(20):
+    if t == 0:
+        dys.append(0.0)
+    elif t &gt;= 16:
+        dys.append(32.0)
+    else:
+        # Smooth cosine or quintic smoothstep
+        p = t / 16.0
+        # Smoothstep: 3*p&#x27;&#x27;^2 - 2*p&#x27;&#x27;^3
+        s = p * p * (3.0 - 2.0 * p)
+        dys.append(s * 32.0)
+
+for t, dy in enumerate(dys):
+    print(f&#x27;&quot;&#x27;frame {t:02d}: dy = {dy:.2f}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 98</strong><time>2026-11-12T13:29:17.301980+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+from scipy.ndimage import map_coordinates
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+delta = first_frame.astype(float) - bg.astype(float)
+box_region = np.zeros((144, 256), dtype=bool)
+box_region[0:86, 104:148] = True
+delta[~box_region] = 0.0
+
+cord_delta = delta[0:20, 124:131].copy()
+
+def shift_layer(delta, dy):
+    Y, X = np.indices(delta.shape[:2])
+    src_Y = Y - dy
+    shifted = np.zeros_like(delta)
+    for c in range(3):
+        shifted[:, :, c] = map_coordinates(delta[:, :, c], [src_Y, X], order=1, mode=&#x27;constant&#x27;, cval=0.0)
+    return shifted
+
+def render(dy):
+    if dy == 0.0:
+        return first_frame.copy()
+    shifted = shift_layer(delta, dy)
+    for y in range(int(np.ceil(dy))):
+        src_y = y % 20
+        shifted[y, 124:131] = cord_delta[src_y]
+    out = np.clip(bg.astype(float) + shifted, 0, 255).astype(np.uint8)
+    return out
+
+# Check all frames between 0 and 19
+frames = []
+for t in range(20):
+    if t == 0:
+        dy = 0.0
+    elif t &gt;= 16:
+        dy = 32.0
+    else:
+        p = t / 16.0
+        s = p * p * (3.0 - 2.0 * p)
+        dy = s * 32.0
+    frames.append(render(dy))
+
+frames = np.array(frames)
+print(&#x27;Generated frames shape:&#x27;, frames.shape, &#x27;dtype:&#x27;, frames.dtype)
+print(&#x27;Frame 0 identical to first_frame?&#x27;, np.array_equal(frames[0], first_frame))
+
+# Check difference between consecutive frames
+for t in range(1, 20):
+    diff = np.abs(frames[t].astype(float) - frames[t-1].astype(float))
+    print(f&#x27;Frame {t-1:02d} -&gt; {t:02d}: max_diff={diff.max():.1f}, mean_diff={diff.mean():.3f}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 99</strong><time>2026-11-12T13:29:26.785394+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;first_frame.png&#x27;))
+inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+inpaint_mask[0:86, 104:148] = 255
+bg = cv2.inpaint(f0, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+delta = f0.astype(float) - bg.astype(float)
+# Check delta at row 84 and 85
+print(&#x27;Delta at row 84:&#x27;, delta[84, 100:150:5].tolist())
+print(&#x27;Delta at row 85:&#x27;, delta[85, 100:150:5].tolist())
+print(&#x27;Delta at row 86:&#x27;, delta[86, 100:150:5].tolist())
+print(&#x27;Delta at row 87:&#x27;, delta[87, 100:150:5].tolist())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 100</strong><time>2026-11-12T13:29:35.595044+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+
+# Let&#x27;s inspect the transition at row 85:
+# At row 85, delta is [5, 8, 13] which is the bottom rim of the box&quot;&#x27;!
+# If we feather delta along y from 83 to 85, does it affect the rim?
+# The rim is the bottom edge of the acrylic box.
+# In reality, the bottom edge is a cut glass/acrylic rim, which has a thin highlight/refraction line.
+# If delta is 0 at row 86, that means row 85 is the bottom-most pixel of the rim!
+print(&#x27;&quot;&#x27;Row 85 is precisely the bottom edge of the box&quot;&#x27;!&#x27;&quot;&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 101</strong><time>2026-11-12T13:29:52.074331+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &lt;&lt; &#x27;EOF&#x27; &gt; generate.py
+from pathlib import Path
+import cv2
+import numpy as np
+from PIL import Image
+from scipy.ndimage import map_coordinates
+
+import artifact_io
+
+
+def generate_video():
+    case_dir = Path(__file__).parent
+    first_frame_path = case_dir / \&quot;first_frame.png\&quot;
+    first_frame = np.array(Image.open(first_frame_path))
+
+    # Inpaint clean background where the suspended acrylic box is located
+    inpaint_mask = np.zeros((144, 256), dtype=np.uint8)
+    inpaint_mask[0:86, 104:148] = 255
+    bg = cv2.inpaint(first_frame, inpaint_mask, 7, cv2.INPAINT_TELEA)
+
+    # Compute delta layer for the box assembly
+    delta = first_frame.astype(float) - bg.astype(float)
+    box_region = np.zeros((144, 256), dtype=bool)
+    box_region[0:86, 104:148] = True
+    delta[~box_region] = 0.0
+
+    # Vertical cord pattern to extend as the box lowers
+    cord_delta = delta[0:20, 124:131].copy()
+
+    def shift_layer(delta_img, dy):
+        y_coords, x_coords = np.indices(delta_img.shape[:2])
+        src_y = y_coords - dy
+        shifted = np.zeros_like(delta_img)
+        for c in range(3):
+            shifted[:, :, c] = map_coordinates(
+                delta_img[:, :, c],
+                [src_y, x_coords],
+                order=1,
+                mode=\&quot;constant\&quot;,
+                cval=0.0,
+            )
+        return shifted
+
+    def render(dy):
+        if dy == 0.0:
+            return first_frame.copy()
+        shifted = shift_layer(delta, dy)
+        max_cord_y = int(np.ceil(dy))
+        for y in range(max_cord_y):
+            src_y = y % 20
+            shifted[y, 124:131] = cord_delta[src_y]
+        composite = np.clip(bg.astype(float) + shifted, 0, 255).astype(np.uint8)
+        return composite
+
+    frames = []
+    total_frames = 20
+    max_dy = 32.0  # acrylic box lowers by 32px to cover tennis ball on table
+
+    for t in range(total_frames):
+        if t == 0:
+            dy = 0.0
+        elif t &gt;= 16:
+            dy = max_dy
+        else:
+            # Quintic smoothstep easing
+            p = t / 16.0
+            s = p * p * (3.0 - 2.0 * p)
+            dy = s * max_dy
+        frames.append(render(dy))
+
+    frames = np.array(frames)
+
+    # Verify frame 0 is pixel-identical to first_frame.png
+    assert np.array_equal(frames[0], first_frame), \&quot;Frame 00 must be pixel-identical to first_frame.png\&quot;
+    assert frames.shape == (20, 144, 256, 3)
+
+    artifact_io.save(frames, case_dir)
+    print(\&quot;Video generated and artifacts saved successfully.\&quot;)
+
+
+if __name__ == \&quot;__main__\&quot;:
+    generate_video()
+EOF
+python3 generate.py
+&quot;</pre></details><details class=command><summary><strong>命令 102</strong><time>2026-11-12T13:30:01.104731+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la; ls -la frames/ | head -n 15&#x27;</pre></details><details class=command><summary><strong>命令 103</strong><time>2026-11-12T13:30:09.617852+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;first_frame.png&#x27;))
+f_gen0 = np.array(Image.open(&#x27;frames/00.png&#x27;))
+print(&#x27;Difference count between first_frame and frames/00.png:&#x27;, np.sum(f0 &quot;&#x27;!= f_gen0))
+assert np.array_equal(f0, f_gen0)
+
+npz = np.load(&#x27;&quot;&#x27;pixels.npz&#x27;)
+print(&#x27;npz keys:&#x27;, list(npz.keys()), &#x27;pixels shape:&#x27;, npz[&#x27;pixels&#x27;].shape)
+\&quot;&quot;</pre></details><p class=muted>保存候选 1 份；完成命令 103 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
