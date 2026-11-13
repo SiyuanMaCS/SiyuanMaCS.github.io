@@ -1,0 +1,2406 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>gemini-3.8-flash · 0134</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>gemini-3.8-flash · 0134</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>4.0 FPS · 20 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_fad8e34bd8ab4240.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;1a1451f19d54d565262e9e6eea655ea9ae9ab9f9e995644d3b0a5234124091f3&quot;, &quot;pixels&quot;: &quot;final/pixels_fad8e34bd8ab4240.rgb.gz&quot;, &quot;poster&quot;: &quot;final/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>首帧续写</span><h3 style="margin-top:14px">原始任务</h3><p>Static locked-off single-shot with fixed frame throughout filmed with constant framerate in real-time. The scene shows a realistic scientific demonstration. The scene only contains the described setup and actions. The orange-black grabber tool is suspended over the bowl of water on a wooden table. The orange-black grabber tool releases the crumpled piece of paper over the bowl of water.
+</p><div class=facts><div><strong>5.00s</strong>视频时长</div><div><strong>31955</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-12T22:07:01.131046+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_fad8e34bd8ab4240.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;1a1451f19d54d565262e9e6eea655ea9ae9ab9f9e995644d3b0a5234124091f3&quot;, &quot;pixels&quot;: &quot;candidate_00/pixels_fad8e34bd8ab4240.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_00/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_00/inspection.png" target=_blank><img loading=lazy src="candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_00/transition_check.png" target=_blank><img loading=lazy src="candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,228 @@
++import numpy as np
++import cv2
++from PIL import Image
++from pathlib import Path
++import artifact_io
++
++def generate_video():
++    case_dir = Path(__file__).parent
++    first_frame_path = case_dir / &quot;first_frame.png&quot;
++    first_frame = np.array(Image.open(first_frame_path))
++    H, W, C = first_frame.shape
++
++    # 1. Grabber claw pivots
++    pivot_left = (121.0, 24.0)
++    pivot_right = (137.0, 24.0)
++
++    # 2. Extract claw layers
++    left_claw_rgb = np.zeros_like(first_frame)
++    left_claw_alpha = np.zeros((H, W), dtype=np.float32)
++    for y in range(24, 53):
++        for x in range(106, 126):
++            c = first_frame[y, x]
++            if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
++                left_claw_rgb[y, x] = c
++                left_claw_alpha[y, x] = 1.0
++
++    right_claw_rgb = np.zeros_like(first_frame)
++    right_claw_alpha = np.zeros((H, W), dtype=np.float32)
++    for y in range(24, 53):
++        for x in range(134, 153):
++            c = first_frame[y, x]
++            if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
++                right_claw_rgb[y, x] = c
++                right_claw_alpha[y, x] = 1.0
++
++    # 3. Extract crumpled paper ball layer
++    paper_rgb = np.zeros_like(first_frame)
++    paper_alpha = np.zeros((H, W), dtype=np.float32)
++    for y in range(33, 65):
++        for x in range(115, 143):
++            if left_claw_alpha[y, x] == 0 and right_claw_alpha[y, x] == 0:
++                diff = np.abs(first_frame[y, x].astype(int) - np.array([156, 146, 144])).max()
++                if diff &gt; 8:
++                    paper_rgb[y, x] = first_frame[y, x]
++                    paper_alpha[y, x] = 1.0
++
++    paper_alpha_closed = cv2.morphologyEx((paper_alpha * 255).astype(np.uint8), cv2.MORPH_CLOSE, np.ones((3,3), np.uint8))
++    paper_alpha = (paper_alpha_closed &gt; 128).astype(np.float32)
++    for y in range(33, 65):
++        for x in range(115, 143):
++            if paper_alpha[y, x] &gt; 0 and np.all(paper_rgb[y, x] == 0):
++                paper_rgb[y, x] = first_frame[y, x]
++
++    # 4. Seamless background inpainting
++    inpaint_mask = np.zeros((H, W), dtype=np.uint8)
++    inpaint_mask[left_claw_alpha &gt; 0] = 255
++    inpaint_mask[right_claw_alpha &gt; 0] = 255
++    inpaint_mask[paper_alpha &gt; 0] = 255
++    kernel = np.ones((3, 3), np.uint8)
++    inpaint_mask = cv2.dilate(inpaint_mask, kernel, iterations=1)
++
++    bg_clean_bgr = cv2.inpaint(cv2.cvtColor(first_frame, cv2.COLOR_RGB2BGR), inpaint_mask, 5, cv2.INPAINT_TELEA)
++    bg_clean = cv2.cvtColor(bg_clean_bgr, cv2.COLOR_BGR2RGB)
++
++    # Paper geometric center
++    ys, xs = np.where(paper_alpha &gt; 0)
++    paper_center_y = float(np.mean(ys))
++    paper_center_x = float(np.mean(xs))
++
++    frames = []
++    for f in range(20):
++        if f == 0:
++            frames.append(first_frame.copy())
++            continue
++
++        # Dynamics: Claws opening angle (degrees)
++        if f == 1:
++            angle = 6.0
++        elif f == 2:
++            angle = 12.0
++        elif f == 3:
++            angle = 15.0
++        else:
++            angle = 15.0 + 0.2 * np.sin((f - 3) * 0.7)
++
++        # Dynamics: Paper vertical free-fall and impact
++        if f == 1:
++            py = paper_center_y + 3.0
++            px = paper_center_x
++            rot = 0.8
++            motion_blur = 1.5
++        elif f == 2:
++            py = paper_center_y + 15.0
++            px = paper_center_x + 0.2
++            rot = 2.0
++            motion_blur = 3.0
++        elif f == 3:
++            py = 76.0
++            px = paper_center_x + 0.3
++            rot = 2.8
++            motion_blur = 1.0
++        elif f == 4:
++            py = 77.2
++            px = paper_center_x + 0.4
++            rot = 3.0
++            motion_blur = 0.0
++        elif f == 5:
++            py = 76.2
++            px = paper_center_x + 0.4
++            rot = 3.0
++            motion_blur = 0.0
++        elif f == 6:
++            py = 76.6
++            px = paper_center_x + 0.5
++            rot = 3.1
++            motion_blur = 0.0
++        else:
++            dt = f - 6
++            py = 76.5 + 0.3 * np.exp(-0.25 * dt) * np.sin(1.2 * dt)
++            px = paper_center_x + 0.5 + 0.05 * np.sin(0.4 * dt)
++            rot = 3.1 + 0.1 * np.cos(0.5 * dt)
++            motion_blur = 0.0
++
++        dy = py - paper_center_y
++        dx = px - paper_center_x
++
++        frame = bg_clean.copy()
++
++        # Water surface waves and ripples after landing
++        if f &gt;= 3:
++            impact_f = f - 3
++            y_grid, x_grid = np.ogrid[68:98, 70:185]
++            rx = 1.0
++            ry = 0.26
++            r = np.sqrt(((x_grid - paper_center_x) * rx)**2 + ((y_grid - 78.0) / ry)**2)
++
++            wave = np.zeros_like(r)
++            for ring_idx, ring_speed in enumerate([7.5, 6.8, 6.0]):
++                t_ring = impact_f - ring_idx * 0.8
++                if t_ring &gt;= 0:
++                    r_ring = t_ring * ring_speed + 3.0
++                    ring_amp = (18.0 / (1.0 + 0.35 * impact_f + ring_idx * 0.5)) * np.exp(-0.15 * t_ring)
++                    ring_prof = ring_amp * np.cos((r - r_ring) * (np.pi / 4.0)) * np.exp(-((r - r_ring) / 4.5)**2)
++                    wave += ring_prof
++
++            ellipse_dist = ((x_grid - 128.0) / 54.0)**2 + ((y_grid - 84.0) / 14.0)**2
++            water_mask = np.clip(1.0 - ellipse_dist, 0.0, 1.0)
++            water_mask = cv2.GaussianBlur(water_mask, (5, 5), 1.0)
++            wave = wave * water_mask
++
++            sub = frame[68:98, 70:185].astype(np.float32)
++            sub[:, :, 0] += wave * 0.85
++            sub[:, :, 1] += wave * 0.90
++            sub[:, :, 2] += wave * 1.00
++            frame[68:98, 70:185] = np.clip(sub, 0, 255).astype(np.uint8)
++
++            if f == 3:
++                np.random.seed(42)
++                for drop_i in range(12):
++                    ang = np.random.uniform(0, 2 * np.pi)
++                    dist_drop = np.random.uniform(5, 14)
++                    dx_drop = int(paper_center_x + np.cos(ang) * dist_drop)
++                    dy_drop = int(77.0 + np.sin(ang) * dist_drop * 0.35)
++                    if 70 &lt;= dy_drop &lt; 95 and 75 &lt;= dx_drop &lt; 180:
++                        cv2.circle(frame, (dx_drop, dy_drop), 1, (235, 230, 235), -1)
++
++        # Shadow cast by paper onto water surface
++        if f &gt;= 1:
++            shadow_dist = max(0.0, 78.0 - py)
++            shadow_alpha = np.clip(1.0 - shadow_dist / 32.0, 0.0, 0.40)
++            sy, sx = np.ogrid[68:95, 100:160]
++            shadow_r = ((sx - px) / 13.0)**2 + ((sy - 78.5) / 3.8)**2
++            s_weight = shadow_alpha * np.exp(-shadow_r)
++            sub_s = frame[68:95, 100:160].astype(np.float32)
++            for c_idx in range(3):
++                sub_s[:, :, c_idx] *= (1.0 - 0.42 * s_weight)
++            frame[68:95, 100:160] = np.clip(sub_s, 0, 255).astype(np.uint8)
++
++        # Composite paper ball
++        M_paper = cv2.getRotationMatrix2D((paper_center_x, paper_center_y), rot, 1.0)
++        M_paper[0, 2] += dx
++        M_paper[1, 2] += dy
++
++        p_rgb_w = cv2.warpAffine(paper_rgb, M_paper, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
++        p_alpha_w = cv2.warpAffine(paper_alpha, M_paper, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
++
++        if motion_blur &gt; 0.5:
++            ksize = int(motion_blur * 2 + 1)
++            if ksize % 2 == 0: ksize += 1
++            blur_kernel = np.zeros((ksize, ksize))
++            blur_kernel[:, ksize // 2] = 1.0 / ksize
++            p_rgb_w = cv2.filter2D(p_rgb_w, -1, blur_kernel)
++            p_alpha_w = cv2.filter2D(p_alpha_w, -1, blur_kernel)
++
++        p_alpha_s = cv2.GaussianBlur(p_alpha_w, (3, 3), 0.5)[:, :, None]
++
++        if f &gt;= 3:
++            y_idx = np.arange(H)[:, None, None]
++            wet_mask = np.clip((y_idx - (py + 1.0)) / 6.0, 0.0, 0.38)
++            p_rgb_w = np.clip(p_rgb_w.astype(np.float32) * (1.0 - wet_mask), 0, 255).astype(np.uint8)
++
++        frame = np.clip(frame * (1.0 - p_alpha_s) + p_rgb_w * p_alpha_s, 0, 255).astype(np.uint8)
++
++        # Composite Grabber Claws
++        M_l = cv2.getRotationMatrix2D(pivot_left, angle, 1.0)
++        l_rgb_w = cv2.warpAffine(left_claw_rgb, M_l, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
++        l_alpha_w = cv2.warpAffine(left_claw_alpha, M_l, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
++        l_alpha_s = cv2.GaussianBlur(l_alpha_w, (3, 3), 0.4)[:, :, None]
++
++        M_r = cv2.getRotationMatrix2D(pivot_right, -angle, 1.0)
++        r_rgb_w = cv2.warpAffine(right_claw_rgb, M_r, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
++        r_alpha_w = cv2.warpAffine(right_claw_alpha, M_r, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
++        r_alpha_s = cv2.GaussianBlur(r_alpha_w, (3, 3), 0.4)[:, :, None]
++
++        frame = np.clip(frame * (1.0 - l_alpha_s) + l_rgb_w * l_alpha_s, 0, 255).astype(np.uint8)
++        frame = np.clip(frame * (1.0 - r_alpha_s) + r_rgb_w * r_alpha_s, 0, 255).astype(np.uint8)
++
++        # Top shaft and upper assembly remain static
++        frame[:24, :] = first_frame[:24, :]
++
++        frames.append(frame)
++
++    frames = np.array(frames, dtype=np.uint8)
++    artifact_io.save(frames, case_dir)
++    print(&quot;Video generation and artifact saving complete.&quot;)
++
++if __name__ == &quot;__main__&quot;:
++    generate_video()
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-12T21:54:58.696203+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la&#x27;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-12T21:55:03.166796+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat prompt.txt; echo &quot;---&quot;; cat GENERATION_RULES.md&#x27;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-12T21:55:07.054998+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat artifact_io.py&#x27;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-12T21:55:11.432118+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+print(&#x27;Format:&#x27;, img.format, &#x27;Size:&#x27;, img.size, &#x27;Mode:&#x27;, img.mode)
+arr = np.array(img)
+print(&#x27;Shape:&#x27;, arr.shape, &#x27;dtype:&#x27;, arr.dtype)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-12T21:55:22.220908+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Image stats:&#x27;)
+print(&#x27;R min/mean/max:&#x27;, arr[:,:,0].min(), arr[:,:,0].mean(), arr[:,:,0].max())
+print(&#x27;G min/mean/max:&#x27;, arr[:,:,1].min(), arr[:,:,1].mean(), arr[:,:,1].max())
+print(&#x27;B min/mean/max:&#x27;, arr[:,:,2].min(), arr[:,:,2].mean(), arr[:,:,2].max())
+
+# Let&#x27;s find regions of interest:
+# Orange colors (grabber tool): high R, medium G, low B
+orange_mask = (arr[:,:,0] &gt; 150) &amp; (arr[:,:,1] &gt; 60) &amp; (arr[:,:,1] &lt; 150) &amp; (arr[:,:,2] &lt; 60)
+print(&#x27;Orange pixels count:&#x27;, np.sum(orange_mask))
+if np.sum(orange_mask) &gt; 0:
+    ys, xs = np.where(orange_mask)
+    print(f&#x27;Orange bbox: y=[{ys.min()}, {ys.max()}], x=[{xs.min()}, {xs.max()}]&#x27;)
+
+# Black colors near orange:
+black_mask = (arr[:,:,0] &lt; 50) &amp; (arr[:,:,1] &lt; 50) &amp; (arr[:,:,2] &lt; 50)
+print(&#x27;Dark pixels count:&#x27;, np.sum(black_mask))
+
+# Paper: crumpled piece of paper is likely white / light gray
+# Let&#x27;s inspect brightness across the image
+gray = np.mean(arr, axis=2)
+print(&#x27;Bright pixels (&gt;200) count:&#x27;, np.sum(gray &gt; 200))
+if np.sum(gray &gt; 200) &gt; 0:
+    ys, xs = np.where(gray &gt; 200)
+    print(f&#x27;Bright bbox: y=[{ys.min()}, {ys.max()}], x=[{xs.min()}, {xs.max()}]&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-12T21:55:35.587546+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the area around y: 0 to 80, x: 90 to 170 (grabber and paper)
+# Let&#x27;s see color distributions in a grid
+print(&#x27;Center crop around grabber tool (y=10..70, x=100..160):&#x27;)
+for y in range(15, 65, 5):
+    row_str = f&#x27;y={y:2d}: &#x27;
+    for x in range(105, 155, 5):
+        r, g, b = arr[y, x]
+        row_str += f&#x27;({r:3d},{g:3d},{b:3d}) &#x27;
+    print(row_str)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-12T21:55:41.775149+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, _ = arr.shape
+
+# Let&#x27;s inspect different vertical sections:
+# Top: y=0..60 (wall background? grabber tool rod?)
+# Middle: y=60..100 (bowl? paper?)
+# Bottom: y=100..144 (table? water?)
+
+print(&#x27;Summary along Y:&#x27;)
+for y in range(0, 144, 8):
+    row = arr[y, :, :]
+    mean_rgb = np.mean(row, axis=0).astype(int)
+    std_rgb = np.std(row, axis=0).astype(int)
+    print(f&#x27;y={y:3d}: mean=({mean_rgb[0]:3d},{mean_rgb[1]:3d},{mean_rgb[2]:3d}) std=({std_rgb[0]:2d},{std_rgb[1]:2d},{std_rgb[2]:2d}) min_r={row[:,0].min()} max_r={row[:,0].max()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-12T21:55:46.770509+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect where the grabber tool is:
+# In y=0..30, where is min_r=2?
+print(&#x27;Black rod / shaft in y=0..20:&#x27;)
+for y in range(0, 25, 3):
+    xs = np.where(arr[y, :, 0] &lt; 30)[0]
+    print(f&#x27;y={y:2d}: x in [{xs.min() if len(xs) else -1}, {xs.max() if len(xs) else -1}], count={len(xs)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-12T21:55:57.496910+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect rows around y=70..130 across columns x=40..210
+# Where are the bright pixels (y=89..123, x=78..175)?
+print(&#x27;Bright pixels y=80..130:&#x27;)
+for y in range(80, 135, 5):
+    bright_xs = np.where(arr[y, :, 0] &gt; 180)[0]
+    if len(bright_xs) &gt; 0:
+        print(f&#x27;y={y:3d}: x in [{bright_xs.min()}, {bright_xs.max()}], count={len(bright_xs)}, vals={arr[y, bright_xs[::max(1, len(bright_xs)//5)], :].tolist()}&#x27;)
+    else:
+        print(f&#x27;y={y:3d}: none &gt; 180&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-12T21:56:04.675503+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the grabber jaws and what they are holding
+# Prompt: &#x27;The orange-black grabber tool is suspended over the bowl of water on a wooden table. The orange-black grabber tool releases the crumpled piece of paper over the bowl of water.&#x27;
+# Where is the crumpled piece of paper initially?
+# Between y=20 and y=70? Let&#x27;s check y=25..60, x=110..150
+print(&#x27;Detailed crop y=25..55, x=115..145:&#x27;)
+for y in range(25, 55):
+    line = f&#x27;y={y:2d}: &#x27;
+    for x in range(118, 142):
+        r, g, b = arr[y, x]
+        # classify pixel:
+        # B: black/dark (&lt;50)
+        # O: orange (r &gt; 150, g &lt; 120, b &lt; 60)
+        # P: paper? or background?
+        # let&#x27;s print brightness or tag
+        if r &lt; 40 and g &lt; 40 and b &lt; 40:
+            line += &#x27;  # &#x27;
+        elif r &gt; 140 and g &lt; 100 and b &lt; 60:
+            line += &#x27;  O &#x27;
+        elif r &gt; 130 and g &gt; 115 and b &gt; 110:
+            # could be background (around 153, 143, 142) or paper
+            line += f&#x27;{r:3d} &#x27;
+        else:
+            line += f&#x27;{r:3d} &#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-12T21:56:11.287200+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s save a visual representation or inspect where colors differ from background
+# Background in the upper half (wall):
+bg_sample = arr[10:20, 10:50]
+bg_mean = bg_sample.mean(axis=(0,1))
+print(&#x27;Background mean RGB:&#x27;, bg_mean)
+
+# Let&#x27;s compute difference from background in the upper half (y &lt; 80)
+diff = np.linalg.norm(arr[:80].astype(float) - bg_mean, axis=2)
+# Print an ASCII map of diff &gt; 15
+print(&#x27;Upper half structure (y=0..79):&#x27;)
+for y in range(0, 75, 2):
+    s = f&#x27;{y:2d} &#x27;
+    for x in range(95, 165):
+        d = diff[y, x]
+        if d &gt; 40:
+            s += &#x27;#&#x27;
+        elif d &gt; 20:
+            s += &#x27;+&#x27;
+        elif d &gt; 10:
+            s += &#x27;.&#x27;
+        else:
+            s += &#x27; &#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-12T21:56:17.581226+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+print(&#x27;Lower half structure (y=65..143):&#x27;)
+for y in range(65, 144, 4):
+    s = f&#x27;{y:3d} &#x27;
+    for x in range(30, 230, 2):
+        r, g, b = arr[y, x]
+        # classify:
+        # Table is warm brown (y &gt; 75)
+        # Bowl rim / body / water / reflections
+        # Let&#x27;s see:
+        if r &gt; 180 and g &gt; 170 and b &gt; 170:
+            s += &#x27;*&#x27; # bright white/glass highlight
+        elif r &gt; 120 and g &gt; 120 and b &gt; 120 and abs(int(r)-int(b)) &lt; 20:
+            s += &#x27;.&#x27; # grayish / water / glass
+        elif r &gt; g and g &gt; b:
+            # brown / orange / table
+            s += &#x27;=&#x27;
+        else:
+            s += &#x27; &#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-12T21:56:25.070926+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s find where the bowl is located by looking at color variance or saturation or contours
+# In y=70..140, table is wooden (brownish). Is the bowl transparent glass, ceramic, or metal?
+# Let&#x27;s inspect saturation: S = (max - min) / max
+mx = arr.max(axis=2).astype(float)
+mn = arr.min(axis=2).astype(float)
+sat = np.zeros_like(mx)
+mask = mx &gt; 0
+sat[mask] = (mx[mask] - mn[mask]) / mx[mask]
+
+print(&#x27;Saturation map y=70..140:&#x27;)
+for y in range(70, 140, 4):
+    s = f&#x27;{y:3d} &#x27;
+    for x in range(30, 230, 3):
+        st = sat[y, x]
+        if st &gt; 0.4:
+            s += &#x27;#&#x27; # high sat (wood)
+        elif st &gt; 0.2:
+            s += &#x27;+&#x27; # medium sat
+        elif st &gt; 0.08:
+            s += &#x27;.&#x27; # low sat
+        else:
+            s += &#x27; &#x27; # very low sat / gray
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-12T21:56:31.380741+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+mx = arr.max(axis=2).astype(float)
+mn = arr.min(axis=2).astype(float)
+sat = np.zeros_like(mx)
+mask = mx &gt; 0
+sat[mask] = (mx[mask] - mn[mask]) / mx[mask]
+
+# Low saturation region inside the table (y=90..135, x=60..200)
+# Let&#x27;s inspect rows around y=105..125
+for y in [95, 105, 115, 120, 125]:
+    low_sat_x = np.where((sat[y] &lt; 0.25) &amp; (np.arange(256) &gt; 50) &amp; (np.arange(256) &lt; 210))[0]
+    print(f&#x27;y={y}: low sat x from {low_sat_x.min()} to {low_sat_x.max()} (count {len(low_sat_x)})&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-12T21:56:39.970465+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the grabber tool:
+# Where are the claws / jaws?
+# Between y=20 and y=55, x=100 and x=160
+# Let&#x27;s categorize every pixel in this box:
+box = arr[20:65, 105:155]
+# Let&#x27;s see unique colors or color types:
+# 1. Background wall: ~ [146, 140, 141] (grayish-pinkish-taupe)
+# 2. Grabber orange: R &gt; 150, G ~ 50-80, B &lt; 40
+# 3. Grabber black: R,G,B &lt; 40
+# 4. Grabber gray/metallic/shadow: ?
+# 5. Paper: what color is the paper?
+print(&#x27;Sample colors in box:&#x27;)
+for y in range(20, 65, 3):
+    line = f&#x27;y={y:2d}: &#x27;
+    for x in range(110, 150, 2):
+        c = arr[y, x]
+        # check distance to bg
+        bg_dist = np.linalg.norm(c.astype(float) - np.array([146, 140, 141]))
+        if c[0] &gt; 140 and c[1] &lt; 90 and c[2] &lt; 50:
+            line += &#x27; ORG&#x27;
+        elif np.all(c &lt; 45):
+            line += &#x27; BLK&#x27;
+        elif bg_dist &lt; 10:
+            line += &#x27;  ..&#x27;
+        else:
+            line += f&#x27; {c[0]:3d}&#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-12T21:56:47.480019+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+print(&#x27;Inspect y=35..65, x=120..145:&#x27;)
+for y in range(35, 65):
+    row_chars = []
+    for x in range(120, 145):
+        c = arr[y, x].astype(int)
+        # Background is roughly [146..157, 140..148, 140..147]
+        # Let&#x27;s see if this pixel is background, paper, or grabber
+        # Paper often has distinct texture/folds, shading, shadows
+        diff_bg = np.abs(c - np.array([150, 142, 142])).max()
+        if diff_bg &lt; 12:
+            row_chars.append(&#x27; . &#x27;)
+        else:
+            row_chars.append(f&#x27;{c[0]:3d}&#x27;)
+    print(f&#x27;y={y:2d}: &#x27; + &#x27;&#x27;.join(row_chars))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-12T21:56:55.204329+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the grabber claws:
+# Where are the orange / black claw pixels?
+# Left claw vs Right claw:
+for y in range(25, 55, 2):
+    left_claw = []
+    right_claw = []
+    for x in range(100, 160):
+        c = arr[y, x]
+        is_orange = (c[0] &gt; 140) and (c[1] &lt; 110) and (c[2] &lt; 60)
+        is_black = (c[0] &lt; 45) and (c[1] &lt; 45) and (c[2] &lt; 45)
+        if is_orange or is_black:
+            if x &lt; 130:
+                left_claw.append(x)
+            else:
+                right_claw.append(x)
+    l_str = f&#x27;[{min(left_claw)}, {max(left_claw)}]&#x27; if left_claw else &#x27;none&#x27;
+    r_str = f&#x27;[{min(right_claw)}, {max(right_claw)}]&#x27; if right_claw else &#x27;none&#x27;
+    print(f&#x27;y={y:2d}: Left claw: {l_str:10s} Right claw: {r_str}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-12T21:57:01.662040+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+print(&#x27;Claw tips area (y=45..55, x=105..155):&#x27;)
+for y in range(45, 55):
+    line = f&#x27;y={y:2d}: &#x27;
+    for x in range(108, 153):
+        c = arr[y, x]
+        if (c[0] &gt; 140 and c[1] &lt; 110 and c[2] &lt; 60) or np.all(c &lt; 45):
+            line += &#x27;C&#x27; # Claw
+        elif abs(int(c[0]) - 150) &lt; 12 and abs(int(c[1]) - 142) &lt; 12 and abs(int(c[2]) - 142) &lt; 12:
+            line += &#x27;.&#x27; # Background
+        else:
+            line += &#x27;P&#x27; # Paper / other
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-12T21:57:09.356389+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+print(&#x27;Paper rows y=33..64:&#x27;)
+for y in range(33, 65):
+    # let&#x27;s find paper pixels between x=112 and x=148
+    paper_xs = []
+    for x in range(112, 148):
+        c = arr[y, x]
+        # not background and not claw
+        diff_bg = np.linalg.norm(c.astype(float) - np.array([150, 142, 142]))
+        is_claw = (c[0] &gt; 140 and c[1] &lt; 110 and c[2] &lt; 60) or np.all(c &lt; 45)
+        if diff_bg &gt; 15 and not is_claw:
+            paper_xs.append(x)
+    if paper_xs:
+        print(f&#x27;y={y:2d}: count={len(paper_xs):2d}, x in [{min(paper_xs):3d}, {max(paper_xs):3d}], mean_rgb={arr[y, paper_xs].mean(axis=0).astype(int)}&#x27;)
+    else:
+        print(f&#x27;y={y:2d}: none&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-12T21:57:16.778463+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+print(&#x27;Bowl rim / body exploration:&#x27;)
+# Check y=70..130 across x=50..210
+# Where are the edges of the bowl?
+for y in range(70, 135, 5):
+    # compute horizontal gradient
+    row = arr[y, :, :].astype(float)
+    grad = np.abs(row[1:] - row[:-1]).sum(axis=-1)
+    # find peaks
+    peaks = np.where(grad &gt; 25)[0]
+    print(f&#x27;y={y:3d}: gradient peaks at {peaks}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-12T21:57:25.032560+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the water surface in the bowl
+# The bowl has water. Where is the water surface?
+# In y=75..95, x=70..180:
+# Let&#x27;s print the RGB values in a grid over the bowl:
+print(&#x27;Bowl interior sampling:&#x27;)
+for y in range(75, 110, 5):
+    line = f&#x27;y={y:3d}: &#x27;
+    for x in range(80, 180, 10):
+        c = arr[y, x]
+        line += f&#x27;({c[0]:3d},{c[1]:3d},{c[2]:3d}) &#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-12T21:57:31.763719+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the shadow under the paper / grabber
+# Does the paper cast a shadow onto the water or table?
+# In y=70..90, x=100..150:
+for y in range(65, 85, 2):
+    row_vals = [f&#x27;{arr[y, x, 0]:3d}&#x27; for x in range(110, 150, 2)]
+    print(f&#x27;y={y:2d}: &#x27; + &#x27; &#x27;.join(row_vals))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-12T21:57:41.478295+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the paper pixels closely
+# What are the coordinates of the paper?
+# Let&#x27;s write an algorithm to precisely extract the paper mask
+# In first_frame, paper is held between the grabber jaws.
+# Grabber tool:
+# Shaft: x in [125, 134], y in [0, 22]
+# Pivot / Orange housing: y in [22, 33], x in [110, 150]
+# Left claw: y in [25, 52], x in [108, 120]
+# Right claw: y in [25, 51], x in [140, 151]
+# Paper: between the jaws, y in [33, 64], x in [112, 147]
+
+# Let&#x27;s check claw colors vs paper colors:
+# Orange: high R, G ~ R*0.4..0.6, low B
+# Black: R,G,B &lt; 45
+# Background: R ~ 140..155, G ~ 135..148, B ~ 135..148
+# Let&#x27;s print each pixel in [32..65, 112..148] with its exact classification&quot;&#x27;!
+for y in range(32, 65):
+    line = f&#x27;&quot;&#x27;y={y:2d}: &#x27;
+    for x in range(112, 148):
+        r, g, b = arr[y, x]
+        # check claw:
+        is_orange = (r &gt; 135 and g &lt; 105 and b &lt; 65) or (r &gt; 160 and g &lt; 120 and b &lt; 80)
+        is_black = (r &lt; 50 and g &lt; 50 and b &lt; 50)
+        # check background:
+        is_bg = (abs(int(r)-148) &lt; 14 and abs(int(g)-142) &lt; 12 and abs(int(b)-142) &lt; 12)
+        if is_orange:
+            line += &#x27;O&#x27;
+        elif is_black:
+            line += &#x27;K&#x27;
+        elif is_bg:
+            line += &#x27;.&#x27;
+        else:
+            line += &#x27;#&#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 24</strong><time>2026-11-12T21:57:48.070895+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Check columns 110..125 for y=33..43:
+for y in range(33, 44):
+    print(f&#x27;y={y}: &#x27;, [(x, arr[y, x].tolist()) for x in range(112, 125)])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 25</strong><time>2026-11-12T21:57:53.681816+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+for y in range(33, 44):
+    print(f&#x27;y={y}: &#x27;, [(x, arr[y, x].tolist()) for x in range(136, 149)])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 26</strong><time>2026-11-12T21:58:01.985267+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the paper pixels:
+# In y=33..64, x=112..145:
+# Background is roughly [150..160, 140..150, 140..150].
+# Claws are:
+# Left claw: x=108..116
+# Right claw: x=145..152
+# Let&#x27;s see: what if we define a bounding box for the paper:
+# y from 33 to 64, x from 116 to 142.
+# Let&#x27;s check which pixels inside this region are paper vs background&quot;&#x27;!
+diff_to_bg = np.abs(arr.astype(int) - np.array([156, 146, 144])).sum(axis=-1)
+
+paper_mask = np.zeros((144, 256), dtype=bool)
+for y in range(33, 65):
+    for x in range(116, 142):
+        # paper pixels are darker / cooler / different than the uniform pinkish background
+        # Background at (y,x) if paper wasn&#x27;&quot;&#x27;t there would have roughly [155, 145, 143]
+        if diff_to_bg[y, x] &gt; 12:
+            paper_mask[y, x] = True
+
+print(&#x27;Paper mask count:&#x27;, np.sum(paper_mask))
+print(&#x27;Paper y range:&#x27;, np.where(paper_mask)[0].min(), np.where(paper_mask)[0].max())
+print(&#x27;Paper x range:&#x27;, np.where(paper_mask)[1].min(), np.where(paper_mask)[1].max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 27</strong><time>2026-11-12T21:58:09.067412+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+diff_to_bg = np.abs(arr.astype(int) - np.array([156, 146, 144])).sum(axis=-1)
+
+paper_mask = np.zeros((144, 256), dtype=bool)
+for y in range(33, 65):
+    for x in range(116, 142):
+        if diff_to_bg[y, x] &gt; 12:
+            paper_mask[y, x] = True
+
+for y in range(33, 65):
+    line = f&#x27;y={y:2d}: &#x27;
+    for x in range(116, 142):
+        line += &#x27;#&#x27; if paper_mask[y, x] else &#x27;.&#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 28</strong><time>2026-11-12T21:58:16.286295+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+print(&#x27;Check y=65..75, x=116..142:&#x27;)
+for y in range(65, 75):
+    line = f&#x27;y={y:2d}: &#x27;
+    for x in range(116, 142):
+        c = arr[y, x]
+        diff_bg = np.abs(c.astype(int) - np.array([146, 140, 141])).max()
+        if diff_bg &gt; 12:
+            line += &#x27;#&#x27;
+        else:
+            line += &#x27;.&#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 29</strong><time>2026-11-12T21:58:31.233225+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+print(&#x27;Check y=67..75 across x=50..200:&#x27;)
+for y in range(67, 75):
+    # compute diff from bg
+    diff = np.abs(arr[y, 50:200].astype(int) - np.array([146, 140, 141])).max(axis=-1)
+    edge_xs = np.where(diff &gt; 12)[0] + 50
+    if len(edge_xs):
+        print(f&#x27;y={y}: min_x={edge_xs.min()}, max_x={edge_xs.max()}, count={len(edge_xs)}&#x27;)
+    else:
+        print(f&#x27;y={y}: none&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 30</strong><time>2026-11-12T21:58:37.464434+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+print(&#x27;Check left claw vs paper:&#x27;)
+for y in range(40, 55):
+    print(f&#x27;y={y:2d}:&#x27;, [(x, arr[y, x].tolist()) for x in range(108, 120)])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 31</strong><time>2026-11-12T21:58:43.576045+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+print(&#x27;Check right claw vs paper:&#x27;)
+for y in range(40, 55):
+    print(f&#x27;y={y:2d}:&#x27;, [(x, arr[y, x].tolist()) for x in range(141, 152)])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 32</strong><time>2026-11-12T21:58:50.909613+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+# Let&#x27;s calculate physics of falling paper:
+# Height from release to water:
+# Paper top ~ 33, bottom ~ 64, center ~ 48.
+# Water surface rim ~ 71.
+# Bowl bottom ~ 130.
+# Water surface center ~ y=78..82.
+# So paper falls from y=48 to y=80: distance = 32 pixels&quot;&#x27;!
+# In real life, a drop of ~15-20 cm takes ~0.2 seconds under gravity.
+# At 4 fps, 1 frame = 0.25 seconds!
+# Wait! Let&#x27;&quot;&#x27;s examine the prompt carefully:
+# &#x27;The orange-black grabber tool is suspended over the bowl of water on a wooden table. The orange-black grabber tool releases the crumpled piece of paper over the bowl of water.&#x27;
+print(&#x27;20 frames at 4 fps = 5 seconds total duration.&#x27;)
+print(&#x27;Frames 0..19&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 33</strong><time>2026-11-12T21:58:58.588232+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the grabber claw geometry:
+# Left claw:
+# At y=23..26, it connects to the orange housing/pivot (around x=120..128).
+# As y increases, left claw curves down-left:
+# y=25: x in [114, 128]
+# y=30: x in [111, 120]
+# y=35: x in [109, 115]
+# y=40: x in [110, 114]
+# y=45: x in [110, 114]
+# y=50: x in [110, 114]
+# y=52: x in [111, 113]
+# Right claw:
+# y=25: x in [135, 148]
+# y=30: x in [142, 149]
+# y=35: x in [146, 150]
+# y=40: x in [146, 150]
+# y=45: x in [146, 150]
+# y=50: x in [148, 150]
+print(&#x27;Claw geometry extracted.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 34</strong><time>2026-11-12T21:59:06.403889+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# In rows y=0..30:
+# Shaft is around x=126..132
+# Background around x=110..125 and x=135..150:
+print(&#x27;Background color around grabber:&#x27;)
+for y in range(0, 70, 5):
+    left_bg = arr[y, 90:105].mean(axis=0)
+    right_bg = arr[y, 160:175].mean(axis=0)
+    print(f&#x27;y={y:2d}: left_bg={left_bg.round(1)}, right_bg={right_bg.round(1)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 35</strong><time>2026-11-12T21:59:15.115153+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the water line and bowl rim in detail:
+# Between x=70 and x=185:
+# Let&#x27;s see the rim contour:
+for x in range(70, 190, 10):
+    # find where y has table transition or rim transition
+    # In column x, look at y from 65 to 85
+    col = arr[65:85, x, :]
+    print(f&#x27;x={x}:&#x27;)
+    for y_rel, c in enumerate(col):
+        y = 65 + y_rel
+        # print if brightness changes significantly
+        # bg is ~150, rim is ~125, table is ~100
+        pass
+    # Let&#x27;s find rim y
+    # Background ends where gray drops
+    # Let&#x27;s find first y where col drops below 135
+    drops = np.where(col.mean(axis=1) &lt; 135)[0]
+    if len(drops):
+        print(f&#x27;x={x:3d}: first drop at y={65 + drops[0]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 36</strong><time>2026-11-12T21:59:44.138828+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the paper pixels:
+paper_mask = np.zeros((144, 256), dtype=bool)
+
+# Background color model in the bounding box:
+# Linear horizontal interpolation between left_bg and right_bg:
+# For each y in 30..65:
+# left_bg = arr[y, 100:108].mean(axis=0)
+# right_bg = arr[y, 153:160].mean(axis=0)
+bg_interp = np.zeros((144, 256, 3))
+for y in range(25, 68):
+    c0 = arr[y, 100:107].mean(axis=0)
+    c1 = arr[y, 153:160].mean(axis=0)
+    for x in range(100, 160):
+        t = (x - 100) / (159 - 100)
+        bg_interp[y, x] = (1 - t) * c0 + t * c1
+
+diff = np.linalg.norm(arr.astype(float) - bg_interp, axis=-1)
+
+# Claw exclusion:
+# Let&#x27;s identify claw pixels:
+# Orange claw: R &gt; 140, G &lt; 110, B &lt; 65
+# Black claw: R &lt; 50, G &lt; 50, B &lt; 50
+claw_mask = np.zeros((144, 256), dtype=bool)
+for y in range(20, 65):
+    for x in range(100, 160):
+        c = arr[y, x]
+        if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+            claw_mask[y, x] = True
+
+# Also dilate claw slightly (1 pixel) to avoid claw edge bleeding into paper
+from scipy.ndimage import binary_dilation
+claw_mask_dil = binary_dilation(claw_mask, iterations=1)
+
+# Paper is inside y=33..64, x=115..143 where diff &gt; 10 and not claw
+for y in range(33, 65):
+    for x in range(115, 143):
+        if diff[y, x] &gt; 8 and not claw_mask_dil[y, x]:
+            paper_mask[y, x] = True
+
+print(&#x27;Paper mask count:&#x27;, np.sum(paper_mask))
+ys, xs = np.where(paper_mask)
+print(&#x27;Y range:&#x27;, ys.min(), ys.max())
+print(&#x27;X range:&#x27;, xs.min(), xs.max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 37</strong><time>2026-11-12T21:59:51.166078+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# print ascii art of paper mask
+for y in range(32, 66):
+    s = f&#x27;{y:2d}: &#x27;
+    for x in range(112, 146):
+        c = arr[y, x]
+        is_orange = (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70)
+        is_black = np.all(c &lt; 45)
+        bg = np.array([153 + (x-100)*0.15, 143 + (x-100)*0.15, 141 + (x-100)*0.15])
+        diff = np.linalg.norm(c.astype(float) - bg)
+        if is_orange or is_black:
+            s += &#x27;C&#x27;
+        elif diff &gt; 10:
+            s += &#x27;#&#x27;
+        else:
+            s += &#x27;.&#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 38</strong><time>2026-11-12T22:00:02.787069+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+print(&#x27;Check y=58..68, x=105..150:&#x27;)
+for y in range(58, 68):
+    s = f&#x27;{y:2d}: &#x27;
+    for x in range(105, 150):
+        c = arr[y, x]
+        # bg around here is ~ [148, 140, 138]
+        # let&#x27;s see deviation from [148, 140, 138]
+        diff = np.abs(c.astype(int) - np.array([148, 140, 138])).max()
+        if diff &lt; 10:
+            s += &#x27; .&#x27;
+        else:
+            s += f&#x27;{c[0]:2x}&#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 39</strong><time>2026-11-12T22:00:09.169326+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the paper pixels with high precision&quot;&#x27;!
+# Let&#x27;&quot;&#x27;s create an RGBA patch of the paper:
+# For each y in 33..64, x in 115..143:
+# Let&#x27;s print out the exact RGB values and difference from the local background model.
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 40</strong><time>2026-11-12T22:00:17.481169+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Inpaint paper region:
+# Background around paper:
+# For each y in 30..66:
+# We know left background at x=100..106 and right background at x=148..155.
+# Let&#x27;s see if horizontal linear interpolation reproduces the background smoothly:
+test_bg = arr.copy()
+for y in range(30, 66):
+    left_c = arr[y, 100:106].mean(axis=0)
+    right_c = arr[y, 150:156].mean(axis=0)
+    for x in range(106, 150):
+        t = (x - 106) / (150 - 106)
+        c = (1 - t) * left_c + t * right_c
+        # compare with actual arr[y, x] where there is no paper or claw:
+        # e.g. at y=32, x=120..140
+        if y == 32 and 120 &lt;= x &lt;= 140:
+            diff = np.abs(arr[y, x] - c).max()
+            if diff &gt; 3:
+                print(f&#x27;Mismatch at y={y}, x={x}: actual={arr[y, x]}, model={c.round(1)}&#x27;)
+print(&#x27;Done checking bg model at y=32.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 41</strong><time>2026-11-12T22:00:24.274890+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+print(&#x27;arr[32, 100:106]:&#x27;, arr[32, 100:106])
+print(&#x27;arr[32, 150:156]:&#x27;, arr[32, 150:156])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 42</strong><time>2026-11-12T22:00:30.602004+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+arr = cv2.imread(&#x27;first_frame.png&#x27;)
+# let&#x27;s test cv2.inpaint
+# mask is paper_mask
+# let&#x27;s see how cv2.inpaint performs
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 43</strong><time>2026-11-12T22:00:49.730583+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+arr = cv2.imread(&#x27;first_frame.png&#x27;)
+# Paper mask:
+# Find pixels between x=115 and x=143, y=33 and y=64 that are paper
+bg_ref = np.array([144, 146, 156]) # BGR order&quot;&#x27;!
+
+mask = np.zeros((144, 256), dtype=np.uint8)
+# Claw mask in BGR:
+# Orange claw: B &lt; 70, G &lt; 115, R &gt; 135
+# Black claw: B &lt; 50, G &lt; 50, R &lt; 50
+for y in range(33, 65):
+    for x in range(115, 143):
+        b, g, r = arr[y, x]
+        is_orange = (r &gt; 135 and g &lt; 115 and b &lt; 70)
+        is_black = (r &lt; 50 and g &lt; 50 and b &lt; 50)
+        diff = np.linalg.norm(arr[y, x].astype(float) - bg_ref)
+        if diff &gt; 10 and not is_orange and not is_black:
+            mask[y, x] = 255
+
+inpainted = cv2.inpaint(arr, mask, 3, cv2.INPAINT_TELEA)
+print(&#x27;&quot;&#x27;Inpaint completed successfully, shape:&#x27;, inpainted.shape)
+cv2.imwrite(&#x27;.tmp/inpainted_bg.png&#x27;, inpainted)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 44</strong><time>2026-11-12T22:00:57.174750+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+inp = cv2.imread(&#x27;.tmp/inpainted_bg.png&#x27;)
+# let&#x27;s inspect the inpainted area y=35..60, x=120..138
+# BGR to RGB
+inp_rgb = cv2.cvtColor(inp, cv2.COLOR_BGR2RGB)
+print(&#x27;Inpainted RGB sample:&#x27;)
+for y in range(35, 65, 5):
+    line = f&#x27;y={y}: &#x27;
+    for x in range(120, 140, 4):
+        c = inp_rgb[y, x]
+        line += f&#x27;({c[0]:3d},{c[1]:3d},{c[2]:3d}) &#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 45</strong><time>2026-11-12T22:01:03.486410+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Left claw bounding box in first frame:
+# y: 25 to 52, x: 108 to 125
+# Right claw bounding box in first frame:
+# y: 25 to 51, x: 138 to 151
+# The hinge/pivot is at top around y=24, x=128
+print(&#x27;Analyzing claw rotation...&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 46</strong><time>2026-11-12T22:01:10.683479+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+
+# Let&#x27;s inspect the entire grabber tool:
+# Shaft: x in [126, 133], y in [0, 22]
+# Pivot assembly: y in [20, 28], x in [118, 142]
+# Left jaw: y in [24, 52], x in [108, 126]
+# Right jaw: y in [24, 51], x in [135, 151]
+print(&#x27;Grabber tool structure mapped.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 47</strong><time>2026-11-12T22:01:17.679748+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the water line:
+# Between x=80 and x=180:
+# Row 70..85:
+print(&#x27;Water surface rows:&#x27;)
+for y in range(70, 85):
+    line = f&#x27;y={y:2d}: &#x27;
+    for x in range(110, 150, 4):
+        c = arr[y, x]
+        line += f&#x27;{c[0]:3d} &#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 48</strong><time>2026-11-12T22:01:27.834662+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+
+# Height of paper center: y_paper = 48.5 in frame 0.
+# Water surface: y_water = 77.
+# Total drop distance: 77 - 48.5 = 28.5 pixels.
+# Let&#x27;s see:
+# If release happens at frame 1:
+# Frame 0: paper held by claws at y=48.5. Claws closed.
+# Frame 1: claws open slightly. Paper starts falling&quot;&#x27;!
+# Under gravity: y(t) = y0 + 0.5 * g * t&#x27;&#x27;^2.
+# If impact is around frame 2 or 3:
+# For frame 2 (t=0.25s after release): y = 48.5 + 0.5*g*(0.25)&#x27;&#x27;^2 = 48.5 + 0.03125*g.
+# If it lands at frame 2: g = 28.5 / 0.03125 = 912 px/s&#x27;&#x27;^2.
+# In pixels/frame:
+# t in frames (1 frame = 0.25s):
+# y(1) = 48.5 (starts moving, say y=50)
+# y(2) = 66
+# y(3) = 77 (lands on water!)
+print(&#x27;&quot;&#x27;Trajectory calculation:&#x27;)
+for f in range(20):
+    if f == 0:
+        y = 48.5
+    elif f == 1:
+        y = 51.0
+    elif f == 2:
+        y = 65.0
+    elif f == 3:
+        y = 77.0 # touch water
+    else:
+        # floating on water, bobbing slightly with damping
+        dt = (f - 3)
+        y = 77.0 + 1.5 * np.exp(-0.3 * dt) * np.sin(1.2 * dt)
+    print(f&#x27;Frame {f:2d} (t={f*0.25:.2f}s): y_center = {y:.2f}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 49</strong><time>2026-11-12T22:01:36.656184+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, C = arr.shape
+
+# Let&#x27;s inspect the grabber claws:
+# Pivot point:
+# The claws pivot around (x_left_pivot, y_pivot) and (x_right_pivot, y_pivot)
+# Left pivot ~ (122, 24), Right pivot ~ (134, 24)
+# Or single center pivot ~ (128, 24)
+# Let&#x27;s find the exact masks of left claw and right claw:
+left_claw_mask = np.zeros((H, W), dtype=bool)
+right_claw_mask = np.zeros((H, W), dtype=bool)
+
+for y in range(23, 53):
+    for x in range(106, 128):
+        c = arr[y, x]
+        is_orange = (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70)
+        is_black = np.all(c &lt; 45)
+        if (is_orange or is_black) and (x &lt; 125 or y &gt; 24):
+            left_claw_mask[y, x] = True
+
+for y in range(23, 53):
+    for x in range(132, 153):
+        c = arr[y, x]
+        is_orange = (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70)
+        is_black = np.all(c &lt; 45)
+        if (is_orange or is_black) and (x &gt; 131 or y &gt; 24):
+            right_claw_mask[y, x] = True
+
+print(&#x27;Left claw pixels:&#x27;, np.sum(left_claw_mask))
+print(&#x27;Right claw pixels:&#x27;, np.sum(right_claw_mask))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 50</strong><time>2026-11-12T22:01:44.340244+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, _ = arr.shape
+
+# Let&#x27;s inspect the grabber tool closely:
+# How do grabber tools work?
+# Many reacher/grabber tools work like this:
+# A handle/trigger is squeezed or released.
+# When released, springs push the claws open&quot;&#x27;!
+# The two curved arms rotate outwards around their pivot joints!
+# Left claw rotates counter-clockwise (outwards to the left).
+# Right claw rotates clockwise (outwards to the right).
+# Pivot for left arm: top connection near (x=120, y=24).
+# Pivot for right arm: top connection near (x=136, y=24).
+# Claws swing open by ~12 to 20 degrees!
+# When claws open, the space between them widens, freeing the paper ball!
+print(&#x27;&quot;&#x27;Physics of grabber release is clear.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 51</strong><time>2026-11-12T22:03:04.487360+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, _ = arr.shape
+
+# Clean background generation:
+# We need to inpaint the paper ball AND the claws (so we can render rotated claws cleanly).
+# Let&#x27;s inspect what happens if we inpaint both claws and paper:
+inpaint_mask = np.zeros((H, W), dtype=np.uint8)
+
+# Paper region:
+for y in range(33, 65):
+    for x in range(115, 143):
+        diff = np.linalg.norm(arr[y, x].astype(float) - np.array([156, 146, 144]))
+        if diff &gt; 10:
+            inpaint_mask[y, x] = 255
+
+# Left claw below pivot:
+for y in range(25, 53):
+    for x in range(106, 126):
+        c = arr[y, x]
+        if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+            inpaint_mask[y, x] = 255
+
+# Right claw below pivot:
+for y in range(25, 53):
+    for x in range(134, 153):
+        c = arr[y, x]
+        if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+            inpaint_mask[y, x] = 255
+
+# Dilate mask by 2 pixels to cover borders
+kernel = np.ones((3, 3), np.uint8)
+inpaint_mask = cv2.dilate(inpaint_mask, kernel, iterations=1)
+
+# Inpaint
+bg_clean = cv2.inpaint(cv2.cvtColor(arr, cv2.COLOR_RGB2BGR), inpaint_mask, 5, cv2.INPAINT_TELEA)
+bg_clean_rgb = cv2.cvtColor(bg_clean, cv2.COLOR_BGR2RGB)
+
+print(&#x27;Clean background generated.&#x27;)
+Image.fromarray(bg_clean_rgb).save(&#x27;.tmp/clean_bg.png&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 52</strong><time>2026-11-12T22:03:12.295360+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the paper pixels:
+# Center of mass of paper:
+paper_pixels = []
+for y in range(33, 65):
+    for x in range(115, 143):
+        diff = np.linalg.norm(arr[y, x].astype(float) - np.array([156, 146, 144]))
+        c = arr[y, x]
+        is_orange = (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70)
+        is_black = np.all(c &lt; 45)
+        if diff &gt; 10 and not is_orange and not is_black:
+            paper_pixels.append((y, x))
+
+paper_pixels = np.array(paper_pixels)
+cy, cx = paper_pixels.mean(axis=0)
+print(f&#x27;Paper center of mass: ({cy:.2f}, {cx:.2f}), total pixels: {len(paper_pixels)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 53</strong><time>2026-11-12T22:03:20.065293+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, _ = arr.shape
+
+# Let&#x27;s verify paper extraction and inpainting quality
+# 1. Background reconstruction:
+# The wall background is smoothly gradient-lit:
+# Let&#x27;s inspect rows 25 to 68 outside [105, 155]:
+# Background is nearly flat horizontally with slight smooth gradient:
+bg = arr.copy()
+for y in range(20, 68):
+    c_left = arr[y, 90:105].mean(axis=0)
+    c_right = arr[y, 155:170].mean(axis=0)
+    for x in range(105, 155):
+        t = (x - 105) / (155 - 105)
+        bg[y, x] = np.clip(np.round((1 - t) * c_left + t * c_right), 0, 255)
+
+print(&#x27;Synthesized background generated.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 54</strong><time>2026-11-12T22:03:27.713331+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+# Let&#x27;s inspect the claws rotation:
+# Left claw pivot point:
+# In first_frame, where does the left arm connect to the central hub?
+# Near x=120, y=24
+# Right claw pivot point:
+# Near x=136, y=24
+print(&#x27;Pivots: left=(120, 24), right=(136, 24)&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 55</strong><time>2026-11-12T22:03:37.269128+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+
+# Let&#x27;s inspect the paper trajectory:
+# Center of paper at frame 0: y=48.5, x=128.3
+# Water rim at x=128: y=71.
+# Water surface in bowl: y=76 to 78.
+# When floating, paper sits on the water surface around y=76.
+# Release timing:
+# Frame 0: Grabber closed holding paper. (Exact match first_frame)
+# Frame 1: Grabber starts opening. Paper begins to fall under gravity.
+# Claws opening angle:
+# Frame 0: 0 deg
+# Frame 1: 4 deg
+# Frame 2: 10 deg
+# Frame 3: 15 deg (fully open)
+# Frame 4+: 15 deg (remains open)
+# Paper vertical position y(f):
+# Frame 0: y=48.4
+# Frame 1: y=51.0 (free fall starts)
+# Frame 2: y=63.0 (falling rapidly)
+# Frame 3: y=76.0 (impacts water surface, creates splash / ripples)
+# Frame 4: y=77.5 (dips slightly into water from impact momentum)
+# Frame 5: y=76.5 (buoyancy pushes it back up)
+# Frame 6: y=76.0 (settles floating on surface)
+# Frame 7..19: gently bobbing / floating near y=76.0, water absorbing slightly
+print(&#x27;Physics timeline verified.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 56</strong><time>2026-11-12T22:03:44.438426+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, _ = first_frame.shape
+
+# Let&#x27;s write a prototype script to extract the paper ball and claws, test rotation, test falling, and test ripple generation
+# Let&#x27;s save a test sequence to .tmp/test_frames/ and inspect&quot;&#x27;!
+import os
+os.makedirs(&#x27;&quot;&#x27;.tmp/test_frames&#x27;, exist_ok=True)
+print(&#x27;Ready to prototype.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 57</strong><time>2026-11-12T22:03:56.994774+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, _ = first_frame.shape
+
+# Let&#x27;s write the complete paper ball segmentation:
+# Paper center is around y=48.5, x=128.3
+# In first_frame, paper is held between y=33 and y=64, x=115 and x=143.
+# Background wall color around (y, x):
+# It varies smoothly: for any y in [30, 68], we can fit a linear gradient across x:
+bg_smooth = np.zeros((H, W, 3), dtype=np.float32)
+for y in range(H):
+    # take samples from x=50..95 and x=165..210
+    left_samples = first_frame[y, 60:95].mean(axis=0)
+    right_samples = first_frame[y, 165:200].mean(axis=0)
+    xs = np.arange(W)[:, None]
+    bg_smooth[y] = left_samples + (right_samples - left_samples) * ((xs - 77.5) / (182.5 - 77.5))
+
+# Paper mask:
+paper_mask = np.zeros((H, W), dtype=np.float32)
+
+# Grabber claws:
+# Left claw mask in frame 0:
+left_claw_mask = np.zeros((H, W), dtype=np.float32)
+# Right claw mask in frame 0:
+right_claw_mask = np.zeros((H, W), dtype=np.float32)
+
+for y in range(23, 53):
+    for x in range(106, 126):
+        c = first_frame[y, x]
+        is_orange = (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70)
+        is_black = np.all(c &lt; 45)
+        if is_orange or is_black:
+            left_claw_mask[y, x] = 1.0
+
+for y in range(23, 53):
+    for x in range(134, 153):
+        c = first_frame[y, x]
+        is_orange = (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70)
+        is_black = np.all(c &lt; 45)
+        if is_orange or is_black:
+            right_claw_mask[y, x] = 1.0
+
+# Dilate claws by 1 pixel to separate from paper
+kernel = np.ones((3, 3), np.uint8)
+claws_dilated = cv2.dilate((left_claw_mask + right_claw_mask).astype(np.uint8), kernel, iterations=1)
+
+for y in range(33, 65):
+    for x in range(115, 143):
+        if claws_dilated[y, x] == 0:
+            diff = np.linalg.norm(first_frame[y, x].astype(float) - bg_smooth[y, x])
+            if diff &gt; 9.0:
+                paper_mask[y, x] = 1.0
+
+# Fill small holes in paper mask
+paper_mask_uint = (paper_mask * 255).astype(np.uint8)
+paper_mask_closed = cv2.morphologyEx(paper_mask_uint, cv2.MORPH_CLOSE, np.ones((3,3), np.uint8))
+paper_mask = (paper_mask_closed &gt; 128).astype(np.float32)
+
+# Smooth edges for natural alpha blending
+paper_alpha = cv2.GaussianBlur(paper_mask, (3, 3), 0.6)
+
+print(&#x27;Paper pixels count:&#x27;, np.sum(paper_mask &gt; 0))
+print(&#x27;Left claw pixels:&#x27;, np.sum(left_claw_mask &gt; 0))
+print(&#x27;Right claw pixels:&#x27;, np.sum(right_claw_mask &gt; 0))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 58</strong><time>2026-11-12T22:04:04.274003+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, _ = first_frame.shape
+
+# Let&#x27;s inspect the static parts of the grabber:
+# Everything at y &lt;= 23 is completely static (the shaft and top housing).
+# The pivots are around y=24.
+# Left arm rotates around pivot_left = (121, 24).
+# Right arm rotates around pivot_right = (137, 24).
+# In frame 0:
+# Left arm is at angle 0.
+# Right arm is at angle 0.
+# When opening:
+# Left arm rotates counter-clockwise by angle theta_left &lt; 0 (or positive depending on convention).
+# Right arm rotates clockwise by angle theta_right &gt; 0.
+print(&#x27;Pivot mechanics defined.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 59</strong><time>2026-11-12T22:04:11.642736+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, _ = first_frame.shape
+
+# Let&#x27;s test left arm rotation:
+pivot_left = (121.0, 24.0) # (x, y)
+M = cv2.getRotationMatrix2D(pivot_left, 10.0, 1.0) # 10 deg counter-clockwise
+print(&#x27;Rotation matrix:&#x27;, M)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 60</strong><time>2026-11-12T22:04:25.200054+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, _ = first_frame.shape
+
+# Build clean background:
+# Inpaint paper region and claw regions from first_frame:
+inpaint_mask = np.zeros((H, W), dtype=np.uint8)
+
+# Claws:
+for y in range(24, 53):
+    for x in range(106, 126):
+        c = first_frame[y, x]
+        if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+            inpaint_mask[y, x] = 255
+
+for y in range(24, 53):
+    for x in range(134, 153):
+        c = first_frame[y, x]
+        if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+            inpaint_mask[y, x] = 255
+
+# Paper:
+for y in range(33, 65):
+    for x in range(115, 143):
+        inpaint_mask[y, x] = 255
+
+kernel = np.ones((3, 3), np.uint8)
+inpaint_mask = cv2.dilate(inpaint_mask, kernel, iterations=1)
+
+bg_clean_bgr = cv2.inpaint(cv2.cvtColor(first_frame, cv2.COLOR_RGB2BGR), inpaint_mask, 5, cv2.INPAINT_TELEA)
+bg_clean = cv2.cvtColor(bg_clean_bgr, cv2.COLOR_BGR2RGB)
+
+# Test reconstruction of frame 0:
+# Left claw layer
+left_claw_rgb = np.zeros_like(first_frame)
+left_claw_alpha = np.zeros((H, W), dtype=np.float32)
+for y in range(24, 53):
+    for x in range(106, 126):
+        c = first_frame[y, x]
+        if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+            left_claw_rgb[y, x] = c
+            left_claw_alpha[y, x] = 1.0
+
+# Right claw layer
+right_claw_rgb = np.zeros_like(first_frame)
+right_claw_alpha = np.zeros((H, W), dtype=np.float32)
+for y in range(24, 53):
+    for x in range(134, 153):
+        c = first_frame[y, x]
+        if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+            right_claw_rgb[y, x] = c
+            right_claw_alpha[y, x] = 1.0
+
+# Paper layer
+paper_rgb = np.zeros_like(first_frame)
+paper_alpha = np.zeros((H, W), dtype=np.float32)
+for y in range(33, 65):
+    for x in range(115, 143):
+        if left_claw_alpha[y, x] == 0 and right_claw_alpha[y, x] == 0:
+            diff = np.abs(first_frame[y, x].astype(int) - np.array([156, 146, 144])).max()
+            if diff &gt; 8:
+                paper_rgb[y, x] = first_frame[y, x]
+                paper_alpha[y, x] = 1.0
+
+print(&#x27;Total paper alpha:&#x27;, np.sum(paper_alpha))
+print(&#x27;Total left claw alpha:&#x27;, np.sum(left_claw_alpha))
+print(&#x27;Total right claw alpha:&#x27;, np.sum(right_claw_alpha))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 61</strong><time>2026-11-12T22:04:37.623096+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+
+# Let&#x27;s inspect the exact physics and visual timeline across all 20 frames (0 to 19):
+# Frame 0: t=0.00s. Frame pixel-identical to first_frame.png.
+# Grabber tool is suspended holding the paper ball.
+# Claws closed. Paper at y=48.4.
+# Water calm.
+
+# Frame 1: t=0.25s.
+# Grabber triggers release&quot;&#x27;! Claws begin opening (angle ~6 deg).
+# Paper begins falling: y = 51.0, dy = +2.6 px.
+# Paper starts clearing claws.
+
+# Frame 2: t=0.50s.
+# Claws opened wider (angle ~12 deg).
+# Paper falling with gravity: y = 63.5, dy = +12.5 px.
+# Still in the air, above water rim (rim is at y=71).
+
+# Frame 3: t=0.75s.
+# Claws reach full open position (angle ~15 deg).
+# Paper hits water surface at y=75.5!
+# Splash/impact: small droplets/spray, initial ring depression in water.
+
+# Frame 4: t=1.00s.
+# Claws remain open at ~15 deg.
+# Paper penetrates water surface slightly: y=77.2 (maximum dip).
+# Circular water ripple 1 expands outward from impact center (radius ~10 px).
+# Paper starts wetting slightly (contact area slightly darker/translucent).
+
+# Frame 5: t=1.25s.
+# Buoyancy rebounds paper ball: y=75.8.
+# Ripple 1 expands to radius ~20 px. Ripple 2 forms at radius ~8 px.
+
+# Frame 6: t=1.50s.
+# Paper bobs gently: y=76.6.
+# Ripple 1 reaches bowl edge / radius ~30 px.
+# Ripple 2 expands to radius ~18 px.
+
+# Frame 7: t=1.75s.
+# Paper settling: y=76.2.
+# Ripples dampening.
+
+# Frame 8..19: t=2.00s .. 4.75s.
+# Paper floats steadily in the center of the bowl (y ~ 76.4, x ~ 128.3).
+# Very gentle, subtle natural water surface bobbing / micro-drift (+/- 0.2 px).
+# Lower part of paper absorbs water, slightly darker texture.
+# Claws remain stably open above the bowl.
+
+print(&#x27;&quot;&#x27;Timeline is completely coherent and physically authentic.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 62</strong><time>2026-11-12T22:04:47.953409+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, _ = first_frame.shape
+
+# Let&#x27;s inspect the water area in first_frame around x=128, y=70..95:
+# Center of bowl is around x=128, y=85.
+# Let&#x27;s inspect the ellipse of the water surface:
+# Top edge of water: y ~ 71 at center.
+# Left edge of bowl: x ~ 70 at y ~ 95.
+# Right edge of bowl: x ~ 185 at y ~ 95.
+# Bottom edge of water: y ~ 95..100.
+# Ellipse center: (cx=128, cy=84), rx ~ 56, ry ~ 14.
+# Let&#x27;s check distance to this ellipse:
+for y in range(70, 100, 3):
+    line = f&#x27;y={y:2d}: &#x27;
+    for x in range(90, 170, 8):
+        # test ellipse equation: ((x-128)/56)**2 + ((y-84)/14)**2
+        d2 = ((x - 128.0) / 56.0)**2 + ((y - 84.0) / 14.0)**2
+        line += f&#x27; {d2:.2f}&#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 63</strong><time>2026-11-12T22:05:02.068772+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &lt;&lt; &#x27;EOF&#x27; &gt; .tmp/test_sim.py
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, C = first_frame.shape
+
+# 1. Claws extraction
+pivot_left = (121.0, 24.0)
+pivot_right = (137.0, 24.0)
+
+left_claw_rgb = np.zeros_like(first_frame)
+left_claw_alpha = np.zeros((H, W), dtype=np.float32)
+for y in range(24, 53):
+    for x in range(106, 126):
+        c = first_frame[y, x]
+        if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+            left_claw_rgb[y, x] = c
+            left_claw_alpha[y, x] = 1.0
+
+right_claw_rgb = np.zeros_like(first_frame)
+right_claw_alpha = np.zeros((H, W), dtype=np.float32)
+for y in range(24, 53):
+    for x in range(134, 153):
+        c = first_frame[y, x]
+        if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+            right_claw_rgb[y, x] = c
+            right_claw_alpha[y, x] = 1.0
+
+# 2. Paper extraction
+paper_rgb = np.zeros_like(first_frame)
+paper_alpha = np.zeros((H, W), dtype=np.float32)
+for y in range(33, 65):
+    for x in range(115, 143):
+        if left_claw_alpha[y, x] == 0 and right_claw_alpha[y, x] == 0:
+            diff = np.abs(first_frame[y, x].astype(int) - np.array([156, 146, 144])).max()
+            if diff &gt; 8:
+                paper_rgb[y, x] = first_frame[y, x]
+                paper_alpha[y, x] = 1.0
+
+# Morphological close to ensure solid paper
+paper_alpha_closed = cv2.morphologyEx((paper_alpha * 255).astype(np.uint8), cv2.MORPH_CLOSE, np.ones((3,3), np.uint8))
+paper_alpha = (paper_alpha_closed &gt; 128).astype(np.float32)
+# Refill any newly included pixels from first_frame
+for y in range(33, 65):
+    for x in range(115, 143):
+        if paper_alpha[y, x] &gt; 0 and np.all(paper_rgb[y, x] == 0):
+            paper_rgb[y, x] = first_frame[y, x]
+
+# 3. Clean background:
+inpaint_mask = np.zeros((H, W), dtype=np.uint8)
+inpaint_mask[left_claw_alpha &gt; 0] = 255
+inpaint_mask[right_claw_alpha &gt; 0] = 255
+inpaint_mask[paper_alpha &gt; 0] = 255
+kernel = np.ones((3, 3), np.uint8)
+inpaint_mask = cv2.dilate(inpaint_mask, kernel, iterations=1)
+
+bg_clean_bgr = cv2.inpaint(cv2.cvtColor(first_frame, cv2.COLOR_RGB2BGR), inpaint_mask, 5, cv2.INPAINT_TELEA)
+bg_clean = cv2.cvtColor(bg_clean_bgr, cv2.COLOR_BGR2RGB)
+
+print(\&quot;Setup completed successfully.\&quot;)
+EOF
+python3 .tmp/test_sim.py
+&quot;</pre></details><details class=command><summary><strong>命令 64</strong><time>2026-11-12T22:05:34.543628+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &lt;&lt; &#x27;EOF&#x27; &gt; .tmp/test_render.py
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, C = first_frame.shape
+
+pivot_left = (121.0, 24.0)
+pivot_right = (137.0, 24.0)
+
+left_claw_rgb = np.zeros_like(first_frame)
+left_claw_alpha = np.zeros((H, W), dtype=np.float32)
+for y in range(24, 53):
+    for x in range(106, 126):
+        c = first_frame[y, x]
+        if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+            left_claw_rgb[y, x] = c
+            left_claw_alpha[y, x] = 1.0
+
+right_claw_rgb = np.zeros_like(first_frame)
+right_claw_alpha = np.zeros((H, W), dtype=np.float32)
+for y in range(24, 53):
+    for x in range(134, 153):
+        c = first_frame[y, x]
+        if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+            right_claw_rgb[y, x] = c
+            right_claw_alpha[y, x] = 1.0
+
+paper_rgb = np.zeros_like(first_frame)
+paper_alpha = np.zeros((H, W), dtype=np.float32)
+for y in range(33, 65):
+    for x in range(115, 143):
+        if left_claw_alpha[y, x] == 0 and right_claw_alpha[y, x] == 0:
+            diff = np.abs(first_frame[y, x].astype(int) - np.array([156, 146, 144])).max()
+            if diff &gt; 8:
+                paper_rgb[y, x] = first_frame[y, x]
+                paper_alpha[y, x] = 1.0
+
+paper_alpha_closed = cv2.morphologyEx((paper_alpha * 255).astype(np.uint8), cv2.MORPH_CLOSE, np.ones((3,3), np.uint8))
+paper_alpha = (paper_alpha_closed &gt; 128).astype(np.float32)
+for y in range(33, 65):
+    for x in range(115, 143):
+        if paper_alpha[y, x] &gt; 0 and np.all(paper_rgb[y, x] == 0):
+            paper_rgb[y, x] = first_frame[y, x]
+
+# Inpaint background
+inpaint_mask = np.zeros((H, W), dtype=np.uint8)
+inpaint_mask[left_claw_alpha &gt; 0] = 255
+inpaint_mask[right_claw_alpha &gt; 0] = 255
+inpaint_mask[paper_alpha &gt; 0] = 255
+kernel = np.ones((3, 3), np.uint8)
+inpaint_mask = cv2.dilate(inpaint_mask, kernel, iterations=1)
+
+bg_clean_bgr = cv2.inpaint(cv2.cvtColor(first_frame, cv2.COLOR_RGB2BGR), inpaint_mask, 5, cv2.INPAINT_TELEA)
+bg_clean = cv2.cvtColor(bg_clean_bgr, cv2.COLOR_BGR2RGB)
+
+# Compute paper center
+ys, xs = np.where(paper_alpha &gt; 0)
+paper_center_y = np.mean(ys)
+paper_center_x = np.mean(xs)
+print(f\&quot;Paper initial center: ({paper_center_x:.2f}, {paper_center_y:.2f})\&quot;)
+
+# Generate 20 frames
+frames = []
+for f in range(20):
+    if f == 0:
+        frames.append(first_frame.copy())
+        continue
+
+    # Dynamics:
+    # 1. Claws opening
+    # Opening starts at frame 1: angle increases to max ~14 deg by frame 3, then stays open
+    if f == 1:
+        angle = 5.0
+    elif f == 2:
+        angle = 11.0
+    elif f == 3:
+        angle = 14.5
+    else:
+        # tiny elastic settle around 14 deg
+        angle = 14.0 + 0.3 * np.sin(f * 0.8)
+
+    # 2. Paper vertical position
+    # Frame 1: released, moves slightly down
+    # Frame 2: accelerating under gravity
+    # Frame 3: hits water surface around y=76.0
+    # Frame 4: dips slightly to y=77.5
+    # Frame 5: rebounds to y=76.2
+    # Frame 6+: floats with damped oscillation settling to y=76.5
+    if f == 1:
+        py = paper_center_y + 2.5
+        px = paper_center_x
+        rot = 0.5
+    elif f == 2:
+        py = paper_center_y + 14.0
+        px = paper_center_x + 0.2
+        rot = 1.5
+    elif f == 3:
+        py = 76.0
+        px = paper_center_x + 0.3
+        rot = 2.5
+    elif f == 4:
+        py = 77.2
+        px = paper_center_x + 0.4
+        rot = 2.8
+    elif f == 5:
+        py = 76.2
+        px = paper_center_x + 0.4
+        rot = 2.9
+    elif f == 6:
+        py = 76.6
+        px = paper_center_x + 0.5
+        rot = 3.0
+    else:
+        dt = f - 6
+        py = 76.5 + 0.3 * np.exp(-0.25 * dt) * np.sin(1.2 * dt)
+        px = paper_center_x + 0.5 + 0.05 * np.sin(0.4 * dt)
+        rot = 3.0 + 0.1 * np.cos(0.5 * dt)
+
+    dy = py - paper_center_y
+    dx = px - paper_center_x
+
+    # Start with clean background
+    frame = bg_clean.copy()
+
+    # If f &gt;= 3, add water ripples and reflections onto water surface
+    if f &gt;= 3:
+        impact_f = f - 3 # frames since impact
+        # Ripple rings centered at (paper_center_x, 78.0)
+        # Perspective compression: y-axis compressed by ~ 0.25
+        cx_w = paper_center_x
+        cy_w = 78.0
+        # Grid
+        y_grid, x_grid = np.ogrid[68:98, 70:185]
+        # Normalized distance in water plane ellipse:
+        rx = 1.0
+        ry = 0.25 # perspective foreshortening
+        r = np.sqrt(((x_grid - cx_w) * rx)**2 + ((y_grid - cy_w) / ry)**2)
+
+        # Ripple waves expanding at ~ 8 px per frame
+        # Ring 1
+        r1 = impact_f * 8.0 + 4.0
+        amp1 = 20.0 / (1.0 + 0.4 * impact_f) * np.exp(-((r - r1) / 3.0)**2)
+        # Ring 2 (follows ring 1)
+        r2 = max(0.0, (impact_f - 1) * 7.5 + 2.0)
+        amp2 = 14.0 / (1.0 + 0.4 * impact_f) * np.exp(-((r - r2) / 2.5)**2) if impact_f &gt;= 1 else 0.0
+        # Ring 3
+        r3 = max(0.0, (impact_f - 2) * 7.0 + 1.0)
+        amp3 = 9.0 / (1.0 + 0.4 * impact_f) * np.exp(-((r - r3) / 2.0)**2) if impact_f &gt;= 2 else 0.0
+
+        wave = amp1 - 0.5 * amp1 + amp2 - 0.4 * amp2 + amp3
+        # Restrict to bowl interior
+        ellipse_mask = (((x_grid - 128.0)/54.0)**2 + ((y_grid - 84.0)/14.0)**2) &lt;= 1.0
+        wave = wave * ellipse_mask
+
+        # Apply wave brightness modulation
+        sub = frame[68:98, 70:185].astype(np.float32)
+        sub[:, :, 0] += wave * 0.9
+        sub[:, :, 1] += wave * 0.95
+        sub[:, :, 2] += wave * 1.05
+        frame[68:98, 70:185] = np.clip(sub, 0, 255).astype(np.uint8)
+
+    # Render paper ball
+    # Affine transform for paper
+    M_paper = cv2.getRotationMatrix2D((paper_center_x, paper_center_y), rot, 1.0)
+    M_paper[0, 2] += dx
+    M_paper[1, 2] += dy
+
+    p_rgb_warped = cv2.warpAffine(paper_rgb, M_paper, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    p_alpha_warped = cv2.warpAffine(paper_alpha, M_paper, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    p_alpha_smooth = cv2.GaussianBlur(p_alpha_warped, (3, 3), 0.5)[:, :, None]
+
+    # Water contact darkening (wet paper effect) if in water
+    if f &gt;= 3:
+        # Lower part of paper ball gets slightly darker / wetted
+        y_indices = np.arange(H)[:, None, None]
+        wet_mask = np.clip((y_indices - (py + 2.0)) / 6.0, 0.0, 0.4)
+        p_rgb_warped = np.clip(p_rgb_warped.astype(np.float32) * (1.0 - wet_mask), 0, 255).astype(np.uint8)
+
+    # Shadow cast by paper onto water
+    if f &gt;= 1:
+        # As paper nears water, shadow forms at water level (cy ~ 78)
+        shadow_dist = max(0.0, 78.0 - py)
+        shadow_alpha = np.clip(1.0 - shadow_dist / 35.0, 0.0, 0.35)
+        # Shadow ellipse
+        sy, sx = np.ogrid[68:95, 100:160]
+        shadow_r = ((sx - px)/14.0)**2 + ((sy - 78.0)/4.0)**2
+        s_weight = shadow_alpha * np.exp(-shadow_r)
+        sub_s = frame[68:95, 100:160].astype(np.float32)
+        for c in range(3):
+            sub_s[:, :, c] *= (1.0 - 0.4 * s_weight)
+        frame[68:95, 100:160] = np.clip(sub_s, 0, 255).astype(np.uint8)
+
+    # Composite paper onto frame
+    frame = np.clip(frame * (1.0 - p_alpha_smooth) + p_rgb_warped * p_alpha_smooth, 0, 255).astype(np.uint8)
+
+    # Render claws (Left rotates CCW +angle, Right rotates CW -angle)
+    M_left = cv2.getRotationMatrix2D(pivot_left, angle, 1.0)
+    l_rgb_warped = cv2.warpAffine(left_claw_rgb, M_left, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    l_alpha_warped = cv2.warpAffine(left_claw_alpha, M_left, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    l_alpha_smooth = cv2.GaussianBlur(l_alpha_warped, (3, 3), 0.5)[:, :, None]
+
+    M_right = cv2.getRotationMatrix2D(pivot_right, -angle, 1.0)
+    r_rgb_warped = cv2.warpAffine(right_claw_rgb, M_right, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    r_alpha_warped = cv2.warpAffine(right_claw_alpha, M_right, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    r_alpha_smooth = cv2.GaussianBlur(r_alpha_warped, (3, 3), 0.5)[:, :, None]
+
+    # Composite claws
+    frame = np.clip(frame * (1.0 - l_alpha_smooth) + l_rgb_warped * l_alpha_smooth, 0, 255).astype(np.uint8)
+    frame = np.clip(frame * (1.0 - r_alpha_smooth) + r_rgb_warped * r_alpha_smooth, 0, 255).astype(np.uint8)
+
+    # Keep static shaft / top parts completely intact from first_frame for y &lt;= 24
+    frame[:24, :] = first_frame[:24, :]
+
+    frames.append(frame)
+
+print(f\&quot;Generated {len(frames)} frames.\&quot;)
+Image.fromarray(frames[0]).save(&#x27;.tmp/test_frames/00.png&#x27;)
+Image.fromarray(frames[1]).save(&#x27;.tmp/test_frames/01.png&#x27;)
+Image.fromarray(frames[2]).save(&#x27;.tmp/test_frames/02.png&#x27;)
+Image.fromarray(frames[3]).save(&#x27;.tmp/test_frames/03.png&#x27;)
+Image.fromarray(frames[4]).save(&#x27;.tmp/test_frames/04.png&#x27;)
+Image.fromarray(frames[6]).save(&#x27;.tmp/test_frames/06.png&#x27;)
+Image.fromarray(frames[10]).save(&#x27;.tmp/test_frames/10.png&#x27;)
+Image.fromarray(frames[19]).save(&#x27;.tmp/test_frames/19.png&#x27;)
+print(\&quot;Frames saved to .tmp/test_frames/\&quot;)
+EOF
+python3 .tmp/test_render.py
+&quot;</pre></details><details class=command><summary><strong>命令 65</strong><time>2026-11-12T22:05:44.254511+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;.tmp/test_frames/00.png&#x27;))
+f0_orig = np.array(Image.open(&#x27;first_frame.png&#x27;))
+assert np.array_equal(f0, f0_orig), &#x27;Frame 0 is not pixel identical&quot;&#x27;!&#x27;&quot;&#x27;
+print(&#x27;Frame 0 is exactly pixel identical to first_frame.png&quot;&#x27;!&#x27;&quot;&#x27;)
+
+# Let&#x27;s inspect changes between frame 0 and frame 1:
+f1 = np.array(Image.open(&#x27;.tmp/test_frames/01.png&#x27;))
+diff_01 = np.abs(f1.astype(int) - f0.astype(int))
+print(&#x27;F0 -&gt; F1 max diff:&#x27;, diff_01.max(), &#x27;pixels changed:&#x27;, np.sum(diff_01.sum(axis=-1) &gt; 0))
+
+# Let&#x27;s check where pixels changed:
+ys, xs = np.where(diff_01.sum(axis=-1) &gt; 0)
+print(f&#x27;F0-&gt;F1 changed bbox: y in [{ys.min()}, {ys.max()}], x in [{xs.min()}, {xs.max()}]&#x27;)
+
+# Let&#x27;s inspect frame 3:
+f3 = np.array(Image.open(&#x27;.tmp/test_frames/03.png&#x27;))
+diff_03 = np.abs(f3.astype(int) - f0.astype(int))
+ys, xs = np.where(diff_03.sum(axis=-1) &gt; 0)
+print(f&#x27;F0-&gt;F3 changed bbox: y in [{ys.min()}, {ys.max()}], x in [{xs.min()}, {xs.max()}]&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 66</strong><time>2026-11-12T22:05:53.142736+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+import cv2
+from PIL import Image
+
+f1 = np.array(Image.open(&#x27;.tmp/test_frames/01.png&#x27;))
+f0 = np.array(Image.open(&#x27;.tmp/test_frames/00.png&#x27;))
+
+# Let&#x27;s inspect the claws area in f1:
+print(&#x27;Claw area at y=30..45:&#x27;)
+for y in range(30, 46, 3):
+    line = f&#x27;y={y:2d}: &#x27;
+    for x in range(104, 156, 4):
+        c = f1[y, x]
+        line += f&#x27;({c[0]:3d},{c[1]:3d},{c[2]:3d}) &#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 67</strong><time>2026-11-12T22:06:01.562745+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+f3 = np.array(Image.open(&#x27;.tmp/test_frames/03.png&#x27;))
+print(&#x27;Frame 3 at water surface (y=72..85, x=115..145):&#x27;)
+for y in range(72, 85, 2):
+    line = f&#x27;y={y:2d}: &#x27;
+    for x in range(116, 142, 4):
+        c = f3[y, x]
+        line += f&#x27;({c[0]:3d},{c[1]:3d},{c[2]:3d}) &#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 68</strong><time>2026-11-12T22:06:30.136313+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &lt;&lt; &#x27;EOF&#x27; &gt; .tmp/test_full.py
+import numpy as np
+import cv2
+from PIL import Image
+
+first_frame = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, C = first_frame.shape
+
+pivot_left = (121.0, 24.0)
+pivot_right = (137.0, 24.0)
+
+left_claw_rgb = np.zeros_like(first_frame)
+left_claw_alpha = np.zeros((H, W), dtype=np.float32)
+for y in range(24, 53):
+    for x in range(106, 126):
+        c = first_frame[y, x]
+        if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+            left_claw_rgb[y, x] = c
+            left_claw_alpha[y, x] = 1.0
+
+right_claw_rgb = np.zeros_like(first_frame)
+right_claw_alpha = np.zeros((H, W), dtype=np.float32)
+for y in range(24, 53):
+    for x in range(134, 153):
+        c = first_frame[y, x]
+        if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+            right_claw_rgb[y, x] = c
+            right_claw_alpha[y, x] = 1.0
+
+paper_rgb = np.zeros_like(first_frame)
+paper_alpha = np.zeros((H, W), dtype=np.float32)
+for y in range(33, 65):
+    for x in range(115, 143):
+        if left_claw_alpha[y, x] == 0 and right_claw_alpha[y, x] == 0:
+            diff = np.abs(first_frame[y, x].astype(int) - np.array([156, 146, 144])).max()
+            if diff &gt; 8:
+                paper_rgb[y, x] = first_frame[y, x]
+                paper_alpha[y, x] = 1.0
+
+paper_alpha_closed = cv2.morphologyEx((paper_alpha * 255).astype(np.uint8), cv2.MORPH_CLOSE, np.ones((3,3), np.uint8))
+paper_alpha = (paper_alpha_closed &gt; 128).astype(np.float32)
+for y in range(33, 65):
+    for x in range(115, 143):
+        if paper_alpha[y, x] &gt; 0 and np.all(paper_rgb[y, x] == 0):
+            paper_rgb[y, x] = first_frame[y, x]
+
+# Inpaint background
+inpaint_mask = np.zeros((H, W), dtype=np.uint8)
+inpaint_mask[left_claw_alpha &gt; 0] = 255
+inpaint_mask[right_claw_alpha &gt; 0] = 255
+inpaint_mask[paper_alpha &gt; 0] = 255
+kernel = np.ones((3, 3), np.uint8)
+inpaint_mask = cv2.dilate(inpaint_mask, kernel, iterations=1)
+
+bg_clean_bgr = cv2.inpaint(cv2.cvtColor(first_frame, cv2.COLOR_RGB2BGR), inpaint_mask, 5, cv2.INPAINT_TELEA)
+bg_clean = cv2.cvtColor(bg_clean_bgr, cv2.COLOR_BGR2RGB)
+
+ys, xs = np.where(paper_alpha &gt; 0)
+paper_center_y = float(np.mean(ys))
+paper_center_x = float(np.mean(xs))
+
+frames = []
+for f in range(20):
+    if f == 0:
+        frames.append(first_frame.copy())
+        continue
+
+    # Claws opening angle
+    if f == 1:
+        angle = 6.0
+    elif f == 2:
+        angle = 12.0
+    elif f == 3:
+        angle = 15.0
+    else:
+        angle = 15.0 + 0.2 * np.sin((f - 3) * 0.7)
+
+    # Paper trajectory
+    if f == 1:
+        py = paper_center_y + 3.0
+        px = paper_center_x
+        rot = 0.8
+        motion_blur = 1.5
+    elif f == 2:
+        py = paper_center_y + 15.0
+        px = paper_center_x + 0.2
+        rot = 2.0
+        motion_blur = 3.0
+    elif f == 3:
+        py = 76.0
+        px = paper_center_x + 0.3
+        rot = 2.8
+        motion_blur = 1.0
+    elif f == 4:
+        py = 77.2
+        px = paper_center_x + 0.4
+        rot = 3.0
+        motion_blur = 0.0
+    elif f == 5:
+        py = 76.2
+        px = paper_center_x + 0.4
+        rot = 3.0
+        motion_blur = 0.0
+    elif f == 6:
+        py = 76.6
+        px = paper_center_x + 0.5
+        rot = 3.1
+        motion_blur = 0.0
+    else:
+        dt = f - 6
+        py = 76.5 + 0.3 * np.exp(-0.25 * dt) * np.sin(1.2 * dt)
+        px = paper_center_x + 0.5 + 0.05 * np.sin(0.4 * dt)
+        rot = 3.1 + 0.1 * np.cos(0.5 * dt)
+        motion_blur = 0.0
+
+    dy = py - paper_center_y
+    dx = px - paper_center_x
+
+    frame = bg_clean.copy()
+
+    # Dynamic water ripples on bowl water surface
+    if f &gt;= 3:
+        impact_f = f - 3 # frames since impact
+        y_grid, x_grid = np.ogrid[68:98, 70:185]
+        # Foreshortened radial distance
+        rx = 1.0
+        ry = 0.26
+        r = np.sqrt(((x_grid - paper_center_x) * rx)**2 + ((y_grid - 78.0) / ry)**2)
+
+        # 3 traveling ripple rings
+        wave = np.zeros_like(r)
+        for ring_idx, ring_speed in enumerate([7.5, 6.8, 6.0]):
+            t_ring = impact_f - ring_idx * 0.8
+            if t_ring &gt;= 0:
+                r_ring = t_ring * ring_speed + 3.0
+                ring_amp = (18.0 / (1.0 + 0.35 * impact_f + ring_idx * 0.5)) * np.exp(-0.15 * t_ring)
+                # Cosine profile with Gaussian envelope for smooth ripple crest &amp; trough
+                ring_prof = ring_amp * np.cos((r - r_ring) * (np.pi / 4.0)) * np.exp(-((r - r_ring) / 4.5)**2)
+                wave += ring_prof
+
+        # Restrict ripples strictly inside the bowl water area
+        ellipse_dist = ((x_grid - 128.0) / 54.0)**2 + ((y_grid - 84.0) / 14.0)**2
+        water_mask = np.clip(1.0 - ellipse_dist, 0.0, 1.0)
+        water_mask = cv2.GaussianBlur(water_mask, (5, 5), 1.0)
+        wave = wave * water_mask
+
+        # Apply wave surface lighting (faint specular reflections)
+        sub = frame[68:98, 70:185].astype(np.float32)
+        sub[:, :, 0] += wave * 0.85
+        sub[:, :, 1] += wave * 0.90
+        sub[:, :, 2] += wave * 1.00
+        frame[68:98, 70:185] = np.clip(sub, 0, 255).astype(np.uint8)
+
+        # Splash droplets at frame 3
+        if f == 3:
+            # Subtle droplets around impact
+            np.random.seed(42)
+            for drop_i in range(12):
+                ang = np.random.uniform(0, 2 * np.pi)
+                dist_drop = np.random.uniform(5, 14)
+                dx_drop = int(paper_center_x + np.cos(ang) * dist_drop)
+                dy_drop = int(77.0 + np.sin(ang) * dist_drop * 0.35)
+                if 70 &lt;= dy_drop &lt; 95 and 75 &lt;= dx_drop &lt; 180:
+                    cv2.circle(frame, (dx_drop, dy_drop), 1, (235, 230, 235), -1)
+
+    # Shadow cast by paper onto water surface
+    if f &gt;= 1:
+        shadow_dist = max(0.0, 78.0 - py)
+        shadow_alpha = np.clip(1.0 - shadow_dist / 32.0, 0.0, 0.40)
+        sy, sx = np.ogrid[68:95, 100:160]
+        shadow_r = ((sx - px) / 13.0)**2 + ((sy - 78.5) / 3.8)**2
+        s_weight = shadow_alpha * np.exp(-shadow_r)
+        sub_s = frame[68:95, 100:160].astype(np.float32)
+        for c_idx in range(3):
+            sub_s[:, :, c_idx] *= (1.0 - 0.42 * s_weight)
+        frame[68:95, 100:160] = np.clip(sub_s, 0, 255).astype(np.uint8)
+
+    # Render paper ball
+    M_paper = cv2.getRotationMatrix2D((paper_center_x, paper_center_y), rot, 1.0)
+    M_paper[0, 2] += dx
+    M_paper[1, 2] += dy
+
+    p_rgb_w = cv2.warpAffine(paper_rgb, M_paper, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    p_alpha_w = cv2.warpAffine(paper_alpha, M_paper, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+
+    # Motion blur for falling frames
+    if motion_blur &gt; 0.5:
+        ksize = int(motion_blur * 2 + 1)
+        if ksize % 2 == 0: ksize += 1
+        blur_kernel = np.zeros((ksize, ksize))
+        blur_kernel[:, ksize // 2] = 1.0 / ksize
+        p_rgb_w = cv2.filter2D(p_rgb_w, -1, blur_kernel)
+        p_alpha_w = cv2.filter2D(p_alpha_w, -1, blur_kernel)
+
+    p_alpha_s = cv2.GaussianBlur(p_alpha_w, (3, 3), 0.5)[:, :, None]
+
+    # Water contact wetting
+    if f &gt;= 3:
+        y_idx = np.arange(H)[:, None, None]
+        wet_mask = np.clip((y_idx - (py + 1.0)) / 6.0, 0.0, 0.38)
+        p_rgb_w = np.clip(p_rgb_w.astype(np.float32) * (1.0 - wet_mask), 0, 255).astype(np.uint8)
+
+    # Composite paper
+    frame = np.clip(frame * (1.0 - p_alpha_s) + p_rgb_w * p_alpha_s, 0, 255).astype(np.uint8)
+
+    # Render Claws
+    M_l = cv2.getRotationMatrix2D(pivot_left, angle, 1.0)
+    l_rgb_w = cv2.warpAffine(left_claw_rgb, M_l, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    l_alpha_w = cv2.warpAffine(left_claw_alpha, M_l, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    l_alpha_s = cv2.GaussianBlur(l_alpha_w, (3, 3), 0.4)[:, :, None]
+
+    M_r = cv2.getRotationMatrix2D(pivot_right, -angle, 1.0)
+    r_rgb_w = cv2.warpAffine(right_claw_rgb, M_r, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    r_alpha_w = cv2.warpAffine(right_claw_alpha, M_r, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+    r_alpha_s = cv2.GaussianBlur(r_alpha_w, (3, 3), 0.4)[:, :, None]
+
+    frame = np.clip(frame * (1.0 - l_alpha_s) + l_rgb_w * l_alpha_s, 0, 255).astype(np.uint8)
+    frame = np.clip(frame * (1.0 - r_alpha_s) + r_rgb_w * r_alpha_s, 0, 255).astype(np.uint8)
+
+    # Preserve upper shaft / mount
+    frame[:24, :] = first_frame[:24, :]
+
+    frames.append(frame)
+
+print(f\&quot;Generated all {len(frames)} frames successfully.\&quot;)
+EOF
+python3 .tmp/test_full.py
+&quot;</pre></details><details class=command><summary><strong>命令 69</strong><time>2026-11-12T22:06:58.828681+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &lt;&lt; &#x27;EOF&#x27; &gt; generate.py
+import numpy as np
+import cv2
+from PIL import Image
+from pathlib import Path
+import artifact_io
+
+def generate_video():
+    case_dir = Path(__file__).parent
+    first_frame_path = case_dir / \&quot;first_frame.png\&quot;
+    first_frame = np.array(Image.open(first_frame_path))
+    H, W, C = first_frame.shape
+
+    # 1. Grabber claw pivots
+    pivot_left = (121.0, 24.0)
+    pivot_right = (137.0, 24.0)
+
+    # 2. Extract claw layers
+    left_claw_rgb = np.zeros_like(first_frame)
+    left_claw_alpha = np.zeros((H, W), dtype=np.float32)
+    for y in range(24, 53):
+        for x in range(106, 126):
+            c = first_frame[y, x]
+            if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+                left_claw_rgb[y, x] = c
+                left_claw_alpha[y, x] = 1.0
+
+    right_claw_rgb = np.zeros_like(first_frame)
+    right_claw_alpha = np.zeros((H, W), dtype=np.float32)
+    for y in range(24, 53):
+        for x in range(134, 153):
+            c = first_frame[y, x]
+            if (c[0] &gt; 135 and c[1] &lt; 115 and c[2] &lt; 70) or np.all(c &lt; 45):
+                right_claw_rgb[y, x] = c
+                right_claw_alpha[y, x] = 1.0
+
+    # 3. Extract crumpled paper ball layer
+    paper_rgb = np.zeros_like(first_frame)
+    paper_alpha = np.zeros((H, W), dtype=np.float32)
+    for y in range(33, 65):
+        for x in range(115, 143):
+            if left_claw_alpha[y, x] == 0 and right_claw_alpha[y, x] == 0:
+                diff = np.abs(first_frame[y, x].astype(int) - np.array([156, 146, 144])).max()
+                if diff &gt; 8:
+                    paper_rgb[y, x] = first_frame[y, x]
+                    paper_alpha[y, x] = 1.0
+
+    paper_alpha_closed = cv2.morphologyEx((paper_alpha * 255).astype(np.uint8), cv2.MORPH_CLOSE, np.ones((3,3), np.uint8))
+    paper_alpha = (paper_alpha_closed &gt; 128).astype(np.float32)
+    for y in range(33, 65):
+        for x in range(115, 143):
+            if paper_alpha[y, x] &gt; 0 and np.all(paper_rgb[y, x] == 0):
+                paper_rgb[y, x] = first_frame[y, x]
+
+    # 4. Seamless background inpainting
+    inpaint_mask = np.zeros((H, W), dtype=np.uint8)
+    inpaint_mask[left_claw_alpha &gt; 0] = 255
+    inpaint_mask[right_claw_alpha &gt; 0] = 255
+    inpaint_mask[paper_alpha &gt; 0] = 255
+    kernel = np.ones((3, 3), np.uint8)
+    inpaint_mask = cv2.dilate(inpaint_mask, kernel, iterations=1)
+
+    bg_clean_bgr = cv2.inpaint(cv2.cvtColor(first_frame, cv2.COLOR_RGB2BGR), inpaint_mask, 5, cv2.INPAINT_TELEA)
+    bg_clean = cv2.cvtColor(bg_clean_bgr, cv2.COLOR_BGR2RGB)
+
+    # Paper geometric center
+    ys, xs = np.where(paper_alpha &gt; 0)
+    paper_center_y = float(np.mean(ys))
+    paper_center_x = float(np.mean(xs))
+
+    frames = []
+    for f in range(20):
+        if f == 0:
+            frames.append(first_frame.copy())
+            continue
+
+        # Dynamics: Claws opening angle (degrees)
+        if f == 1:
+            angle = 6.0
+        elif f == 2:
+            angle = 12.0
+        elif f == 3:
+            angle = 15.0
+        else:
+            angle = 15.0 + 0.2 * np.sin((f - 3) * 0.7)
+
+        # Dynamics: Paper vertical free-fall and impact
+        if f == 1:
+            py = paper_center_y + 3.0
+            px = paper_center_x
+            rot = 0.8
+            motion_blur = 1.5
+        elif f == 2:
+            py = paper_center_y + 15.0
+            px = paper_center_x + 0.2
+            rot = 2.0
+            motion_blur = 3.0
+        elif f == 3:
+            py = 76.0
+            px = paper_center_x + 0.3
+            rot = 2.8
+            motion_blur = 1.0
+        elif f == 4:
+            py = 77.2
+            px = paper_center_x + 0.4
+            rot = 3.0
+            motion_blur = 0.0
+        elif f == 5:
+            py = 76.2
+            px = paper_center_x + 0.4
+            rot = 3.0
+            motion_blur = 0.0
+        elif f == 6:
+            py = 76.6
+            px = paper_center_x + 0.5
+            rot = 3.1
+            motion_blur = 0.0
+        else:
+            dt = f - 6
+            py = 76.5 + 0.3 * np.exp(-0.25 * dt) * np.sin(1.2 * dt)
+            px = paper_center_x + 0.5 + 0.05 * np.sin(0.4 * dt)
+            rot = 3.1 + 0.1 * np.cos(0.5 * dt)
+            motion_blur = 0.0
+
+        dy = py - paper_center_y
+        dx = px - paper_center_x
+
+        frame = bg_clean.copy()
+
+        # Water surface waves and ripples after landing
+        if f &gt;= 3:
+            impact_f = f - 3
+            y_grid, x_grid = np.ogrid[68:98, 70:185]
+            rx = 1.0
+            ry = 0.26
+            r = np.sqrt(((x_grid - paper_center_x) * rx)**2 + ((y_grid - 78.0) / ry)**2)
+
+            wave = np.zeros_like(r)
+            for ring_idx, ring_speed in enumerate([7.5, 6.8, 6.0]):
+                t_ring = impact_f - ring_idx * 0.8
+                if t_ring &gt;= 0:
+                    r_ring = t_ring * ring_speed + 3.0
+                    ring_amp = (18.0 / (1.0 + 0.35 * impact_f + ring_idx * 0.5)) * np.exp(-0.15 * t_ring)
+                    ring_prof = ring_amp * np.cos((r - r_ring) * (np.pi / 4.0)) * np.exp(-((r - r_ring) / 4.5)**2)
+                    wave += ring_prof
+
+            ellipse_dist = ((x_grid - 128.0) / 54.0)**2 + ((y_grid - 84.0) / 14.0)**2
+            water_mask = np.clip(1.0 - ellipse_dist, 0.0, 1.0)
+            water_mask = cv2.GaussianBlur(water_mask, (5, 5), 1.0)
+            wave = wave * water_mask
+
+            sub = frame[68:98, 70:185].astype(np.float32)
+            sub[:, :, 0] += wave * 0.85
+            sub[:, :, 1] += wave * 0.90
+            sub[:, :, 2] += wave * 1.00
+            frame[68:98, 70:185] = np.clip(sub, 0, 255).astype(np.uint8)
+
+            if f == 3:
+                np.random.seed(42)
+                for drop_i in range(12):
+                    ang = np.random.uniform(0, 2 * np.pi)
+                    dist_drop = np.random.uniform(5, 14)
+                    dx_drop = int(paper_center_x + np.cos(ang) * dist_drop)
+                    dy_drop = int(77.0 + np.sin(ang) * dist_drop * 0.35)
+                    if 70 &lt;= dy_drop &lt; 95 and 75 &lt;= dx_drop &lt; 180:
+                        cv2.circle(frame, (dx_drop, dy_drop), 1, (235, 230, 235), -1)
+
+        # Shadow cast by paper onto water surface
+        if f &gt;= 1:
+            shadow_dist = max(0.0, 78.0 - py)
+            shadow_alpha = np.clip(1.0 - shadow_dist / 32.0, 0.0, 0.40)
+            sy, sx = np.ogrid[68:95, 100:160]
+            shadow_r = ((sx - px) / 13.0)**2 + ((sy - 78.5) / 3.8)**2
+            s_weight = shadow_alpha * np.exp(-shadow_r)
+            sub_s = frame[68:95, 100:160].astype(np.float32)
+            for c_idx in range(3):
+                sub_s[:, :, c_idx] *= (1.0 - 0.42 * s_weight)
+            frame[68:95, 100:160] = np.clip(sub_s, 0, 255).astype(np.uint8)
+
+        # Composite paper ball
+        M_paper = cv2.getRotationMatrix2D((paper_center_x, paper_center_y), rot, 1.0)
+        M_paper[0, 2] += dx
+        M_paper[1, 2] += dy
+
+        p_rgb_w = cv2.warpAffine(paper_rgb, M_paper, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+        p_alpha_w = cv2.warpAffine(paper_alpha, M_paper, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+
+        if motion_blur &gt; 0.5:
+            ksize = int(motion_blur * 2 + 1)
+            if ksize % 2 == 0: ksize += 1
+            blur_kernel = np.zeros((ksize, ksize))
+            blur_kernel[:, ksize // 2] = 1.0 / ksize
+            p_rgb_w = cv2.filter2D(p_rgb_w, -1, blur_kernel)
+            p_alpha_w = cv2.filter2D(p_alpha_w, -1, blur_kernel)
+
+        p_alpha_s = cv2.GaussianBlur(p_alpha_w, (3, 3), 0.5)[:, :, None]
+
+        if f &gt;= 3:
+            y_idx = np.arange(H)[:, None, None]
+            wet_mask = np.clip((y_idx - (py + 1.0)) / 6.0, 0.0, 0.38)
+            p_rgb_w = np.clip(p_rgb_w.astype(np.float32) * (1.0 - wet_mask), 0, 255).astype(np.uint8)
+
+        frame = np.clip(frame * (1.0 - p_alpha_s) + p_rgb_w * p_alpha_s, 0, 255).astype(np.uint8)
+
+        # Composite Grabber Claws
+        M_l = cv2.getRotationMatrix2D(pivot_left, angle, 1.0)
+        l_rgb_w = cv2.warpAffine(left_claw_rgb, M_l, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+        l_alpha_w = cv2.warpAffine(left_claw_alpha, M_l, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+        l_alpha_s = cv2.GaussianBlur(l_alpha_w, (3, 3), 0.4)[:, :, None]
+
+        M_r = cv2.getRotationMatrix2D(pivot_right, -angle, 1.0)
+        r_rgb_w = cv2.warpAffine(right_claw_rgb, M_r, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+        r_alpha_w = cv2.warpAffine(right_claw_alpha, M_r, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+        r_alpha_s = cv2.GaussianBlur(r_alpha_w, (3, 3), 0.4)[:, :, None]
+
+        frame = np.clip(frame * (1.0 - l_alpha_s) + l_rgb_w * l_alpha_s, 0, 255).astype(np.uint8)
+        frame = np.clip(frame * (1.0 - r_alpha_s) + r_rgb_w * r_alpha_s, 0, 255).astype(np.uint8)
+
+        # Top shaft and upper assembly remain static
+        frame[:24, :] = first_frame[:24, :]
+
+        frames.append(frame)
+
+    frames = np.array(frames, dtype=np.uint8)
+    artifact_io.save(frames, case_dir)
+    print(\&quot;Video generation and artifact saving complete.\&quot;)
+
+if __name__ == \&quot;__main__\&quot;:
+    generate_video()
+EOF
+python3 generate.py
+&quot;</pre></details><details class=command><summary><strong>命令 70</strong><time>2026-11-12T22:07:06.583811+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la; ls -la frames&#x27;</pre></details><details class=command><summary><strong>命令 71</strong><time>2026-11-12T22:07:18.590296+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;frames/00.png&#x27;))
+ref = np.array(Image.open(&#x27;first_frame.png&#x27;))
+assert np.array_equal(f0, ref), &#x27;Mismatch in frame 00&quot;&#x27;!&#x27;&quot;&#x27;
+print(&#x27;Frame 00 is bit-for-bit identical to first_frame.png.&#x27;)
+\&quot;&quot;</pre></details><p class=muted>保存候选 1 份；完成命令 71 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
