@@ -57,6 +57,7 @@
       const overlay=node.querySelector('.play-overlay'); if(overlay) overlay.onclick=()=>p.toggle();
       window.__benchPlayers.push(p);
     });
+    document.querySelectorAll('video').forEach(node=>{node.onplay=()=>node.dataset.state='playing';node.onpause=()=>node.dataset.state='paused';});
   }
   let fingerprint = '';
   function renderCase(d) {
@@ -70,6 +71,7 @@
     const latest=d.candidates.at(-1), spec=d.spec;
     let body=`<a class="back" href="/pixelworld/index.html">← PixelWorld 总览</a><section class="hero"><p class="eyebrow">CODING AGENTS AS PIXEL WORLD MODELS</p><h1>${esc(label(d.model_key))} · ${esc(d.case_id)}</h1></section><div id="live-status" class="card">${banner}<p class="note">${esc(d.track==='text'?'Text':'Vision')} · Attempt ${d.attempt} · ${spec.width}×${spec.height} · ${spec.fps} FPS · ${spec.frames} 帧。保存候选与最终有效提交分别记录。</p></div>`;
     body+=`<div class="case-layout" id="video"><div>${latest?video(latest):'<div class="box">尚未保存候选视频；下方展示当前工具记录。</div>'}</div><aside class="card"><h3>任务输入</h3><p>${esc(d.prompt)}</p>${d.first_frame?`<img class="inspection" src="${asset(d.first_frame)}" alt="实际输入首帧">`:''}</aside></div>`;
+    if(d.source_video)body+=`<section class="card"><h3>任务输入视频</h3><video controls preload="metadata" src="${asset(d.source_video)}" style="width:100%;max-height:480px"></video></section>`;
     if(d.status==='failed') body+=`<div class="card"><h3>终止记录</h3><p>${d.budget_exhausted?'输出 token 预算耗尽':'查看下方实际终止事件与工具输出'}</p><pre>${esc(JSON.stringify(d.validation,null,2))}</pre></div>`;
     body+='<section id="candidates"><h2>每轮保存的候选</h2>';
     for (const [i,v] of d.candidates.entries()) body+=`<details class="candidate" ${i===0?'open':''}><summary>${esc(v.label)} · ${esc(v.utc || '')}</summary><div class="candidate-content">${video(v)}${v.inspection?`<img class="inspection" src="${asset(v.inspection)}" alt="本轮时间采样检查图">`:''}${v.transition_check?`<img class="inspection" src="${asset(v.transition_check)}" alt="首帧到后续帧的过渡">`:''}<details><summary>本轮生成代码</summary><pre>${esc(v.code || '')}</pre></details></div></details>`;
@@ -80,6 +82,7 @@
     initializePlayers();
   }
   function renderGroup(d) {
+    const heading=document.querySelector('main .hero h1');if(heading)heading.textContent=label(d.model_key)+' · '+(d.track==='text'?'Text':'Vision');
     let box=document.querySelector('#live-group-status');
     if(!box){box=document.createElement('div');box.id='live-group-status';box.className='card';document.querySelector('main .hero')?.after(box);}
     const c=d.counts;
@@ -133,7 +136,7 @@
       if(table && selected.length) table.innerHTML='<tr><th>条件</th><th>模型</th><th>Track</th><th>有效视频</th><th>运行中</th><th>待生成</th><th>查看</th></tr>'+selected.map(g=>`<tr><td>${g.suite.includes('i2v')?'I2V · Qwen 首帧':'T2V'}</td><td>${esc(label(g.model_key))}</td><td>${g.track==='text'?'Text':'Vision'}</td><td>${g.counts.complete || 0}/${g.cases_total}</td><td>${g.counts.running || 0}</td><td>${g.counts.pending || 0}</td><td><a href="/pixelworld/live.html?suite=${g.suite}&model=${g.model_key}&track=${g.track}">实时视频与候选 →</a></td></tr>`).join('');
     }
     const routes={'Physics-IQ 512w24fps':['physics_iq_512w24fps_gpt_native'],'Physics-IQ Verified':['physics_iq','physics_iq_gpt_native_v2','physics_iq_seed21_native_v2'],'RoboJudge shared-50':['robojudge','robojudge_seed21_native_v2'],'PCVE-RigidBench · 必跑':['pcve_smoke'],'PhyGenBench · T2V + I2V':groups.filter(g=>g.suite.startsWith('phygen_')).map(g=>g.suite)};
-    document.querySelectorAll('article.card.feature').forEach(card=>{const scopes=routes[card.querySelector('h3')?.textContent];if(!scopes)return;const selected=groups.filter(g=>scopes.includes(g.suite));if(!selected.length)return;const total=selected.reduce((a,g)=>a+(g.cases_total || 0),0),count=name=>selected.reduce((a,g)=>a+(g.counts[name] || 0),0);const badge=card.querySelector('.badge');if(badge)badge.textContent=count('running')?'running · '+count('running')+' active':'进度已更新';let facts=card.querySelector('.facts');if(!facts){facts=document.createElement('div');facts.className='facts';card.querySelector('a')?.before(facts);}facts.innerHTML=`<div><strong>${count('complete')} / ${total}</strong>有效视频</div><div><strong>${count('running')}</strong>运行中</div><div><strong>${count('pending')}</strong>待生成</div>`;});
+    document.querySelectorAll('article.card.feature').forEach(card=>{const scopes=routes[card.querySelector('h3')?.textContent];if(!scopes)return;const selected=groups.filter(g=>scopes.includes(g.suite));if(!selected.length)return;const total=selected.reduce((a,g)=>a+(g.cases_total || 0),0),count=name=>selected.reduce((a,g)=>a+(g.counts[name] || 0),0);const badge=card.querySelector('.badge');if(badge)badge.textContent=count('running')?'running · '+count('running')+' active':count('complete')===total?(selected.some(g=>g.suite.startsWith('phygen_'))?'smoke 已完成':'生成完成'):'进度已更新';let facts=card.querySelector('.facts');if(!facts){facts=document.createElement('div');facts.className='facts';card.querySelector('a')?.before(facts);}facts.innerHTML=`<div><strong>${count('complete')} / ${total}</strong>有效视频</div><div><strong>${count('running')}</strong>运行中</div><div><strong>${count('pending')}</strong>待生成</div>`;});
   }
   async function poll() {
     try {
