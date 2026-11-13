@@ -1,0 +1,634 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/GPT-6.1-Sol · 0027</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/GPT-6.1-Sol · 0027</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>512×288</span><span class=pill>24 FPS · 120 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video='{&quot;width&quot;: 512, &quot;height&quot;: 288, &quot;frames&quot;: 120, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_44b9804f5be1301b.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;647f0c3c6514000e87b55f291e1d02128ab292a7dba24d30d577f660eb2b37ba&quot;, &quot;pixels&quot;: &quot;final/pixels_44b9804f5be1301b.rgb.gz&quot;, &quot;poster&quot;: &quot;final/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>首帧续写</span><h3 style="margin-top:14px">原始任务</h3><p>Static locked-off single-shot with fixed frame throughout filmed with constant framerate in real-time. The scene shows a realistic scientific demonstration. The scene only contains the described setup and actions. A piece of clear glass resting on the edge of a light-colored wooden table against a plain white wall. The blue tennis ball rolls from the wooden table over the glass.
+</p><div class=facts><div><strong>5.00s</strong>视频时长</div><div><strong>21264</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-13T14:53:56.015043+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 512, &quot;height&quot;: 288, &quot;frames&quot;: 120, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_44b9804f5be1301b.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;647f0c3c6514000e87b55f291e1d02128ab292a7dba24d30d577f660eb2b37ba&quot;, &quot;pixels&quot;: &quot;candidate_00/pixels_44b9804f5be1301b.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_00/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_00/inspection.png" target=_blank><img loading=lazy src="candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_00/transition_check.png" target=_blank><img loading=lazy src="candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,214 @@
++&quot;&quot;&quot;Generate a locked-camera continuation using only the supplied photograph.
++
++The photograph is the set and the source for the ball&#x27;s felt.  A rotating
++sphere, recovered photographic illumination, a surface shadow and a subtle
++reflection are the only animated elements.  No learned/model assets are used.
++&quot;&quot;&quot;
++from pathlib import Path
++import numpy as np
++from PIL import Image
++from scipy import ndimage, sparse
++from scipy.sparse.linalg import spsolve
++from artifact_io import save
++
++ROOT = Path(__file__).resolve().parent
++H, W = 288, 512
++CX, CY = 164.3, 116.0
++RX, RY = 20.7, 21.45
++Y, X = np.mgrid[:H, :W].astype(np.float64)
++
++
++def repair_table(photo):
++    # The foreground ball and its rightward shadow are removed together.  A
++    # biharmonic extension continues the quiet wooden grain/color gradients.
++    mask = (((X-CX)/29.5)**2 + ((Y-CY)/27.2)**2 &lt; 1)
++    dx, dy = X-195.0, Y-125.0
++    a, b = dx*.979 - dy*.204, dx*.204 + dy*.979
++    mask |= (a/44.5)**2 + (b/18.0)**2 &lt; 1
++    # Fourth-order Dirichlet interpolation is useful for this smooth tabletop.
++    points = np.argwhere(mask)
++    ids = np.full((H, W), -1, dtype=np.int32)
++    ids[mask] = np.arange(len(points))
++    coeffs = [(0,0,20), (0,1,-8), (0,-1,-8), (1,0,-8), (-1,0,-8),
++              (1,1,2), (1,-1,2), (-1,1,2), (-1,-1,2),
++              (2,0,1),(-2,0,1),(0,2,1),(0,-2,1)]
++    rows, cols, values = [], [], []
++    rhs = np.zeros((len(points),3), np.float64)
++    indices = np.arange(len(points))
++    for dy, dx, c in coeffs:
++        py, px = points[:,0]+dy, points[:,1]+dx
++        neigh = ids[py,px]
++        inside = neigh &gt;= 0
++        rows.extend(indices[inside]); cols.extend(neigh[inside]); values.extend(np.full(inside.sum(),c))
++        rhs[~inside] -= c*photo[py[~inside],px[~inside]]
++    matrix = sparse.coo_matrix((values,(rows,cols)),shape=(len(points),len(points))).tocsc()
++    clean = photo.copy()
++    clean[mask] = spsolve(matrix, rhs)
++    # Restore fine nonsemantic photographic grain to the interpolated region.
++    rng = np.random.default_rng(27)
++    grain = rng.normal(0,.50,(H,W))
++    grain = grain - ndimage.gaussian_filter(grain,1.1)
++    blend = np.clip(ndimage.distance_transform_edt(mask)/4,0,1)
++    clean += grain[:,:,None]*blend[:,:,None]
++    return np.clip(clean,0,255)
++
++
++def base_shading(nx, ny, nz):
++    # Empirical, fixed-in-camera diffuse illumination, fitted below.
++    terms = np.stack([np.ones_like(nx), nx, ny, nz, nx*ny,
++                      nx*nx, ny*ny, nx*nz, ny*nz],axis=-1)
++    return np.maximum(terms @ SHADE_COEF, np.array([9,32,66]))
++
++
++def rotate_inverse(normals, theta):
++    axis = np.array([-.10, .57, .815]); axis /= np.linalg.norm(axis)
++    c,s = np.cos(theta), np.sin(theta)
++    # Pull current surface normals back to the initial material coordinates.
++    return normals*c - np.cross(axis,normals)*s + (normals@axis)[...,None]*axis*(1-c)
++
++
++def photographic_material(normals):
++    &quot;&quot;&quot;A front/back-continuous sphere texture made from the photographed felt.
++
++    The back is mirrored about the two hemispheres.  The near limb is extended
++    from a slightly inset ring, keeping tabletop contamination out of the felt.
++    &quot;&quot;&quot;
++    nx,ny,nz = normals[...,0],normals[...,1],normals[...,2]
++    # Smooth mirror around the hemisphere boundary, using only the input image.
++    sx = nx * np.where(nz&gt;=0,1,-1)
++    sy = ny
++    r = np.sqrt(sx*sx+sy*sy)
++    scale = np.minimum(1,.91/np.maximum(r,1e-5))
++    sx,sy = sx*scale,sy*scale
++    iz = np.sqrt(np.maximum(0,1-sx*sx-sy*sy))
++    coords = [CY+RY*sy, CX+RX*sx]
++    tex = np.stack([ndimage.map_coordinates(MATERIAL[:,:,k],coords,order=1,mode=&#x27;nearest&#x27;) for k in range(3)],axis=-1)
++    return tex
++
++
++def sphere_sprite(theta, scale=1.0):
++    # Supersampling makes subpixel movement continuous at the constant 24 fps.
++    size, ss = 66, 3
++    yy,xx = np.mgrid[:size*ss,:size*ss].astype(float)
++    xx=(xx+.5)/ss-size/2
++    yy=(yy+.5)/ss-size/2
++    nx,ny = xx/(RX*scale), yy/(RY*scale)
++    r2 = nx*nx+ny*ny
++    inside = r2 &lt;= 1
++    nz = np.sqrt(np.maximum(0,1-r2))
++    normal = np.stack([nx,ny,nz],axis=-1)
++    pulled = rotate_inverse(normal,theta)
++    material = photographic_material(pulled)
++    lighting = base_shading(nx,ny,nz)
++    rgb = np.clip(material*lighting,0,240)
++    alpha = inside.astype(float)
++    premul = rgb*alpha[:,:,None]
++    # The original lens/photograph has soft, anisotropic optical edges.
++    alpha = ndimage.gaussian_filter(alpha,(1.35*ss,2.0*ss))
++    premul = ndimage.gaussian_filter(premul,(1.35*ss,2.0*ss,0))
++    alpha = alpha.reshape(size,ss,size,ss).mean((1,3))
++    premul = premul.reshape(size,ss,size,ss,3).mean((1,3))
++    return premul,alpha
++
++
++def stamp(frame, premul, alpha, cx, cy):
++    hh,ww = alpha.shape
++    x0,y0 = cx-ww/2,cy-hh/2
++    xa,ya = int(np.floor(x0)),int(np.floor(y0))
++    # Shift image and premultiplied mask together, never multiplying matte twice.
++    fracx,fracy = x0-xa,y0-ya
++    p = ndimage.shift(premul,(fracy,fracx,0),order=1,mode=&#x27;constant&#x27;,cval=0,prefilter=False)
++    a = ndimage.shift(alpha,(fracy,fracx),order=1,mode=&#x27;constant&#x27;,cval=0,prefilter=False)
++    xb,yb = max(0,xa),max(0,ya)
++    xe,ye = min(W,xa+ww),min(H,ya+hh)
++    if xe&lt;=xb or ye&lt;=yb:return
++    sp = np.s_[yb-ya:ye-ya,xb-xa:xe-xa]
++    frame[yb:ye,xb:xe] = frame[yb:ye,xb:xe]*(1-a[sp][...,None])+p[sp]
++
++
++def shadow_at(cx,cy,scale):
++    # Broad soft side shadow, oriented to match the input illumination.
++    dx,dy = (X-cx-32*scale)/scale,(Y-cy-8.7*scale)/scale
++    u,v = .979*dx-.204*dy,.204*dx+.979*dy
++    broad = .34*np.exp(-.5*((u/21.5)**2+(v/6.9)**2))
++    contact = .19*np.exp(-.5*(((X-cx-2*scale)/(11.5*scale))**2+
++                            ((Y-cy-RY*scale+1)/(2.4*scale))**2))
++    return np.maximum(broad,contact)
++
++
++def make_video():
++    frames = np.empty((120,H,W,3),np.uint8)
++    frames[0] = ORIGINAL.astype(np.uint8)
++    firstp,firsta = sphere_sprite(0)
++    # A local photographic residual ensures no synthetic pop between frame 0
++    # and the newly exposed first few pixels as the object begins to roll.
++    start = CLEAN.copy()
++    start *= (1-shadow_at(CX,CY,1)[:,:,None])
++    stamp(start, firstp, firsta, CX, CY)
++    residual = ORIGINAL-start
++    ballzone = np.exp(-.5*(((X-CX)/26)**6+((Y-CY)/25)**6))
++    residual *= ballzone[:,:,None]
++    rp = residual[80:153,128:202]
++    for i in range(1,120):
++        t = i/24
++        # Gentle rolling resistance.  The ball remains on the pane at the end.
++        distance = 73.0*t-2.65*t*t
++        cx = CX+distance
++        cy = CY+.13*distance
++        scale = 1+.000085*distance
++        theta = distance/(RX*1.04)
++        frame = CLEAN.copy()
++        # Table edge is diagonal in the image; leave its original pixels fixed.
++        edge = 335-.61*Y
++        tabletop = 1/(1+np.exp(np.clip((X-edge)/2,-60,60)))
++        field = shadow_at(cx,cy,scale)
++        # Clear glass allows most light through, with a faint blue reflection.
++        field *= .22+.78*tabletop
++        frame *= (1-field[:,:,None])
++        p,a = sphere_sprite(theta,scale)
++        contact_y = cy+RY*scale
++        pane_amount = 1/(1+np.exp(np.clip(-(cx-(335-.61*contact_y))/5,-60,60)))
++        if pane_amount&gt;.001:
++            # Photographic reflection is compressed along the projected plane.
++            reflection = ndimage.zoom(p[::-1],(.27,1,1),order=1)
++            refa = ndimage.zoom(a[::-1],(.27,1),order=1)*(.12*pane_amount)
++            reflection *= (.12*pane_amount)
++            reflection = ndimage.gaussian_filter(reflection,(1.0,.8,0))
++            refa = ndimage.gaussian_filter(refa,(1.0,.8))
++            stamp(frame,reflection,refa,cx+2*scale,contact_y+5*scale)
++        # Motion during one modest exposure, rather than framewise jump cuts.
++        # The initial photographic softness means extra blur can stay minimal.
++        stamp(frame,p,a,cx,cy)
++        if t&lt;.45:
++            fade = np.exp(-(t/.16)**2)
++            # Residual travels with the ball, then vanishes as its hidden side
++            # rotates into view. It only restores photographic fine detail.
++            zero = np.zeros(rp.shape[:2])
++            stamp(frame,rp*fade,zero,cx+(165-CX),cy+(116.5-CY))
++        frames[i] = np.clip(np.rint(frame),0,255).astype(np.uint8)
++    return frames
++
++
++if __name__ == &#x27;__main__&#x27;:
++    ORIGINAL = np.asarray(Image.open(ROOT/&#x27;first_frame.png&#x27;).convert(&#x27;RGB&#x27;),dtype=float)
++    CLEAN = repair_table(ORIGINAL)
++    # Fit a smooth diffuse shading field to non-seam interior felt samples.
++    nx,ny = (X-CX)/RX,(Y-CY)/RY
++    nz = np.sqrt(np.maximum(0,1-nx*nx-ny*ny))
++    r2 = nx*nx+ny*ny
++    fit = (r2&lt;.73)&amp;(ORIGINAL[:,:,0]/np.maximum(ORIGINAL[:,:,2],1)&lt;.255)
++    terms = np.stack([np.ones_like(nx),nx,ny,nz,nx*ny,nx*nx,ny*ny,nx*nz,ny*nz],axis=-1)
++    # A mild ridge keeps limb extrapolation stable and realistic.
++    a = terms[fit]
++    SHADE_COEF = np.linalg.solve(a.T@a+np.diag([.02,.15,.15,.15,.2,.2,.2,.2,.2]), a.T@ORIGINAL[fit])
++    lighting = base_shading(nx,ny,nz)
++    # Sample the visible surface&#x27;s intrinsic color/felt and curved pale seam.
++    MATERIAL = np.clip(ORIGINAL/np.maximum(lighting,1),.62,3.1)
++    # Discard the outer photograph/background. The texture&#x27;s sampling radius
++    # above never reaches it, and the full sphere is made only from this felt.
++    MATERIAL[r2&gt;1] = 1
++    video = make_video()
++    assert video.shape==(120,288,512,3)
++    assert np.array_equal(video[0],np.array(Image.open(ROOT/&#x27;first_frame.png&#x27;).convert(&#x27;RGB&#x27;)))
++    save(video,ROOT)
++    print(&#x27;Saved 120 RGB frames, 512x288, 24 fps.&#x27;)
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-13T14:46:36.271632+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;ls -la &amp;&amp; cat prompt.txt &amp;&amp; printf &#x27;\\n---RULES---\\n&#x27; &amp;&amp; cat GENERATION_RULES.md&quot;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-13T14:46:45.971404+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat task_spec.json &amp;&amp; cat artifact_io.py &amp;&amp; python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+im=np.array(Image.open(&#x27;first_frame.png&#x27;).convert(&#x27;RGB&#x27;));print(im.shape)
+for y in range(0,288,12):
+ row=[]
+ for x in range(0,512,8):
+  r,g,b=im[y:y+12,x:x+8].mean((0,1));
+  if b&gt;r*1.12 and b&gt;g*1.04: c=&#x27;B&#x27;
+  elif r&gt;g*1.12 and g&gt;b*1.12:c=&#x27;w&#x27;
+  elif r+g+b&lt;180:c=&#x27;#&#x27;
+  elif r+g+b&lt;360:c=&#x27;o&#x27;
+  elif r+g+b&lt;510:c=&#x27;:&#x27;
+  elif r+g+b&lt;660:c=&#x27;.&#x27;
+  else:c=&#x27; &#x27;
+  row.append(c)
+ print(f&#x27;{y:3d}&#x27;, &#x27;&#x27;.join(row))
+PY&quot;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-13T14:46:54.748229+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+im=np.array(Image.open(&#x27;first_frame.png&#x27;))
+for y in [0,40,70,80,90,100,110,120,130,140,160,180,200,240,280]:
+ print(y,[(x,im[y,x].tolist()) for x in [0,50,80,100,140,160,180,200,240,260,280,300,320,360,400,440,480,510]])
+b=(im[:,:,2]&gt;im[:,:,0]*1.3)&amp;(im[:,:,2]&gt;im[:,:,1]*1.15)&amp;(im[:,:,2]&gt;80)
+for y in range(70,150,2):
+ xs=np.where(b[y])[0];
+ if len(xs):print(&#x27;blue&#x27;,y,xs.min(),xs.max())
+PY&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-13T14:47:10.349522+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+from scipy.ndimage import gaussian_filter
+im=np.asarray(Image.open(&#x27;first_frame.png&#x27;)).astype(float)
+# ASCII rendering luminance, 128 columns x 72 rows. Dark to bright.
+g=im.mean(2);g=Image.fromarray(g.astype(&#x27;uint8&#x27;)).resize((128,72))
+s=&#x27;@%#*+=-:. &#x27;
+for yy,row in enumerate(np.array(g)):
+ print(f&#x27;{yy*4:03d} &#x27;+&#x27;&#x27;.join(s[min(9,int(v)//24)] for v in row))
+print(&#x27;EDGES: strongest gradient components&#x27;)
+a=gaussian_filter(im,(0.8,.8,0)); dx=np.linalg.norm(np.diff(a,axis=1),axis=2);dy=np.linalg.norm(np.diff(a,axis=0),axis=2)
+for y in range(72,221,8):
+ vals=dx[y];xx=np.argsort(vals[190:510])[-12:]+190;print(&#x27;x&#x27;,y,[(int(x),round(vals[x],1)) for x in sorted(xx)])
+for x in [240,260,280,300,340,380,420,460,500]:
+ vals=dy[:,x];yy=np.argsort(vals[70:221])[-12:]+70;print(&#x27;y&#x27;,x,[(int(y),round(vals[y],1)) for y in sorted(yy)])
+PY&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-13T14:47:29.663645+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+im=np.array(Image.open(&#x27;first_frame.png&#x27;))
+# ball rgb component character grid, 2px
+chars=&#x27; .:-=+*#%@&#x27;
+for y in range(88,146,2):
+ out=&#x27;&#x27;
+ for x in range(130,212,2):
+  r,g,b=im[y:y+2,x:x+2].mean((0,1))
+  if b&gt;r+20 and b&gt;g+15:c=chars[min(9,int((b-40)//15))]
+  elif r&gt;g+12 and g&gt;b+12:c=&#x27;w&#x27;
+  else:c=&#x27;o&#x27;
+  out+=c
+ print(f&#x27;{y:3} {out}&#x27;)
+# shadow intensities sample radius of moving ball to distinguish shadows
+for y in range(91,147,3):
+ print(y, &#x27; &#x27;.join(f&#x27;{im[y,x,0]:3}&#x27; for x in range(132,214,3)))
+PY&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-13T14:47:48.167263+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+im=np.array(Image.open(&#x27;first_frame.png&#x27;)).astype(float)
+# chroma interpretation crop table/glass; rows 4 px cols 4px
+for y in range(72,258,4):
+ out=&#x27;&#x27;
+ for x in range(200,512,4):
+  r,g,b=im[y:y+4,x:x+4].mean((0,1))
+  if b-r&gt;20:c=&#x27;B&#x27;
+  elif r-b&gt;40:c=&#x27;W&#x27;
+  elif r-b&gt;23:c=&#x27;w&#x27;
+  elif r-b&gt;10:c=&#x27;o&#x27;
+  elif r-b&gt;3:c=&#x27;~&#x27;
+  elif b-r&gt;9:c=&#x27;:&#x27;
+  elif b-r&gt;3:c=&#x27;.&#x27;
+  else:c=&#x27;|&#x27;
+  out+=c
+ print(f&#x27;{y:3}&#x27;,out)
+PY&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-13T14:48:33.566215+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+from scipy.ndimage import gaussian_filter
+im=np.asarray(Image.open(&#x27;first_frame.png&#x27;),dtype=float)
+g=im.mean(2)
+for x in range(290,512,10):
+ vals=np.diff(gaussian_filter(g,(.6,.6)),axis=0)[:,x]
+ yy=np.argsort(np.abs(vals[95:200]))[-4:]+95
+ print(x,[(int(y),round(vals[y],1)) for y in sorted(yy)])
+# list sphere white/non-blue anomalous values
+for y in range(96,137,2):
+ coords=[]
+ for x in range(142,187):
+  if ((x-163.4)/19)**2+((y-115.1)/19)**2&lt;1:
+   r,g,b=im[y,x]
+   if r/b&gt;.24:coords.append((x,[int(r),int(g),int(b)]))
+ print(y,coords)
+PY&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-13T14:49:23.077481+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+im=np.array(Image.open(&#x27;first_frame.png&#x27;))
+for y in range(108,145,4):
+ print(y, [(x,im[y,x].tolist()) for x in range(180,243,4)])
+print(&#x27;packages&#x27;)
+import scipy;print(scipy.__version__)
+PY&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-13T14:50:59.745495+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image
+import numpy as np
+im=np.array(Image.open(&#x27;first_frame.png&#x27;))
+for y in [93,94,95,96,97,98,99,100,101,102,103,104,130,131,132,133,134,135,136,137,138,139,140]:print(y,im[y,164].tolist())
+print(&#x27;row&#x27;);print([(x,im[114,x].tolist()) for x in range(136,193)])
+PY&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-13T14:53:20.876066+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -lc &quot;cat &gt; generate.py &lt;&lt;&#x27;PY&#x27;
+\&quot;\&quot;\&quot;Generate a locked-camera continuation using only the supplied photograph.
+
+The photograph is the set and the source for the ball&#x27;s felt.  A rotating
+sphere, recovered photographic illumination, a surface shadow and a subtle
+reflection are the only animated elements.  No learned/model assets are used.
+\&quot;\&quot;\&quot;
+from pathlib import Path
+import numpy as np
+from PIL import Image
+from scipy import ndimage, sparse
+from scipy.sparse.linalg import spsolve
+from artifact_io import save
+
+ROOT = Path(__file__).resolve().parent
+H, W = 288, 512
+CX, CY = 164.3, 116.0
+RX, RY = 20.7, 21.45
+Y, X = np.mgrid[:H, :W].astype(np.float64)
+
+
+def repair_table(photo):
+    # The foreground ball and its rightward shadow are removed together.  A
+    # biharmonic extension continues the quiet wooden grain/color gradients.
+    mask = (((X-CX)/29.5)**2 + ((Y-CY)/27.2)**2 &lt; 1)
+    dx, dy = X-195.0, Y-125.0
+    a, b = dx*.979 - dy*.204, dx*.204 + dy*.979
+    mask |= (a/44.5)**2 + (b/18.0)**2 &lt; 1
+    # Fourth-order Dirichlet interpolation is useful for this smooth tabletop.
+    points = np.argwhere(mask)
+    ids = np.full((H, W), -1, dtype=np.int32)
+    ids[mask] = np.arange(len(points))
+    coeffs = [(0,0,20), (0,1,-8), (0,-1,-8), (1,0,-8), (-1,0,-8),
+              (1,1,2), (1,-1,2), (-1,1,2), (-1,-1,2),
+              (2,0,1),(-2,0,1),(0,2,1),(0,-2,1)]
+    rows, cols, values = [], [], []
+    rhs = np.zeros((len(points),3), np.float64)
+    indices = np.arange(len(points))
+    for dy, dx, c in coeffs:
+        py, px = points[:,0]+dy, points[:,1]+dx
+        neigh = ids[py,px]
+        inside = neigh &gt;= 0
+        rows.extend(indices[inside]); cols.extend(neigh[inside]); values.extend(np.full(inside.sum(),c))
+        rhs[~inside] -= c*photo[py[~inside],px[~inside]]
+    matrix = sparse.coo_matrix((values,(rows,cols)),shape=(len(points),len(points))).tocsc()
+    clean = photo.copy()
+    clean[mask] = spsolve(matrix, rhs)
+    # Restore fine nonsemantic photographic grain to the interpolated region.
+    rng = np.random.default_rng(27)
+    grain = rng.normal(0,.50,(H,W))
+    grain = grain - ndimage.gaussian_filter(grain,1.1)
+    blend = np.clip(ndimage.distance_transform_edt(mask)/4,0,1)
+    clean += grain[:,:,None]*blend[:,:,None]
+    return np.clip(clean,0,255)
+
+
+def base_shading(nx, ny, nz):
+    # Empirical, fixed-in-camera diffuse illumination, fitted below.
+    terms = np.stack([np.ones_like(nx), nx, ny, nz, nx*ny,
+                      nx*nx, ny*ny, nx*nz, ny*nz],axis=-1)
+    return np.maximum(terms @ SHADE_COEF, np.array([9,32,66]))
+
+
+def rotate_inverse(normals, theta):
+    axis = np.array([-.10, .57, .815]); axis /= np.linalg.norm(axis)
+    c,s = np.cos(theta), np.sin(theta)
+    # Pull current surface normals back to the initial material coordinates.
+    return normals*c - np.cross(axis,normals)*s + (normals@axis)[...,None]*axis*(1-c)
+
+
+def photographic_material(normals):
+    \&quot;\&quot;\&quot;A front/back-continuous sphere texture made from the photographed felt.
+
+    The back is mirrored about the two hemispheres.  The near limb is extended
+    from a slightly inset ring, keeping tabletop contamination out of the felt.
+    \&quot;\&quot;\&quot;
+    nx,ny,nz = normals[...,0],normals[...,1],normals[...,2]
+    # Smooth mirror around the hemisphere boundary, using only the input image.
+    sx = nx * np.where(nz&gt;=0,1,-1)
+    sy = ny
+    r = np.sqrt(sx*sx+sy*sy)
+    scale = np.minimum(1,.91/np.maximum(r,1e-5))
+    sx,sy = sx*scale,sy*scale
+    iz = np.sqrt(np.maximum(0,1-sx*sx-sy*sy))
+    coords = [CY+RY*sy, CX+RX*sx]
+    tex = np.stack([ndimage.map_coordinates(MATERIAL[:,:,k],coords,order=1,mode=&#x27;nearest&#x27;) for k in range(3)],axis=-1)
+    return tex
+
+
+def sphere_sprite(theta, scale=1.0):
+    # Supersampling makes subpixel movement continuous at the constant 24 fps.
+    size, ss = 66, 3
+    yy,xx = np.mgrid[:size*ss,:size*ss].astype(float)
+    xx=(xx+.5)/ss-size/2
+    yy=(yy+.5)/ss-size/2
+    nx,ny = xx/(RX*scale), yy/(RY*scale)
+    r2 = nx*nx+ny*ny
+    inside = r2 &lt;= 1
+    nz = np.sqrt(np.maximum(0,1-r2))
+    normal = np.stack([nx,ny,nz],axis=-1)
+    pulled = rotate_inverse(normal,theta)
+    material = photographic_material(pulled)
+    lighting = base_shading(nx,ny,nz)
+    rgb = np.clip(material*lighting,0,240)
+    alpha = inside.astype(float)
+    premul = rgb*alpha[:,:,None]
+    # The original lens/photograph has soft, anisotropic optical edges.
+    alpha = ndimage.gaussian_filter(alpha,(1.35*ss,2.0*ss))
+    premul = ndimage.gaussian_filter(premul,(1.35*ss,2.0*ss,0))
+    alpha = alpha.reshape(size,ss,size,ss).mean((1,3))
+    premul = premul.reshape(size,ss,size,ss,3).mean((1,3))
+    return premul,alpha
+
+
+def stamp(frame, premul, alpha, cx, cy):
+    hh,ww = alpha.shape
+    x0,y0 = cx-ww/2,cy-hh/2
+    xa,ya = int(np.floor(x0)),int(np.floor(y0))
+    # Shift image and premultiplied mask together, never multiplying matte twice.
+    fracx,fracy = x0-xa,y0-ya
+    p = ndimage.shift(premul,(fracy,fracx,0),order=1,mode=&#x27;constant&#x27;,cval=0,prefilter=False)
+    a = ndimage.shift(alpha,(fracy,fracx),order=1,mode=&#x27;constant&#x27;,cval=0,prefilter=False)
+    xb,yb = max(0,xa),max(0,ya)
+    xe,ye = min(W,xa+ww),min(H,ya+hh)
+    if xe&lt;=xb or ye&lt;=yb:return
+    sp = np.s_[yb-ya:ye-ya,xb-xa:xe-xa]
+    frame[yb:ye,xb:xe] = frame[yb:ye,xb:xe]*(1-a[sp,None])+p[sp]
+
+
+def shadow_at(cx,cy,scale):
+    # Broad soft side shadow, oriented to match the input illumination.
+    dx,dy = (X-cx-32*scale)/scale,(Y-cy-8.7*scale)/scale
+    u,v = .979*dx-.204*dy,.204*dx+.979*dy
+    broad = .34*np.exp(-.5*((u/21.5)**2+(v/6.9)**2))
+    contact = .19*np.exp(-.5*(((X-cx-2*scale)/(11.5*scale))**2+
+                            ((Y-cy-RY*scale+1)/(2.4*scale))**2))
+    return np.maximum(broad,contact)
+
+
+def make_video():
+    frames = np.empty((120,H,W,3),np.uint8)
+    frames[0] = ORIGINAL.astype(np.uint8)
+    firstp,firsta = sphere_sprite(0)
+    # A local photographic residual ensures no synthetic pop between frame 0
+    # and the newly exposed first few pixels as the object begins to roll.
+    start = CLEAN.copy()
+    start *= (1-shadow_at(CX,CY,1)[:,:,None])
+    stamp(start, firstp, firsta, CX, CY)
+    residual = ORIGINAL-start
+    ballzone = np.exp(-.5*(((X-CX)/26)**6+((Y-CY)/25)**6))
+    residual *= ballzone[:,:,None]
+    rp = residual[80:153,128:202]
+    for i in range(1,120):
+        t = i/24
+        # Gentle rolling resistance.  The ball remains on the pane at the end.
+        distance = 73.0*t-2.65*t*t
+        cx = CX+distance
+        cy = CY+.13*distance
+        scale = 1+.000085*distance
+        theta = distance/(RX*1.04)
+        frame = CLEAN.copy()
+        # Table edge is diagonal in the image; leave its original pixels fixed.
+        edge = 335-.61*Y
+        tabletop = 1/(1+np.exp(np.clip((X-edge)/2,-60,60)))
+        field = shadow_at(cx,cy,scale)
+        # Clear glass allows most light through, with a faint blue reflection.
+        field *= .22+.78*tabletop
+        frame *= (1-field[:,:,None])
+        p,a = sphere_sprite(theta,scale)
+        contact_y = cy+RY*scale
+        pane_amount = 1/(1+np.exp(np.clip(-(cx-(335-.61*contact_y))/5,-60,60)))
+        if pane_amount&gt;.001:
+            # Photographic reflection is compressed along the projected plane.
+            reflection = ndimage.zoom(p[::-1],(.27,1,1),order=1)
+            refa = ndimage.zoom(a[::-1],(.27,1),order=1)*(.12*pane_amount)
+            reflection *= (.12*pane_amount)
+            reflection = ndimage.gaussian_filter(reflection,(1.0,.8,0))
+            refa = ndimage.gaussian_filter(refa,(1.0,.8))
+            stamp(frame,reflection,refa,cx+2*scale,contact_y+5*scale)
+        # Motion during one modest exposure, rather than framewise jump cuts.
+        # The initial photographic softness means extra blur can stay minimal.
+        stamp(frame,p,a,cx,cy)
+        if t&lt;.45:
+            fade = np.exp(-(t/.16)**2)
+            # Residual travels with the ball, then vanishes as its hidden side
+            # rotates into view. It only restores photographic fine detail.
+            zero = np.zeros(rp.shape[:2])
+            stamp(frame,rp*fade,zero,cx+(165-CX),cy+(116.5-CY))
+        frames[i] = np.clip(np.rint(frame),0,255).astype(np.uint8)
+    return frames
+
+
+if __name__ == &#x27;__main__&#x27;:
+    ORIGINAL = np.asarray(Image.open(ROOT/&#x27;first_frame.png&#x27;).convert(&#x27;RGB&#x27;),dtype=float)
+    CLEAN = repair_table(ORIGINAL)
+    # Fit a smooth diffuse shading field to non-seam interior felt samples.
+    nx,ny = (X-CX)/RX,(Y-CY)/RY
+    nz = np.sqrt(np.maximum(0,1-nx*nx-ny*ny))
+    r2 = nx*nx+ny*ny
+    fit = (r2&lt;.73)&amp;(ORIGINAL[:,:,0]/np.maximum(ORIGINAL[:,:,2],1)&lt;.255)
+    terms = np.stack([np.ones_like(nx),nx,ny,nz,nx*ny,nx*nx,ny*ny,nx*nz,ny*nz],axis=-1)
+    # A mild ridge keeps limb extrapolation stable and realistic.
+    a = terms[fit]
+    SHADE_COEF = np.linalg.solve(a.T@a+np.diag([.02,.15,.15,.15,.2,.2,.2,.2,.2]), a.T@ORIGINAL[fit])
+    lighting = base_shading(nx,ny,nz)
+    # Sample the visible surface&#x27;s intrinsic color/felt and curved pale seam.
+    MATERIAL = np.clip(ORIGINAL/np.maximum(lighting,1),.62,3.1)
+    # Discard the outer photograph/background. The texture&#x27;s sampling radius
+    # above never reaches it, and the full sphere is made only from this felt.
+    MATERIAL[r2&gt;1] = 1
+    video = make_video()
+    assert video.shape==(120,288,512,3)
+    assert np.array_equal(video[0],np.array(Image.open(ROOT/&#x27;first_frame.png&#x27;).convert(&#x27;RGB&#x27;)))
+    save(video,ROOT)
+    print(&#x27;Saved 120 RGB frames, 512x288, 24 fps.&#x27;)
+PY
+python generate.py&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-13T14:53:47.879370+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;sed -i &#x27;s/a\\[sp,None\\]/a[sp][...,None]/&#x27; generate.py
+python generate.py&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-13T14:53:58.959212+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+from pathlib import Path
+for i in [0,1,2,6,12,24,48,72,96,119]:
+ im=np.array(Image.open(f&#x27;frames/{i:02d}.png&#x27;)).astype(float)
+ b=(im[:,:,2]-im[:,:,0]&gt;35)&amp;(im[:,:,2]-im[:,:,1]&gt;22)&amp;(im[:,:,2]&gt;85)
+ b[:70]=0;b[:,485:]=0
+ ys,xs=np.where(b)
+ print(i, &#x27;blue&#x27;,len(xs),&#x27;bbox&#x27;, (xs.min(),ys.min(),xs.max(),ys.max()) if len(xs) else None,&#x27;color&#x27;, np.round(im[b].mean(0),1))
+ a=np.array(Image.open(&#x27;frames/00.png&#x27;)).astype(float)
+ d=np.abs(im-a)
+ if i&lt;3:print(&#x27; delta mean&#x27;,d.mean(),&#x27;max&#x27;,d.max(),&#x27;outside&#x27;,d[:70].max())
+ for x,y in [(160,116),(200,125),(230,123)]:
+  if i in [0,24,119]: print(&#x27;background?&#x27;,x,y,im[y,x])
+print(&#x27;artifacts&#x27;, [(p.name,p.stat().st_size) for p in [Path(&#x27;pixels.npz&#x27;),Path(&#x27;index.html&#x27;),Path(&#x27;inspection.png&#x27;),Path(&#x27;transition_check.png&#x27;)]])
+PY&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-13T14:54:14.685869+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import runpy,numpy as np
+from PIL import Image
+m=runpy.run_path(&#x27;generate.py&#x27;);g=m[&#x27;make_video&#x27;].__globals__
+O=np.array(Image.open(&#x27;first_frame.png&#x27;)).astype(float)
+nx=(g[&#x27;X&#x27;]-g[&#x27;CX&#x27;])/g[&#x27;RX&#x27;];ny=(g[&#x27;Y&#x27;]-g[&#x27;CY&#x27;])/g[&#x27;RY&#x27;];r=nx*nx+ny*ny;nz=np.sqrt(np.maximum(0,1-r));fit=(r&lt;.73)&amp;(O[:,:,0]/np.maximum(O[:,:,2],1)&lt;.255)
+terms=np.stack([np.ones_like(nx),nx,ny,nz,nx*ny,nx*nx,ny*ny,nx*nz,ny*nz],-1);a=terms[fit]
+g[&#x27;SHADE_COEF&#x27;]=np.linalg.solve(a.T@a+np.diag([.02,.15,.15,.15,.2,.2,.2,.2,.2]),a.T@O[fit]);lighting=g[&#x27;base_shading&#x27;](nx,ny,nz)
+print(&#x27;lighting&#x27;,lighting[r&lt;.85].min(0),lighting[r&lt;.85].max(0));mat=np.clip(O/np.maximum(lighting,1),.62,3.1);mat[r&gt;1]=1;g[&#x27;MATERIAL&#x27;]=mat
+print(&#x27;material&#x27;,np.percentile(mat[r&lt;.82],[0,25,50,75,95,100],axis=0));
+for th in [0,1,2,3,4,5,6,7,8,9,10,12,14]:
+ p,alpha=g[&#x27;sphere_sprite&#x27;](th); print(th,np.round((p.sum((0,1))/alpha.sum()),1))
+PY&quot;</pre></details><p class=muted>保存候选 1 份；完成命令 13 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><details open><summary>运行生命周期事件</summary><pre>2026-11-13T14:46:30.529274+00:00 · thread.started · 
+2026-11-13T14:46:31.434408+00:00 · turn.started · 
+2026-11-13T14:54:58.988029+00:00 · turn.completed · </pre></details><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.max(0,Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000)));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script><script defer src='/pixelworld/live_refresh.js?v=600550e64066'></script></body></html>
