@@ -1,0 +1,707 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>traex/GPT-6.1-Sol · pcve_0043</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>traex/GPT-6.1-Sol · pcve_0043</h1></section><div class=case-meta><span class=badge>vision-agent</span><span class=pill>256×144</span><span class=pill>24 FPS · 96 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_96953c3a62072ec1.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;efdc286af7bee7bf00db50e05bdcd72d1b5677b250df9f58543e9f107743d8b1&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/final/pixels_96953c3a62072ec1.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/final/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>视频编辑</span><h3 style="margin-top:14px">原始任务</h3><p>From frame 1 onwards, reduce the toy car&#x27;s initial speed to 0.95 times its original value.
+</p><div class=facts><div><strong>4.00s</strong>视频时长</div><div><strong>32396</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=card><h2>编辑前的完整原视频</h2><video controls preload=metadata src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/source_video.mp4" style="width:100%;max-height:480px"></video><p class=note>上方为编辑结果；原视频是模型获准使用的输入。下方为逐轮保存的编辑候选。</p></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-12T02:07:20.239039+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_0fc9ca26e8378a9d.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;efdc286af7bee7bf00db50e05bdcd72d1b5677b250df9f58543e9f107743d8b1&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_00/pixels_0fc9ca26e8378a9d.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_00/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_00/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_00/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,179 @@
++&quot;&quot;&quot;Counterfactual initial-velocity edit, using measured source pixels only.
++
++The ascending motion is fitted to a constant-acceleration trajectory.  Only
++its initial velocity is multiplied by .95; the ramp&#x27;s acceleration is kept.
++Source silhouettes supply the surface detail and pose of the small rigid body.
++&quot;&quot;&quot;
++from pathlib import Path
++import numpy as np
++import cv2
++from PIL import Image
++import artifact_io
++
++ROOT = Path(__file__).resolve().parent
++
++def source_high():
++    cap=cv2.VideoCapture(str(ROOT/&#x27;source_video.mp4&#x27;))
++    images=[]
++    while True:
++        ok,b=cap.read()
++        if not ok: break
++        images.append(cv2.cvtColor(b,cv2.COLOR_BGR2RGB))
++    cap.release()
++    return np.asarray(images)
++
++
++def component_mask(image, bg, frame):
++    diff=np.max(np.abs(image.astype(np.int16)-bg.astype(np.int16)),axis=2)
++    mask=(diff&gt;22).astype(np.uint8)
++    mask[:300]=0
++    n,lab,stats,ct=cv2.connectedComponentsWithStats(mask)
++    large=[k for k in range(1,n) if stats[k,4]&gt;3000]
++    k=min(large,key=lambda k:stats[k,1])
++    obj=(lab==k).astype(np.uint8)
++    # Before the landing, separate the projected ground shadow from the body.
++    if frame==18:
++        poly=np.array([[83,595],[95,562],[127,530],[169,486],[211,477],
++                       [229,493],[246,492],[253,515],[244,540],[221,554],
++                       [200,560],[183,583],[150,599],[113,618],[91,617]])
++        limit=np.zeros_like(obj);cv2.fillPoly(limit,[poly],1);obj*=limit
++    elif frame==19:
++        poly=np.array([[54,608],[60,577],[91,556],[129,534],[173,506],
++                       [201,500],[208,517],[231,519],[239,537],[226,560],
++                       [197,577],[160,589],[122,611],[89,622],[63,624]])
++        limit=np.zeros_like(obj);cv2.fillPoly(limit,[poly],1);obj*=limit
++    elif frame&gt;=20:
++        # Grounded silhouette: do not absorb the shadow into the color layer.
++        obj[625:]=0
++    obj=cv2.morphologyEx(obj,cv2.MORPH_CLOSE,np.ones((3,3),np.uint8))
++    contours,_=cv2.findContours(obj,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
++    cv2.drawContours(obj,contours,-1,1,cv2.FILLED)
++    # Small dilation fills codec fringes.  Soft edges are handled at native res.
++    obj=cv2.dilate(obj,np.ones((3,3),np.uint8))
++    alpha=cv2.GaussianBlur(obj.astype(np.float32),(3,3),.55)
++    ys,xs=np.nonzero(obj)
++    return alpha, (float(xs.mean()),float(ys.mean())), (int(xs.min()),int(ys.min()),int(xs.max()),int(ys.max()))
++
++
++def main():
++    high=source_high(); H,W=high.shape[1:3]
++    low=np.load(ROOT/&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
++    # The set is stationary.  These two source instants expose every pixel of
++    # the stage.  The seam lies on unchanging scenery and is identical in both.
++    bg=high[-1].copy();bg[:,:270]=high[0,:,:270]
++    masks=[];centers=[];bounds=[]
++    for i in range(22):
++        a,c,b=component_mask(high[i],bg,i)
++        masks.append(a);centers.append(c);bounds.append(b)
++    centers=np.array(centers)
++
++    # Fit a fixed patch in the car body. Wheel rotation does not bias velocity.
++    templ=high[0,528:557,815:862]
++    points=[]
++    for i in range(11):
++        corr=cv2.matchTemplate(high[i],templ,cv2.TM_CCOEFF_NORMED)
++        points.append(cv2.minMaxLoc(corr)[3])
++    points=np.array(points,float)
++    acc2,v0,x0=np.polyfit(np.arange(11),points[:,0],2)
++    slope=np.polyfit(points[:10,0],points[:10,1],1)[0]
++    departure=10.30
++    distance=v0*departure+acc2*departure**2
++    new_departure=float(np.min(np.roots([acc2,.95*v0,-distance])))
++    old_v=v0+2*acc2*departure
++    new_v=.95*v0+2*acc2*new_departure
++    dv=new_v-old_v
++
++    # Foreground side of the fixed timber and support. This maintains the
++    # original depth ordering when the car&#x27;s back passes behind the pedestal.
++    occ=np.zeros((H,W),np.uint8)
++    cv2.fillPoly(occ,[np.array([[297,386],[987,632],[976,674],[280,430]])],1)
++    cv2.fillPoly(occ,[np.array([[250,432],[277,412],[355,424],[376,469],
++                              [371,646],[352,659],[249,654]])],1)
++    occ=cv2.GaussianBlur(occ.astype(np.float32),(3,3),.45)
++
++    # Pixel-derived shadow transmissions.  They are modulated, not pasted
++    # opaque, so the unchanging asphalt texture is preserved.
++    shadows=[]
++    for i in range(22):
++        ratio=np.mean((high[i].astype(float)+2)/(bg.astype(float)+2),axis=2)
++        sh=np.clip(1-ratio,0,.72)
++        sh[masks[i]&gt;.05]=0
++        sh[:570]=0
++        sh[:,350:]=0
++        sh[occ&gt;.1]=0
++        sh[sh&lt;.06]=0
++        shadows.append(cv2.GaussianBlur(sh.astype(np.float32),(5,5),.7))
++
++    def warp(a,dx,dy):
++        return cv2.warpAffine(a,np.array([[1,0,dx],[0,1,dy]],np.float32),
++                             (W,H),flags=cv2.INTER_LINEAR,borderMode=cv2.BORDER_CONSTANT)
++
++    def layers_at(q,dx,dy):
++        q=float(np.clip(q,0,21));i=int(q);j=min(i+1,21);r=q-i
++        # Align both integer-time exemplars to a single interpolated position
++        # before blending. This prevents two separate outlines/ghost cars.
++        c=(1-r)*centers[i]+r*centers[j]
++        prem=np.zeros((H,W,3),np.float32);alpha=np.zeros((H,W),np.float32)
++        sh=np.zeros((H,W),np.float32)
++        for k,weight in [(i,1-r),(j,r)]:
++            if weight&lt;1e-6:continue
++            tx=c[0]-centers[k,0]+dx;ty=c[1]-centers[k,1]+dy
++            ak=warp(masks[k],tx,ty)
++            col=warp(high[k].astype(np.float32)*masks[k][...,None],tx,ty)
++            prem+=weight*col;alpha+=weight*ak
++            # Shadow stays on the pavement, rather than following vertical lift.
++            sh+=weight*warp(shadows[k],tx,0)
++        alpha*=1-occ;prem*=1-occ[...,None]
++        canvas=bg.astype(np.float32)*(1-sh[...,None])
++        return canvas*(1-alpha[...,None])+prem
++
++    # The smaller exit speed adds a downward and rightward displacement to
++    # the observed free-flight. Near the pedestal, contact deflects the rear
++    # outwards; the toy lands immediately beside its left face, not inside it.
++    e_land=7.45
++    impact_time=new_departure+e_land
++    contact_start=4.5
++    final_dx=17.0
++    frames=[]
++    for t in range(96):
++        if t==0:
++            frames.append(low[0]);continue
++        if t&lt;=new_departure:
++            disp=.95*v0*t+acc2*t*t
++            q=float(np.min(np.roots([acc2,v0,-disp])))
++            frame=layers_at(q,0,0)
++        else:
++            e=t-new_departure
++            if e&lt;e_land:
++                q=departure+e
++                dx=dv*e
++                dy=slope*dv*e
++                if e&gt;contact_start:
++                    p=np.clip((e-contact_start)/(e_land+2-contact_start),0,1)
++                    s=p*p*(3-2*p)
++                    dx=dx*(1-s)+final_dx*s
++                frame=layers_at(q,dx,dy)
++            elif t&lt;impact_time+2.2:
++                # Front-wheel impact followed by the rear wheel settling.
++                p=(t-impact_time)/2.2
++                q=(departure+e_land)*(1-p)+21*p
++                dx0=dv*e_land
++                cp=np.clip((e_land-contact_start)/(e_land+2-contact_start),0,1)
++                dx0=dx0*(1-cp*cp*(3-2*cp))+final_dx*cp*cp*(3-2*cp)
++                dx=dx0*(1-p)+final_dx*p
++                i=int(q);r=q-i;j=min(i+1,21)
++                bottom=(1-r)*bounds[i][3]+r*bounds[j][3]
++                # Maintain the front tire at its contact height as pitch settles.
++                dy=625-bottom
++                frame=layers_at(q,dx,dy)
++            else:
++                frame=layers_at(21,final_dx,0)
++        small=Image.fromarray(np.clip(frame,0,255).astype(np.uint8)).resize((256,144),Image.Resampling.LANCZOS)
++        frames.append(np.asarray(small))
++    frames=np.asarray(frames,np.uint8)
++    artifact_io.save(frames,ROOT)
++    print(&#x27;Fit: v0=%.4f, acceleration=%.4f, ramp departure %.3f -&gt; %.3f frames, exit velocity %.3f -&gt; %.3f&#x27; %
++          (v0,2*acc2,departure,new_departure,old_v,new_v))
++    print(&#x27;Saved&#x27;,frames.shape)
++
++if __name__==&#x27;__main__&#x27;: main()
+</pre></details></div></details><details class=candidate><summary><strong>候选 02</strong><span class=status>播放与检查图</span><time>2026-11-12T02:09:06.587035+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_96953c3a62072ec1.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;efdc286af7bee7bf00db50e05bdcd72d1b5677b250df9f58543e9f107743d8b1&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_01/pixels_96953c3a62072ec1.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_01/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_01/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_01/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_01/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_01/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -132,8 +132,22 @@
+     # outwards; the toy lands immediately beside its left face, not inside it.
+     e_land=7.45
+     impact_time=new_departure+e_land
+-    contact_start=4.5
++    contact_start=3.2
+     final_dx=17.0
++    def contact_dx(e):
++        if e&lt;=contact_start:
++            return dv*e
++        if e&lt;6.0:
++            # Rear contact with the fixed block sends the body around its
++            # left edge. Cubic Hermite matches the incoming horizontal speed.
++            length=6.0-contact_start
++            p=(e-contact_start)/length
++            return ((2*p**3-3*p*p+1)*dv*contact_start
++                    +(p**3-2*p*p+p)*length*dv
++                    +(-2*p**3+3*p*p)*(-12.0))
++        p=np.clip((e-6.0)/(e_land-6.0),0,1)
++        return -12.0+15.0*p*p*(3-2*p)
++
+     frames=[]
+     for t in range(96):
+         if t==0:
+@@ -146,20 +160,14 @@
+             e=t-new_departure
+             if e&lt;e_land:
+                 q=departure+e
+-                dx=dv*e
++                dx=contact_dx(e)
+                 dy=slope*dv*e
+-                if e&gt;contact_start:
+-                    p=np.clip((e-contact_start)/(e_land+2-contact_start),0,1)
+-                    s=p*p*(3-2*p)
+-                    dx=dx*(1-s)+final_dx*s
+                 frame=layers_at(q,dx,dy)
+             elif t&lt;impact_time+2.2:
+                 # Front-wheel impact followed by the rear wheel settling.
+                 p=(t-impact_time)/2.2
+                 q=(departure+e_land)*(1-p)+21*p
+-                dx0=dv*e_land
+-                cp=np.clip((e_land-contact_start)/(e_land+2-contact_start),0,1)
+-                dx0=dx0*(1-cp*cp*(3-2*cp))+final_dx*cp*cp*(3-2*cp)
++                dx0=contact_dx(e_land)
+                 dx=dx0*(1-p)+final_dx*p
+                 i=int(q);r=q-i;j=min(i+1,21)
+                 bottom=(1-r)*bounds[i][3]+r*bounds[j][3]
+</pre></details></div></details><details class=candidate><summary><strong>候选 03</strong><span class=status>播放与检查图</span><time>2026-11-12T02:09:13.786055+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_96953c3a62072ec1.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;efdc286af7bee7bf00db50e05bdcd72d1b5677b250df9f58543e9f107743d8b1&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_02/pixels_96953c3a62072ec1.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_02/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_02/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_02/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_02/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_02/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>代码未变化；重新保存了产物。</pre></details></div></details><details class=candidate><summary><strong>候选 04</strong><span class=status>播放与检查图</span><time>2026-11-12T02:10:35.713544+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_96953c3a62072ec1.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;efdc286af7bee7bf00db50e05bdcd72d1b5677b250df9f58543e9f107743d8b1&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_03/pixels_96953c3a62072ec1.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_03/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_03/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_03/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_03/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/candidate_03/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -180,6 +180,12 @@
+         frames.append(np.asarray(small))
+     frames=np.asarray(frames,np.uint8)
+     artifact_io.save(frames,ROOT)
++    writer=cv2.VideoWriter(str(ROOT/&#x27;edited_video.mp4&#x27;),
++                           cv2.VideoWriter_fourcc(*&#x27;mp4v&#x27;),24,(256,144))
++    if writer.isOpened():
++        for rgb in frames:
++            writer.write(cv2.cvtColor(rgb,cv2.COLOR_RGB2BGR))
++        writer.release()
+     print(&#x27;Fit: v0=%.4f, acceleration=%.4f, ramp departure %.3f -&gt; %.3f frames, exit velocity %.3f -&gt; %.3f&#x27; %
+           (v0,2*acc2,departure,new_departure,old_v,new_v))
+     print(&#x27;Saved&#x27;,frames.shape)
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-12T01:53:04.214755+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la &amp;&amp; cat prompt.txt &amp;&amp; cat GENERATION_RULES.md&#x27;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-12T01:53:10.179402+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat source_info.json &amp;&amp; cat task_spec.json &amp;&amp; cat artifact_io.py&#x27;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-12T01:53:22.620383+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image,ImageDraw
+z=np.load(&#x27;source_pixels.npz&#x27;); print([(k,z[k].shape) for k in z.files])
+a=z[z.files[0]]
+if a.shape==(144,256,96):
+ a=a.transpose(2,0,1);a=np.stack([(a&gt;&gt;16)&amp;255,(a&gt;&gt;8)&amp;255,a&amp;255],-1).astype(&#x27;uint8&#x27;)
+np.save(&#x27;.tmp/source.npy&#x27;,a)
+s=Image.new(&#x27;RGB&#x27;,(1024,6*177),(24,24,24));d=ImageDraw.Draw(s)
+for i in range(24):
+ f=Image.fromarray(a[i]);x=(i%4)*256;y=(i//4)*177
+ s.paste(f,(x,y+20));d.text((x+2,y+2),str(i),fill=&#x27;white&#x27;)
+s.save(&#x27;.tmp/early.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-12T01:53:50.975182+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np,cv2
+from PIL import Image
+f=np.load(&#x27;.tmp/source.npy&#x27;);bg=np.median(f[:20],axis=0).astype(&#x27;uint8&#x27;);bg[90:140,:49]=np.median(f[:9,90:140,:49],axis=0).astype(&#x27;uint8&#x27;)
+Image.fromarray(bg).save(&#x27;.tmp/bg.png&#x27;)
+for i in range(24):
+ d=np.max(abs(f[i].astype(float)-bg),2);mask=(d&gt;20).astype(&#x27;uint8&#x27;);mask[:65]=0
+ n,l,stats,cents=cv2.connectedComponentsWithStats(mask)
+ comps=[(s.tolist(),c.tolist()) for s,c in zip(stats[1:],cents[1:]) if s[4]&gt;10]
+ print(i,comps)
+PY&quot;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-12T01:54:40.590451+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import cv2, numpy as np
+from PIL import Image,ImageDraw
+v=cv2.VideoCapture(&#x27;source_video.mp4&#x27;);fs=[]
+while 1:
+ ok,b=v.read()
+ if not ok:break
+ fs.append(cv2.cvtColor(b,cv2.COLOR_BGR2RGB))
+f=np.array(fs); print(f.shape);np.save(&#x27;.tmp/high.npy&#x27;,f)
+bg=np.median(f[:22],axis=0).astype(&#x27;uint8&#x27;);bg[450:,:250]=np.median(f[:8,450:,:250],axis=0).astype(&#x27;uint8&#x27;);np.save(&#x27;.tmp/high_bg.npy&#x27;,bg)
+out=Image.new(&#x27;RGB&#x27;,(1000,720),(15,15,15));d=ImageDraw.Draw(out)
+for j,i in enumerate(range(8,20)):
+ crop=Image.fromarray(f[i]).crop((max(0,300- (i-8)*20),280,max(0,300- (i-8)*20)+250,440)).resize((250,160))
+ x=j%4*250;y=j//4*240;out.paste(crop,(x,y+20));d.text((x,y),str(i),fill=&#x27;white&#x27;)
+out.save(&#x27;.tmp/airborne.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-12T01:55:31.113001+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np,cv2
+from PIL import Image,ImageDraw
+f=np.load(&#x27;.tmp/high.npy&#x27;);bg=np.load(&#x27;.tmp/high_bg.npy&#x27;);out=Image.new(&#x27;RGB&#x27;,(1024,760),(20,20,20));d=ImageDraw.Draw(out)
+for i in range(24):
+ dif=np.max(abs(f[i].astype(float)-bg),2); mask=((dif&gt;26)&amp;(np.indices(dif.shape)[0]&gt;295)).astype(&#x27;uint8&#x27;);n,l,st,ct=cv2.connectedComponentsWithStats(mask)
+ comps=[j for j in range(1,n) if st[j,4]&gt;100]
+ for j in comps:
+  print(i,st[j].tolist(),ct[j].round(2).tolist())
+ mask=cv2.morphologyEx(mask,cv2.MORPH_CLOSE,np.ones((5,5),np.uint8));res=f[i].copy();res[mask==0]=bg[mask==0]//3
+ small=Image.fromarray(res).resize((256,144));x=i%4*256;y=i//4*125
+ out.paste(small.crop((0,36,256,144)),(x,y+17));d.text((x,y),str(i),fill=&#x27;white&#x27;)
+out.save(&#x27;.tmp/masks.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-12T01:56:20.508256+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np, cv2
+from PIL import Image
+f=np.load(&#x27;.tmp/high.npy&#x27;);bg=np.load(&#x27;.tmp/high_bg.npy&#x27;)
+Image.fromarray(f[0]).crop((760,500,960,610)).resize((800,440)).save(&#x27;.tmp/car.png&#x27;)
+templ=f[0,528:557,815:862]
+xs=[];ys=[]
+for i in range(12):
+ r=cv2.matchTemplate(f[i],templ,cv2.TM_CCOEFF_NORMED)
+ _,m,_,p=cv2.minMaxLoc(r);xs.append(p[0]);ys.append(p[1]);print(i,p,m)
+for n in (8,10,11):
+ fit=np.polyfit(np.arange(n),xs[:n],2);print(n,fit,&#x27;initial stop&#x27;,-fit[1]**2/(4*fit[0]))
+PY&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-12T01:58:09.173626+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np, cv2
+from PIL import Image,ImageDraw
+f=np.load(&#x27;.tmp/high.npy&#x27;);bg=np.load(&#x27;.tmp/high_bg.npy&#x27;);out=Image.new(&#x27;RGB&#x27;,(1200,900),(20,20,20));d=ImageDraw.Draw(out)
+boxes=[]
+for i in range(21):
+ diff=np.max(abs(f[i].astype(float)-bg),2);ma=(diff&gt;24).astype(&#x27;uint8&#x27;);ma[:300]=0
+ n,l,st,ct=cv2.connectedComponentsWithStats(ma)
+ js=[j for j in range(1,n) if st[j,4]&gt;6000]
+ j=min(js,key=lambda j:st[j,1]);x,y,w,h,a=st[j];boxes.append((x,y,w,h))
+ if i in range(8,20):
+  k=i-8;crop=Image.fromarray(f[i]).crop((x-10,y-10,x+w+10,y+h+10));crop.thumbnail((300,200));xx=k%4*300;yy=k//4*300;out.paste(crop,(xx,yy+35));d.text((xx,yy+5),f&#x27;{i}  x{x} y{y}&#x27;,fill=&#x27;white&#x27;)
+out.save(&#x27;.tmp/car_sequence.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-12T01:59:44.051455+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+v=-75.8937;a=2.26573
+for s in [9,9.5,10,10.5,11]:
+ t=np.roots([a,.95*v,-(v*s+a*s*s)]).min()
+ vs=v+2*a*s;vc=.95*v+2*a*t
+ print(s,t,&#x27;delay&#x27;,t-s,&#x27;ratio&#x27;,vc/vs)
+PY&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-12T02:00:19.413155+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+h=np.load(&#x27;.tmp/high.npy&#x27;);l=np.load(&#x27;.tmp/source.npy&#x27;)
+a=np.array(Image.fromarray(h[0]).resize((256,144),Image.Resampling.LANCZOS))
+print(np.abs(a.astype(float)-l[0]).mean(),np.max(abs(a.astype(float)-l[0])))
+PY&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-12T02:00:52.247830+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image
+bg=np.load(&#x27;.tmp/high_bg.npy&#x27;)
+Image.fromarray(bg).crop((220,300,450,500)).resize((690,600)).save(&#x27;.tmp/ramp_top.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-12T02:01:56.214619+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np
+from PIL import Image,ImageDraw
+f=np.load(&#x27;.tmp/high.npy&#x27;);bg=f[-1].copy();bg[:,:270]=f[0,:,:270];np.save(&#x27;.tmp/bg_exact.npy&#x27;,bg)
+out=Image.new(&#x27;RGB&#x27;,(1000,800),(22,22,22));d=ImageDraw.Draw(out)
+for j,i in enumerate([16,17,18,19,20,21]):
+ crop=Image.fromarray(f[i]).crop((0,360,300,710));xx=j%3*330;yy=j//3*400;out.paste(crop,(xx,yy+25));d.text((xx,yy+5),str(i),fill=&#x27;white&#x27;)
+ for y in range(400,701,50):
+  d.line((xx,yy+25+y-360,xx+300,yy+25+y-360),fill=(150,20,20));d.text((xx+270,yy+25+y-360),str(y),fill=&#x27;white&#x27;)
+out.save(&#x27;.tmp/drop.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-12T02:02:26.903684+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image,ImageDraw
+import numpy as np
+f=np.load(&#x27;.tmp/high.npy&#x27;)
+s=Image.new(&#x27;RGB&#x27;,(1200,860),(20,20,20));d=ImageDraw.Draw(s)
+for j,i in enumerate([0,8,9,10,11,12,13,14]):
+ x0=max(0,750 if i==0 else 315-(i-8)*26);y0=500 if i==0 else 300
+ c=Image.fromarray(f[i]).crop((x0,y0,x0+250,y0+160)).resize((300,192));x=j%4*300;y=j//4*420;s.paste(c,(x,y+20));d.text((x,y),str(i),fill=&#x27;white&#x27;)
+ for q in range(((x0+24)//25)*25,x0+250,25):
+  xx=x+(q-x0)*1.2;d.line((xx,y+20,xx,y+212),fill=(200,20,20));d.text((xx,y+210),str(q),fill=&#x27;white&#x27;)
+ for q in range(((y0+24)//25)*25,y0+160,25):
+  yy=y+20+(q-y0)*1.2;d.line((x,yy,x+300,yy),fill=(200,20,20));d.text((x,yy),str(q),fill=&#x27;white&#x27;)
+s.save(&#x27;.tmp/wheels_grid.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-12T02:04:07.950983+00:00</time><span class=pill>exit 1</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+import numpy as np,cv2
+from PIL import Image,ImageDraw
+f=np.load(&#x27;.tmp/high.npy&#x27;);o=Image.new(&#x27;RGB&#x27;,(900,720),(20,20,20));d=ImageDraw.Draw(o)
+for j,i in enumerate([0,10,11,12,13,14]):
+ x0=740 if i==0 else 150;y0=495 if i==0 else310
+ c=Image.fromarray(f[i]).crop((x0,y0,x0+230,y0+120)).resize((460,240));x=(j%2)*450;y=(j//2)*240;o.paste(c,(x,y));
+ for q in range(((x0+9)//10)*10,x0+230,20):
+  xx=x+2*(q-x0);d.line((xx,y,xx,y+240),fill=(160,25,25));d.text((xx,y),str(q),fill=&#x27;white&#x27;)
+ d.text((x+10,y+210),str(i),fill=(255,255,20))
+o.save(&#x27;.tmp/wheels_exact.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-12T02:05:12.313285+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image,ImageDraw
+import numpy as np
+f=np.load(&#x27;.tmp/high.npy&#x27;)
+s=Image.new(&#x27;RGB&#x27;,(1024,320),(20,20,20));d=ImageDraw.Draw(s)
+for j,i in enumerate([0,5,10,15]):
+ f2=f[i+1].astype(float); f1=f[i].astype(float)
+ diff=abs(f2-f1).max(2)
+ r=(np.minimum(diff/30,1)*255).astype(&#x27;uint8&#x27;)
+ x=j*256;s.paste(Image.fromarray(r).resize((256,144)),(x,20));d.text((x,0),str(i),fill=&#x27;white&#x27;)
+s.save(&#x27;.tmp/difference.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-12T02:07:14.074629+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &gt; generate.py &lt;&lt;&#x27;PY&#x27;
+\&quot;\&quot;\&quot;Counterfactual initial-velocity edit, using measured source pixels only.
+
+The ascending motion is fitted to a constant-acceleration trajectory.  Only
+its initial velocity is multiplied by .95; the ramp&#x27;s acceleration is kept.
+Source silhouettes supply the surface detail and pose of the small rigid body.
+\&quot;\&quot;\&quot;
+from pathlib import Path
+import numpy as np
+import cv2
+from PIL import Image
+import artifact_io
+
+ROOT = Path(__file__).resolve().parent
+
+def source_high():
+    cap=cv2.VideoCapture(str(ROOT/&#x27;source_video.mp4&#x27;))
+    images=[]
+    while True:
+        ok,b=cap.read()
+        if not ok: break
+        images.append(cv2.cvtColor(b,cv2.COLOR_BGR2RGB))
+    cap.release()
+    return np.asarray(images)
+
+
+def component_mask(image, bg, frame):
+    diff=np.max(np.abs(image.astype(np.int16)-bg.astype(np.int16)),axis=2)
+    mask=(diff&gt;22).astype(np.uint8)
+    mask[:300]=0
+    n,lab,stats,ct=cv2.connectedComponentsWithStats(mask)
+    large=[k for k in range(1,n) if stats[k,4]&gt;3000]
+    k=min(large,key=lambda k:stats[k,1])
+    obj=(lab==k).astype(np.uint8)
+    # Before the landing, separate the projected ground shadow from the body.
+    if frame==18:
+        poly=np.array([[83,595],[95,562],[127,530],[169,486],[211,477],
+                       [229,493],[246,492],[253,515],[244,540],[221,554],
+                       [200,560],[183,583],[150,599],[113,618],[91,617]])
+        limit=np.zeros_like(obj);cv2.fillPoly(limit,[poly],1);obj*=limit
+    elif frame==19:
+        poly=np.array([[54,608],[60,577],[91,556],[129,534],[173,506],
+                       [201,500],[208,517],[231,519],[239,537],[226,560],
+                       [197,577],[160,589],[122,611],[89,622],[63,624]])
+        limit=np.zeros_like(obj);cv2.fillPoly(limit,[poly],1);obj*=limit
+    elif frame&gt;=20:
+        # Grounded silhouette: do not absorb the shadow into the color layer.
+        obj[625:]=0
+    obj=cv2.morphologyEx(obj,cv2.MORPH_CLOSE,np.ones((3,3),np.uint8))
+    contours,_=cv2.findContours(obj,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+    cv2.drawContours(obj,contours,-1,1,cv2.FILLED)
+    # Small dilation fills codec fringes.  Soft edges are handled at native res.
+    obj=cv2.dilate(obj,np.ones((3,3),np.uint8))
+    alpha=cv2.GaussianBlur(obj.astype(np.float32),(3,3),.55)
+    ys,xs=np.nonzero(obj)
+    return alpha, (float(xs.mean()),float(ys.mean())), (int(xs.min()),int(ys.min()),int(xs.max()),int(ys.max()))
+
+
+def main():
+    high=source_high(); H,W=high.shape[1:3]
+    low=np.load(ROOT/&#x27;source_pixels.npz&#x27;)[&#x27;rgb&#x27;]
+    # The set is stationary.  These two source instants expose every pixel of
+    # the stage.  The seam lies on unchanging scenery and is identical in both.
+    bg=high[-1].copy();bg[:,:270]=high[0,:,:270]
+    masks=[];centers=[];bounds=[]
+    for i in range(22):
+        a,c,b=component_mask(high[i],bg,i)
+        masks.append(a);centers.append(c);bounds.append(b)
+    centers=np.array(centers)
+
+    # Fit a fixed patch in the car body. Wheel rotation does not bias velocity.
+    templ=high[0,528:557,815:862]
+    points=[]
+    for i in range(11):
+        corr=cv2.matchTemplate(high[i],templ,cv2.TM_CCOEFF_NORMED)
+        points.append(cv2.minMaxLoc(corr)[3])
+    points=np.array(points,float)
+    acc2,v0,x0=np.polyfit(np.arange(11),points[:,0],2)
+    slope=np.polyfit(points[:10,0],points[:10,1],1)[0]
+    departure=10.30
+    distance=v0*departure+acc2*departure**2
+    new_departure=float(np.min(np.roots([acc2,.95*v0,-distance])))
+    old_v=v0+2*acc2*departure
+    new_v=.95*v0+2*acc2*new_departure
+    dv=new_v-old_v
+
+    # Foreground side of the fixed timber and support. This maintains the
+    # original depth ordering when the car&#x27;s back passes behind the pedestal.
+    occ=np.zeros((H,W),np.uint8)
+    cv2.fillPoly(occ,[np.array([[297,386],[987,632],[976,674],[280,430]])],1)
+    cv2.fillPoly(occ,[np.array([[250,432],[277,412],[355,424],[376,469],
+                              [371,646],[352,659],[249,654]])],1)
+    occ=cv2.GaussianBlur(occ.astype(np.float32),(3,3),.45)
+
+    # Pixel-derived shadow transmissions.  They are modulated, not pasted
+    # opaque, so the unchanging asphalt texture is preserved.
+    shadows=[]
+    for i in range(22):
+        ratio=np.mean((high[i].astype(float)+2)/(bg.astype(float)+2),axis=2)
+        sh=np.clip(1-ratio,0,.72)
+        sh[masks[i]&gt;.05]=0
+        sh[:570]=0
+        sh[:,350:]=0
+        sh[occ&gt;.1]=0
+        sh[sh&lt;.06]=0
+        shadows.append(cv2.GaussianBlur(sh.astype(np.float32),(5,5),.7))
+
+    def warp(a,dx,dy):
+        return cv2.warpAffine(a,np.array([[1,0,dx],[0,1,dy]],np.float32),
+                             (W,H),flags=cv2.INTER_LINEAR,borderMode=cv2.BORDER_CONSTANT)
+
+    def layers_at(q,dx,dy):
+        q=float(np.clip(q,0,21));i=int(q);j=min(i+1,21);r=q-i
+        # Align both integer-time exemplars to a single interpolated position
+        # before blending. This prevents two separate outlines/ghost cars.
+        c=(1-r)*centers[i]+r*centers[j]
+        prem=np.zeros((H,W,3),np.float32);alpha=np.zeros((H,W),np.float32)
+        sh=np.zeros((H,W),np.float32)
+        for k,weight in [(i,1-r),(j,r)]:
+            if weight&lt;1e-6:continue
+            tx=c[0]-centers[k,0]+dx;ty=c[1]-centers[k,1]+dy
+            ak=warp(masks[k],tx,ty)
+            col=warp(high[k].astype(np.float32)*masks[k][...,None],tx,ty)
+            prem+=weight*col;alpha+=weight*ak
+            # Shadow stays on the pavement, rather than following vertical lift.
+            sh+=weight*warp(shadows[k],tx,0)
+        alpha*=1-occ;prem*=1-occ[...,None]
+        canvas=bg.astype(np.float32)*(1-sh[...,None])
+        return canvas*(1-alpha[...,None])+prem
+
+    # The smaller exit speed adds a downward and rightward displacement to
+    # the observed free-flight. Near the pedestal, contact deflects the rear
+    # outwards; the toy lands immediately beside its left face, not inside it.
+    e_land=7.45
+    impact_time=new_departure+e_land
+    contact_start=4.5
+    final_dx=17.0
+    frames=[]
+    for t in range(96):
+        if t==0:
+            frames.append(low[0]);continue
+        if t&lt;=new_departure:
+            disp=.95*v0*t+acc2*t*t
+            q=float(np.min(np.roots([acc2,v0,-disp])))
+            frame=layers_at(q,0,0)
+        else:
+            e=t-new_departure
+            if e&lt;e_land:
+                q=departure+e
+                dx=dv*e
+                dy=slope*dv*e
+                if e&gt;contact_start:
+                    p=np.clip((e-contact_start)/(e_land+2-contact_start),0,1)
+                    s=p*p*(3-2*p)
+                    dx=dx*(1-s)+final_dx*s
+                frame=layers_at(q,dx,dy)
+            elif t&lt;impact_time+2.2:
+                # Front-wheel impact followed by the rear wheel settling.
+                p=(t-impact_time)/2.2
+                q=(departure+e_land)*(1-p)+21*p
+                dx0=dv*e_land
+                cp=np.clip((e_land-contact_start)/(e_land+2-contact_start),0,1)
+                dx0=dx0*(1-cp*cp*(3-2*cp))+final_dx*cp*cp*(3-2*cp)
+                dx=dx0*(1-p)+final_dx*p
+                i=int(q);r=q-i;j=min(i+1,21)
+                bottom=(1-r)*bounds[i][3]+r*bounds[j][3]
+                # Maintain the front tire at its contact height as pitch settles.
+                dy=625-bottom
+                frame=layers_at(q,dx,dy)
+            else:
+                frame=layers_at(21,final_dx,0)
+        small=Image.fromarray(np.clip(frame,0,255).astype(np.uint8)).resize((256,144),Image.Resampling.LANCZOS)
+        frames.append(np.asarray(small))
+    frames=np.asarray(frames,np.uint8)
+    artifact_io.save(frames,ROOT)
+    print(&#x27;Fit: v0=%.4f, acceleration=%.4f, ramp departure %.3f -&gt; %.3f frames, exit velocity %.3f -&gt; %.3f&#x27; %
+          (v0,2*acc2,departure,new_departure,old_v,new_v))
+    print(&#x27;Saved&#x27;,frames.shape)
+
+if __name__==&#x27;__main__&#x27;: main()
+PY
+python generate.py&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-12T02:07:44.893449+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image,ImageDraw
+s=Image.new(&#x27;RGB&#x27;,(1024,6*177),(25,25,25));d=ImageDraw.Draw(s)
+for i in range(24):
+ f=Image.open(f&#x27;frames/{i:02}.png&#x27;);x=i%4*256;y=i//4*177;s.paste(f,(x,y+20));d.text((x+3,y+2),str(i),fill=&#x27;white&#x27;)
+s.save(&#x27;.tmp/generated_early.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-12T02:09:02.544738+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cp inspection.png .tmp/candidate_1_inspection.png &amp;&amp; cp pixels.npz .tmp/candidate_1_pixels.npz
+python - &lt;&lt;&#x27;PY&#x27;
+p=&#x27;generate.py&#x27;
+s=open(p).read().replace(&#x27;contact_start=4.5&#x27;,&#x27;contact_start=3.2&#x27;)
+s=s.replace(&#x27;    frames=[]\\n&#x27;,&#x27;&#x27;&#x27;    def contact_dx(e):
+        if e&lt;=contact_start:
+            return dv*e
+        if e&lt;6.0:
+            # Rear contact with the fixed block sends the body around its
+            # left edge. Cubic Hermite matches the incoming horizontal speed.
+            length=6.0-contact_start
+            p=(e-contact_start)/length
+            return ((2*p**3-3*p*p+1)*dv*contact_start
+                    +(p**3-2*p*p+p)*length*dv
+                    +(-2*p**3+3*p*p)*(-12.0))
+        p=np.clip((e-6.0)/(e_land-6.0),0,1)
+        return -12.0+15.0*p*p*(3-2*p)
+
+    frames=[]
+&#x27;&#x27;&#x27;)
+s=s.replace(&#x27;&#x27;&#x27;                dx=dv*e
+                dy=slope*dv*e
+                if e&gt;contact_start:
+                    p=np.clip((e-contact_start)/(e_land+2-contact_start),0,1)
+                    s=p*p*(3-2*p)
+                    dx=dx*(1-s)+final_dx*s
+&#x27;&#x27;&#x27;,&#x27;&#x27;&#x27;                dx=contact_dx(e)
+                dy=slope*dv*e
+&#x27;&#x27;&#x27;)
+s=s.replace(&#x27;&#x27;&#x27;                dx0=dv*e_land
+                cp=np.clip((e_land-contact_start)/(e_land+2-contact_start),0,1)
+                dx0=dx0*(1-cp*cp*(3-2*cp))+final_dx*cp*cp*(3-2*cp)
+&#x27;&#x27;&#x27;,&#x27;&#x27;&#x27;                dx0=contact_dx(e_land)
+&#x27;&#x27;&#x27;)
+open(p,&#x27;w&#x27;).write(s)
+PY
+python generate.py&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-12T02:09:17.982828+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from PIL import Image,ImageDraw
+s=Image.new(&#x27;RGB&#x27;,(1024,3*177),(25,25,25));d=ImageDraw.Draw(s)
+for j,i in enumerate(range(12,24)):
+ f=Image.open(f&#x27;frames/{i:02}.png&#x27;);x=j%4*256;y=j//4*177;s.paste(f,(x,y+20));d.text((x+3,y+2),str(i),fill=&#x27;white&#x27;)
+s.save(&#x27;.tmp/refined_contact.png&#x27;)
+PY&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-12T02:09:42.917991+00:00</time><span class=pill>exit 127</span></summary><pre>/bin/bash -lc &quot;ffmpeg -y -hide_banner -loglevel error -framerate 24 -i frames/%02d.png -c:v libx264 -crf 16 -pix_fmt yuv420p edited_video.mp4 &amp;&amp; python - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+import numpy as np
+p=Path(&#x27;.&#x27;)
+z=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;]
+assert z.shape==(144,256,96)
+assert len(list((p/&#x27;frames&#x27;).glob(&#x27;*.png&#x27;)))==96
+for f in [&#x27;generate.py&#x27;,&#x27;pixels.npz&#x27;,&#x27;index.html&#x27;,&#x27;inspection.png&#x27;,&#x27;edited_video.mp4&#x27;]:
+ print(f,(p/f).stat().st_size)
+PY&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-12T02:09:58.956694+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+from pathlib import Path
+import numpy as np,cv2
+from PIL import Image
+p=Path(&#x27;.&#x27;)
+writer=cv2.VideoWriter(&#x27;edited_video.mp4&#x27;,cv2.VideoWriter_fourcc(*&#x27;mp4v&#x27;),24,(256,144))
+assert writer.isOpened()
+for i in range(96):
+ a=np.asarray(Image.open(f&#x27;frames/{i:02}.png&#x27;));writer.write(cv2.cvtColor(a,cv2.COLOR_RGB2BGR))
+writer.release()
+z=np.load(&#x27;pixels.npz&#x27;)[&#x27;pixels&#x27;];assert z.shape==(144,256,96)
+assert len(list((p/&#x27;frames&#x27;).glob(&#x27;*.png&#x27;)))==96
+for f in [&#x27;generate.py&#x27;,&#x27;pixels.npz&#x27;,&#x27;index.html&#x27;,&#x27;inspection.png&#x27;,&#x27;edited_video.mp4&#x27;]:
+ print(f,(p/f).stat().st_size)
+PY&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-12T02:10:31.030439+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python - &lt;&lt;&#x27;PY&#x27;
+p=&#x27;generate.py&#x27;
+s=open(p).read().replace(&#x27;    artifact_io.save(frames,ROOT)\\n&#x27;,&#x27;&#x27;&#x27;    artifact_io.save(frames,ROOT)
+    writer=cv2.VideoWriter(str(ROOT/&#x27;edited_video.mp4&#x27;),
+                           cv2.VideoWriter_fourcc(*&#x27;mp4v&#x27;),24,(256,144))
+    if writer.isOpened():
+        for rgb in frames:
+            writer.write(cv2.cvtColor(rgb,cv2.COLOR_RGB2BGR))
+        writer.release()
+&#x27;&#x27;&#x27;)
+open(p,&#x27;w&#x27;).write(s)
+PY
+python generate.py&quot;</pre></details><details class=tool-image><summary>视觉工具实际返回图片 1</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/tool_view_01.png"></details><details class=tool-image><summary>视觉工具实际返回图片 2</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/tool_view_02.png"></details><details class=tool-image><summary>视觉工具实际返回图片 3</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/tool_view_03.png"></details><details class=tool-image><summary>视觉工具实际返回图片 4</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/tool_view_04.png"></details><details class=tool-image><summary>视觉工具实际返回图片 5</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/tool_view_05.png"></details><details class=tool-image><summary>视觉工具实际返回图片 6</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/tool_view_06.png"></details><details class=tool-image><summary>视觉工具实际返回图片 7</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/tool_view_07.png"></details><details class=tool-image><summary>视觉工具实际返回图片 8</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/tool_view_08.png"></details><details class=tool-image><summary>视觉工具实际返回图片 9</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/tool_view_09.png"></details><details class=tool-image><summary>视觉工具实际返回图片 10</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/tool_view_10.png"></details><details class=tool-image><summary>视觉工具实际返回图片 11</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/tool_view_11.png"></details><details class=tool-image><summary>视觉工具实际返回图片 12</summary><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/68ae9f821d808134fd1a933fd25b86f7ced60f16/pixelworld/pcve_smoke/gpt61-sol/vision-agent/case_pcve_0043_attempt_01/tool_view_12.png"></details><p class=muted>保存候选 4 份；完成命令 22 次；可验证图片返回 12 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
