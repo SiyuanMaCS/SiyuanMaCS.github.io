@@ -1,6 +1,29 @@
 /* Saved RGB candidates and observed tools; independent of Pages deployment. */
 (() => {
-  const root = 'https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/pixelworld-live/pixelworld/';
+  const repository = 'SiyuanMaCS/SiyuanMaCS.github.io';
+  const rawBase = 'https://raw.githubusercontent.com/' + repository + '/';
+  let root = rawBase + 'pixelworld-live/pixelworld/';
+  let lastHeadCheck = 0;
+  async function refreshHead() {
+    const now = Date.now();
+    if (now - lastHeadCheck < 10000) return;
+    lastHeadCheck = now;
+    // Unique time-bucket paths avoid stale raw-branch CDN entries. Each
+    // pointer names a previously pushed commit, so metadata and assets agree.
+    // This uses public static files and no rate-limited GitHub API calls.
+    for (let offset = 1; offset <= 3; offset++) {
+      const seconds = (Math.floor(now / 30000) - offset) * 30;
+      const day = new Date(seconds * 1000).toISOString().slice(0,10);
+      try {
+        const response = await fetch(rawBase + 'pixelworld-live/pixelworld/live-heads/' + day + '/' + seconds + '.json', {cache:'no-store'});
+        if (!response.ok) continue;
+        const sha = (await response.json()).revision;
+        if (!/^[a-f0-9]{40}$/.test(sha)) continue;
+        root = rawBase + sha + '/pixelworld/';
+        return;
+      } catch (_) {}
+    }
+  }
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const label = key => ({'gpt61-sol':'GPT-6.1-Sol','gpt56-sol':'GPT-5.6-Sol','gpt6-astra':'GPT-6-Astra','deepseek-v41':'DeepSeek-V4.1-Flash','seed21-pro':'Seed-2.1-Pro-0915'}[key] || key);
   const prefixes = {
@@ -33,6 +56,7 @@
   if (!relevant) return;
   window.__pixelworldLiveRefreshActive = true;
   async function get(path) {
+    await refreshHead();
     const response = await fetch(root + path + '?t=' + Math.floor(Date.now()/10000), {cache:'no-store'});
     if (!response.ok) throw Error('HTTP ' + response.status);
     return response.json();
