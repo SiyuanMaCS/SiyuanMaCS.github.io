@@ -1,0 +1,2619 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>gemini-3.8-flash · 0140</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>gemini-3.8-flash · 0140</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>4.0 FPS · 20 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_14c86c58da8b8484.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;4c64c80e268d1505c3f70e95c8766cf20b2d15a020583c687ad5f66d44cddb6b&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/final/pixels_14c86c58da8b8484.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/final/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>首帧续写</span><h3 style="margin-top:14px">原始任务</h3><p>Static locked-off single-shot with fixed frame throughout filmed with constant framerate in real-time. The scene shows a realistic scientific demonstration. The scene only contains the described setup and actions. The piece of folded paper sits on a glass cutting board. The piece of folded paper is burning while white smoke is emitting from it.
+</p><div class=facts><div><strong>5.00s</strong>视频时长</div><div><strong>26862</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-12T23:11:42.634072+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_34318ff54f6c3567.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;384b822fb156722d80e7f115b20a636b19a8c1b67365e430d4a2a31ffd7cadcb&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/candidate_00/pixels_34318ff54f6c3567.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/candidate_00/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/candidate_00/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/candidate_00/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,334 @@
++&quot;&quot;&quot;Generate 20-frame video of a piece of folded paper burning with white smoke.&quot;&quot;&quot;
++import numpy as np
++from PIL import Image
++from scipy.ndimage import gaussian_filter
++import artifact_io
++
++def generate_video():
++    first_frame = np.array(Image.open(&quot;first_frame.png&quot;))
++    H, W, C = first_frame.shape
++    num_frames = 20
++    fps = 4
++
++    # 1. Precise paper segmentation
++    paper_mask = np.zeros((H, W), dtype=bool)
++    for y in range(71, 103):
++        for x in range(118, 162):
++            c = first_frame[y, x].astype(float)
++            lum = 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
++            is_bg = False
++            if x &gt; 150 and c[0] &gt; c[2] + 45 and lum &lt; 165:
++                is_bg = True
++            if x &lt; 125 and lum &lt; 110:
++                is_bg = True
++            if y &gt; 95 and x &lt; 133 and lum &lt; 115:
++                is_bg = True
++            if y &gt; 101:
++                is_bg = True
++            if not is_bg and lum &gt; 115:
++                paper_mask[y, x] = True
++
++    # 2. Burn distance field from ignition spot (73, 148)
++    yy, xx = np.indices((H, W))
++    dx = xx - 148.0
++    dy = yy - 73.0
++
++    # Fire spreads across the folded paper:
++    # faster along the fold towards -x, and downwards along +y
++    metric_x = np.where(dx &lt; 0, (-dx) * 0.9, dx * 1.4)
++    metric_y = np.where(dy &gt; 0, dy * 1.1, (-dy) * 1.8)
++    burn_dist = np.sqrt(metric_x**2 + metric_y**2)
++
++    # Clean background plate for paper region (in-painting surrounding board/table)
++    # Background around paper: left has darker tone, right has warm brown cutting board
++    bg_clean = first_frame.copy().astype(float)
++    for y in range(70, 105):
++        # interpolate horizontally from x=115 to x=162
++        left_val = first_frame[y, 114:118].mean(axis=0)
++        right_val = first_frame[y, 161:165].mean(axis=0)
++        for x in range(118, 162):
++            if paper_mask[y, x]:
++                w_right = (x - 118) / (162 - 118)
++                bg_clean[y, x] = (1.0 - w_right) * left_val + w_right * right_val
++
++    # Smooth the in-painted background slightly
++    bg_clean_blurred = gaussian_filter(bg_clean, sigma=(1.0, 1.0, 0))
++    bg_clean[paper_mask] = bg_clean_blurred[paper_mask]
++
++    # Smoke emission simulator
++    # Seeded pseudo-random generator for repeatability
++    rng = np.random.RandomState(42)
++
++    # Particle system for smoke
++    class Particle:
++        def __init__(self, x, y, vx, vy, life, max_life, size, density):
++            self.x = x
++            self.y = y
++            self.vx = vx
++            self.vy = vy
++            self.life = life
++            self.max_life = max_life
++            self.size = size
++            self.density = density
++
++    smoke_particles = []
++
++    # Warm-up smoke particle system so frame 0 has exact match or matching continuity
++    # Note: frame 0 will be exact copy of first_frame!
++    # Frames 1..19 will evolve smoothly.
++
++    frames = []
++
++    # Frame loop
++    for t in range(num_frames):
++        if t == 0:
++            frames.append(first_frame.copy())
++            continue
++
++        # Progression parameters
++        # Burn front expands over time
++        burn_radius = t * 1.6 + 1.0  # reaches ~31 by frame 19, covering ~90% of paper
++        flame_intensity = np.clip(t / 4.0, 0.0, 1.0) # flame builds up in first 4 frames
++
++        # Initialize current frame canvas
++        frame = first_frame.copy().astype(float)
++
++        # 1. Update Paper &amp; Charring
++        # Paper state:
++        # burn_dist &lt; burn_radius - 4.0: Ash / consumed
++        # burn_radius - 4.0 &lt;= burn_dist &lt; burn_radius: Active burning / glowing ember
++        # burn_dist &gt;= burn_radius: Unburned paper
++        for y in range(71, 103):
++            for x in range(118, 162):
++                if not paper_mask[y, x]:
++                    continue
++
++                d = burn_dist[y, x]
++                orig_c = first_frame[y, x].astype(float)
++                bg_c = bg_clean[y, x]
++
++                if d &lt; burn_radius - 3.5:
++                    # Charred ash / burnt away
++                    # Behind the flame, paper crumples to thin dark ash or reveals cutting board
++                    char_factor = np.clip((burn_radius - 3.5 - d) / 4.0, 0.0, 1.0)
++                    ash_color = np.array([38.0, 35.0, 34.0]) + rng.uniform(-4, 4, 3)
++                    # Edge of ash has slight gray residue
++                    if d &gt; burn_radius - 6.0:
++                        ash_color = np.array([65.0, 60.0, 58.0]) + rng.uniform(-3, 3, 3)
++
++                    # Blend between ash and transparent hole showing board
++                    c_burned = ash_color * 0.7 + bg_c * 0.3
++                    frame[y, x] = orig_c * (1.0 - char_factor) + c_burned * char_factor
++
++                elif d &lt; burn_radius:
++                    # Glowing ember line!
++                    # Hot glowing edge: deep red to bright yellow-orange
++                    ember_pos = (burn_radius - d) / 3.5  # 0 to 1
++                    ember_flicker = 0.85 + 0.3 * np.sin(t * 2.5 + x * 0.8 + y * 0.5)
++
++                    # Ember color transition
++                    ember_r = np.clip(255.0 * ember_flicker, 200.0, 255.0)
++                    ember_g = np.clip((120.0 + 80.0 * (1.0 - ember_pos)) * ember_flicker, 60.0, 220.0)
++                    ember_b = np.clip((20.0 + 30.0 * (1.0 - ember_pos)) * ember_flicker, 10.0, 80.0)
++
++                    ember_color = np.array([ember_r, ember_g, ember_b])
++                    alpha = np.clip((burn_radius - d) / 1.5, 0.0, 1.0)
++                    frame[y, x] = orig_c * (1.0 - alpha) + ember_color * alpha
++
++        # 2. Render Flames (Licking upward from active embers)
++        # Find active ember pixels
++        ember_ys, ember_xs = np.where(paper_mask &amp; (burn_dist &gt;= burn_radius - 3.5) &amp; (burn_dist &lt;= burn_radius + 0.5))
++
++        # Flame field buffer
++        flame_r = np.zeros((H, W), dtype=float)
++        flame_g = np.zeros((H, W), dtype=float)
++        flame_b = np.zeros((H, W), dtype=float)
++        flame_alpha = np.zeros((H, W), dtype=float)
++
++        if len(ember_ys) &gt; 0 and flame_intensity &gt; 0.1:
++            # Generate flame tongues
++            # Average flame center
++            mean_fx = np.mean(ember_xs)
++            mean_fy = np.mean(ember_ys)
++
++            # Flame height modulates with time (flickering physics)
++            base_flame_h = 10.0 + 4.0 * np.sin(t * 1.8) + 2.0 * np.cos(t * 3.4)
++            flame_h = base_flame_h * flame_intensity
++
++            # Create procedural flame tongues
++            for i in range(len(ember_ys)):
++                if rng.rand() &gt; 0.4:  # sample subset of ember points for flame roots
++                    continue
++                rx = ember_xs[i]
++                ry = ember_ys[i]
++
++                # Flame shape above root:
++                # height varies per tongue
++                tongue_h = flame_h * rng.uniform(0.7, 1.3)
++                tongue_drift = (rx - mean_fx) * 0.15 + np.sin(t * 1.5 + ry * 0.2) * 1.2
++
++                # Stamp vertical flame profile
++                max_step = int(np.ceil(tongue_h))
++                for step in range(max_step):
++                    fy = ry - step
++                    if fy &lt; 0 or fy &gt;= H:
++                        break
++                    progress = step / max_step  # 0 at bottom, 1 at flame tip
++                    fx = rx + tongue_drift * progress + rng.uniform(-0.4, 0.4)
++                    ix = int(round(fx))
++                    if ix &lt; 0 or ix &gt;= W:
++                        continue
++
++                    # Width narrows towards tip
++                    w_factor = (1.0 - progress)**0.7
++                    intensity = (1.0 - progress) * flame_intensity * rng.uniform(0.8, 1.1)
++
++                    # Flame color gradient:
++                    # Bottom/core: bright yellow-white [255, 235, 140]
++                    # Mid: bright orange-yellow [255, 160, 30]
++                    # Tip: deep reddish-orange [230, 75, 15]
++                    col_r = 255.0
++                    col_g = np.clip(235.0 * (1.0 - progress) + 60.0 * progress, 50.0, 240.0)
++                    col_b = np.clip(140.0 * (1.0 - progress)**2, 10.0, 160.0)
++
++                    # Splat with small width
++                    for dx_splat in [-1, 0, 1]:
++                        px = ix + dx_splat
++                        if 0 &lt;= px &lt; W:
++                            d_splat = abs(dx_splat)
++                            splat_w = np.exp(-d_splat**2 / (0.8 + w_factor * 1.2))
++                            val = intensity * splat_w
++                            if val &gt; flame_alpha[fy, px]:
++                                flame_alpha[fy, px] = val
++                                flame_r[fy, px] = col_r
++                                flame_g[fy, px] = col_g
++                                flame_b[fy, px] = col_b
++
++            # Smooth flame buffer slightly
++            flame_alpha = gaussian_filter(flame_alpha, sigma=0.7)
++            flame_r = gaussian_filter(flame_r, sigma=0.5)
++            flame_g = gaussian_filter(flame_g, sigma=0.5)
++            flame_b = gaussian_filter(flame_b, sigma=0.5)
++
++            # Composite flame onto frame
++            flame_mask = np.clip(flame_alpha * 1.2, 0.0, 0.95)
++            flame_rgb = np.stack([flame_r, flame_g, flame_b], axis=-1)
++            for c in range(3):
++                frame[:, :, c] = frame[:, :, c] * (1.0 - flame_mask) + flame_rgb[:, :, c] * flame_mask
++
++        # 3. Ambient flame glow and reflection on cutting board
++        if flame_intensity &gt; 0.1 and len(ember_ys) &gt; 0:
++            glow_y = int(np.mean(ember_ys))
++            glow_x = int(np.mean(ember_xs))
++            glow_radius = 25.0
++            dist_glow = np.sqrt((xx - glow_x)**2 + (yy - glow_y)**2)
++            glow_factor = np.clip(1.0 - dist_glow / glow_radius, 0.0, 1.0)**2 * 0.18 * flame_intensity
++            glow_flicker = 1.0 + 0.15 * np.sin(t * 3.0)
++
++            frame[:, :, 0] += glow_factor * 180.0 * glow_flicker
++            frame[:, :, 1] += glow_factor * 80.0 * glow_flicker
++            frame[:, :, 2] += glow_factor * 15.0 * glow_flicker
++
++            # Glass cutting board reflection downwards (y &gt; 90..115)
++            refl_y_min = max(glow_y + 2, 85)
++            refl_mask = (yy &gt;= refl_y_min) &amp; (yy &lt;= refl_y_min + 20) &amp; (abs(xx - glow_x) &lt; 18)
++            refl_dist = np.sqrt(((xx - glow_x) * 1.2)**2 + ((yy - (refl_y_min + 5)) * 0.8)**2)
++            refl_intensity = np.clip(1.0 - refl_dist / 16.0, 0.0, 1.0)**2 * 0.12 * flame_intensity
++            frame[:, :, 0] += refl_intensity * 160.0
++            frame[:, :, 1] += refl_intensity * 70.0
++
++        # 4. White Smoke Simulation
++        # Emit new smoke particles from active flame and ember zone
++        num_new_particles = 14 + int(t * 0.8) # smoke volume slightly increases as fire burns
++        for _ in range(num_new_particles):
++            if len(ember_ys) &gt; 0:
++                idx = rng.randint(len(ember_ys))
++                px = float(ember_xs[idx]) + rng.uniform(-1.5, 1.5)
++                py = float(ember_ys[idx]) - rng.uniform(2.0, 6.0)
++            else:
++                px = 148.0 + rng.uniform(-1.0, 1.0)
++                py = 72.0
++
++            # Upward velocity with realistic buoyancy and gentle draft
++            vy = rng.uniform(-4.0, -2.8) # rises 3-4 pixels per frame
++            vx = rng.uniform(-0.5, 0.3) + np.sin(t * 0.6) * 0.2
++            life = 0.0
++            max_life = rng.uniform(18.0, 26.0)
++            size = rng.uniform(2.0, 3.5)
++            density = rng.uniform(0.18, 0.28)
++            smoke_particles.append(Particle(px, py, vx, vy, life, max_life, size, density))
++
++        # Update all smoke particles
++        surviving_particles = []
++        smoke_layer = np.zeros((H, W), dtype=float)
++
++        for p in smoke_particles:
++            p.life += 1.0
++            if p.life &gt;= p.max_life:
++                continue
++
++            # Physics update
++            p.x += p.vx + np.sin(p.y * 0.08 + t * 0.4) * 0.3
++            p.y += p.vy
++            p.size += 0.35 # smoke expands as it rises
++            p.vx += rng.uniform(-0.08, 0.08)
++
++            if p.y &lt; -10 or p.x &lt; 0 or p.x &gt;= W:
++                continue
++
++            surviving_particles.append(p)
++
++            # Splat particle onto smoke accumulation grid
++            ix = int(round(p.x))
++            iy = int(round(p.y))
++            rad = int(np.ceil(p.size * 1.5))
++            life_decay = (1.0 - p.life / p.max_life)**1.2
++
++            # Particle density
++            p_dense = p.density * life_decay
++
++            y0 = max(0, iy - rad)
++            y1 = min(H, iy + rad + 1)
++            x0 = max(0, ix - rad)
++            x1 = min(W, ix + rad + 1)
++
++            if y1 &gt; y0 and x1 &gt; x0:
++                grid_y, grid_x = np.ogrid[y0 - iy:y1 - iy, x0 - ix:x1 - ix]
++                dist_sq = grid_x**2 + grid_y**2
++                kernel = np.exp(-dist_sq / (2.0 * p.size**2))
++                smoke_layer[y0:y1, x0:x1] += p_dense * kernel
++
++        smoke_particles = surviving_particles
++
++        # Blend procedural smoke layer
++        # Apply smooth blur to smoke layer for realistic soft volumetric feel
++        smoke_layer = gaussian_filter(smoke_layer, sigma=1.2)
++        smoke_alpha = np.clip(smoke_layer, 0.0, 0.85)
++
++        # White / light-blue smoke color matching the original scene
++        # Smoke color: R~205, G~225, B~245 with slight warm lighting from flame near base
++        smoke_base_color = np.array([210.0, 228.0, 246.0])
++
++        for c in range(3):
++            sc = smoke_base_color[c]
++            # Warm up smoke color near active flame (y in 55..75)
++            if c == 0: # red
++                warm_red = np.clip((75.0 - yy) / 20.0, 0.0, 1.0)
++                sc_map = smoke_base_color[0] + (1.0 - warm_red) * 20.0
++            else:
++                sc_map = sc
++
++            frame[:, :, c] = frame[:, :, c] * (1.0 - smoke_alpha) + sc_map * smoke_alpha
++
++        # Ensure valid range
++        frame = np.clip(frame, 0, 255).astype(np.uint8)
++        frames.append(frame)
++
++    frames = np.asarray(frames, dtype=np.uint8)
++    return frames
++
++if __name__ == &quot;__main__&quot;:
++    frames = generate_video()
++    print(&quot;Generated frames shape:&quot;, frames.shape)
++    artifact_io.save(frames, &quot;.&quot;)
++    print(&quot;Saved artifacts successfully.&quot;)
+</pre></details></div></details><details class=candidate><summary><strong>候选 02</strong><span class=status>播放与检查图</span><time>2026-11-12T23:13:07.452501+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_14c86c58da8b8484.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;4c64c80e268d1505c3f70e95c8766cf20b2d15a020583c687ad5f66d44cddb6b&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/candidate_01/pixels_14c86c58da8b8484.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/candidate_01/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/candidate_01/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/candidate_01/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/candidate_01/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/529016561ac9d26d9593ceaa2af08b61c46e9141/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0140_attempt_02/candidate_01/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -1,4 +1,5 @@
+-&quot;&quot;&quot;Generate 20-frame video of a piece of folded paper burning with white smoke.&quot;&quot;&quot;
++&quot;&quot;&quot;Generate 20-frame realistic video of a piece of folded paper burning with white smoke.&quot;&quot;&quot;
++from pathlib import Path
+ import numpy as np
+ from PIL import Image
+ from scipy.ndimage import gaussian_filter
+@@ -28,76 +29,72 @@
+             if not is_bg and lum &gt; 115:
+                 paper_mask[y, x] = True
+ 
+-    # 2. Burn distance field from ignition spot (73, 148)
+-    yy, xx = np.indices((H, W))
+-    dx = xx - 148.0
+-    dy = yy - 73.0
+-
+-    # Fire spreads across the folded paper:
+-    # faster along the fold towards -x, and downwards along +y
+-    metric_x = np.where(dx &lt; 0, (-dx) * 0.9, dx * 1.4)
+-    metric_y = np.where(dy &gt; 0, dy * 1.1, (-dy) * 1.8)
+-    burn_dist = np.sqrt(metric_x**2 + metric_y**2)
+-
+-    # Clean background plate for paper region (in-painting surrounding board/table)
+-    # Background around paper: left has darker tone, right has warm brown cutting board
++    # 2. Extract initial smoke layer from frame 0
++    # Estimate background behind smoke
++    bg_smoke = first_frame.copy().astype(float)
++    for y in range(35, 74):
++        left_val = first_frame[y, 122:132].mean(axis=0)
++        right_val = first_frame[y, 155:165].mean(axis=0)
++        for x in range(130, 160):
++            w = (x - 130) / (160 - 130)
++            bg_smoke[y, x] = (1.0 - w) * left_val + w * right_val
++
++    # Difference gives smoke field in frame 0
++    diff_f0 = first_frame.astype(float) - bg_smoke
++    lum_diff = np.maximum(0, 0.299 * diff_f0[:, :, 0] + 0.587 * diff_f0[:, :, 1] + 0.114 * diff_f0[:, :, 2])
++    smoke_f0_alpha = np.zeros((H, W), dtype=float)
++    smoke_f0_alpha[38:73, 134:158] = lum_diff[38:73, 134:158] / 140.0
++    smoke_f0_alpha = np.clip(smoke_f0_alpha, 0.0, 0.95)
++
++    # 3. Clean background plate for paper region (revealed as paper turns to ash)
+     bg_clean = first_frame.copy().astype(float)
+     for y in range(70, 105):
+-        # interpolate horizontally from x=115 to x=162
+         left_val = first_frame[y, 114:118].mean(axis=0)
+         right_val = first_frame[y, 161:165].mean(axis=0)
+         for x in range(118, 162):
+             if paper_mask[y, x]:
+                 w_right = (x - 118) / (162 - 118)
+                 bg_clean[y, x] = (1.0 - w_right) * left_val + w_right * right_val
+-
+-    # Smooth the in-painted background slightly
+     bg_clean_blurred = gaussian_filter(bg_clean, sigma=(1.0, 1.0, 0))
+     bg_clean[paper_mask] = bg_clean_blurred[paper_mask]
+ 
+-    # Smoke emission simulator
+-    # Seeded pseudo-random generator for repeatability
+-    rng = np.random.RandomState(42)
+-
+-    # Particle system for smoke
+-    class Particle:
+-        def __init__(self, x, y, vx, vy, life, max_life, size, density):
+-            self.x = x
+-            self.y = y
+-            self.vx = vx
+-            self.vy = vy
+-            self.life = life
+-            self.max_life = max_life
+-            self.size = size
+-            self.density = density
+-
+-    smoke_particles = []
+-
+-    # Warm-up smoke particle system so frame 0 has exact match or matching continuity
+-    # Note: frame 0 will be exact copy of first_frame!
+-    # Frames 1..19 will evolve smoothly.
++    # 4. Burn distance field from ignition corner (73, 149)
++    yy, xx = np.indices((H, W))
++    dx = xx - 149.0
++    dy = yy - 73.0
++
++    # Spreading rate: faster along the fold line (-x direction) and downward (+y)
++    metric_x = np.where(dx &lt; 0, (-dx) * 0.85, dx * 1.5)
++    metric_y = np.where(dy &gt; 0, dy * 1.15, (-dy) * 2.0)
++    burn_dist = np.sqrt(metric_x**2 + metric_y**2)
++
++    # Deterministic RNG for visual reproducibility
++    rng = np.random.RandomState(101)
++
++    # Smoke fluid advection grid
++    # Grid covers y from 0 to 75, x from 110 to 180
++    smoke_density = np.zeros((H, W), dtype=float)
++    smoke_density[:, :] = smoke_f0_alpha
+ 
+     frames = []
+ 
+-    # Frame loop
+     for t in range(num_frames):
+         if t == 0:
+             frames.append(first_frame.copy())
+             continue
+ 
+-        # Progression parameters
+-        # Burn front expands over time
+-        burn_radius = t * 1.6 + 1.0  # reaches ~31 by frame 19, covering ~90% of paper
+-        flame_intensity = np.clip(t / 4.0, 0.0, 1.0) # flame builds up in first 4 frames
+-
+-        # Initialize current frame canvas
+-        frame = first_frame.copy().astype(float)
+-
+-        # 1. Update Paper &amp; Charring
+-        # Paper state:
+-        # burn_dist &lt; burn_radius - 4.0: Ash / consumed
+-        # burn_radius - 4.0 &lt;= burn_dist &lt; burn_radius: Active burning / glowing ember
+-        # burn_dist &gt;= burn_radius: Unburned paper
++        # Burn front expands smoothly
++        burn_radius = (t ** 1.08) * 1.35 + 0.8
++        flame_intensity = np.clip(t / 3.0, 0.0, 1.0)
++
++        # Base canvas
++        canvas = bg_clean.copy()
++
++        # Render paper state
++        # Three zones:
++        # 1. Unburned paper: d &gt; burn_radius
++        # 2. Glowing ember front: burn_radius - 3.5 &lt;= d &lt;= burn_radius + 0.5
++        # 3. Charred ash: d &lt; burn_radius - 3.5
+         for y in range(71, 103):
+             for x in range(118, 162):
+                 if not paper_mask[y, x]:
+@@ -107,218 +104,188 @@
+                 orig_c = first_frame[y, x].astype(float)
+                 bg_c = bg_clean[y, x]
+ 
+-                if d &lt; burn_radius - 3.5:
+-                    # Charred ash / burnt away
+-                    # Behind the flame, paper crumples to thin dark ash or reveals cutting board
+-                    char_factor = np.clip((burn_radius - 3.5 - d) / 4.0, 0.0, 1.0)
+-                    ash_color = np.array([38.0, 35.0, 34.0]) + rng.uniform(-4, 4, 3)
++                if d &gt; burn_radius + 0.5:
++                    # Pristine paper with slight thermal darkening near front
++                    thermal_prox = np.clip((burn_radius + 4.0 - d) / 4.0, 0.0, 1.0)
++                    warm_tint = np.array([0.98, 0.92, 0.82])
++                    canvas[y, x] = orig_c * (1.0 - thermal_prox * 0.15) * warm_tint
++
++                elif d &gt;= burn_radius - 3.0:
++                    # Active burning edge / glowing ember line
++                    ember_pos = (burn_radius - d) / 3.0 # 0 at leading edge, 1 at trailing edge
++                    flicker = 0.88 + 0.25 * np.sin(t * 3.1 + x * 1.1 + y * 0.7)
++
++                    # Ember color transition: bright yellow/white core to deep red
++                    col_r = np.clip(255.0 * flicker, 210.0, 255.0)
++                    col_g = np.clip((140.0 + 80.0 * (1.0 - ember_pos)) * flicker, 50.0, 230.0)
++                    col_b = np.clip((25.0 + 40.0 * (1.0 - ember_pos)) * flicker, 10.0, 90.0)
++                    ember_color = np.array([col_r, col_g, col_b])
++
++                    alpha_ember = np.clip((burn_radius + 0.5 - d) / 1.5, 0.0, 1.0)
++                    canvas[y, x] = orig_c * (1.0 - alpha_ember) + ember_color * alpha_ember
++
++                else:
++                    # Charred ash
++                    ash_age = np.clip((burn_radius - 3.0 - d) / 4.0, 0.0, 1.0)
++                    # Texture in ash
++                    ash_noise = rng.uniform(-4, 4, 3)
++                    ash_c = np.array([42.0, 39.0, 38.0]) + ash_noise
+                     # Edge of ash has slight gray residue
+-                    if d &gt; burn_radius - 6.0:
+-                        ash_color = np.array([65.0, 60.0, 58.0]) + rng.uniform(-3, 3, 3)
+-
+-                    # Blend between ash and transparent hole showing board
+-                    c_burned = ash_color * 0.7 + bg_c * 0.3
+-                    frame[y, x] = orig_c * (1.0 - char_factor) + c_burned * char_factor
+-
+-                elif d &lt; burn_radius:
+-                    # Glowing ember line!
+-                    # Hot glowing edge: deep red to bright yellow-orange
+-                    ember_pos = (burn_radius - d) / 3.5  # 0 to 1
+-                    ember_flicker = 0.85 + 0.3 * np.sin(t * 2.5 + x * 0.8 + y * 0.5)
+-
+-                    # Ember color transition
+-                    ember_r = np.clip(255.0 * ember_flicker, 200.0, 255.0)
+-                    ember_g = np.clip((120.0 + 80.0 * (1.0 - ember_pos)) * ember_flicker, 60.0, 220.0)
+-                    ember_b = np.clip((20.0 + 30.0 * (1.0 - ember_pos)) * ember_flicker, 10.0, 80.0)
+-
+-                    ember_color = np.array([ember_r, ember_g, ember_b])
+-                    alpha = np.clip((burn_radius - d) / 1.5, 0.0, 1.0)
+-                    frame[y, x] = orig_c * (1.0 - alpha) + ember_color * alpha
++                    if d &gt; burn_radius - 5.5:
++                        ash_c = np.array([68.0, 64.0, 60.0]) + ash_noise
++
++                    # Ash crumples, partially showing cutting board underneath
++                    canvas[y, x] = ash_c * (1.0 - ash_age * 0.45) + bg_c * (ash_age * 0.45)
++
++        # Restore non-paper areas to clean original
++        frame = first_frame.copy().astype(float)
++        frame[paper_mask] = canvas[paper_mask]
+ 
+         # 2. Render Flames (Licking upward from active embers)
+-        # Find active ember pixels
+-        ember_ys, ember_xs = np.where(paper_mask &amp; (burn_dist &gt;= burn_radius - 3.5) &amp; (burn_dist &lt;= burn_radius + 0.5))
+-
+-        # Flame field buffer
++        ember_ys, ember_xs = np.where(paper_mask &amp; (burn_dist &gt;= burn_radius - 3.2) &amp; (burn_dist &lt;= burn_radius + 0.2))
++
+         flame_r = np.zeros((H, W), dtype=float)
+         flame_g = np.zeros((H, W), dtype=float)
+         flame_b = np.zeros((H, W), dtype=float)
+         flame_alpha = np.zeros((H, W), dtype=float)
+ 
+-        if len(ember_ys) &gt; 0 and flame_intensity &gt; 0.1:
+-            # Generate flame tongues
+-            # Average flame center
++        if len(ember_ys) &gt; 0 and flame_intensity &gt; 0.05:
+             mean_fx = np.mean(ember_xs)
+             mean_fy = np.mean(ember_ys)
+ 
+-            # Flame height modulates with time (flickering physics)
+-            base_flame_h = 10.0 + 4.0 * np.sin(t * 1.8) + 2.0 * np.cos(t * 3.4)
+-            flame_h = base_flame_h * flame_intensity
+-
+-            # Create procedural flame tongues
++            # Height of flame oscillates naturally
++            base_flame_h = (11.0 + 4.5 * np.sin(t * 2.2) + 2.0 * np.cos(t * 4.1)) * flame_intensity
++
++            # Procedural flame tongues
+             for i in range(len(ember_ys)):
+-                if rng.rand() &gt; 0.4:  # sample subset of ember points for flame roots
++                if rng.rand() &gt; 0.35:
+                     continue
+-                rx = ember_xs[i]
+-                ry = ember_ys[i]
+-
+-                # Flame shape above root:
+-                # height varies per tongue
+-                tongue_h = flame_h * rng.uniform(0.7, 1.3)
+-                tongue_drift = (rx - mean_fx) * 0.15 + np.sin(t * 1.5 + ry * 0.2) * 1.2
+-
+-                # Stamp vertical flame profile
++                rx = float(ember_xs[i])
++                ry = float(ember_ys[i])
++
++                tongue_h = base_flame_h * rng.uniform(0.7, 1.35)
++                drift_x = (rx - mean_fx) * 0.12 + np.sin(t * 1.8 + ry * 0.3) * 1.4
++
+                 max_step = int(np.ceil(tongue_h))
+                 for step in range(max_step):
+                     fy = ry - step
+                     if fy &lt; 0 or fy &gt;= H:
+                         break
+-                    progress = step / max_step  # 0 at bottom, 1 at flame tip
+-                    fx = rx + tongue_drift * progress + rng.uniform(-0.4, 0.4)
++                    prog = step / max_step
++                    fx = rx + drift_x * prog + rng.uniform(-0.35, 0.35)
+                     ix = int(round(fx))
+                     if ix &lt; 0 or ix &gt;= W:
+                         continue
+ 
+-                    # Width narrows towards tip
+-                    w_factor = (1.0 - progress)**0.7
+-                    intensity = (1.0 - progress) * flame_intensity * rng.uniform(0.8, 1.1)
+-
+-                    # Flame color gradient:
+-                    # Bottom/core: bright yellow-white [255, 235, 140]
+-                    # Mid: bright orange-yellow [255, 160, 30]
+-                    # Tip: deep reddish-orange [230, 75, 15]
++                    w_factor = (1.0 - prog)**0.65
++                    intensity = (1.0 - prog) * flame_intensity * rng.uniform(0.85, 1.1)
++
++                    # Realistic fire colors
+                     col_r = 255.0
+-                    col_g = np.clip(235.0 * (1.0 - progress) + 60.0 * progress, 50.0, 240.0)
+-                    col_b = np.clip(140.0 * (1.0 - progress)**2, 10.0, 160.0)
+-
+-                    # Splat with small width
+-                    for dx_splat in [-1, 0, 1]:
+-                        px = ix + dx_splat
++                    col_g = np.clip(240.0 * (1.0 - prog) + 65.0 * prog, 55.0, 245.0)
++                    col_b = np.clip(150.0 * (1.0 - prog)**2, 10.0, 160.0)
++
++                    for dx_s in [-1, 0, 1]:
++                        px = ix + dx_s
+                         if 0 &lt;= px &lt; W:
+-                            d_splat = abs(dx_splat)
+-                            splat_w = np.exp(-d_splat**2 / (0.8 + w_factor * 1.2))
+-                            val = intensity * splat_w
+-                            if val &gt; flame_alpha[fy, px]:
+-                                flame_alpha[fy, px] = val
+-                                flame_r[fy, px] = col_r
+-                                flame_g[fy, px] = col_g
+-                                flame_b[fy, px] = col_b
+-
+-            # Smooth flame buffer slightly
+-            flame_alpha = gaussian_filter(flame_alpha, sigma=0.7)
++                            d_s = abs(dx_s)
++                            splat = np.exp(-d_s**2 / (0.7 + w_factor * 1.2))
++                            val = intensity * splat
++                            if val &gt; flame_alpha[int(fy), px]:
++                                flame_alpha[int(fy), px] = val
++                                flame_r[int(fy), px] = col_r
++                                flame_g[int(fy), px] = col_g
++                                flame_b[int(fy), px] = col_b
++
++            flame_alpha = gaussian_filter(flame_alpha, sigma=0.65)
+             flame_r = gaussian_filter(flame_r, sigma=0.5)
+             flame_g = gaussian_filter(flame_g, sigma=0.5)
+             flame_b = gaussian_filter(flame_b, sigma=0.5)
+ 
+-            # Composite flame onto frame
+-            flame_mask = np.clip(flame_alpha * 1.2, 0.0, 0.95)
+-            flame_rgb = np.stack([flame_r, flame_g, flame_b], axis=-1)
++            flame_mask = np.clip(flame_alpha * 1.25, 0.0, 0.96)
+             for c in range(3):
+-                frame[:, :, c] = frame[:, :, c] * (1.0 - flame_mask) + flame_rgb[:, :, c] * flame_mask
+-
+-        # 3. Ambient flame glow and reflection on cutting board
+-        if flame_intensity &gt; 0.1 and len(ember_ys) &gt; 0:
++                col = [flame_r, flame_g, flame_b][c]
++                frame[:, :, c] = frame[:, :, c] * (1.0 - flame_mask) + col * flame_mask
++
++        # 3. Fire illumination and reflections on glass board
++        if flame_intensity &gt; 0.05 and len(ember_ys) &gt; 0:
+             glow_y = int(np.mean(ember_ys))
+             glow_x = int(np.mean(ember_xs))
+-            glow_radius = 25.0
+             dist_glow = np.sqrt((xx - glow_x)**2 + (yy - glow_y)**2)
+-            glow_factor = np.clip(1.0 - dist_glow / glow_radius, 0.0, 1.0)**2 * 0.18 * flame_intensity
+-            glow_flicker = 1.0 + 0.15 * np.sin(t * 3.0)
+-
+-            frame[:, :, 0] += glow_factor * 180.0 * glow_flicker
+-            frame[:, :, 1] += glow_factor * 80.0 * glow_flicker
+-            frame[:, :, 2] += glow_factor * 15.0 * glow_flicker
+-
+-            # Glass cutting board reflection downwards (y &gt; 90..115)
+-            refl_y_min = max(glow_y + 2, 85)
+-            refl_mask = (yy &gt;= refl_y_min) &amp; (yy &lt;= refl_y_min + 20) &amp; (abs(xx - glow_x) &lt; 18)
+-            refl_dist = np.sqrt(((xx - glow_x) * 1.2)**2 + ((yy - (refl_y_min + 5)) * 0.8)**2)
+-            refl_intensity = np.clip(1.0 - refl_dist / 16.0, 0.0, 1.0)**2 * 0.12 * flame_intensity
+-            frame[:, :, 0] += refl_intensity * 160.0
+-            frame[:, :, 1] += refl_intensity * 70.0
+-
+-        # 4. White Smoke Simulation
+-        # Emit new smoke particles from active flame and ember zone
+-        num_new_particles = 14 + int(t * 0.8) # smoke volume slightly increases as fire burns
+-        for _ in range(num_new_particles):
++            glow_factor = np.clip(1.0 - dist_glow / 26.0, 0.0, 1.0)**2 * 0.16 * flame_intensity
++            flicker_ambient = 1.0 + 0.12 * np.sin(t * 3.4)
++
++            frame[:, :, 0] += glow_factor * 180.0 * flicker_ambient
++            frame[:, :, 1] += glow_factor * 75.0 * flicker_ambient
++            frame[:, :, 2] += glow_factor * 15.0 * flicker_ambient
++
++            # Glass board downward reflection
++            refl_y_min = max(glow_y + 2, 86)
++            refl_dist = np.sqrt(((xx - glow_x) * 1.25)**2 + ((yy - (refl_y_min + 5)) * 0.75)**2)
++            refl_intensity = np.clip(1.0 - refl_dist / 17.0, 0.0, 1.0)**2 * 0.12 * flame_intensity
++            frame[:, :, 0] += refl_intensity * 170.0
++            frame[:, :, 1] += refl_intensity * 75.0
++
++        # 4. White Smoke Evolution
++        # Evolve smoke density via advection + upward shift + expansion
++        # Step 1: Upward advection (shift up by ~3 pixels)
++        shift_y = 3
++        new_smoke = np.zeros_like(smoke_density)
++        new_smoke[:-shift_y, :] = smoke_density[shift_y:, :]
++
++        # Add lateral draft / sway
++        sway = np.sin(t * 0.5) * 0.4
++        new_smoke = gaussian_filter(new_smoke, sigma=(0.8, 1.1))
++
++        # Dissipate smoke as it reaches upper section
++        decay_factor = np.ones((H, W), dtype=float) * 0.94
++        decay_factor[:25, :] = 0.88
++        new_smoke *= decay_factor
++
++        # Inject new smoke at the flame/ember base
++        smoke_source = np.zeros((H, W), dtype=float)
++        inject_x = np.mean(ember_xs) if len(ember_xs) &gt; 0 else 148.0
++        inject_y = np.min(ember_ys) - 2.0 if len(ember_ys) &gt; 0 else 72.0
++
++        # Spread source along the active burn front
++        num_smoke_puffs = 12
++        for _ in range(num_smoke_puffs):
+             if len(ember_ys) &gt; 0:
+                 idx = rng.randint(len(ember_ys))
+                 px = float(ember_xs[idx]) + rng.uniform(-1.5, 1.5)
+-                py = float(ember_ys[idx]) - rng.uniform(2.0, 6.0)
++                py = float(ember_ys[idx]) - rng.uniform(2.0, 7.0)
+             else:
+                 px = 148.0 + rng.uniform(-1.0, 1.0)
+-                py = 72.0
+-
+-            # Upward velocity with realistic buoyancy and gentle draft
+-            vy = rng.uniform(-4.0, -2.8) # rises 3-4 pixels per frame
+-            vx = rng.uniform(-0.5, 0.3) + np.sin(t * 0.6) * 0.2
+-            life = 0.0
+-            max_life = rng.uniform(18.0, 26.0)
+-            size = rng.uniform(2.0, 3.5)
+-            density = rng.uniform(0.18, 0.28)
+-            smoke_particles.append(Particle(px, py, vx, vy, life, max_life, size, density))
+-
+-        # Update all smoke particles
+-        surviving_particles = []
+-        smoke_layer = np.zeros((H, W), dtype=float)
+-
+-        for p in smoke_particles:
+-            p.life += 1.0
+-            if p.life &gt;= p.max_life:
+-                continue
+-
+-            # Physics update
+-            p.x += p.vx + np.sin(p.y * 0.08 + t * 0.4) * 0.3
+-            p.y += p.vy
+-            p.size += 0.35 # smoke expands as it rises
+-            p.vx += rng.uniform(-0.08, 0.08)
+-
+-            if p.y &lt; -10 or p.x &lt; 0 or p.x &gt;= W:
+-                continue
+-
+-            surviving_particles.append(p)
+-
+-            # Splat particle onto smoke accumulation grid
+-            ix = int(round(p.x))
+-            iy = int(round(p.y))
+-            rad = int(np.ceil(p.size * 1.5))
+-            life_decay = (1.0 - p.life / p.max_life)**1.2
+-
+-            # Particle density
+-            p_dense = p.density * life_decay
+-
+-            y0 = max(0, iy - rad)
+-            y1 = min(H, iy + rad + 1)
+-            x0 = max(0, ix - rad)
+-            x1 = min(W, ix + rad + 1)
+-
+-            if y1 &gt; y0 and x1 &gt; x0:
+-                grid_y, grid_x = np.ogrid[y0 - iy:y1 - iy, x0 - ix:x1 - ix]
+-                dist_sq = grid_x**2 + grid_y**2
+-                kernel = np.exp(-dist_sq / (2.0 * p.size**2))
+-                smoke_layer[y0:y1, x0:x1] += p_dense * kernel
+-
+-        smoke_particles = surviving_particles
+-
+-        # Blend procedural smoke layer
+-        # Apply smooth blur to smoke layer for realistic soft volumetric feel
+-        smoke_layer = gaussian_filter(smoke_layer, sigma=1.2)
+-        smoke_alpha = np.clip(smoke_layer, 0.0, 0.85)
+-
+-        # White / light-blue smoke color matching the original scene
+-        # Smoke color: R~205, G~225, B~245 with slight warm lighting from flame near base
+-        smoke_base_color = np.array([210.0, 228.0, 246.0])
++                py = 72.0 - rng.uniform(0.0, 4.0)
++
++            iy, ix = int(round(py)), int(round(px))
++            for dy_p in range(-3, 4):
++                for dx_p in range(-3, 4):
++                    cy, cx = iy + dy_p, ix + dx_p
++                    if 0 &lt;= cy &lt; H and 0 &lt;= cx &lt; W:
++                        d_puff = np.sqrt(dx_p**2 + dy_p**2)
++                        smoke_source[cy, cx] += np.exp(-d_puff**2 / 3.0) * 0.08
++
++        new_smoke += smoke_source
++        smoke_density = np.clip(new_smoke, 0.0, 0.92)
++
++        # Composite smoke onto frame
++        # Smoke color palette: realistic soft white / light blue-gray
++        smoke_color = np.array([215.0, 230.0, 248.0])
++        smoke_alpha = np.clip(gaussian_filter(smoke_density, sigma=0.9), 0.0, 0.88)
+ 
+         for c in range(3):
+-            sc = smoke_base_color[c]
+-            # Warm up smoke color near active flame (y in 55..75)
+-            if c == 0: # red
+-                warm_red = np.clip((75.0 - yy) / 20.0, 0.0, 1.0)
+-                sc_map = smoke_base_color[0] + (1.0 - warm_red) * 20.0
++            # Near flame base, smoke catches warm amber light
++            if c == 0: # red boost near base
++                warm_glow = np.clip((80.0 - yy) / 25.0, 0.0, 1.0)
++                sc = smoke_color[0] + (1.0 - warm_glow) * 22.0
++            elif c == 1: # slight green/yellow boost near base
++                warm_glow = np.clip((80.0 - yy) / 25.0, 0.0, 1.0)
++                sc = smoke_color[1] + (1.0 - warm_glow) * 8.0
+             else:
+-                sc_map = sc
+-
+-            frame[:, :, c] = frame[:, :, c] * (1.0 - smoke_alpha) + sc_map * smoke_alpha
++                sc = smoke_color[c]
++
++            frame[:, :, c] = frame[:, :, c] * (1.0 - smoke_alpha) + sc * smoke_alpha
+ 
+         # Ensure valid range
+         frame = np.clip(frame, 0, 255).astype(np.uint8)
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-12T23:02:41.883530+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la&#x27;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-12T23:02:49.985276+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat prompt.txt&#x27;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-12T23:02:54.247481+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat GENERATION_RULES.md&#x27;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-12T23:02:58.686524+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat artifact_io.py&#x27;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-12T23:03:03.806759+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+print(&#x27;Format:&#x27;, img.format, &#x27;Size:&#x27;, img.size, &#x27;Mode:&#x27;, img.mode)
+arr = np.array(img)
+print(&#x27;Shape:&#x27;, arr.shape, &#x27;Dtype:&#x27;, arr.dtype)
+print(&#x27;Min/Max RGB:&#x27;, arr.min(axis=(0,1)), arr.max(axis=(0,1)))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-12T23:03:09.815065+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Image stats:&#x27;)
+# Let&#x27;s see some row and column profiles, find where the paper is, where the cutting board is, etc.
+# Find brightest pixels, warmest pixels, etc.
+r, g, b = arr[:,:,0].astype(float), arr[:,:,1].astype(float), arr[:,:,2].astype(float)
+brightness = (r + g + b) / 3
+
+# Bright spots:
+print(&#x27;Brightest pixels locations:&#x27;)
+ys, xs = np.where(brightness &gt; 220)
+print(&#x27;Count bright &gt; 220:&#x27;, len(ys))
+if len(ys) &gt; 0:
+    print(&#x27;y min/max:&#x27;, ys.min(), ys.max(), &#x27;x min/max:&#x27;, xs.min(), xs.max())
+    print(&#x27;Sample bright coords and RGB:&#x27;)
+    for i in range(min(5, len(ys))):
+        print(f&#x27;({ys[i]}, {xs[i]}): {arr[ys[i], xs[i]]}&#x27;)
+
+# Find fire/flame-like pixels if any:
+# High red, moderate green, lower blue: r &gt; 150, r &gt; g + 30, g &gt; b
+flame = (r &gt; 180) &amp; (r &gt; g + 40) &amp; (g &gt; b)
+fys, fxs = np.where(flame)
+print(&#x27;Flame-like pixels count:&#x27;, len(fys))
+if len(fys) &gt; 0:
+    print(&#x27;Flame y min/max:&#x27;, fys.min(), fys.max(), &#x27;x min/max:&#x27;, fxs.min(), fxs.max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-12T23:03:16.331783+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, C = arr.shape
+
+# Let&#x27;s inspect downsampled grid of the image in ASCII or character representation
+# or print block statistics (e.g. 16x16 blocks)
+print(&#x27;Grid 18x32 of average RGB:&#x27;)
+bh, bw = 8, 8
+grid_h, grid_w = H // bh, W // bw
+
+for gy in range(grid_h):
+    row_str = &#x27;&#x27;
+    for gx in range(grid_w):
+        block = arr[gy*bh:(gy+1)*bh, gx*bw:(gx+1)*bw]
+        mean_rgb = block.mean(axis=(0,1))
+        lum = 0.299*mean_rgb[0] + 0.587*mean_rgb[1] + 0.114*mean_rgb[2]
+        # Character map based on luminance and color
+        if lum &gt; 200:
+            char = &#x27;#&#x27;
+        elif lum &gt; 150:
+            char = &#x27;=&#x27;
+        elif lum &gt; 100:
+            char = &#x27;+&#x27;
+        elif lum &gt; 60:
+            char = &#x27;-&#x27;
+        elif lum &gt; 30:
+            char = &#x27;.&#x27;
+        else:
+            char = &#x27; &#x27;
+        row_str += char
+    print(f&#x27;{gy*bh:3d}: {row_str}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-12T23:03:23.113364+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect colors in different regions:
+# 1. Background top
+print(&#x27;Top left (0,0):&#x27;, arr[0, 0], &#x27;Top mid (0, 128):&#x27;, arr[0, 128], &#x27;Top right (0, 255):&#x27;, arr[0, 255])
+# 2. Middle center
+print(&#x27;Center (72, 128):&#x27;, arr[72, 128], &#x27;y=60..100, x=80..160&#x27;)
+# 3. Bottom right
+print(&#x27;Bottom right (140, 250):&#x27;, arr[140, 250])
+# 4. Bottom left
+print(&#x27;Bottom left (140, 10):&#x27;, arr[140, 10])
+
+# Let&#x27;s find contours / objects by clustering or inspecting color distributions
+print(&#x27;\\nUnique colors count:&#x27;, len(np.unique(arr.reshape(-1, 3), axis=0)))
+
+# Let&#x27;s inspect rows around y=50 to y=100
+for y in range(50, 110, 10):
+    for x in range(80, 200, 20):
+        print(f&#x27;({y},{x}): {arr[y,x]}&#x27;, end=&#x27;  &#x27;)
+    print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-12T23:03:30.188315+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect where pixels are white/near white or paper-like
+# In the prompt: &#x27;The piece of folded paper sits on a glass cutting board. The piece of folded paper is burning while white smoke is emitting from it.&#x27;
+# Wait&quot;&#x27;! In the grid earlier:
+# (80, 140): [210, 213, 216]
+# (90, 140): [239, 242, 229]
+# And bottom right is [255, 255, 249]!
+# Wait, what is at bottom right? And what is at (80, 140)?
+# Let&#x27;&quot;&#x27;s find connected components of bright or distinct colors&quot;&#x27;!
+
+# Let&#x27;&quot;&#x27;s check all pixels with high brightness or specific color ranges
+mask_paper = (arr[:,:,0] &gt; 180) &amp; (arr[:,:,1] &gt; 180) &amp; (arr[:,:,2] &gt; 170)
+print(&#x27;Pixels with R&gt;180, G&gt;180, B&gt;170:&#x27;, np.sum(mask_paper))
+
+# Print y, x bounding boxes of components
+from scipy.ndimage import label
+lbl, num = label(mask_paper)
+print(f&#x27;Found {num} components&#x27;)
+for i in range(1, num+1):
+    ys, xs = np.where(lbl == i)
+    if len(ys) &gt; 20:
+        print(f&#x27;Comp {i}: count={len(ys)}, y=[{ys.min()}, {ys.max()}], x=[{xs.min()}, {xs.max()}], mean RGB={arr[ys, xs].mean(axis=0).astype(int)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-12T23:03:37.502772+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Region y=50..110, x=115..165:&#x27;)
+# print a small ASCII art of brightness or colors
+region = arr[50:110, 115:165]
+for y in range(50, 110, 2):
+    line = f&#x27;{y:3d} &#x27;
+    for x in range(115, 165):
+        r, g, b = arr[y, x]
+        # classify pixel:
+        # if r,g,b are close and &gt; 180: paper &#x27;P&#x27;
+        # if r &gt; g+20: warm &#x27;F&#x27;
+        # if b &gt; r+20: cool &#x27;C&#x27;
+        # else gray
+        lum = int(0.299*r + 0.587*g + 0.114*b)
+        if lum &gt; 200:
+            line += &#x27;W&#x27;
+        elif lum &gt; 160:
+            line += &#x27;#&#x27;
+        elif lum &gt; 120:
+            line += &#x27;=&#x27;
+        elif lum &gt; 80:
+            line += &#x27;+&#x27;
+        else:
+            line += &#x27;.&#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-12T23:03:43.236195+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+print(&#x27;=== Color details in central region y=65..95, x=125..155 ===&#x27;)
+# Let&#x27;s inspect RGB values across key rows
+for y in range(70, 95, 2):
+    print(f&#x27;Row y={y}:&#x27;)
+    for x in range(125, 155, 3):
+        print(f&#x27;x={x}:{arr[y,x]}&#x27;, end=&#x27; &#x27;)
+    print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-12T23:03:57.390114+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s check y=50..75, x=135..155:
+# Why are there bluish whites [183, 234, 252] at y=55, x=147?
+print(&#x27;y=53..65, x=143..153:&#x27;)
+for y in range(53, 65):
+    for x in range(143, 153):
+        print(f&#x27;{arr[y,x]}&#x27;, end=&#x27; &#x27;)
+    print(f&#x27;-- y={y}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-12T23:04:02.076453+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire column profile above x=145..150:
+for y in range(0, 55, 4):
+    print(f&#x27;y={y}: {arr[y, 147]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-12T23:04:10.788971+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire image layout
+# Top background: rows 0 to 50
+print(&#x27;Row 0 across x: x=0:&#x27;, arr[0,0], &#x27;x=64:&#x27;, arr[0,64], &#x27;x=128:&#x27;, arr[0,128], &#x27;x=192:&#x27;, arr[0,192], &#x27;x=255:&#x27;, arr[0,255])
+print(&#x27;Row 20 across x: x=0:&#x27;, arr[20,0], &#x27;x=64:&#x27;, arr[20,64], &#x27;x=128:&#x27;, arr[20,128], &#x27;x=192:&#x27;, arr[20,192], &#x27;x=255:&#x27;, arr[20,255])
+print(&#x27;Row 40 across x: x=0:&#x27;, arr[40,0], &#x27;x=64:&#x27;, arr[40,64], &#x27;x=128:&#x27;, arr[40,128], &#x27;x=192:&#x27;, arr[40,192], &#x27;x=255:&#x27;, arr[40,255])
+print(&#x27;Row 60 across x: x=0:&#x27;, arr[60,0], &#x27;x=64:&#x27;, arr[60,64], &#x27;x=128:&#x27;, arr[60,128], &#x27;x=192:&#x27;, arr[60,192], &#x27;x=255:&#x27;, arr[60,255])
+print(&#x27;Row 80 across x: x=0:&#x27;, arr[80,0], &#x27;x=64:&#x27;, arr[80,64], &#x27;x=128:&#x27;, arr[80,128], &#x27;x=192:&#x27;, arr[80,192], &#x27;x=255:&#x27;, arr[80,255])
+print(&#x27;Row 100 across x: x=0:&#x27;, arr[100,0], &#x27;x=64:&#x27;, arr[100,64], &#x27;x=128:&#x27;, arr[100,128], &#x27;x=192:&#x27;, arr[100,192], &#x27;x=255:&#x27;, arr[100,255])
+print(&#x27;Row 120 across x: x=0:&#x27;, arr[120,0], &#x27;x=64:&#x27;, arr[120,64], &#x27;x=128:&#x27;, arr[120,128], &#x27;x=192:&#x27;, arr[120,192], &#x27;x=255:&#x27;, arr[120,255])
+print(&#x27;Row 140 across x: x=0:&#x27;, arr[140,0], &#x27;x=64:&#x27;, arr[140,64], &#x27;x=128:&#x27;, arr[140,128], &#x27;x=192:&#x27;, arr[140,192], &#x27;x=255:&#x27;, arr[140,255])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-12T23:04:18.025841+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the cutting board edges
+# Look at horizontal / vertical gradients
+gx = np.abs(np.diff(arr.astype(float), axis=1)).sum(axis=-1)
+gy = np.abs(np.diff(arr.astype(float), axis=0)).sum(axis=-1)
+
+# Find prominent edges
+print(&#x27;Top 20 strong edge lines or regions:&#x27;)
+# Glass cutting boards typically have rounded rectangular bevel edges or grid pattern
+# Let&#x27;s find rows with high gradient
+print(&#x27;Mean gx along y:&#x27;, np.argsort(gx.mean(axis=1))[-10:])
+print(&#x27;Mean gy along x:&#x27;, np.argsort(gy.mean(axis=0))[-10:])
+
+# Let&#x27;s inspect bottom right bright region:
+# Comp 13: count=1628, y=[92, 143], x=[207, 255], mean RGB=[246 242 218]
+# What is this bright region in bottom right?
+# Is it a light reflection on the glass cutting board or a sticker/label?
+print(&#x27;Bottom right region y=90..144, x=200..256:&#x27;)
+print(&#x27;y=95, x=210..220:&#x27;, arr[95, 210:220])
+print(&#x27;y=110, x=210..220:&#x27;, arr[110, 210:220])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-12T23:04:24.297819+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the paper shape:
+# where y is in 70..95, x in 120..155
+# Let&#x27;s print each pixel&#x27;s type:
+# &#x27;.&#x27; dark/table background (mean &lt; 110)
+# &#x27;G&#x27; glass reflection/board
+# &#x27;P&#x27; white paper (bright, neutral or bluish-white)
+# &#x27;S&#x27; smoke (above paper)
+for y in range(50, 105):
+    s = f&#x27;{y:3d} &#x27;
+    for x in range(115, 160):
+        c = arr[y, x]
+        lum = np.mean(c)
+        if y &lt; 73:
+            if lum &gt; 180 and c[2] &gt; 200:
+                s += &#x27;S&#x27; # smoke&quot;&#x27;!
+            elif lum &gt; 140:
+                s += &#x27;&quot;&#x27;s&#x27;
+            else:
+                s += &#x27; &#x27;
+        else:
+            if lum &gt; 200:
+                s += &#x27;P&#x27;
+            elif lum &gt; 150:
+                s += &#x27;p&#x27;
+            elif lum &gt; 110:
+                s += &#x27;.&#x27;
+            else:
+                s += &#x27; &#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-12T23:04:32.734468+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the smoke plume above the paper:
+# From y=0 to y=73, where is the smoke?
+for y in range(0, 73, 3):
+    s = f&#x27;{y:2d}: &#x27;
+    for x in range(110, 180, 2):
+        c = arr[y, x]
+        # smoke is typically bluish-white or brighter than the dark background
+        # background at y=0..50 is around [100, 95, 100] or dark brown/slate
+        # Let&#x27;s print brightness
+        lum = int(np.mean(c))
+        if lum &gt; 200:
+            s += &#x27;@&#x27;
+        elif lum &gt; 170:
+            s += &#x27;#&#x27;
+        elif lum &gt; 140:
+            s += &#x27;=&#x27;
+        elif lum &gt; 110:
+            s += &#x27;+&#x27;
+        elif lum &gt; 80:
+            s += &#x27;-&#x27;
+        else:
+            s += &#x27;.&#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-12T23:04:43.470519+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Row 0 entire width (step 4):&#x27;)
+for x in range(0, 256, 8):
+    print(f&#x27;{x}:{arr[0, x]}&#x27;, end=&#x27; &#x27;)
+print()
+print(&#x27;Row 5 entire width (step 4):&#x27;)
+for x in range(0, 256, 8):
+    print(f&#x27;{x}:{arr[5, x]}&#x27;, end=&#x27; &#x27;)
+print()
+print(&#x27;Row 10 entire width (step 4):&#x27;)
+for x in range(0, 256, 8):
+    print(f&#x27;{x}:{arr[10, x]}&#x27;, end=&#x27; &#x27;)
+print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-12T23:04:50.034738+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Looking at y from 0 to 40:&#x27;)
+for y in range(0, 40, 2):
+    print(f&#x27;y={y:2d}: x=0: {arr[y, 0]} | x=70: {arr[y, 70]} | x=140: {arr[y, 140]} | x=170: {arr[y, 170]} | x=220: {arr[y, 220]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-12T23:04:58.471072+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire image by 10x10 blocks:
+# Print color and character for each block
+h, w, _ = arr.shape
+for by in range(0, h, 8):
+    row_desc = f&#x27;{by:3d}: &#x27;
+    for bx in range(0, w, 8):
+        block = arr[by:min(by+8, h), bx:min(bx+8, w)]
+        mean_c = block.mean(axis=(0,1))
+        # let&#x27;s classify:
+        # bright bluish: smoke/sky?
+        # dark warm: table
+        # bright yellow/white: bottom right board highlight?
+        # paper: center
+        if mean_c[0] &gt; 180 and mean_c[1] &gt; 180 and mean_c[2] &gt; 200:
+            char = &#x27;B&#x27; # bluish bright
+        elif mean_c[0] &gt; 200 and mean_c[1] &gt; 200:
+            char = &#x27;W&#x27; # bright white/yellow
+        elif mean_c[2] &gt; mean_c[0] + 15:
+            char = &#x27;C&#x27; # cool/slate
+        elif mean_c[0] &gt; mean_c[2] + 20:
+            char = &#x27;R&#x27; # reddish/warm brown
+        else:
+            char = &#x27;.&#x27; # neutral
+        row_desc += char
+    print(row_desc)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-12T23:05:06.214746+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the paper fold:
+# Bounding box of the paper:
+# Paper is around y=72 to 105, x=120 to 160
+# Let&#x27;s inspect the RGB of each pixel in y=72..100, x=120..155
+print(&#x27;Paper pixels and their surrounding:&#x27;)
+paper_pixels = []
+for y in range(72, 102):
+    for x in range(120, 155):
+        c = arr[y, x]
+        if np.mean(c) &gt; 130:
+            paper_pixels.append((y, x, c))
+
+print(&#x27;Paper pixels count &gt; 130:&#x27;, len(paper_pixels))
+# Let&#x27;s find min/max y and x:
+ys = [p[0] for p in paper_pixels]
+xs = [p[1] for p in paper_pixels]
+print(f&#x27;Paper range: y=[{min(ys)}, {max(ys)}], x=[{min(xs)}, {max(xs)}]&#x27;)
+
+# Let&#x27;s see what the paper shape is:
+grid = [[&#x27; &#x27; for _ in range(40)] for _ in range(32)]
+for y, x, c in paper_pixels:
+    grid[y - 70][x - 120] = &#x27;*&#x27;
+for r in range(len(grid)):
+    line = &#x27;&#x27;.join(grid[r])
+    if &#x27;*&#x27; in line:
+        print(f&#x27;{r+70:2d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-12T23:05:12.591696+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect rows 50 to 75 in detail around x=140..155:
+for y in range(50, 75):
+    for x in range(144, 152):
+        print(f&#x27;{arr[y,x]}&#x27;, end=&#x27; &#x27;)
+    print(f&#x27; | y={y}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-12T23:05:20.286603+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire smoke plume above the paper:
+# Check from x=110 to 180, y=0 to 73
+# Where is arr[:,:,2] &gt; arr[:,:,0] + 30?
+smoke = (arr[:73, :, 2].astype(int) - arr[:73, :, 0].astype(int) &gt; 20) &amp; (arr[:73, :, 1] &gt; 110)
+ys, xs = np.where(smoke)
+print(&#x27;Smoke pixels count in top half:&#x27;, len(ys))
+print(&#x27;Smoke y min/max:&#x27;, ys.min(), ys.max(), &#x27;x min/max:&#x27;, xs.min(), xs.max())
+
+# Let&#x27;s inspect rows around y=30..50
+for y in range(25, 55, 5):
+    ys_row = xs[ys == y]
+    if len(ys_row) &gt; 0:
+        print(f&#x27;y={y}: x in [{ys_row.min()}, {ys_row.max()}], count={len(ys_row)}&#x27;)
+    else:
+        print(f&#x27;y={y}: no smoke detected with this threshold&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 24</strong><time>2026-11-12T23:05:26.895015+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the whole image at y=0..30
+# Why did x min/max go to 0..195?
+# Let&#x27;s check background color at top-left:
+print(&#x27;Top left y=0..15, x=0..5:&#x27;, arr[0:15, 0])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 25</strong><time>2026-11-12T23:05:32.988185+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect along y for several columns:
+# x=0, x=50, x=100, x=150, x=200, x=250
+cols = [0, 50, 100, 150, 200, 250]
+for y in range(0, 144, 10):
+    vals = [f&#x27;{x}:{arr[y,x]}&#x27; for x in cols]
+    print(f&#x27;y={y:3d} | &#x27; + &#x27; &#x27;.join(vals))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 26</strong><time>2026-11-12T23:05:40.395259+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the paper fold details:
+# rows 70 to 102, cols 120 to 155
+# Let&#x27;s find out what features paper has:
+# Is it a triangle folded paper? Or origami? Or folded sheet tent?
+# Let&#x27;s print out the exact RGB values in a grid of 2x2 blocks or ASCII
+for y in range(72, 102):
+    s = &#x27;&#x27;
+    for x in range(120, 155):
+        r, g, b = arr[y, x]
+        lum = int(0.299*r + 0.587*g + 0.114*b)
+        if lum &gt; 230:
+            s += &#x27;█&#x27;
+        elif lum &gt; 200:
+            s += &#x27;▓&#x27;
+        elif lum &gt; 160:
+            s += &#x27;▒&#x27;
+        elif lum &gt; 120:
+            s += &#x27;░&#x27;
+        else:
+            s += &#x27; &#x27;
+    print(f&#x27;{y:2d}: {s}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 27</strong><time>2026-11-12T23:05:47.852983+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the paper fold:
+# Rows 72-74 have a top ridge from x=125 to 152:
+# In row 73: x=125..152 is bright white [255, 255, 255]&quot;&#x27;!
+print(&#x27;&quot;&#x27;Row 73, x=120..154:&#x27;)
+for x in range(120, 155):
+    print(f&#x27;{x}:{arr[73,x]}&#x27;, end=&#x27; &#x27;)
+print()
+# And where is the smoke touching the paper?
+# Smoke column at row 70-72: x=144..150&quot;&#x27;!
+print(&#x27;&quot;&#x27;Smoke base at y=70..73, x=145..150:&#x27;)
+for y in range(70, 74):
+    for x in range(145, 151):
+        print(f&#x27;({y},{x}):{arr[y,x]}&#x27;, end=&#x27; &#x27;)
+    print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 28</strong><time>2026-11-12T23:06:13.684188+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the smoke plume across all rows from 0 to 73:
+print(&#x27;Smoke centroid (x) and intensity by row:&#x27;)
+smoke_profile = []
+for y in range(0, 73):
+    # Smoke appears in columns 130 to 165, where color is cooler/bluer than table/board background
+    # Let&#x27;s look at pixels in x in [130, 165]
+    row = arr[y, 130:165]
+    # In table/background, R and G are slightly higher than or close to B, or all low.
+    # In smoke, B is elevated, and lum is higher than dark background (~80-100)
+    # Let&#x27;s print the max brightness and which column it is at:
+    lums = row.mean(axis=-1)
+    best_x = 130 + np.argmax(lums)
+    best_lum = np.max(lums)
+    diff = row[:, 2].astype(float) - row[:, 0].astype(float)
+    best_diff = np.max(diff)
+    diff_x = 130 + np.argmax(diff)
+    smoke_profile.append((y, best_x, best_lum, diff_x, best_diff))
+
+for sp in smoke_profile[::3]:
+    print(f&#x27;y={sp[0]:2d}: lum_peak at x={sp[1]:3d} ({sp[2]:.1f}), blue_excess peak at x={sp[3]:3d} (+{sp[4]:.1f})&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 29</strong><time>2026-11-12T23:06:21.207822+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect rows 0 to 12 across all columns x=0 to 255:
+print(&#x27;Is there a sky/smoke cloud at the top?&#x27;)
+# Mean RGB of row 0:
+print(&#x27;Row 0 mean:&#x27;, arr[0].mean(axis=0))
+# Let&#x27;s see rows 0 to 15:
+for y in range(0, 15):
+    print(f&#x27;y={y:2d}: col 0={arr[y,0]}, col 100={arr[y,100]}, col 140={arr[y,140]}, col 180={arr[y,180]}, col 250={arr[y,250]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 30</strong><time>2026-11-12T23:06:30.463160+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire image&#x27;s gradient and structure:
+# What are the distinct zones in this frame?
+# 1. y=0..12, x=0..160: A bright blue band&quot;&#x27;! Wait, is that a blue wall, whiteboard, horizon, or window?
+# 2. y=13..72: Dark background wall or background behind the table.
+# 3. y=50..73, x=140..152: Thin plume of white/blue smoke rising vertically from the burning paper!
+# 4. y=72..102, x=120..155: Folded paper!
+# 5. y=70..143: Glass cutting board on a table surface.
+print(&#x27;&quot;&#x27;Summary of zones:&#x27;)
+print(&#x27;Band at top y=0..12, x=0..160: mean RGB =&#x27;, arr[0:12, 0:160].mean(axis=(0,1)).astype(int))
+print(&#x27;Dark background y=20..45, x=0..160: mean RGB =&#x27;, arr[20:45, 0:160].mean(axis=(0,1)).astype(int))
+print(&#x27;Dark right y=0..70, x=180..256: mean RGB =&#x27;, arr[0:70, 180:256].mean(axis=(0,1)).astype(int))
+print(&#x27;Smoke plume y=52..72, x=142..150: mean RGB =&#x27;, arr[52:72, 142:150].mean(axis=(0,1)).astype(int))
+print(&#x27;Paper region y=73..95, x=125..152: mean RGB =&#x27;, arr[73:95, 125:152].mean(axis=(0,1)).astype(int))
+print(&#x27;Table / board y=100..140, x=0..120: mean RGB =&#x27;, arr[100:140, 0:120].mean(axis=(0,1)).astype(int))
+print(&#x27;Board highlight y=110..144, x=220..256: mean RGB =&#x27;, arr[110:144, 220:256].mean(axis=(0,1)).astype(int))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 31</strong><time>2026-11-12T23:06:38.470288+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the paper in detail:
+# Check pixels at y=72..100, x=120..155
+# Specifically, where are dark/charred pixels?
+# Are there any black/charred pixels on the paper in frame 0?
+paper_box = arr[72:100, 120:155]
+# Let&#x27;s find darkest pixels inside the paper bounding box:
+for y in range(73, 95):
+    for x in range(125, 152):
+        c = arr[y, x]
+        if np.mean(c) &lt; 130:
+            print(f&#x27;({y},{x}): {c}&#x27;, end=&#x27; &#x27;)
+    print(f&#x27;-- row {y}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 32</strong><time>2026-11-12T23:06:45.399668+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the exact RGB values inside the paper bounding box:
+for y in range(73, 92):
+    for x in range(125, 152):
+        c = arr[y, x]
+        # check if it has any red/orange tint:
+        if c[0] &gt; c[1] + 15 or c[0] &gt; c[2] + 20:
+            print(f&#x27;Warm pixel at ({y},{x}): {c}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 33</strong><time>2026-11-12T23:06:52.795720+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Pixel at (86, 133):&#x27;, arr[86, 133])
+print(&#x27;Surrounding 5x5 at (86, 133):&#x27;)
+for dy in range(-2, 3):
+    y = 86 + dy
+    line = f&#x27;y={y}: &#x27;
+    for dx in range(-2, 3):
+        x = 133 + dx
+        line += f&#x27;x={x}:{arr[y,x]} &#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 34</strong><time>2026-11-12T23:07:04.167438+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the smoke plume above the paper:
+# Check from y=45 down to 73, x=135 to 155
+print(&#x27;Smoke intensity map (blue excess or brightness above background):&#x27;)
+# Background around x=145 is approximately:
+# y=45: ~[90, 80, 70]
+# y=50: ~[90, 80, 70]
+# y=55: ~[85, 75, 65]
+# y=60: ~[85, 75, 65]
+# y=65: ~[85, 75, 65]
+# y=70: ~[85, 75, 65]
+for y in range(45, 74):
+    line = f&#x27;{y:2d}: &#x27;
+    for x in range(138, 155):
+        c = arr[y, x]
+        # smoke brightness
+        val = int(c[2]) # blue channel is strongest in smoke&quot;&#x27;!
+        line += f&#x27;&quot;&#x27;{val:3d} &#x27;
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 35</strong><time>2026-11-12T23:07:12.219281+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the paper fold geometry:
+# Find all pixels that are part of the paper:
+# What makes a pixel part of the paper?
+# Let&#x27;s see:
+# y in [72, 102], x in [120, 155]
+# Let&#x27;s check colors in this box:
+sub = arr[72:102, 120:155]
+print(&#x27;Shape of paper sub:&#x27;, sub.shape)
+# Print min, mean, max
+print(&#x27;Mean RGB:&#x27;, sub.mean(axis=(0,1)))
+# Let&#x27;s check background right next to paper:
+print(&#x27;Left of paper (y=80..90, x=110..120):&#x27;, arr[80:90, 110:120].mean(axis=(0,1)))
+print(&#x27;Right of paper (y=80..90, x=155..165):&#x27;, arr[80:90, 155:165].mean(axis=(0,1)))
+print(&#x27;Below paper (y=102..110, x=130..145):&#x27;, arr[102:110, 130:145].mean(axis=(0,1)))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 36</strong><time>2026-11-12T23:07:20.643076+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the paper mask:
+paper_mask = np.zeros((144, 256), dtype=bool)
+# Let&#x27;s find pixels in y in [72, 102], x in [120, 155]
+# that are significantly brighter than surrounding background:
+for y in range(72, 102):
+    for x in range(120, 155):
+        c = arr[y, x]
+        lum = 0.299*c[0] + 0.587*c[1] + 0.114*c[2]
+        # Let&#x27;s check against local background
+        if y &lt; 80:
+            if lum &gt; 130:
+                paper_mask[y, x] = True
+        elif y &lt; 92:
+            if lum &gt; 115:
+                paper_mask[y, x] = True
+        else:
+            if lum &gt; 110:
+                paper_mask[y, x] = True
+
+print(&#x27;Paper mask count:&#x27;, np.sum(paper_mask))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 37</strong><time>2026-11-12T23:07:27.995509+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the smoke plume above paper:
+# From y=0 to y=73, x in [120, 170]
+# Where is smoke present in first frame?
+smoke_mask = np.zeros((74, 256), dtype=bool)
+for y in range(40, 73):
+    for x in range(130, 160):
+        # Smoke has high blue or high luminance compared to background
+        c = arr[y, x]
+        if c[2] &gt; 140 or (c[2] &gt; c[0] + 30 and c[2] &gt; 110):
+            smoke_mask[y, x] = True
+
+print(&#x27;Smoke mask (y=40..73) count:&#x27;, np.sum(smoke_mask))
+# Let&#x27;s see bounding box of this smoke plume
+ys, xs = np.where(smoke_mask)
+print(&#x27;y range:&#x27;, ys.min(), ys.max(), &#x27;x range:&#x27;, xs.min(), xs.max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 38</strong><time>2026-11-12T23:07:35.178556+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the smoke plume above y=47 up to y=0:
+for y in range(0, 48, 4):
+    row = arr[y, 130:160]
+    print(f&#x27;y={y:2d}:&#x27;, row.mean(axis=0).astype(int), &#x27;max_B:&#x27;, row[:,2].max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 39</strong><time>2026-11-12T23:07:43.283978+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the smoke plume at y=45..73:
+# Let&#x27;s see the peak x at each row from 72 up to 45
+print(&#x27;Peak coordinates:&#x27;)
+for y in range(72, 44, -1):
+    row_B = arr[y, :, 2]
+    peak_x = np.argmax(row_B[130:160]) + 130
+    print(f&#x27;y={y:2d}: peak_x={peak_x}, peak_val={arr[y, peak_x]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 40</strong><time>2026-11-12T23:07:56.568313+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Background at x=120..135, y=45..70:
+bg_left = arr[45:70, 115:130].mean(axis=1)
+# Background at x=155..170, y=45..70:
+bg_right = arr[45:70, 155:170].mean(axis=1)
+print(&#x27;Background left mean:&#x27;, bg_left.mean(axis=0))
+print(&#x27;Background right mean:&#x27;, bg_right.mean(axis=0))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 41</strong><time>2026-11-12T23:08:05.424178+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the paper fold:
+# Rows 73..100
+# Where are the edges of the paper?
+# Let&#x27;s see:
+for y in range(73, 102, 2):
+    row = arr[y]
+    # find where row has paper pixels (e.g. lum &gt; 120 and x in 120..155)
+    xs = [x for x in range(115, 160) if np.mean(arr[y, x]) &gt; 125]
+    if len(xs) &gt; 0:
+        print(f&#x27;y={y:2d}: x in [{min(xs)}, {max(xs)}], width={max(xs)-min(xs)+1}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 42</strong><time>2026-11-12T23:08:15.468916+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the paper structure:
+# Is it a tent/triangle or cylinder?
+# Notice row 73: x=121..149 is horizontal ridge (width 29)
+# Below that, x goes down to y=101, x=137..158
+# And on the left side, from y=73 to y=90, x is ~122
+# Then from y=91 to 101, left edge slopes from x=125 to x=137&quot;&#x27;!
+# That&#x27;&quot;&#x27;s a perspective quad / folded sheet&quot;&#x27;!
+print(&#x27;&quot;&#x27;Paper left edge:&#x27;)
+for y in range(73, 102):
+    xs = [x for x in range(115, 160) if np.mean(arr[y, x]) &gt; 125]
+    if len(xs) &gt; 0:
+        print(f&#x27;{y}: left={min(xs)}, right={max(xs)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 43</strong><time>2026-11-12T23:08:32.290361+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire image&#x27;s standard deviation / noise level:
+# In flat areas:
+flat_top = arr[1:10, 1:40]
+print(&#x27;Flat top std:&#x27;, flat_top.std(axis=(0,1)))
+flat_bg = arr[25:35, 180:220]
+print(&#x27;Flat bg std:&#x27;, flat_bg.std(axis=(0,1)))
+flat_board = arr[125:135, 10:40]
+print(&#x27;Flat board std:&#x27;, flat_board.std(axis=(0,1)))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 44</strong><time>2026-11-12T23:08:40.498582+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the smoke plume above the paper:
+# Check from y=30 to 73:
+print(&#x27;Smoke column profile:&#x27;)
+for y in range(40, 73, 2):
+    row = arr[y, 140:155]
+    b = row[:, 2]
+    # find where b is max
+    max_idx = np.argmax(b)
+    x = 140 + max_idx
+    print(f&#x27;y={y:2d}: peak at x={x}, RGB={arr[y,x]}, width_over_140={np.sum(b &gt; 140)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 45</strong><time>2026-11-12T23:08:50.093821+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the smoke plume above y=40:
+# Is there an older smoke cloud or residual smoke at y=0..12?
+# Let&#x27;s check difference between y=0..12 and y=15..30
+# Row 0 has x=0..160 bright bluish [150-180, 170-200, 210-245]
+# That&#x27;s a huge bright region&quot;&#x27;!
+# What is that bright region at the top?
+# Could it be the ceiling, or a white/light blue wall, or a light source / window?
+# Notice row 0: x=0 is [153, 172, 214], x=128 is [182, 199, 243], x=160 is [111, 115, 139], x=180 is [82, 78, 92]
+# It is completely smooth and static: rows 0 to 8 are almost identical!
+print(&#x27;&quot;&#x27;Diff between row 0 and row 4:&#x27;, np.abs(arr[0].astype(int) - arr[4].astype(int)).max())
+print(&#x27;Diff between row 0 and row 8:&#x27;, np.abs(arr[0].astype(int) - arr[8].astype(int)).max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 46</strong><time>2026-11-12T23:08:58.114155+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the smoke plume between y=40 and y=73:
+# Let&#x27;s see what the background behind the smoke would look like if interpolated from left and right&quot;&#x27;!
+bg = arr.copy()
+for y in range(40, 73):
+    left_c = arr[y, 130:135].mean(axis=0)
+    right_c = arr[y, 155:160].mean(axis=0)
+    print(f&#x27;&quot;&#x27;y={y:2d}: left={left_c.astype(int)}, right={right_c.astype(int)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 47</strong><time>2026-11-12T23:09:07.058327+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the paper fold:
+# Rows 73 to 101, cols 120 to 160
+# Let&#x27;s see:
+# y=73: [121..149] is the top fold edge
+# x=149 is where the smoke emerges at row 72-73&quot;&#x27;!
+print(&#x27;&quot;&#x27;Smoke origin at y=72-73: x=147..150&#x27;)
+print(&#x27;What is at (72, 149):&#x27;, arr[72, 149])
+print(&#x27;What is at (73, 149):&#x27;, arr[73, 149])
+print(&#x27;What is at (74, 149):&#x27;, arr[74, 149])
+print(&#x27;What is at (75, 149):&#x27;, arr[75, 149])
+print(&#x27;What is at (76, 149):&#x27;, arr[76, 149])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 48</strong><time>2026-11-12T23:09:27.841622+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the paper fold:
+# Rows 73..101, cols 120..160
+# Let&#x27;s see the geometry of the paper:
+# What are the vertices or facets?
+# Let&#x27;s look at the brightness across several cross sections:
+for y in [75, 80, 85, 90, 95]:
+    print(f&#x27;Row {y}:&#x27;)
+    for x in range(120, 160, 2):
+        print(f&#x27;{arr[y,x][0]:3d}&#x27;, end=&#x27; &#x27;)
+    print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 49</strong><time>2026-11-12T23:09:37.824790+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+
+# Let&#x27;s inspect how the paper should burn:
+# A piece of paper burning on a glass cutting board:
+# What happens physically over 5 seconds (20 frames, 4 fps = 0.25s per frame)?
+# In 5 seconds:
+# The flame/smolder spreads across the paper.
+# As it burns:
+# 1. Flame &amp; Ember:
+#    - Glowing ember line (bright orange/yellow/red, R~255, G~150-200, B~20-50, and hot core white/yellow)
+#    - Active flame flickering: yellow-orange tongues licking upward (height ~ 10-25 pixels)
+# 2. Paper charring / consuming:
+#    - The unburned white paper is consumed by the flame front.
+#    - Behind the flame front, the paper turns into dark gray/black charred ash (R~30-50, G~30-45, B~30-45)
+#    - Some parts crumble or shrink as they burn to ash.
+# 3. Smoke emission:
+#    - Plume of white/light blue-gray smoke rising continuously upward.
+#    - Smoke billows and curls with realistic fluid upward motion / advection.
+#    - Smoke is illuminated by the flame and ambient light.
+# 4. Glass cutting board reflection:
+#    - The flame and glowing embers cast a warm reflection downward on the glass surface (y &gt; 90..110).
+print(&#x27;Physical progression verified.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 50</strong><time>2026-11-12T23:09:47.276785+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Flame colors:
+# Outer glow: deep orange-red [230, 80, 20]
+# Main flame: bright orange-yellow [255, 180, 40]
+# Inner core: bright white-yellow [255, 240, 180]
+# Ember edge: glowing red-orange [240, 110, 30]
+# Ash: dark charcoal [45, 42, 40] with edge highlight [80, 75, 70]
+print(&#x27;Color palette matches real fire.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 51</strong><time>2026-11-12T23:09:58.230028+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+from scipy.ndimage import gaussian_filter
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, _ = arr.shape
+
+# Let&#x27;s segment the paper precisely
+# Region of interest: y in [71, 102], x in [120, 160]
+paper_mask = np.zeros((H, W), dtype=float)
+
+# Background color estimation around paper:
+# Left: x ~ 110..120
+# Right: x ~ 160..170
+# Bottom: y ~ 103..112
+for y in range(71, 103):
+    for x in range(118, 162):
+        c = arr[y, x].astype(float)
+        # Check against local background
+        # Notice paper pixels have brightness &gt; 120 and neutral tone
+        # except where slightly shadowed (down to 110)
+        lum = 0.299*c[0] + 0.587*c[1] + 0.114*c[2]
+        # In this box, table background is around 60-90 on left, 90-120 on right (warm brown)
+        # Right background has R &gt; B + 30
+        is_bg = False
+        if x &gt; 150:
+            if c[0] &gt; c[2] + 45 and lum &lt; 165:
+                is_bg = True
+        if x &lt; 125:
+            if lum &lt; 110:
+                is_bg = True
+        if y &gt; 95 and x &lt; 133:
+            if lum &lt; 115:
+                is_bg = True
+        if y &gt; 101:
+            is_bg = True
+        if not is_bg and lum &gt; 115:
+            paper_mask[y, x] = 1.0
+
+print(&#x27;Paper mask total pixels:&#x27;, np.sum(paper_mask))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 52</strong><time>2026-11-12T23:10:07.021931+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the smoke in frame 0:
+# Where is smoke in frame 0?
+# Above y=72:
+smoke_excess = np.maximum(0, arr[:73, :, 2].astype(float) - np.maximum(arr[:73, :, 0], arr[:73, :, 1]).astype(float))
+# In the smoke plume, B exceeds max(R,G) by up to 80-90&quot;&#x27;!
+print(&#x27;&quot;&#x27;Smoke excess max:&#x27;, smoke_excess.max())
+print(&#x27;Excess &gt; 20 pixels count:&#x27;, np.sum(smoke_excess &gt; 20))
+ys, xs = np.where(smoke_excess &gt; 20)
+print(&#x27;Smoke y min/max:&#x27;, ys.min(), ys.max(), &#x27;x min/max:&#x27;, xs.min(), xs.max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 53</strong><time>2026-11-12T23:10:18.791809+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the smoke plume specifically in columns 135 to 155, rows 20 to 72:
+for y in range(40, 73, 3):
+    row_B = arr[y, 138:154, 2].astype(int)
+    row_R = arr[y, 138:154, 0].astype(int)
+    row_diff = row_B - row_R
+    print(f&#x27;y={y:2d}:&#x27;, &#x27; &#x27;.join([f&#x27;{d:2d}&#x27; for d in row_diff]))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 54</strong><time>2026-11-12T23:10:27.753116+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+
+# Let&#x27;s test a simple simulation:
+# 20 frames, t = 0..19
+# Ember origin at (y=73, x=148)
+# At t=0: ember radius ~ 2, flame height ~ 0, smoke plume established at y=45..72, x=140..152
+# As t goes from 0 to 19:
+# Ember grows outwards across the paper:
+# Burn distance d(y, x) from origin (73, 148)
+# Burn front speed: ~1.5 - 2 pixels per frame
+# Ash formed where d &lt; burn_front - 3
+# Flame tongues: active near burn front, flickering upward with turbulence
+# Smoke generated from ember and flame front, rising at ~4-6 pixels per frame
+print(&#x27;Simulation concept tested.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 55</strong><time>2026-11-12T23:10:39.579902+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+from scipy.ndimage import distance_transform_edt, gaussian_filter
+
+arr = np.array(Image.open(&#x27;first_frame.png&#x27;))
+H, W, _ = arr.shape
+
+# Build high quality paper mask
+paper_mask = np.zeros((H, W), dtype=bool)
+for y in range(72, 102):
+    for x in range(120, 160):
+        c = arr[y, x].astype(float)
+        lum = 0.299*c[0] + 0.587*c[1] + 0.114*c[2]
+        is_bg = False
+        if x &gt; 150 and c[0] &gt; c[2] + 45 and lum &lt; 165:
+            is_bg = True
+        if x &lt; 125 and lum &lt; 110:
+            is_bg = True
+        if y &gt; 95 and x &lt; 133 and lum &lt; 115:
+            is_bg = True
+        if y &gt; 101:
+            is_bg = True
+        if not is_bg and lum &gt; 115:
+            paper_mask[y, x] = True
+
+print(&#x27;Paper mask count:&#x27;, np.sum(paper_mask))
+
+# Flame origin: (y=74, x=148)
+# Compute anisotropic burn distance across the paper:
+# Fire burns downwards and outwards along the paper surface
+# Paper ridge is y=73, x in [121, 149]
+# Paper body goes down to y=101
+yy, xx = np.indices((H, W))
+# Effective distance from (73, 148):
+# Burns faster along the ridge (leftwards, -x) and downwards (+y)
+dx = (148 - xx) # positive as it burns leftwards
+dy = (yy - 73)  # positive as it burns downwards
+
+# Geodesic / elliptical burn metric:
+# Burning spreads along the fold and down the faces
+burn_metric = np.sqrt(np.maximum(0, dx)**2 * 0.8 + np.maximum(0, dy)**2 * 1.2 + np.maximum(0, -dx)**2 * 1.5 + np.maximum(0, -dy)**2 * 2.0)
+
+# Check max metric within paper:
+print(&#x27;Burn metric on paper: min =&#x27;, burn_metric[paper_mask].min(), &#x27;max =&#x27;, burn_metric[paper_mask].max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 56</strong><time>2026-11-12T23:10:48.039028+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+
+# Let&#x27;s test a simple smoke particle system or grid-based advection
+# Particles: position (x, y), age, max_age, radius, opacity, vx, vy
+# Every step:
+# 1. Particles rise (vy = -1.5 to -3.0 pixels/step)
+# 2. Turbulence / swaying: vx = sin(t*0.5 + y*0.1) * 0.4 + noise
+# 3. Radius grows: r = r0 + age * 0.4
+# 4. Opacity decreases: alpha = alpha0 * (1 - age/max_age)**1.5
+# 5. Splat onto smoke accumulation grid
+print(&#x27;Smoke model confirmed.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 57</strong><time>2026-11-12T23:11:30.260520+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &lt;&lt; &#x27;EOF&#x27; &gt; generate.py
+\&quot;\&quot;\&quot;Generate 20-frame video of a piece of folded paper burning with white smoke.\&quot;\&quot;\&quot;
+import numpy as np
+from PIL import Image
+from scipy.ndimage import gaussian_filter
+import artifact_io
+
+def generate_video():
+    first_frame = np.array(Image.open(\&quot;first_frame.png\&quot;))
+    H, W, C = first_frame.shape
+    num_frames = 20
+    fps = 4
+
+    # 1. Precise paper segmentation
+    paper_mask = np.zeros((H, W), dtype=bool)
+    for y in range(71, 103):
+        for x in range(118, 162):
+            c = first_frame[y, x].astype(float)
+            lum = 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
+            is_bg = False
+            if x &gt; 150 and c[0] &gt; c[2] + 45 and lum &lt; 165:
+                is_bg = True
+            if x &lt; 125 and lum &lt; 110:
+                is_bg = True
+            if y &gt; 95 and x &lt; 133 and lum &lt; 115:
+                is_bg = True
+            if y &gt; 101:
+                is_bg = True
+            if not is_bg and lum &gt; 115:
+                paper_mask[y, x] = True
+
+    # 2. Burn distance field from ignition spot (73, 148)
+    yy, xx = np.indices((H, W))
+    dx = xx - 148.0
+    dy = yy - 73.0
+
+    # Fire spreads across the folded paper:
+    # faster along the fold towards -x, and downwards along +y
+    metric_x = np.where(dx &lt; 0, (-dx) * 0.9, dx * 1.4)
+    metric_y = np.where(dy &gt; 0, dy * 1.1, (-dy) * 1.8)
+    burn_dist = np.sqrt(metric_x**2 + metric_y**2)
+
+    # Clean background plate for paper region (in-painting surrounding board/table)
+    # Background around paper: left has darker tone, right has warm brown cutting board
+    bg_clean = first_frame.copy().astype(float)
+    for y in range(70, 105):
+        # interpolate horizontally from x=115 to x=162
+        left_val = first_frame[y, 114:118].mean(axis=0)
+        right_val = first_frame[y, 161:165].mean(axis=0)
+        for x in range(118, 162):
+            if paper_mask[y, x]:
+                w_right = (x - 118) / (162 - 118)
+                bg_clean[y, x] = (1.0 - w_right) * left_val + w_right * right_val
+
+    # Smooth the in-painted background slightly
+    bg_clean_blurred = gaussian_filter(bg_clean, sigma=(1.0, 1.0, 0))
+    bg_clean[paper_mask] = bg_clean_blurred[paper_mask]
+
+    # Smoke emission simulator
+    # Seeded pseudo-random generator for repeatability
+    rng = np.random.RandomState(42)
+
+    # Particle system for smoke
+    class Particle:
+        def __init__(self, x, y, vx, vy, life, max_life, size, density):
+            self.x = x
+            self.y = y
+            self.vx = vx
+            self.vy = vy
+            self.life = life
+            self.max_life = max_life
+            self.size = size
+            self.density = density
+
+    smoke_particles = []
+
+    # Warm-up smoke particle system so frame 0 has exact match or matching continuity
+    # Note: frame 0 will be exact copy of first_frame&quot;&#x27;!
+    # Frames 1..19 will evolve smoothly.
+
+    frames = []
+
+    # Frame loop
+    for t in range(num_frames):
+        if t == 0:
+            frames.append(first_frame.copy())
+            continue
+
+        # Progression parameters
+        # Burn front expands over time
+        burn_radius = t * 1.6 + 1.0  # reaches ~31 by frame 19, covering ~90% of paper
+        flame_intensity = np.clip(t / 4.0, 0.0, 1.0) # flame builds up in first 4 frames
+
+        # Initialize current frame canvas
+        frame = first_frame.copy().astype(float)
+
+        # 1. Update Paper &amp; Charring
+        # Paper state:
+        # burn_dist &lt; burn_radius - 4.0: Ash / consumed
+        # burn_radius - 4.0 &lt;= burn_dist &lt; burn_radius: Active burning / glowing ember
+        # burn_dist &gt;= burn_radius: Unburned paper
+        for y in range(71, 103):
+            for x in range(118, 162):
+                if not paper_mask[y, x]:
+                    continue
+
+                d = burn_dist[y, x]
+                orig_c = first_frame[y, x].astype(float)
+                bg_c = bg_clean[y, x]
+
+                if d &lt; burn_radius - 3.5:
+                    # Charred ash / burnt away
+                    # Behind the flame, paper crumples to thin dark ash or reveals cutting board
+                    char_factor = np.clip((burn_radius - 3.5 - d) / 4.0, 0.0, 1.0)
+                    ash_color = np.array([38.0, 35.0, 34.0]) + rng.uniform(-4, 4, 3)
+                    # Edge of ash has slight gray residue
+                    if d &gt; burn_radius - 6.0:
+                        ash_color = np.array([65.0, 60.0, 58.0]) + rng.uniform(-3, 3, 3)
+
+                    # Blend between ash and transparent hole showing board
+                    c_burned = ash_color * 0.7 + bg_c * 0.3
+                    frame[y, x] = orig_c * (1.0 - char_factor) + c_burned * char_factor
+
+                elif d &lt; burn_radius:
+                    # Glowing ember line!
+                    # Hot glowing edge: deep red to bright yellow-orange
+                    ember_pos = (burn_radius - d) / 3.5  # 0 to 1
+                    ember_flicker = 0.85 + 0.3 * np.sin(t * 2.5 + x * 0.8 + y * 0.5)
+
+                    # Ember color transition
+                    ember_r = np.clip(255.0 * ember_flicker, 200.0, 255.0)
+                    ember_g = np.clip((120.0 + 80.0 * (1.0 - ember_pos)) * ember_flicker, 60.0, 220.0)
+                    ember_b = np.clip((20.0 + 30.0 * (1.0 - ember_pos)) * ember_flicker, 10.0, 80.0)
+
+                    ember_color = np.array([ember_r, ember_g, ember_b])
+                    alpha = np.clip((burn_radius - d) / 1.5, 0.0, 1.0)
+                    frame[y, x] = orig_c * (1.0 - alpha) + ember_color * alpha
+
+        # 2. Render Flames (Licking upward from active embers)
+        # Find active ember pixels
+        ember_ys, ember_xs = np.where(paper_mask &amp; (burn_dist &gt;= burn_radius - 3.5) &amp; (burn_dist &lt;= burn_radius + 0.5))
+
+        # Flame field buffer
+        flame_r = np.zeros((H, W), dtype=float)
+        flame_g = np.zeros((H, W), dtype=float)
+        flame_b = np.zeros((H, W), dtype=float)
+        flame_alpha = np.zeros((H, W), dtype=float)
+
+        if len(ember_ys) &gt; 0 and flame_intensity &gt; 0.1:
+            # Generate flame tongues
+            # Average flame center
+            mean_fx = np.mean(ember_xs)
+            mean_fy = np.mean(ember_ys)
+
+            # Flame height modulates with time (flickering physics)
+            base_flame_h = 10.0 + 4.0 * np.sin(t * 1.8) + 2.0 * np.cos(t * 3.4)
+            flame_h = base_flame_h * flame_intensity
+
+            # Create procedural flame tongues
+            for i in range(len(ember_ys)):
+                if rng.rand() &gt; 0.4:  # sample subset of ember points for flame roots
+                    continue
+                rx = ember_xs[i]
+                ry = ember_ys[i]
+
+                # Flame shape above root:
+                # height varies per tongue
+                tongue_h = flame_h * rng.uniform(0.7, 1.3)
+                tongue_drift = (rx - mean_fx) * 0.15 + np.sin(t * 1.5 + ry * 0.2) * 1.2
+
+                # Stamp vertical flame profile
+                max_step = int(np.ceil(tongue_h))
+                for step in range(max_step):
+                    fy = ry - step
+                    if fy &lt; 0 or fy &gt;= H:
+                        break
+                    progress = step / max_step  # 0 at bottom, 1 at flame tip
+                    fx = rx + tongue_drift * progress + rng.uniform(-0.4, 0.4)
+                    ix = int(round(fx))
+                    if ix &lt; 0 or ix &gt;= W:
+                        continue
+
+                    # Width narrows towards tip
+                    w_factor = (1.0 - progress)**0.7
+                    intensity = (1.0 - progress) * flame_intensity * rng.uniform(0.8, 1.1)
+
+                    # Flame color gradient:
+                    # Bottom/core: bright yellow-white [255, 235, 140]
+                    # Mid: bright orange-yellow [255, 160, 30]
+                    # Tip: deep reddish-orange [230, 75, 15]
+                    col_r = 255.0
+                    col_g = np.clip(235.0 * (1.0 - progress) + 60.0 * progress, 50.0, 240.0)
+                    col_b = np.clip(140.0 * (1.0 - progress)**2, 10.0, 160.0)
+
+                    # Splat with small width
+                    for dx_splat in [-1, 0, 1]:
+                        px = ix + dx_splat
+                        if 0 &lt;= px &lt; W:
+                            d_splat = abs(dx_splat)
+                            splat_w = np.exp(-d_splat**2 / (0.8 + w_factor * 1.2))
+                            val = intensity * splat_w
+                            if val &gt; flame_alpha[fy, px]:
+                                flame_alpha[fy, px] = val
+                                flame_r[fy, px] = col_r
+                                flame_g[fy, px] = col_g
+                                flame_b[fy, px] = col_b
+
+            # Smooth flame buffer slightly
+            flame_alpha = gaussian_filter(flame_alpha, sigma=0.7)
+            flame_r = gaussian_filter(flame_r, sigma=0.5)
+            flame_g = gaussian_filter(flame_g, sigma=0.5)
+            flame_b = gaussian_filter(flame_b, sigma=0.5)
+
+            # Composite flame onto frame
+            flame_mask = np.clip(flame_alpha * 1.2, 0.0, 0.95)
+            flame_rgb = np.stack([flame_r, flame_g, flame_b], axis=-1)
+            for c in range(3):
+                frame[:, :, c] = frame[:, :, c] * (1.0 - flame_mask) + flame_rgb[:, :, c] * flame_mask
+
+        # 3. Ambient flame glow and reflection on cutting board
+        if flame_intensity &gt; 0.1 and len(ember_ys) &gt; 0:
+            glow_y = int(np.mean(ember_ys))
+            glow_x = int(np.mean(ember_xs))
+            glow_radius = 25.0
+            dist_glow = np.sqrt((xx - glow_x)**2 + (yy - glow_y)**2)
+            glow_factor = np.clip(1.0 - dist_glow / glow_radius, 0.0, 1.0)**2 * 0.18 * flame_intensity
+            glow_flicker = 1.0 + 0.15 * np.sin(t * 3.0)
+
+            frame[:, :, 0] += glow_factor * 180.0 * glow_flicker
+            frame[:, :, 1] += glow_factor * 80.0 * glow_flicker
+            frame[:, :, 2] += glow_factor * 15.0 * glow_flicker
+
+            # Glass cutting board reflection downwards (y &gt; 90..115)
+            refl_y_min = max(glow_y + 2, 85)
+            refl_mask = (yy &gt;= refl_y_min) &amp; (yy &lt;= refl_y_min + 20) &amp; (abs(xx - glow_x) &lt; 18)
+            refl_dist = np.sqrt(((xx - glow_x) * 1.2)**2 + ((yy - (refl_y_min + 5)) * 0.8)**2)
+            refl_intensity = np.clip(1.0 - refl_dist / 16.0, 0.0, 1.0)**2 * 0.12 * flame_intensity
+            frame[:, :, 0] += refl_intensity * 160.0
+            frame[:, :, 1] += refl_intensity * 70.0
+
+        # 4. White Smoke Simulation
+        # Emit new smoke particles from active flame and ember zone
+        num_new_particles = 14 + int(t * 0.8) # smoke volume slightly increases as fire burns
+        for _ in range(num_new_particles):
+            if len(ember_ys) &gt; 0:
+                idx = rng.randint(len(ember_ys))
+                px = float(ember_xs[idx]) + rng.uniform(-1.5, 1.5)
+                py = float(ember_ys[idx]) - rng.uniform(2.0, 6.0)
+            else:
+                px = 148.0 + rng.uniform(-1.0, 1.0)
+                py = 72.0
+
+            # Upward velocity with realistic buoyancy and gentle draft
+            vy = rng.uniform(-4.0, -2.8) # rises 3-4 pixels per frame
+            vx = rng.uniform(-0.5, 0.3) + np.sin(t * 0.6) * 0.2
+            life = 0.0
+            max_life = rng.uniform(18.0, 26.0)
+            size = rng.uniform(2.0, 3.5)
+            density = rng.uniform(0.18, 0.28)
+            smoke_particles.append(Particle(px, py, vx, vy, life, max_life, size, density))
+
+        # Update all smoke particles
+        surviving_particles = []
+        smoke_layer = np.zeros((H, W), dtype=float)
+
+        for p in smoke_particles:
+            p.life += 1.0
+            if p.life &gt;= p.max_life:
+                continue
+
+            # Physics update
+            p.x += p.vx + np.sin(p.y * 0.08 + t * 0.4) * 0.3
+            p.y += p.vy
+            p.size += 0.35 # smoke expands as it rises
+            p.vx += rng.uniform(-0.08, 0.08)
+
+            if p.y &lt; -10 or p.x &lt; 0 or p.x &gt;= W:
+                continue
+
+            surviving_particles.append(p)
+
+            # Splat particle onto smoke accumulation grid
+            ix = int(round(p.x))
+            iy = int(round(p.y))
+            rad = int(np.ceil(p.size * 1.5))
+            life_decay = (1.0 - p.life / p.max_life)**1.2
+
+            # Particle density
+            p_dense = p.density * life_decay
+
+            y0 = max(0, iy - rad)
+            y1 = min(H, iy + rad + 1)
+            x0 = max(0, ix - rad)
+            x1 = min(W, ix + rad + 1)
+
+            if y1 &gt; y0 and x1 &gt; x0:
+                grid_y, grid_x = np.ogrid[y0 - iy:y1 - iy, x0 - ix:x1 - ix]
+                dist_sq = grid_x**2 + grid_y**2
+                kernel = np.exp(-dist_sq / (2.0 * p.size**2))
+                smoke_layer[y0:y1, x0:x1] += p_dense * kernel
+
+        smoke_particles = surviving_particles
+
+        # Blend procedural smoke layer
+        # Apply smooth blur to smoke layer for realistic soft volumetric feel
+        smoke_layer = gaussian_filter(smoke_layer, sigma=1.2)
+        smoke_alpha = np.clip(smoke_layer, 0.0, 0.85)
+
+        # White / light-blue smoke color matching the original scene
+        # Smoke color: R~205, G~225, B~245 with slight warm lighting from flame near base
+        smoke_base_color = np.array([210.0, 228.0, 246.0])
+
+        for c in range(3):
+            sc = smoke_base_color[c]
+            # Warm up smoke color near active flame (y in 55..75)
+            if c == 0: # red
+                warm_red = np.clip((75.0 - yy) / 20.0, 0.0, 1.0)
+                sc_map = smoke_base_color[0] + (1.0 - warm_red) * 20.0
+            else:
+                sc_map = sc
+
+            frame[:, :, c] = frame[:, :, c] * (1.0 - smoke_alpha) + sc_map * smoke_alpha
+
+        # Ensure valid range
+        frame = np.clip(frame, 0, 255).astype(np.uint8)
+        frames.append(frame)
+
+    frames = np.asarray(frames, dtype=np.uint8)
+    return frames
+
+if __name__ == &quot;__main__&quot;:
+    frames = generate_video()
+    print(&quot;Generated frames shape:&quot;, frames.shape)
+    artifact_io.save(frames, &quot;.&quot;)
+    print(&quot;Saved artifacts successfully.&quot;)
+EOF
+&#x27;</pre></details><details class=command><summary><strong>命令 58</strong><time>2026-11-12T23:11:41.197559+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;python3 generate.py&#x27;</pre></details><details class=command><summary><strong>命令 59</strong><time>2026-11-12T23:11:51.331430+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;frames/00.png&#x27;))
+f_orig = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Frame 0 vs original exact diff:&#x27;, np.max(np.abs(f0.astype(int) - f_orig.astype(int))))
+
+# Check frame transitions
+for i in range(1, 20):
+    prev = np.array(Image.open(f&#x27;frames/{i-1:02d}.png&#x27;))
+    curr = np.array(Image.open(f&#x27;frames/{i:02d}.png&#x27;))
+    diff = np.abs(curr.astype(int) - prev.astype(int))
+    changed_pixels = np.sum(diff.max(axis=-1) &gt; 0)
+    max_diff = diff.max()
+    mean_diff = diff.mean()
+    print(f&#x27;Frame {i-1:02d} -&gt; {i:02d}: changed={changed_pixels}, max_diff={max_diff}, mean_diff={mean_diff:.2f}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 60</strong><time>2026-11-12T23:12:02.117634+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;frames/00.png&#x27;))
+f1 = np.array(Image.open(&#x27;frames/01.png&#x27;))
+f5 = np.array(Image.open(&#x27;frames/05.png&#x27;))
+f10 = np.array(Image.open(&#x27;frames/10.png&#x27;))
+f19 = np.array(Image.open(&#x27;frames/19.png&#x27;))
+
+# In frame 0, what was in y=50..70, x=140..155? The smoke plume&quot;&#x27;!
+print(&#x27;&quot;&#x27;Smoke plume in f0 at (60, 147):&#x27;, f0[60, 147])
+print(&#x27;Smoke plume in f1 at (60, 147):&#x27;, f1[60, 147])
+print(&#x27;Smoke plume in f5 at (60, 147):&#x27;, f5[60, 147])
+print(&#x27;Smoke plume in f10 at (60, 147):&#x27;, f10[60, 147])
+print(&#x27;Smoke plume in f19 at (60, 147):&#x27;, f19[60, 147])
+
+# Difference between f0 and f1 in the smoke region (y=40..70, x=135..155):
+diff_smoke = np.abs(f1[40:70, 135:155].astype(int) - f0[40:70, 135:155].astype(int))
+print(&#x27;Smoke region diff f0-&gt;f1: max=&#x27;, diff_smoke.max(), &#x27;mean=&#x27;, diff_smoke.mean())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 61</strong><time>2026-11-12T23:12:13.008062+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Estimate smoke in frame 0:
+# Where does frame 0 have smoke?
+# We can estimate the background without smoke:
+bg_est = f0.copy().astype(float)
+for y in range(35, 73):
+    left_bg = f0[y, 125:135].mean(axis=0)
+    right_bg = f0[y, 155:165].mean(axis=0)
+    for x in range(130, 160):
+        w = (x - 130) / (160 - 130)
+        bg_est[y, x] = (1 - w) * left_bg + w * right_bg
+
+# Smoke in frame 0: difference between f0 and bg_est
+diff = f0.astype(float) - bg_est
+smoke_lum = np.maximum(0, 0.299*diff[:,:,0] + 0.587*diff[:,:,1] + 0.114*diff[:,:,2])
+# Mask smoke region
+smoke_f0 = np.zeros((144, 256), dtype=float)
+smoke_f0[35:73, 130:160] = smoke_lum[35:73, 130:160] / 150.0
+smoke_f0 = np.clip(smoke_f0, 0.0, 1.0)
+
+print(&#x27;Smoke in frame 0 extracted. Max alpha:&#x27;, smoke_f0.max(), &#x27;Sum:&#x27;, np.sum(smoke_f0 &gt; 0.1))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 62</strong><time>2026-11-12T23:12:22.896354+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the paper in f0:
+# Is any part of the paper already charred or smoking in f0?
+# NoticeComp 4: y=55..64, x=147..149 was smoke.
+# At y=72-73, x=148-150:
+print(&#x27;Values at (72, 149):&#x27;, f0[72, 149])
+print(&#x27;Values at (73, 149):&#x27;, f0[73, 149])
+print(&#x27;Values at (74, 149):&#x27;, f0[74, 149])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 63</strong><time>2026-11-12T23:12:56.887290+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &lt;&lt; &#x27;EOF&#x27; &gt; generate.py
+\&quot;\&quot;\&quot;Generate 20-frame realistic video of a piece of folded paper burning with white smoke.\&quot;\&quot;\&quot;
+from pathlib import Path
+import numpy as np
+from PIL import Image
+from scipy.ndimage import gaussian_filter
+import artifact_io
+
+def generate_video():
+    first_frame = np.array(Image.open(\&quot;first_frame.png\&quot;))
+    H, W, C = first_frame.shape
+    num_frames = 20
+    fps = 4
+
+    # 1. Precise paper segmentation
+    paper_mask = np.zeros((H, W), dtype=bool)
+    for y in range(71, 103):
+        for x in range(118, 162):
+            c = first_frame[y, x].astype(float)
+            lum = 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
+            is_bg = False
+            if x &gt; 150 and c[0] &gt; c[2] + 45 and lum &lt; 165:
+                is_bg = True
+            if x &lt; 125 and lum &lt; 110:
+                is_bg = True
+            if y &gt; 95 and x &lt; 133 and lum &lt; 115:
+                is_bg = True
+            if y &gt; 101:
+                is_bg = True
+            if not is_bg and lum &gt; 115:
+                paper_mask[y, x] = True
+
+    # 2. Extract initial smoke layer from frame 0
+    # Estimate background behind smoke
+    bg_smoke = first_frame.copy().astype(float)
+    for y in range(35, 74):
+        left_val = first_frame[y, 122:132].mean(axis=0)
+        right_val = first_frame[y, 155:165].mean(axis=0)
+        for x in range(130, 160):
+            w = (x - 130) / (160 - 130)
+            bg_smoke[y, x] = (1.0 - w) * left_val + w * right_val
+
+    # Difference gives smoke field in frame 0
+    diff_f0 = first_frame.astype(float) - bg_smoke
+    lum_diff = np.maximum(0, 0.299 * diff_f0[:, :, 0] + 0.587 * diff_f0[:, :, 1] + 0.114 * diff_f0[:, :, 2])
+    smoke_f0_alpha = np.zeros((H, W), dtype=float)
+    smoke_f0_alpha[38:73, 134:158] = lum_diff[38:73, 134:158] / 140.0
+    smoke_f0_alpha = np.clip(smoke_f0_alpha, 0.0, 0.95)
+
+    # 3. Clean background plate for paper region (revealed as paper turns to ash)
+    bg_clean = first_frame.copy().astype(float)
+    for y in range(70, 105):
+        left_val = first_frame[y, 114:118].mean(axis=0)
+        right_val = first_frame[y, 161:165].mean(axis=0)
+        for x in range(118, 162):
+            if paper_mask[y, x]:
+                w_right = (x - 118) / (162 - 118)
+                bg_clean[y, x] = (1.0 - w_right) * left_val + w_right * right_val
+    bg_clean_blurred = gaussian_filter(bg_clean, sigma=(1.0, 1.0, 0))
+    bg_clean[paper_mask] = bg_clean_blurred[paper_mask]
+
+    # 4. Burn distance field from ignition corner (73, 149)
+    yy, xx = np.indices((H, W))
+    dx = xx - 149.0
+    dy = yy - 73.0
+
+    # Spreading rate: faster along the fold line (-x direction) and downward (+y)
+    metric_x = np.where(dx &lt; 0, (-dx) * 0.85, dx * 1.5)
+    metric_y = np.where(dy &gt; 0, dy * 1.15, (-dy) * 2.0)
+    burn_dist = np.sqrt(metric_x**2 + metric_y**2)
+
+    # Deterministic RNG for visual reproducibility
+    rng = np.random.RandomState(101)
+
+    # Smoke fluid advection grid
+    # Grid covers y from 0 to 75, x from 110 to 180
+    smoke_density = np.zeros((H, W), dtype=float)
+    smoke_density[:, :] = smoke_f0_alpha
+
+    frames = []
+
+    for t in range(num_frames):
+        if t == 0:
+            frames.append(first_frame.copy())
+            continue
+
+        # Burn front expands smoothly
+        burn_radius = (t ** 1.08) * 1.35 + 0.8
+        flame_intensity = np.clip(t / 3.0, 0.0, 1.0)
+
+        # Base canvas
+        canvas = bg_clean.copy()
+
+        # Render paper state
+        # Three zones:
+        # 1. Unburned paper: d &gt; burn_radius
+        # 2. Glowing ember front: burn_radius - 3.5 &lt;= d &lt;= burn_radius + 0.5
+        # 3. Charred ash: d &lt; burn_radius - 3.5
+        for y in range(71, 103):
+            for x in range(118, 162):
+                if not paper_mask[y, x]:
+                    continue
+
+                d = burn_dist[y, x]
+                orig_c = first_frame[y, x].astype(float)
+                bg_c = bg_clean[y, x]
+
+                if d &gt; burn_radius + 0.5:
+                    # Pristine paper with slight thermal darkening near front
+                    thermal_prox = np.clip((burn_radius + 4.0 - d) / 4.0, 0.0, 1.0)
+                    warm_tint = np.array([0.98, 0.92, 0.82])
+                    canvas[y, x] = orig_c * (1.0 - thermal_prox * 0.15) * warm_tint
+
+                elif d &gt;= burn_radius - 3.0:
+                    # Active burning edge / glowing ember line
+                    ember_pos = (burn_radius - d) / 3.0 # 0 at leading edge, 1 at trailing edge
+                    flicker = 0.88 + 0.25 * np.sin(t * 3.1 + x * 1.1 + y * 0.7)
+
+                    # Ember color transition: bright yellow/white core to deep red
+                    col_r = np.clip(255.0 * flicker, 210.0, 255.0)
+                    col_g = np.clip((140.0 + 80.0 * (1.0 - ember_pos)) * flicker, 50.0, 230.0)
+                    col_b = np.clip((25.0 + 40.0 * (1.0 - ember_pos)) * flicker, 10.0, 90.0)
+                    ember_color = np.array([col_r, col_g, col_b])
+
+                    alpha_ember = np.clip((burn_radius + 0.5 - d) / 1.5, 0.0, 1.0)
+                    canvas[y, x] = orig_c * (1.0 - alpha_ember) + ember_color * alpha_ember
+
+                else:
+                    # Charred ash
+                    ash_age = np.clip((burn_radius - 3.0 - d) / 4.0, 0.0, 1.0)
+                    # Texture in ash
+                    ash_noise = rng.uniform(-4, 4, 3)
+                    ash_c = np.array([42.0, 39.0, 38.0]) + ash_noise
+                    # Edge of ash has slight gray residue
+                    if d &gt; burn_radius - 5.5:
+                        ash_c = np.array([68.0, 64.0, 60.0]) + ash_noise
+
+                    # Ash crumples, partially showing cutting board underneath
+                    canvas[y, x] = ash_c * (1.0 - ash_age * 0.45) + bg_c * (ash_age * 0.45)
+
+        # Restore non-paper areas to clean original
+        frame = first_frame.copy().astype(float)
+        frame[paper_mask] = canvas[paper_mask]
+
+        # 2. Render Flames (Licking upward from active embers)
+        ember_ys, ember_xs = np.where(paper_mask &amp; (burn_dist &gt;= burn_radius - 3.2) &amp; (burn_dist &lt;= burn_radius + 0.2))
+
+        flame_r = np.zeros((H, W), dtype=float)
+        flame_g = np.zeros((H, W), dtype=float)
+        flame_b = np.zeros((H, W), dtype=float)
+        flame_alpha = np.zeros((H, W), dtype=float)
+
+        if len(ember_ys) &gt; 0 and flame_intensity &gt; 0.05:
+            mean_fx = np.mean(ember_xs)
+            mean_fy = np.mean(ember_ys)
+
+            # Height of flame oscillates naturally
+            base_flame_h = (11.0 + 4.5 * np.sin(t * 2.2) + 2.0 * np.cos(t * 4.1)) * flame_intensity
+
+            # Procedural flame tongues
+            for i in range(len(ember_ys)):
+                if rng.rand() &gt; 0.35:
+                    continue
+                rx = float(ember_xs[i])
+                ry = float(ember_ys[i])
+
+                tongue_h = base_flame_h * rng.uniform(0.7, 1.35)
+                drift_x = (rx - mean_fx) * 0.12 + np.sin(t * 1.8 + ry * 0.3) * 1.4
+
+                max_step = int(np.ceil(tongue_h))
+                for step in range(max_step):
+                    fy = ry - step
+                    if fy &lt; 0 or fy &gt;= H:
+                        break
+                    prog = step / max_step
+                    fx = rx + drift_x * prog + rng.uniform(-0.35, 0.35)
+                    ix = int(round(fx))
+                    if ix &lt; 0 or ix &gt;= W:
+                        continue
+
+                    w_factor = (1.0 - prog)**0.65
+                    intensity = (1.0 - prog) * flame_intensity * rng.uniform(0.85, 1.1)
+
+                    # Realistic fire colors
+                    col_r = 255.0
+                    col_g = np.clip(240.0 * (1.0 - prog) + 65.0 * prog, 55.0, 245.0)
+                    col_b = np.clip(150.0 * (1.0 - prog)**2, 10.0, 160.0)
+
+                    for dx_s in [-1, 0, 1]:
+                        px = ix + dx_s
+                        if 0 &lt;= px &lt; W:
+                            d_s = abs(dx_s)
+                            splat = np.exp(-d_s**2 / (0.7 + w_factor * 1.2))
+                            val = intensity * splat
+                            if val &gt; flame_alpha[int(fy), px]:
+                                flame_alpha[int(fy), px] = val
+                                flame_r[int(fy), px] = col_r
+                                flame_g[int(fy), px] = col_g
+                                flame_b[int(fy), px] = col_b
+
+            flame_alpha = gaussian_filter(flame_alpha, sigma=0.65)
+            flame_r = gaussian_filter(flame_r, sigma=0.5)
+            flame_g = gaussian_filter(flame_g, sigma=0.5)
+            flame_b = gaussian_filter(flame_b, sigma=0.5)
+
+            flame_mask = np.clip(flame_alpha * 1.25, 0.0, 0.96)
+            for c in range(3):
+                col = [flame_r, flame_g, flame_b][c]
+                frame[:, :, c] = frame[:, :, c] * (1.0 - flame_mask) + col * flame_mask
+
+        # 3. Fire illumination and reflections on glass board
+        if flame_intensity &gt; 0.05 and len(ember_ys) &gt; 0:
+            glow_y = int(np.mean(ember_ys))
+            glow_x = int(np.mean(ember_xs))
+            dist_glow = np.sqrt((xx - glow_x)**2 + (yy - glow_y)**2)
+            glow_factor = np.clip(1.0 - dist_glow / 26.0, 0.0, 1.0)**2 * 0.16 * flame_intensity
+            flicker_ambient = 1.0 + 0.12 * np.sin(t * 3.4)
+
+            frame[:, :, 0] += glow_factor * 180.0 * flicker_ambient
+            frame[:, :, 1] += glow_factor * 75.0 * flicker_ambient
+            frame[:, :, 2] += glow_factor * 15.0 * flicker_ambient
+
+            # Glass board downward reflection
+            refl_y_min = max(glow_y + 2, 86)
+            refl_dist = np.sqrt(((xx - glow_x) * 1.25)**2 + ((yy - (refl_y_min + 5)) * 0.75)**2)
+            refl_intensity = np.clip(1.0 - refl_dist / 17.0, 0.0, 1.0)**2 * 0.12 * flame_intensity
+            frame[:, :, 0] += refl_intensity * 170.0
+            frame[:, :, 1] += refl_intensity * 75.0
+
+        # 4. White Smoke Evolution
+        # Evolve smoke density via advection + upward shift + expansion
+        # Step 1: Upward advection (shift up by ~3 pixels)
+        shift_y = 3
+        new_smoke = np.zeros_like(smoke_density)
+        new_smoke[:-shift_y, :] = smoke_density[shift_y:, :]
+
+        # Add lateral draft / sway
+        sway = np.sin(t * 0.5) * 0.4
+        new_smoke = gaussian_filter(new_smoke, sigma=(0.8, 1.1))
+
+        # Dissipate smoke as it reaches upper section
+        decay_factor = np.ones((H, W), dtype=float) * 0.94
+        decay_factor[:25, :] = 0.88
+        new_smoke *= decay_factor
+
+        # Inject new smoke at the flame/ember base
+        smoke_source = np.zeros((H, W), dtype=float)
+        inject_x = np.mean(ember_xs) if len(ember_xs) &gt; 0 else 148.0
+        inject_y = np.min(ember_ys) - 2.0 if len(ember_ys) &gt; 0 else 72.0
+
+        # Spread source along the active burn front
+        num_smoke_puffs = 12
+        for _ in range(num_smoke_puffs):
+            if len(ember_ys) &gt; 0:
+                idx = rng.randint(len(ember_ys))
+                px = float(ember_xs[idx]) + rng.uniform(-1.5, 1.5)
+                py = float(ember_ys[idx]) - rng.uniform(2.0, 7.0)
+            else:
+                px = 148.0 + rng.uniform(-1.0, 1.0)
+                py = 72.0 - rng.uniform(0.0, 4.0)
+
+            iy, ix = int(round(py)), int(round(px))
+            for dy_p in range(-3, 4):
+                for dx_p in range(-3, 4):
+                    cy, cx = iy + dy_p, ix + dx_p
+                    if 0 &lt;= cy &lt; H and 0 &lt;= cx &lt; W:
+                        d_puff = np.sqrt(dx_p**2 + dy_p**2)
+                        smoke_source[cy, cx] += np.exp(-d_puff**2 / 3.0) * 0.08
+
+        new_smoke += smoke_source
+        smoke_density = np.clip(new_smoke, 0.0, 0.92)
+
+        # Composite smoke onto frame
+        # Smoke color palette: realistic soft white / light blue-gray
+        smoke_color = np.array([215.0, 230.0, 248.0])
+        smoke_alpha = np.clip(gaussian_filter(smoke_density, sigma=0.9), 0.0, 0.88)
+
+        for c in range(3):
+            # Near flame base, smoke catches warm amber light
+            if c == 0: # red boost near base
+                warm_glow = np.clip((80.0 - yy) / 25.0, 0.0, 1.0)
+                sc = smoke_color[0] + (1.0 - warm_glow) * 22.0
+            elif c == 1: # slight green/yellow boost near base
+                warm_glow = np.clip((80.0 - yy) / 25.0, 0.0, 1.0)
+                sc = smoke_color[1] + (1.0 - warm_glow) * 8.0
+            else:
+                sc = smoke_color[c]
+
+            frame[:, :, c] = frame[:, :, c] * (1.0 - smoke_alpha) + sc * smoke_alpha
+
+        # Ensure valid range
+        frame = np.clip(frame, 0, 255).astype(np.uint8)
+        frames.append(frame)
+
+    frames = np.asarray(frames, dtype=np.uint8)
+    return frames
+
+if __name__ == \&quot;__main__\&quot;:
+    frames = generate_video()
+    print(\&quot;Generated frames shape:\&quot;, frames.shape)
+    artifact_io.save(frames, \&quot;.\&quot;)
+    print(\&quot;Saved artifacts successfully.\&quot;)
+EOF
+&quot;</pre></details><details class=command><summary><strong>命令 64</strong><time>2026-11-12T23:13:05.825860+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;python3 generate.py&#x27;</pre></details><details class=command><summary><strong>命令 65</strong><time>2026-11-12T23:13:15.440936+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;frames/00.png&#x27;))
+f_orig = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Frame 0 vs original exact diff:&#x27;, np.max(np.abs(f0.astype(int) - f_orig.astype(int))))
+
+for i in range(1, 20):
+    prev = np.array(Image.open(f&#x27;frames/{i-1:02d}.png&#x27;))
+    curr = np.array(Image.open(f&#x27;frames/{i:02d}.png&#x27;))
+    diff = np.abs(curr.astype(int) - prev.astype(int))
+    changed_pixels = np.sum(diff.max(axis=-1) &gt; 0)
+    max_diff = diff.max()
+    mean_diff = diff.mean()
+    print(f&#x27;Frame {i-1:02d} -&gt; {i:02d}: changed={changed_pixels}, max_diff={max_diff}, mean_diff={mean_diff:.2f}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 66</strong><time>2026-11-12T23:13:25.211816+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+from PIL import Image
+
+f0 = np.array(Image.open(&#x27;frames/00.png&#x27;))
+f1 = np.array(Image.open(&#x27;frames/01.png&#x27;))
+diff = np.abs(f1.astype(int) - f0.astype(int))
+
+# Where are max_diff pixels?
+ys, xs, cs = np.where(diff &gt; 100)
+print(&#x27;Count diff &gt; 100 in f0-&gt;f1:&#x27;, len(ys))
+for i in range(min(10, len(ys))):
+    y, x, c = ys[i], xs[i], cs[i]
+    print(f&#x27;({y},{x}, c={c}): f0={f0[y,x]}, f1={f1[y,x]}, diff={diff[y,x,c]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 67</strong><time>2026-11-12T23:13:32.768012+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la&#x27;</pre></details><details class=command><summary><strong>命令 68</strong><time>2026-11-12T23:13:41.806725+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from pathlib import Path
+import numpy as np
+from PIL import Image
+
+data = np.load(&#x27;pixels.npz&#x27;)
+pixels = data[&#x27;pixels&#x27;]
+print(&#x27;pixels.npz shape:&#x27;, pixels.shape)
+f0 = np.array(Image.open(&#x27;frames/00.png&#x27;))
+f_orig = np.array(Image.open(&#x27;first_frame.png&#x27;))
+assert np.array_equal(f0, f_orig), &#x27;Frame 00 mismatch&quot;&#x27;!&#x27;&quot;&#x27;
+print(&#x27;Verification passed: Frame 00 is pixel-identical to first_frame.png.&#x27;)
+\&quot;&quot;</pre></details><p class=muted>保存候选 2 份；完成命令 68 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script><script defer src="/pixelworld/live_refresh.js?v=2826338f8f9b"></script></body></html>
