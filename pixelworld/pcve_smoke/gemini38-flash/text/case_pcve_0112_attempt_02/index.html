@@ -1,0 +1,1854 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>gemini-3.8-flash · pcve_0112</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>gemini-3.8-flash · pcve_0112</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>24 FPS · 96 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_0a109c3c04574430.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;21b49e3bb00f565aca745e068228fe1bb31f990cd6c672ecbd687995af3201b2&quot;, &quot;pixels&quot;: &quot;final/pixels_0a109c3c04574430.rgb.gz&quot;, &quot;poster&quot;: &quot;final/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>视频编辑</span><h3 style="margin-top:14px">原始任务</h3><p>From frame 1 onwards, increase the tennis ball&#x27;s friction coefficient to 3 times its original value.
+</p><div class=facts><div><strong>4.00s</strong>视频时长</div><div><strong>31839</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=card><h2>编辑前的完整原视频</h2><video controls preload=metadata src="source_video.mp4" style="width:100%;max-height:480px"></video><p class=note>上方为编辑结果；原视频是模型获准使用的输入。下方为逐轮保存的编辑候选。</p></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-13T02:38:14.859025+00:00</time></summary><div class=candidate-content><div class=player data-video='{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 96, &quot;fps&quot;: 24, &quot;pixels_file&quot;: &quot;pixels_0a109c3c04574430.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;21b49e3bb00f565aca745e068228fe1bb31f990cd6c672ecbd687995af3201b2&quot;, &quot;pixels&quot;: &quot;candidate_00/pixels_0a109c3c04574430.rgb.gz&quot;, &quot;poster&quot;: &quot;candidate_00/poster.png&quot;}'><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="candidate_00/inspection.png" target=_blank><img loading=lazy src="candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="candidate_00/transition_check.png" target=_blank><img loading=lazy src="candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,105 @@
++&quot;&quot;&quot;Counterfactual video generation script.
++
++Prompt: From frame 1 onwards, increase the tennis ball&#x27;s friction coefficient to 3 times its original value.
++
++Analysis:
++- The tennis ball begins rolling along the horizontal surface at frame 28 (0-indexed).
++- In the factual rollout, the ball decelerates due to rolling friction from frame 28 to frame 77,
++  stopping at x ≈ 208.0 after rolling 55.0 pixels over 49 frames.
++- Under 3x friction, the deceleration triples:
++  * Rolling duration is reduced by 3x: 49 / 3 ≈ 16.33 frames (stops at frame ~44).
++  * Rolling distance is reduced by 3x: 55.0 / 3 ≈ 18.33 pixels (stops at x ≈ 171.33).
++  * At each intermediate time tau = t - 28, the trajectory scales faithfully according to
++    x(tau) = x_start + (x_orig(3 * tau) - x_start) / 3.
++&quot;&quot;&quot;
++from pathlib import Path
++import numpy as np
++from scipy.ndimage import shift
++import artifact_io
++
++
++def main():
++    case_dir = Path(__file__).parent.resolve()
++    source_npz = np.load(case_dir / &quot;source_pixels.npz&quot;)
++    src = source_npz[&quot;rgb&quot;]  # shape (96, 144, 256, 3), uint8
++    n_frames, h, w, _ = src.shape
++
++    # Compute static background estimate across all frames
++    bg = np.median(src, axis=0).astype(np.uint8)
++
++    # Track ball positions across the source rollout
++    source_xs = []
++    for t in range(28, n_frames):
++        diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
++        coords = np.argwhere(diff &gt; 25)
++        source_xs.append(coords[:, 1].mean())
++    source_xs = np.array(source_xs)
++
++    # Identify stop time and rollout parameters in the original video
++    t_orig_stop = np.where(source_xs &gt;= 207.99)[0][0]  # 49 frames after frame 28
++    x_start = source_xs[0]                              # 153.0
++    x_stop_orig = source_xs[t_orig_stop]               # 208.0
++
++    # 3x friction dynamics
++    tau_stop = t_orig_stop / 3.0                        # ~16.333 frames
++    x_stop_new = x_start + (x_stop_orig - x_start) / 3.0  # ~171.333 pixels
++
++    out_frames = np.zeros_like(src)
++    # Frames 0..28 are identical to source (intervention takes effect upon surface contact)
++    out_frames[:29] = src[:29]
++
++    for f in range(29, n_frames):
++        tau = f - 28
++        if tau &lt; tau_stop:
++            t_orig = 3.0 * tau
++            x_interp = np.interp(t_orig, np.arange(len(source_xs)), source_xs)
++            x_target = x_start + (x_interp - x_start) / 3.0
++            # Match donor ball appearance and rotation to distance traveled
++            s_idx = np.argmin(np.abs(source_xs - x_target))
++            donor_f = 28 + s_idx
++        else:
++            x_target = x_stop_new
++            donor_f = 80  # Fully stationary ball
++
++        frame = src[f].copy()
++
++        # Clean out the original ball position in frame f using background
++        d_orig = np.max(np.abs(frame.astype(float) - bg.astype(float)), axis=-1)
++        orig_coords = np.argwhere(d_orig &gt; 15)
++        if len(orig_coords) &gt; 0:
++            ymin = max(0, orig_coords[:, 0].min() - 2)
++            ymax = min(h - 1, orig_coords[:, 0].max() + 2)
++            xmin = max(0, orig_coords[:, 1].min() - 2)
++            xmax = min(w - 1, orig_coords[:, 1].max() + 2)
++            frame[ymin:ymax+1, xmin:xmax+1] = bg[ymin:ymax+1, xmin:xmax+1]
++
++        # Extract ball delta from donor frame
++        delta = src[donor_f].astype(float) - bg.astype(float)
++        d_mag = np.max(np.abs(delta), axis=-1)
++        donor_coords = np.argwhere(d_mag &gt; 15)
++        mask = np.zeros((h, w), dtype=float)
++        ymin = max(0, donor_coords[:, 0].min() - 2)
++        ymax = min(h - 1, donor_coords[:, 0].max() + 2)
++        xmin = max(0, donor_coords[:, 1].min() - 2)
++        xmax = min(w - 1, donor_coords[:, 1].max() + 2)
++        mask[ymin:ymax+1, xmin:xmax+1] = 1.0
++        delta_ball = delta * mask[:, :, None]
++
++        # Subpixel center of donor ball
++        weights = np.sum(np.abs(delta_ball), axis=-1)
++        donor_cx = np.sum(np.arange(w)[None, :] * weights) / np.sum(weights)
++
++        # Subpixel shift to target x position
++        dx = x_target - donor_cx
++        shifted_delta = np.zeros_like(delta_ball)
++        for c in range(3):
++            shifted_delta[:, :, c] = shift(delta_ball[:, :, c], (0, dx), order=3)
++
++        frame = np.clip(frame.astype(float) + shifted_delta, 0, 255).astype(np.uint8)
++        out_frames[f] = frame
++
++    artifact_io.save(out_frames, case_dir)
++
++
++if __name__ == &quot;__main__&quot;:
++    main()
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-13T02:23:29.938500+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la&#x27;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-13T02:23:34.487427+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat prompt.txt&#x27;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-13T02:23:39.351247+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat GENERATION_RULES.md&#x27;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-13T02:23:43.886581+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat task_spec.json; echo &quot;&quot;; cat source_info.json&#x27;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-13T02:23:48.318168+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat artifact_io.py&#x27;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-13T02:23:53.524585+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+pixels = np.load(\&quot;source_pixels.npz\&quot;)
+print(\&quot;npz keys:\&quot;, list(pixels.keys()))
+for k in pixels.keys():
+    print(k, pixels[k].shape, pixels[k].dtype)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-13T02:24:00.264927+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+print(\&quot;src shape:\&quot;, src.shape)
+
+# Let us see where changes happen across frames
+diffs = [np.sum(np.abs(src[t].astype(int) - src[0].astype(int)) &gt; 20) for t in range(len(src))]
+print(\&quot;Pixel diff count from frame 0 at every 10 frames:\&quot;, [(t, diffs[t]) for t in range(0, 96, 5)])
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-13T02:24:09.456802+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+
+for t in range(0, 96, 5):
+    # find pixels that differ significantly from static background or find the moving region
+    diff = np.abs(src[t].astype(int) - src[0].astype(int))
+    mask = np.any(diff &gt; 30, axis=-1)
+    coords = np.argwhere(mask)
+    if len(coords) &gt; 0:
+        ymin, xmin = coords.min(axis=0)
+        ymax, xmax = coords.max(axis=0)
+        print(f\&quot;t={t:02d}: {len(coords)} px, bbox y:[{ymin},{ymax}], x:[{xmin},{xmax}], center: ({coords[:,0].mean():.1f}, {coords[:,1].mean():.1f})\&quot;)
+    else:
+        print(f\&quot;t={t:02d}: 0 px\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-13T02:24:15.855522+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+print(\&quot;Frame 0 tennis ball location:\&quot;)
+# Let us inspect frame 0 vs frame 5
+# Notice coords in diff from frame 0 includes bbox x:[27, 52] because frame 0 had the ball at x=27&quot;&#x27;!
+# Let us check consecutive frame diffs:
+for t in range(0, 10):
+    diff = np.abs(src[t+1].astype(int) - src[t].astype(int))
+    mask = np.any(diff &gt; 30, axis=-1)
+    coords = np.argwhere(mask)
+    print(f&quot;diff {t}-&gt;{t+1}: {len(coords)} px, y:[{coords[:,0].min()},{coords[:,0].max()}], x:[{coords[:,1].min()},{coords[:,1].max()}]&quot;)
+&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-13T02:24:22.215105+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+print(\&quot;src[0, 52:61, 26:35]:\&quot;)
+# Let us find the tennis ball color profile
+# Let us inspect the patch around (55, 30)
+patch = src[0, 52:61, 26:35]
+print(\&quot;shape:\&quot;, patch.shape)
+# print RGB values
+for r in range(patch.shape[0]):
+    row_str = \&quot; \&quot;.join([f\&quot;({p[0]},{p[1]},{p[2]})\&quot; for p in patch[r]])
+    print(f\&quot;y={52+r}: {row_str}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-13T02:24:28.969977+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+
+# Let us detect the tennis ball center in each frame
+# Tennis ball has distinct yellow-green color: high G, medium R, lower B, or G &gt; R &gt; B and G &gt; 100
+for t in range(96):
+    img = src[t].astype(float)
+    r, g, b = img[:,:,0], img[:,:,1], img[:,:,2]
+    # yellow-green condition: g &gt; 120 and g &gt; b + 40 and r &gt; 100
+    ball_mask = (g &gt; 120) &amp; (r &gt; 100) &amp; (b &lt; 90) &amp; (g &gt; b + 40)
+    coords = np.argwhere(ball_mask)
+    if len(coords) &gt; 0:
+        cy = coords[:, 0].mean()
+        cx = coords[:, 1].mean()
+        print(f\&quot;t={t:02d}: {len(coords):2d} px, center=({cx:.2f}, {cy:.2f}), y_span=[{coords[:,0].min()},{coords[:,0].max()}], x_span=[{coords[:,1].min()},{coords[:,1].max()}]\&quot;)
+    else:
+        print(f\&quot;t={t:02d}: not found with strict mask\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-13T02:24:36.069501+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+
+# Let us check differences between frame 0 and frame 95 across the whole image
+diff = np.abs(src[95].astype(int) - src[0].astype(int))
+mask = np.any(diff &gt; 20, axis=-1)
+coords = np.argwhere(mask)
+print(f\&quot;Total changed pixels between frame 0 and frame 95: {len(coords)}\&quot;)
+print(\&quot;Changed pixels bounding box:\&quot;, coords.min(axis=0), coords.max(axis=0))
+
+# Also check max diff across all pairs (t, 0)
+all_diffs = np.zeros((144, 256), dtype=bool)
+for t in range(96):
+    d = np.any(np.abs(src[t].astype(int) - src[0].astype(int)) &gt; 20, axis=-1)
+    all_diffs = all_diffs | d
+
+print(\&quot;Total union of all moving pixels across 96 frames:\&quot;, np.sum(all_diffs))
+y_idxs, x_idxs = np.where(all_diffs)
+print(f\&quot;Union bbox: y:[{y_idxs.min()}, {y_idxs.max()}], x:[{x_idxs.min()}, {x_idxs.max()}]\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-13T02:24:43.537947+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+
+# Let us check ball centers precisely from t=0 to 35
+# We can find ball pixels by comparing each frame t to the static background&quot;&#x27;!
+# To get the static background, notice where the ball is NOT present.
+# For each pixel (y, x), taking median across time or using frame where ball is elsewhere gives true static background.
+bg = np.median(src, axis=0).astype(np.uint8)
+
+centers = []
+for t in range(96):
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    mask = diff &gt; 25
+    coords = np.argwhere(mask)
+    if len(coords) &gt; 0:
+        cy = coords[:, 0].mean()
+        cx = coords[:, 1].mean()
+        centers.append((t, cx, cy, len(coords)))
+        if t &lt;= 35:
+            print(f&quot;t={t:02d}: center=({cx:.3f}, {cy:.3f}), count={len(coords)}&quot;)
+
+&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-13T02:24:50.171579+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Print bg RGB around the floor and slope
+print(\&quot;bg around x=100..200, y=90..105:\&quot;)
+print(bg[90:98, 150:160, :])
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-13T02:24:58.197296+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check bg structure
+print(\&quot;bg shape:\&quot;, bg.shape)
+# Lets find where the edges/surfaces are in bg
+import cv2
+gray = cv2.cvtColor(bg, cv2.COLOR_RGB2GRAY)
+edges = cv2.Canny(gray, 50, 150)
+lines = cv2.HoughLinesP(edges, 1, np.pi/180, threshold=40, minLineLength=30, maxLineGap=10)
+if lines is not None:
+    for line in lines:
+        x1, y1, x2, y2 = line[0]
+        print(f\&quot;Line: ({x1}, {y1}) -&gt; ({x2}, {y2})\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-13T02:25:04.822143+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+from PIL import Image
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+Image.fromarray(src[0]).save(\&quot;.tmp/frame_00.png\&quot;)
+Image.fromarray(src[28]).save(\&quot;.tmp/frame_28.png\&quot;)
+Image.fromarray(src[60]).save(\&quot;.tmp/frame_60.png\&quot;)
+print(\&quot;Saved sample frames\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-13T02:25:12.296441+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+centers = []
+for t in range(96):
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    mask = diff &gt; 25
+    coords = np.argwhere(mask)
+    if len(coords) &gt; 0:
+        cy = coords[:, 0].mean()
+        cx = coords[:, 1].mean()
+        centers.append((t, cx, cy))
+
+centers = np.array(centers)
+# Print trajectory
+for t, cx, cy in centers:
+    print(f\&quot;{int(t):2d}: x={cx:6.2f}, y={cy:6.2f}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-13T02:25:19.130580+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Let us see what is happening before frame 28
+# Look at ball trajectory from t=0 to 28
+for t in range(29):
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    mask = diff &gt; 25
+    coords = np.argwhere(mask)
+    cy = coords[:, 0].mean()
+    cx = coords[:, 1].mean()
+    print(f\&quot;t={t:2d}: x={cx:6.2f}, y={cy:6.2f}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-13T02:25:26.963786+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+xs = []
+ys = []
+for t in range(28):
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    mask = diff &gt; 25
+    coords = np.argwhere(mask)
+    cy = coords[:, 0].mean()
+    cx = coords[:, 1].mean()
+    xs.append(cx)
+    ys.append(cy)
+
+t = np.arange(28)
+# Fit parabola to y(t)
+p_y = np.polyfit(t, ys, 2)
+# Fit line to x(t)
+p_x = np.polyfit(t, xs, 1)
+
+print(\&quot;y(t) fit:\&quot;, p_y)
+print(\&quot;x(t) fit:\&quot;, p_x)
+
+residuals_y = ys - np.polyval(p_y, t)
+residuals_x = xs - np.polyval(p_x, t)
+print(\&quot;max residual y:\&quot;, np.max(np.abs(residuals_y)))
+print(\&quot;max residual x:\&quot;, np.max(np.abs(residuals_x)))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-13T02:25:35.373958+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+xs = []
+ys = []
+for t in range(28, 96):
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    mask = diff &gt; 25
+    coords = np.argwhere(mask)
+    cy = coords[:, 0].mean()
+    cx = coords[:, 1].mean()
+    xs.append(cx)
+    ys.append(cy)
+
+xs = np.array(xs)
+t = np.arange(28, 96)
+dx = np.diff(xs)
+
+print(\&quot;t and dx from t=28 to 80:\&quot;)
+for i in range(len(dx)):
+    print(f\&quot;t={t[i]}-&gt;{t[i+1]}: x={xs[i]:.2f}-&gt;{xs[i+1]:.2f}, dx={dx[i]:.2f}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-13T02:25:43.682729+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+xs = []
+ys = []
+for t in range(28, 78):
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    mask = diff &gt; 25
+    coords = np.argwhere(mask)
+    cy = coords[:, 0].mean()
+    cx = coords[:, 1].mean()
+    xs.append(cx)
+    ys.append(cy)
+
+xs = np.array(xs)
+t = np.arange(len(xs))
+
+# Let us fit a quadratic model: x(t) = x0 + v0 * t - 0.5 * a * t&quot;&#x27;^2
+# up until it stops (around t = 77-28 = 49)
+p = np.polyfit(t, xs, 2)
+print(&quot;Polynomial fit for x(t) from t=28:&quot;, p)
+print(f&quot;a_x = {-2 * p[0]:.4f} px/frame&#x27;&#x27;^2, v0 = {p[1]:.4f} px/frame, x0 = {p[2]:.4f}&quot;)
+
+# Stop time in fit: v(t) = 0 =&gt; t_stop = v0 / a = p[1] / (-2 * p[0])
+t_stop = p[1] / (-2 * p[0])
+print(f&quot;Predicted stop time relative to t=28: {t_stop:.2f} frames (i.e. frame {28 + t_stop:.2f})&quot;)
+print(f&quot;Predicted stop position: {np.polyval(p, t_stop):.2f}&quot;)
+&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-13T02:25:50.609668+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check t=26, 27, 28, 29, 30
+for t in [26, 27, 28, 29, 30]:
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    mask = diff &gt; 25
+    coords = np.argwhere(mask)
+    ymin, ymax = coords[:, 0].min(), coords[:, 0].max()
+    xmin, xmax = coords[:, 1].min(), coords[:, 1].max()
+    print(f\&quot;t={t}: y:[{ymin},{ymax}], x:[{xmin},{xmax}], cy={coords[:,0].mean():.2f}, cx={coords[:,1].mean():.2f}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-13T02:25:58.400428+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 0 to 5
+for t in range(6):
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    mask = diff &gt; 25
+    coords = np.argwhere(mask)
+    ymin, ymax = coords[:, 0].min(), coords[:, 0].max()
+    xmin, xmax = coords[:, 1].min(), coords[:, 1].max()
+    print(f\&quot;t={t}: y:[{ymin},{ymax}], x:[{xmin},{xmax}], cy={coords[:,0].mean():.2f}, cx={coords[:,1].mean():.2f}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 24</strong><time>2026-11-13T02:26:05.117716+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 0
+diff0 = np.max(np.abs(src[0].astype(float) - bg.astype(float)), axis=-1)
+# Is frame 0 in contact with anything?
+coords0 = np.argwhere(diff0 &gt; 25)
+print(\&quot;coords0 y range:\&quot;, coords0[:,0].min(), coords0[:,0].max())
+print(\&quot;coords0 x range:\&quot;, coords0[:,1].min(), coords0[:,1].max())
+
+# Check background around (59, 28)
+print(\&quot;bg patch around (55..65, 25..35):\&quot;)
+print(bg[55:65, 25:35, 0])
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 25</strong><time>2026-11-13T02:26:12.232296+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check line y=56 across x=0..60
+print(\&quot;bg y=56, x=0..50:\&quot;)
+print(bg[56, 0:50, 0])
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 26</strong><time>2026-11-13T02:26:19.665158+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Find edges or colors in bg
+for y in range(50, 100, 5):
+    print(f\&quot;y={y}: x=20..30 -&gt; {bg[y, 25]}, x=150..160 -&gt; {bg[y, 155]}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 27</strong><time>2026-11-13T02:26:26.699806+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Print bg along vertical column x=28
+print(\&quot;bg along x=28, y=45..75:\&quot;)
+for y in range(45, 75):
+    print(f\&quot;y={y}: {bg[y, 28]}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 28</strong><time>2026-11-13T02:26:33.810068+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 0 diff from bg:
+diff0 = np.max(np.abs(src[0].astype(float) - bg.astype(float)), axis=-1)
+coords0 = np.argwhere(diff0 &gt; 25)
+print(\&quot;coords0 in frame 0:\&quot;)
+for y, x in coords0:
+    print(f\&quot;y={y}, x={x}: src={src[0, y, x]}, bg={bg[y, x]}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 29</strong><time>2026-11-13T02:26:40.364605+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check all pixels in the scene that ever change
+diff_max = np.max(np.abs(src.astype(float) - bg.astype(float)), axis=(0, 3))
+print(\&quot;Number of pixels that ever differ by &gt;25 from bg:\&quot;, np.sum(diff_max &gt; 25))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 30</strong><time>2026-11-13T02:26:47.194628+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 0 diff from frame 1
+diff = np.max(np.abs(src[1].astype(float) - src[0].astype(float)), axis=-1)
+coords = np.argwhere(diff &gt; 25)
+print(\&quot;diff frame 0 vs frame 1 count:\&quot;, len(coords))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 31</strong><time>2026-11-13T02:26:55.076094+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Let us analyze the motion of the ball when rolling on the table/floor:
+# From t=28 to 77:
+positions = []
+for t in range(28, 96):
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    mask = diff &gt; 25
+    coords = np.argwhere(mask)
+    if len(coords) &gt; 0:
+        cx = coords[:, 1].mean()
+        cy = coords[:, 0].mean()
+        positions.append((t, cx, cy))
+
+positions = np.array(positions)
+t = positions[:, 0]
+x = positions[:, 1]
+y = positions[:, 2]
+
+print(\&quot;y values from t=28 to 95: min =\&quot;, y.min(), \&quot;max =\&quot;, y.max(), \&quot;mean =\&quot;, y.mean())
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 32</strong><time>2026-11-13T02:27:02.614857+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check shadow or contact at t=28..95
+for t in [28, 40, 60, 80]:
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    mask = diff &gt; 15
+    coords = np.argwhere(mask)
+    print(f\&quot;t={t}: y in [{coords[:,0].min()}, {coords[:,0].max()}], x in [{coords[:,1].min()}, {coords[:,1].max()}]\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 33</strong><time>2026-11-13T02:27:09.312684+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check differences between frame 28 and frame 95
+print(\&quot;diff frame 28 vs 95 count:\&quot;, np.sum(np.max(np.abs(src[28].astype(float) - src[95].astype(float)), axis=-1) &gt; 20))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 34</strong><time>2026-11-13T02:27:16.726302+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# In each frame t from 28 to 95, let us check the patch of the ball
+# The ball is centered at cx, cy ~ 93.7
+# How big is the ball?
+for t in [28, 30, 40, 50, 60, 70, 80]:
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    mask = diff &gt; 20
+    coords = np.argwhere(mask)
+    h = coords[:,0].max() - coords[:,0].min() + 1
+    w = coords[:,1].max() - coords[:,1].min() + 1
+    print(f\&quot;t={t}: h={h}, w={w}, y=[{coords[:,0].min()},{coords[:,0].max()}], x=[{coords[:,1].min()},{coords[:,1].max()}]\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 35</strong><time>2026-11-13T02:27:26.512807+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+xs = []
+for t in range(28, 96):
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    mask = diff &gt; 25
+    coords = np.argwhere(mask)
+    xs.append(coords[:, 1].mean())
+
+xs = np.array(xs)
+print(\&quot;xs[28..45]:\&quot;, np.round(xs[:18], 2))
+print(\&quot;xs[-10:]:\&quot;, np.round(xs[-10:], 2))
+
+# Let us test constant deceleration model:
+# x(t) = min(x_stop, x0 + v0 * t - 0.5 * a * t&quot;&#x27;^2)
+# Let us fit (x0, v0, a) using non-linear least squares or grid search
+from scipy.optimize import minimize
+
+def loss(params):
+    x0, v0, a = params
+    t = np.arange(len(xs))
+    t_stop = v0 / a
+    pred = np.where(t &lt; t_stop, x0 + v0 * t - 0.5 * a * t**2, x0 + 0.5 * v0**2 / a)
+    return np.mean((pred - xs)**2)
+
+res = minimize(loss, [153.0, 2.5, 0.05])
+print(&quot;Fitted params (x0, v0, a):&quot;, res.x)
+x0, v0, a = res.x
+t_stop = v0 / a
+print(f&quot;t_stop from t=28: {t_stop:.2f} (frame {28 + t_stop:.2f}), x_stop = {x0 + 0.5 * v0**2 / a:.2f}&quot;)
+&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 36</strong><time>2026-11-13T02:27:36.208874+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+from scipy.optimize import minimize
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+xs = []
+for t in range(28, 96):
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    mask = diff &gt; 25
+    coords = np.argwhere(mask)
+    xs.append(coords[:, 1].mean())
+
+xs = np.array(xs)
+
+def loss(params):
+    x0, v0, a = params
+    t = np.arange(len(xs))
+    t_stop = v0 / a
+    pred = np.where(t &lt; t_stop, x0 + v0 * t - 0.5 * a * t**2, x0 + 0.5 * v0**2 / a)
+    return np.mean((pred - xs)**2)
+
+res = minimize(loss, [153.0, 2.5, 0.05])
+x0, v0, a = res.x
+t = np.arange(len(xs))
+t_stop = v0 / a
+pred = np.where(t &lt; t_stop, x0 + v0 * t - 0.5 * a * t**2, x0 + 0.5 * v0**2 / a)
+print(\&quot;Residuals (pred - actual):\&quot;)
+for frame, actual, p in zip(range(28, 96, 4), xs[::4], pred[::4]):
+    print(f\&quot;frame {frame:2d}: actual={actual:6.2f}, pred={p:6.2f}, diff={p-actual:+.2f}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 37</strong><time>2026-11-13T02:27:44.802029+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Let us check ball appearance across frames 28..95
+# Can we warp or copy the ball?
+# In fact, as the ball rolls, does it rotate?
+# Let us check the ball texture in frames 28, 40, 60, 80:
+for t in [28, 35, 50, 70, 85]:
+    diff = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(diff &gt; 25)
+    cy = int(round(coords[:, 0].mean()))
+    cx = int(round(coords[:, 1].mean()))
+    patch = src[t, cy-3:cy+4, cx-3:cx+4]
+    print(f\&quot;t={t}, center=({cx},{cy}):\&quot;)
+    print(patch[:, :, 1]) # green channel
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 38</strong><time>2026-11-13T02:27:52.446543+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 85 vs frame 95
+diff = np.max(np.abs(src[85].astype(float) - src[95].astype(float)), axis=-1)
+print(\&quot;diff 85 vs 95 max:\&quot;, diff.max())
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 39</strong><time>2026-11-13T02:27:59.955414+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 85 vs frame 90
+for t in range(78, 96):
+    diff = np.max(np.abs(src[t].astype(float) - src[78].astype(float)), axis=-1)
+    print(f\&quot;t={t}: max diff from t=78 = {diff.max()}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 40</strong><time>2026-11-13T02:28:07.901543+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check differences between background and frames outside of the ball bounding box
+for t in range(0, 96, 10):
+    diff = np.abs(src[t].astype(float) - bg.astype(float))
+    # mask out ball
+    diff[:, 85:100, 140:215] = 0
+    diff[:, 25:90, 20:160] = 0
+    print(f\&quot;t={t}: max diff outside ball path: {diff.max()}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 41</strong><time>2026-11-13T02:28:14.201440+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 10: where is diff &gt; 50?
+diff10 = np.max(np.abs(src[10].astype(float) - bg.astype(float)), axis=-1)
+coords = np.argwhere(diff10 &gt; 50)
+print(f\&quot;t=10 diff&gt;50: min y={coords[:,0].min()}, max y={coords[:,0].max()}, min x={coords[:,1].min()}, max x={coords[:,1].max()}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 42</strong><time>2026-11-13T02:28:22.929441+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 0 diff from bg:
+diff0 = np.max(np.abs(src[0].astype(float) - bg.astype(float)), axis=-1)
+coords0 = np.argwhere(diff0 &gt; 15)
+print(\&quot;diff0 &gt; 15 count:\&quot;, len(coords0))
+if len(coords0) &gt; 0:
+    print(\&quot;ymin, ymax, xmin, xmax:\&quot;, coords0[:,0].min(), coords0[:,0].max(), coords0[:,1].min(), coords0[:,1].max())
+
+# Let us check across all frames t=0..95, what pixels have diff &gt; 15 from bg:
+total_mask = np.zeros((144, 256), dtype=bool)
+for t in range(96):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1) &gt; 15
+    total_mask |= d
+
+print(\&quot;Total pixels ever differing from bg by &gt; 15:\&quot;, np.sum(total_mask))
+y_all, x_all = np.where(total_mask)
+print(f\&quot;y: [{y_all.min()}, {y_all.max()}], x: [{x_all.min()}, {x_all.max()}]\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 43</strong><time>2026-11-13T02:28:29.920830+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check differences between background and each frame outside y in [30, 98], x in [25, 212]
+max_diff = 0
+for t in range(96):
+    mask = np.ones((144, 256), dtype=bool)
+    mask[30:98, 25:212] = False
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float))[mask])
+    if d &gt; max_diff:
+        max_diff = d
+print(\&quot;Max diff outside bounding box of ball:\&quot;, max_diff)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 44</strong><time>2026-11-13T02:28:41.322487+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Calculate positions for all frames 28..95
+pos = []
+for t in range(28, 96):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    pos.append(coords[:, 1].mean())
+
+pos = np.array(pos)
+t = np.arange(len(pos)) # t=0 corresponds to frame 28
+
+# Let us test different deceleration models:
+# 1. Standard Coulomb friction: a = constant
+# x(t) = x0 + v0 * t - 0.5 * a * t&quot;&#x27;^2 until v(t) = 0
+# With mu -&gt; 3*mu, deceleration is 3*a.
+#
+# Let us fit (x0, v0, a) directly:
+from scipy.optimize import minimize
+
+def obj_coulomb(p):
+    x0, v0, a = p
+    pred = []
+    for ti in t:
+        if ti &lt; v0 / a:
+            pred.append(x0 + v0 * ti - 0.5 * a * ti**2)
+        else:
+            pred.append(x0 + 0.5 * v0**2 / a)
+    return np.mean((np.array(pred) - pos)**2)
+
+res = minimize(obj_coulomb, [153.0, 2.5, 0.05])
+print(&quot;Fitted Coulomb:&quot;, res.x, &quot;RMSE:&quot;, np.sqrt(res.fun))
+
+# With 3*mu: a_new = 3 * a
+# Let us compute the new trajectory:
+a_new = 3 * res.x[2]
+v0_new = res.x[1]
+x0_new = res.x[0] # or exact pos[0] = 153.0
+t_stop_new = v0_new / a_new
+x_stop_new = x0_new + 0.5 * v0_new**2 / a_new
+print(f&quot;Original: t_stop={res.x[1]/res.x[2]:.2f} (frame {28 + res.x[1]/res.x[2]:.2f}), x_stop={res.x[0] + 0.5*res.x[1]**2/res.x[2]:.2f}&quot;)
+print(f&quot;New (3x): t_stop={t_stop_new:.2f} (frame {28 + t_stop_new:.2f}), x_stop={x_stop_new:.2f}&quot;)
+&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 45</strong><time>2026-11-13T02:28:48.491555+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 27, 28, 29
+for t in [26, 27, 28, 29, 30]:
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    print(f\&quot;t={t}: cy={coords[:,0].mean():.2f}, cx={coords[:,1].mean():.2f}, ymin={coords[:,0].min()}, ymax={coords[:,0].max()}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 46</strong><time>2026-11-13T02:28:56.281836+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 28 vs frame 27 ball appearance
+# Frame 28 is fully on the floor: y in [92, 96]
+# Let us check y center for all t from 28 to 95:
+ys = []
+for t in range(28, 96):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    ys.append(coords[:, 0].mean())
+print(\&quot;Mean y center on floor:\&quot;, np.mean(ys), \&quot;std:\&quot;, np.std(ys))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 47</strong><time>2026-11-13T02:29:05.402919+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# In each frame t, extract the ball image as a transparent RGBA or sprite
+# Let us check how the ball looks when extracted by diff from bg
+diff28 = np.max(np.abs(src[28].astype(float) - bg.astype(float)), axis=-1)
+print(\&quot;diff28 patch around (94, 153):\&quot;)
+print(diff28[91:98, 150:157])
+
+# Let us see the RGB values of src[28] vs bg in that patch
+print(\&quot;src[28] patch:\&quot;)
+print(src[28, 91:98, 150:157, 1])
+print(\&quot;bg patch:\&quot;)
+print(bg[91:98, 150:157, 1])
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 48</strong><time>2026-11-13T02:29:13.015116+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check bg along the floor horizontal stripe:
+# Is the background strictly horizontally translation-invariant along the floor x=140..220?
+floor_crop = bg[90:98, 140:220]
+print(\&quot;Floor patch std across x for each row y=90..97:\&quot;)
+for y_offset, r in enumerate(floor_crop):
+    print(f\&quot;y={90+y_offset}: std={np.std(r, axis=0)}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 49</strong><time>2026-11-13T02:29:20.672192+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs frame 78:
+# Where does the ball stop in source?
+xs = []
+for t in range(70, 96):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    xs.append((t, coords[:, 1].mean()))
+
+for t, x in xs:
+    print(f\&quot;t={t}: x={x:.3f}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 50</strong><time>2026-11-13T02:29:29.124842+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+xs = []
+for t in range(28, 78):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    xs.append(coords[:, 1].mean())
+
+xs = np.array(xs)
+print(\&quot;xs[0] (frame 28):\&quot;, xs[0])
+print(\&quot;xs[77-28] (frame 77):\&quot;, xs[-1])
+print(\&quot;total distance rolled:\&quot;, xs[-1] - xs[0])
+print(\&quot;total distance rolled / 3:\&quot;, (xs[-1] - xs[0]) / 3.0)
+print(\&quot;new final stop position (x_stop = x28 + D/3):\&quot;, xs[0] + (xs[-1] - xs[0]) / 3.0)
+print(\&quot;t_stop in original:\&quot;, 77 - 28, \&quot;frames\&quot;)
+print(\&quot;t_stop in new:\&quot;, (77 - 28) / 3.0, \&quot;frames, i.e. frame\&quot;, 28 + (77 - 28) / 3.0)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 51</strong><time>2026-11-13T02:29:36.923564+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 44, 45 in source:
+for t in [43, 44, 45]:
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    print(f\&quot;t={t}: cx={coords[:, 1].mean():.2f}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 52</strong><time>2026-11-13T02:29:46.596719+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 85 vs frame 90
+d = np.max(np.abs(src[85].astype(float) - src[78].astype(float)), axis=-1)
+print(\&quot;max d:\&quot;, d.max())
+
+# Find the ball sprite in frame 78
+diff78 = np.max(np.abs(src[78].astype(float) - bg.astype(float)), axis=-1)
+print(\&quot;diff78 max:\&quot;, diff78.max())
+coords = np.argwhere(diff78 &gt; 10)
+print(f\&quot;y: [{coords[:,0].min()}, {coords[:,0].max()}], x: [{coords[:,1].min()}, {coords[:,1].max()}]\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 53</strong><time>2026-11-13T02:29:53.497530+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs frame 78:
+# Let us see the ball patch in frame 78:
+patch_ball = src[78, 91:97, 205:211]
+patch_bg = bg[91:97, 205:211]
+print(\&quot;patch_ball shape:\&quot;, patch_ball.shape)
+print(\&quot;patch_ball - patch_bg (G channel):\&quot;)
+print(patch_ball[:,:,1].astype(int) - patch_bg[:,:,1].astype(int))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 54</strong><time>2026-11-13T02:30:00.985629+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at x=200..215:
+# Does src[80] have any difference from bg anywhere other than x in [205, 211]?
+diff = np.max(np.abs(src[80].astype(float) - bg.astype(float)), axis=-1)
+print(\&quot;coords with diff &gt; 10:\&quot;, np.argwhere(diff &gt; 10))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 55</strong><time>2026-11-13T02:30:09.339049+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at [92:97, 206:211]:
+print(\&quot;diff frame 80 vs bg on ball patch:\&quot;)
+print(np.max(np.abs(src[80, 92:97, 206:211].astype(float) - bg[92:97, 206:211].astype(float)), axis=-1))
+
+# Check bg at destination:
+# If ball center is around 171.33: x range [169, 174], y range [92, 97]
+print(\&quot;diff between bg at [92:97, 206:211] and bg at [92:97, 169:174]:\&quot;)
+print(np.max(np.abs(bg[92:97, 206:211].astype(float) - bg[92:97, 169:174].astype(float)), axis=-1))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 56</strong><time>2026-11-13T02:30:20.228635+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Calculate positions for original
+xs = []
+for t in range(28, 96):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    xs.append(coords[:, 1].mean())
+
+xs = np.array(xs)
+# original rollout duration:
+# xs starts at frame 28.
+# When does xs reach 208?
+t_reach = np.where(xs &gt;= 207.99)[0][0]
+print(f\&quot;Original: starts rolling at t_rel=0 (frame 28, x={xs[0]:.2f}), stops at t_rel={t_reach} (frame {28+t_reach}, x={xs[t_reach]:.2f})\&quot;)
+total_D = xs[t_reach] - xs[0]
+print(f\&quot;Total distance rolled: {total_D:.2f} px\&quot;)
+
+# Now under 3x friction:
+# Friction force F_friction = mu * m * g
+# a_new = 3 * a_orig
+# Stopping time: t_stop_new = t_stop_orig / 3
+# Stopping distance: D_new = D_orig / 3
+# For any fraction f in [0, 1] of the deceleration phase:
+# At time t_new = t_orig / 3:
+# v_new(t_new) = v0 - (3*a) * (t_orig / 3) = v0 - a * t_orig = v_orig(t_orig)
+# x_new(t_new) = v0 * (t_orig / 3) - 0.5 * (3*a) * (t_orig / 3)&quot;&#x27;^2
+#              = (1/3) * (v0 * t_orig - 0.5 * a * t_orig&#x27;&#x27;^2)
+#              = (1/3) * (x_orig(t_orig) - x0) + x0
+# That is an EXACT mathematical scaling!
+# Let us verify this relation:
+# x_new(t_rel / 3) - x0 = (1/3) * (x_orig(t_rel) - x0)
+# Therefore, for each new relative frame tau = 0, 1, 2, ...
+# tau corresponds to original relative time t_orig = 3 * tau!
+# Let us check:
+# x_new(tau) = x0 + (1/3) * (x_orig(3 * tau) - x0)!
+&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 57</strong><time>2026-11-13T02:30:28.600240+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs frame 77:
+diff = np.max(np.abs(src[80].astype(float) - src[77].astype(float)), axis=-1)
+print(\&quot;diff frame 80 vs 77 max:\&quot;, diff.max())
+
+# Let us check the ball patch in frame 77 vs frame 44
+coords77 = np.argwhere(np.max(np.abs(src[77].astype(float) - bg.astype(float)), axis=-1) &gt; 20)
+print(\&quot;coords77 cx:\&quot;, coords77[:, 1].mean(), \&quot;cy:\&quot;, coords77[:, 0].mean())
+coords44 = np.argwhere(np.max(np.abs(src[44].astype(float) - bg.astype(float)), axis=-1) &gt; 20)
+print(\&quot;coords44 cx:\&quot;, coords44[:, 1].mean(), \&quot;cy:\&quot;, coords44[:, 0].mean())
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 58</strong><time>2026-11-13T02:30:36.103250+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg:
+# If we replace src[80] region [90:98, 204:212] with bg[90:98, 204:212],
+# does it match surrounding background perfectly?
+cleaned = src[80].copy()
+cleaned[90:98, 204:212] = bg[90:98, 204:212]
+diff_to_bg = np.max(np.abs(cleaned.astype(float) - bg.astype(float)))
+print(\&quot;Max diff of cleaned frame 80 to bg:\&quot;, diff_to_bg)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 59</strong><time>2026-11-13T02:30:43.606257+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 44:
+coords = np.argwhere(np.max(np.abs(src[44].astype(float) - bg.astype(float)), axis=-1) &gt; 20)
+cx = coords[:, 1].mean()
+cy = coords[:, 0].mean()
+print(f\&quot;frame 44 ball center: cx={cx:.3f}, cy={cy:.3f}\&quot;)
+
+# Check integer shift needed:
+# Ball in frame 44 is at cx = 183.5.
+# Target position is 171.33.
+# Shift is 171.33 - 183.5 = -12.17 pixels (approx -12 pixels).
+# If we shift by -12 pixels, 183.5 - 12 = 171.5.
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 60</strong><time>2026-11-13T02:31:04.896977+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Calculate positions for original
+xs = []
+for t in range(28, 96):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    xs.append(coords[:, 1].mean())
+
+xs = np.array(xs)
+t_orig = np.arange(len(xs))
+
+# Let us check x_orig(3 * tau):
+tau = np.arange(17)
+x_new = []
+for ti in tau:
+    orig_idx = 3 * ti
+    if orig_idx &lt; len(xs):
+        # x_new(tau) = xs[0] + (xs[orig_idx] - xs[0]) / 3
+        xn = xs[0] + (xs[orig_idx] - xs[0]) / 3.0
+    else:
+        xn = xs[0] + (xs[-1] - xs[0]) / 3.0
+    x_new.append(xn)
+
+x_new = np.array(x_new)
+print(\&quot;tau:\&quot;, tau)
+print(\&quot;x_new:\&quot;, np.round(x_new, 2))
+print(\&quot;frame indices (28 + tau):\&quot;, 28 + tau)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 61</strong><time>2026-11-13T02:31:13.794850+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+xs = []
+for t in range(28, 96):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    xs.append(coords[:, 1].mean())
+xs = np.array(xs)
+
+tau = np.arange(17)
+x_new = [xs[0] + (xs[min(3 * ti, len(xs)-1)] - xs[0]) / 3.0 for ti in tau]
+
+print(\&quot;Comparing x_new vs source frames:\&quot;)
+for ti, xn in zip(tau, x_new):
+    frame_curr = 28 + ti
+    # find which source frame has cx closest to xn
+    closest_t = np.argmin(np.abs(xs - xn))
+    print(f\&quot;new frame {frame_curr:2d}: target_x = {xn:6.2f} | source frame {28+closest_t:2d} has x = {xs[closest_t]:6.2f} (diff = {xs[closest_t]-xn:+.2f})\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 62</strong><time>2026-11-13T02:31:21.711692+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check differences between consecutive stopped frames in source (e.g. 80 to 95)
+for t in range(80, 90):
+    d = np.max(np.abs(src[t+1].astype(float) - src[t].astype(float)))
+    print(f\&quot;diff between frame {t} and {t+1}: {d}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 63</strong><time>2026-11-13T02:31:29.445776+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 85 vs frame 86 across the entire image
+diff = np.abs(src[86].astype(int) - src[85].astype(int))
+print(\&quot;Mean abs diff across entire image:\&quot;, np.mean(diff))
+print(\&quot;Max diff across entire image:\&quot;, np.max(diff))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 64</strong><time>2026-11-13T02:31:37.337611+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at the stopped ball location [91:97, 205:211]:
+patch_stop = src[80, 91:97, 205:211]
+bg_stop = bg[91:97, 205:211]
+print(\&quot;patch_stop shape:\&quot;, patch_stop.shape)
+print(\&quot;patch_stop R:\\n\&quot;, patch_stop[:,:,0])
+print(\&quot;patch_stop G:\\n\&quot;, patch_stop[:,:,1])
+print(\&quot;patch_stop B:\\n\&quot;, patch_stop[:,:,2])
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 65</strong><time>2026-11-13T02:31:45.225088+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Center of stopped ball in frame 80:
+# Bounding box is y in [92, 96], x in [206, 210] -&gt; exactly 5x5 pixels&quot;&#x27;!
+# Let us check the coordinates:
+diff = np.max(np.abs(src[80].astype(float) - bg.astype(float)), axis=-1)
+mask = diff &gt; 20
+coords = np.argwhere(mask)
+print(&quot;coords y:&quot;, coords[:,0].min(), &quot;to&quot;, coords[:,0].max())
+print(&quot;coords x:&quot;, coords[:,1].min(), &quot;to&quot;, coords[:,1].max())
+print(&quot;exact cx:&quot;, coords[:,1].mean(), &quot;cy:&quot;, coords[:,0].mean())
+&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 66</strong><time>2026-11-13T02:31:52.797691+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at y=90..98, x=170..215:
+# At x=206..210, frame 80 has the ball.
+# At x=169..173, frame 80 has background.
+# If we place the stopped ball at x=171.33:
+# The shift in x is dx = 171.333 - 208.0 = -36.667 (or integer shift dx = -37 -&gt; cx = 171.0, or -36.67).
+# Let us check bg at [92:97, 206:211] vs bg at [92:97, 169:174]:
+diff_bg = np.abs(bg[92:97, 206:211].astype(int) - bg[92:97, 169:174].astype(int))
+print(\&quot;diff_bg max:\&quot;, diff_bg.max())
+print(\&quot;diff_bg mean:\&quot;, diff_bg.mean())
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 67</strong><time>2026-11-13T02:32:01.018546+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at y=90..98, x=170..215:
+# At x=206..210, frame 80 has the ball.
+# At x=169..173, frame 80 has background.
+# If we place the stopped ball at x=171.33:
+# The shift in x is dx = 171.333 - 208.0 = -36.667 (or integer shift dx = -37 -&gt; cx = 171.0, or -36.67).
+# Let us check bg at [92:97, 206:211] vs bg at [92:97, 169:174]:
+diff_bg = np.abs(bg[92:97, 206:211].astype(int) - bg[92:97, 169:174].astype(int))
+print(\&quot;diff_bg max:\&quot;, diff_bg.max())
+print(\&quot;diff_bg mean:\&quot;, diff_bg.mean())
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 68</strong><time>2026-11-13T02:32:09.106834+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at y=90..98, x=170..215:
+# At x=206..210, frame 80 has the ball.
+# At x=169..173, frame 80 has background.
+# If we place the stopped ball at x=171.33:
+# The shift in x is dx = 171.333 - 208.0 = -36.667 (or integer shift dx = -37 -&gt; cx = 171.0, or -36.67).
+# Let us check bg at [92:97, 206:211] vs bg at [92:97, 169:174]:
+diff_bg = np.abs(bg[92:97, 206:211].astype(int) - bg[92:97, 169:174].astype(int))
+print(\&quot;diff_bg max:\&quot;, diff_bg.max())
+print(\&quot;diff_bg mean:\&quot;, diff_bg.mean())
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 69</strong><time>2026-11-13T02:32:16.364122+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check differences between consecutive stopped frames in source (e.g. 80 to 95)
+for t in range(80, 90):
+    d = np.max(np.abs(src[t+1].astype(float) - src[t].astype(float)))
+    print(f\&quot;diff between frame {t} and {t+1}: {d}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 70</strong><time>2026-11-13T02:32:23.484457+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs frame 78:
+# Let us see the ball patch in frame 78:
+patch_ball = src[78, 91:97, 205:211]
+patch_bg = bg[91:97, 205:211]
+print(\&quot;patch_ball shape:\&quot;, patch_ball.shape)
+print(\&quot;patch_ball - patch_bg (G channel):\&quot;)
+print(patch_ball[:,:,1].astype(int) - patch_bg[:,:,1].astype(int))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 71</strong><time>2026-11-13T02:32:32.301253+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Calculate positions for original
+xs = []
+for t in range(28, 96):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    xs.append(coords[:, 1].mean())
+
+xs = np.array(xs)
+t_orig = np.arange(len(xs))
+
+# Check for each tau in 0..16:
+# x_target(tau) = xs[0] + (xs[min(3*tau, 49)] - xs[0]) / 3
+# Can we warp or copy from source frame?
+# In source frame, what frame index has the ball at position closest to x_target(tau)?
+for tau in range(17):
+    x_target = xs[0] + (xs[min(3 * tau, 49)] - xs[0]) / 3.0
+    # find exact float index in source
+    # linear interpolation of xs:
+    src_idx = np.interp(x_target, xs[:50], np.arange(50))
+    print(f\&quot;new frame {28+tau:2d} (tau={tau:2d}): x_target={x_target:.2f}, source frame index={28+src_idx:.2f}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 72</strong><time>2026-11-13T02:32:40.896567+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 36 vs 37:
+# Where is the ball in frame 36?
+d36 = np.max(np.abs(src[36].astype(float) - bg.astype(float)), axis=-1)
+coords36 = np.argwhere(d36 &gt; 20)
+print(\&quot;frame 36 coords cx:\&quot;, coords36[:, 1].mean(), \&quot;cy:\&quot;, coords36[:, 0].mean())
+print(\&quot;frame 36 ymin, ymax, xmin, xmax:\&quot;, coords36[:,0].min(), coords36[:,0].max(), coords36[:,1].min(), coords36[:,1].max())
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 73</strong><time>2026-11-13T02:32:50.724370+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg:
+# At frame t &gt;= 45, if we place the ball from frame 36 (or frame 80) at x=171.3:
+# Let us see how the ball patch from frame 36 looks:
+patch36 = src[36, 91:97, 168:174]
+print(\&quot;patch36 shape:\&quot;, patch36.shape)
+# And the background there:
+print(\&quot;diff from bg on patch36:\&quot;)
+print(np.max(np.abs(patch36.astype(float) - bg[91:97, 168:174].astype(float)), axis=-1))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 74</strong><time>2026-11-13T02:33:00.785908+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at the stopped ball:
+patch80 = src[80, 91:97, 205:211].astype(float)
+bg80 = bg[91:97, 205:211].astype(float)
+diff80 = np.max(np.abs(patch80 - bg80), axis=-1)
+print(\&quot;patch80 diff:\\n\&quot;, np.round(diff80))
+
+# Notice that frame 80 is at integer coordinates 205:211 (width 6, height 6).
+# If we place it at cx = 171.33:
+# cx = 208 -&gt; cx = 171: shift by -37 -&gt; x range is 205-37 : 211-37 = [168:174]
+# center of [168:174] is (168 + 173) / 2 = 170.5 or with x range [169:175] is 171.5.
+# Let us check center of mask in patch80:
+coords_in_patch = np.argwhere(diff80 &gt; 20)
+print(\&quot;center in patch80:\&quot;, coords_in_patch[:, 1].mean(), coords_in_patch[:, 0].mean())
+# If patch starts at x=205, center is 205 + 3.0 = 208.0&quot;&#x27;!
+# So if patch starts at x=168, center is 168 + 3.0 = 171.0!
+&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 75</strong><time>2026-11-13T02:33:09.509932+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at y=90..98, x=160..220:
+print(\&quot;bg rows 91..96 at x=168..174:\&quot;)
+print(bg[91:97, 168:174, 0])
+print(\&quot;bg rows 91..96 at x=205..211:\&quot;)
+print(bg[91:97, 205:211, 0])
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 76</strong><time>2026-11-13T02:33:18.274119+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg:
+test_img = src[80].copy()
+# Remove ball from 205..211:
+test_img[91:97, 205:211] = bg[91:97, 205:211]
+# Place ball at 168..174:
+test_img[91:97, 168:174] = src[80, 91:97, 205:211]
+
+from PIL import Image
+Image.fromarray(test_img).save(\&quot;.tmp/test_shifted_80.png\&quot;)
+print(\&quot;Saved test_shifted_80.png\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 77</strong><time>2026-11-13T02:33:27.511152+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at boundary:
+# Let us inspect the patch borders of src[80, 91:97, 205:211]
+p = src[80, 91:97, 205:211].astype(int)
+b = bg[91:97, 168:174].astype(int)
+
+print(\&quot;Border differences (top row):\&quot;, np.max(np.abs(p[0] - b[0]), axis=-1))
+print(\&quot;Border differences (bottom row):\&quot;, np.max(np.abs(p[-1] - b[-1]), axis=-1))
+print(\&quot;Border differences (left col):\&quot;, np.max(np.abs(p[:, 0] - b[:, 0]), axis=-1))
+print(\&quot;Border differences (right col):\&quot;, np.max(np.abs(p[:, -1] - b[:, -1]), axis=-1))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 78</strong><time>2026-11-13T02:33:36.407713+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg in wider region around (94, 208)
+diff = np.max(np.abs(src[80].astype(float) - bg.astype(float)), axis=-1)
+print(\&quot;diff in [90:100, 203:213]:\\n\&quot;, np.round(diff[90:100, 203:213]))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 79</strong><time>2026-11-13T02:33:46.327014+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check alpha / delta blending
+delta80 = src[80].astype(float) - bg.astype(float)
+# crop around ball [89:99, 202:214] (10x12)
+crop_delta = delta80[89:99, 202:214]
+print(\&quot;Max absolute delta on border of 10x12 crop:\&quot;)
+print(\&quot;top:\&quot;, np.max(np.abs(crop_delta[0])))
+print(\&quot;bottom:\&quot;, np.max(np.abs(crop_delta[-1])))
+print(\&quot;left:\&quot;, np.max(np.abs(crop_delta[:, 0])))
+print(\&quot;right:\&quot;, np.max(np.abs(crop_delta[:, -1])))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 80</strong><time>2026-11-13T02:33:57.232496+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check subpixel shift using scipy.ndimage.shift
+from scipy.ndimage import shift
+
+# For frame 80 delta:
+delta80 = src[80].astype(float) - bg.astype(float)
+# Zero out anything far from the ball (e.g. keep only y in [88:100], x in [200:216])
+ball_mask = np.zeros_like(delta80)
+ball_mask[88:100, 200:216] = 1.0
+delta80_clean = delta80 * ball_mask
+
+# Now if we want the ball at target_cx = 171.33:
+# current center is cx = 208.0:
+dx = 171.333 - 208.0 # -36.667
+shifted_delta = np.zeros_like(delta80_clean)
+for c in range(3):
+    shifted_delta[:, :, c] = shift(delta80_clean[:, :, c], (0, dx), order=3)
+
+# Add to background:
+synthetic = np.clip(bg.astype(float) + shifted_delta, 0, 255).astype(np.uint8)
+
+# Check center of synthetic:
+diff_syn = np.max(np.abs(synthetic.astype(float) - bg.astype(float)), axis=-1)
+coords = np.argwhere(diff_syn &gt; 25)
+print(\&quot;Synthetic ball center cx:\&quot;, coords[:, 1].mean(), \&quot;cy:\&quot;, coords[:, 0].mean())
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 81</strong><time>2026-11-13T02:34:06.325523+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check differences between background and each frame outside ball
+for t in range(28, 96):
+    frame = src[t].copy()
+    # If we erase the original ball in frame t:
+    # where is the ball in frame t?
+    d = np.max(np.abs(frame.astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 20)
+    if len(coords) &gt; 0:
+        ymin, ymax = coords[:, 0].min() - 2, coords[:, 0].max() + 2
+        xmin, xmax = coords[:, 1].min() - 2, coords[:, 1].max() + 2
+        frame[ymin:ymax+1, xmin:xmax+1] = bg[ymin:ymax+1, xmin:xmax+1]
+    diff = np.max(np.abs(frame.astype(float) - bg.astype(float)))
+    if diff &gt; 10:
+        print(f\&quot;t={t}: diff={diff}\&quot;)
+print(\&quot;Done checking all frames&quot;&#x27;!&quot;)
+&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 82</strong><time>2026-11-13T02:34:18.075391+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Calculate positions for original
+xs = []
+for t in range(28, 96):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    xs.append(coords[:, 1].mean())
+
+xs = np.array(xs)
+t_orig_stop = np.where(xs &gt;= 207.99)[0][0] # 49 frames after t=28
+x_start = xs[0]
+x_stop_orig = xs[t_orig_stop]
+print(\&quot;x_start:\&quot;, x_start, \&quot;x_stop_orig:\&quot;, x_stop_orig)
+
+# With 3x friction:
+tau_stop = t_orig_stop / 3.0 # 49 / 3 = 16.333 frames
+x_stop_new = x_start + (x_stop_orig - x_start) / 3.0 # 153.0 + 55.0 / 3 = 171.333
+print(f\&quot;tau_stop: {tau_stop:.3f} (new frame {28 + tau_stop:.3f})\&quot;)
+print(f\&quot;x_stop_new: {x_stop_new:.3f}\&quot;)
+
+# For any integer relative frame tau in 0..67 (corresponding to frame 28..95):
+x_new = []
+for tau in range(len(xs)):
+    if tau &lt; tau_stop:
+        # Corresponding time in original rollout is t_orig = 3 * tau
+        # Since t_orig may not be an integer, we interpolate xs:
+        t_orig = 3.0 * tau
+        # interpolated x in original:
+        x_orig_interp = np.interp(t_orig, np.arange(len(xs)), xs)
+        xn = x_start + (x_orig_interp - x_start) / 3.0
+    else:
+        xn = x_stop_new
+    x_new.append(xn)
+
+x_new = np.array(x_new)
+print(\&quot;x_new from frame 28 to 50:\&quot;)
+for f, xn in enumerate(x_new[:23], 28):
+    print(f\&quot;frame {f:2d}: x={xn:.3f}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 83</strong><time>2026-11-13T02:34:33.201351+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+from scipy.ndimage import shift
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Calculate positions for original
+xs = []
+for t in range(28, 96):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    xs.append(coords[:, 1].mean())
+
+xs = np.array(xs)
+t_orig_stop = np.where(xs &gt;= 207.99)[0][0] # 49
+x_start = xs[0]
+x_stop_orig = xs[t_orig_stop]
+tau_stop = t_orig_stop / 3.0
+x_stop_new = x_start + (x_stop_orig - x_start) / 3.0
+
+out_frames = np.zeros_like(src)
+out_frames[:28] = src[:28]
+
+for f in range(28, 96):
+    tau = f - 28
+    if tau &lt; tau_stop:
+        t_orig = 3.0 * tau
+        x_target = x_start + (np.interp(t_orig, np.arange(len(xs)), xs) - x_start) / 3.0
+        # Choose donor source frame:
+        # In original rollout, which frame is closest in appearance?
+        # At t_orig, the ball had rolled by angle theta = (x_orig - x_start) / R.
+        # But in new rollout, ball has rolled by (x_target - x_start) / R&quot;&#x27;!
+        # The rolling rotation angle matches the distance traveled!
+        # Distance traveled is x_target - x_start!
+        # So donor frame should be the frame where ball traveled x_target - x_start!
+        # Where did ball travel x_target - x_start in source?
+        # At source frame where xs ~ x_target!
+        s_idx = np.argmin(np.abs(xs - x_target))
+        donor_f = 28 + s_idx
+        donor_cx = xs[s_idx]
+    else:
+        x_target = x_stop_new
+        # Ball has stopped: donor can be frame 80 (where it is cleanly stopped and stationary)
+        donor_f = 80
+        donor_cx = 208.0
+
+    # Start with background (or cleaned source frame f)
+    frame = bg.copy()
+    
+    # Extract delta from donor_f:
+    delta = src[donor_f].astype(float) - bg.astype(float)
+    # Mask around donor ball:
+    d_mag = np.max(np.abs(delta), axis=-1)
+    donor_coords = np.argwhere(d_mag &gt; 15)
+    if len(donor_coords) &gt; 0:
+        mask = np.zeros((144, 256), dtype=float)
+        ymin, ymax = donor_coords[:, 0].min() - 2, donor_coords[:, 0].max() + 2
+        xmin, xmax = donor_coords[:, 1].min() - 2, donor_coords[:, 1].max() + 2
+        mask[ymin:ymax+1, xmin:xmax+1] = 1.0
+        delta_ball = delta * mask[:, :, None]
+        
+        # Shift delta by dx = x_target - donor_cx:
+        dx = x_target - donor_cx
+        shifted_delta = np.zeros_like(delta_ball)
+        for c in range(3):
+            shifted_delta[:, :, c] = shift(delta_ball[:, :, c], (0, dx), order=3)
+        
+        frame = np.clip(frame.astype(float) + shifted_delta, 0, 255).astype(np.uint8)
+    
+    out_frames[f] = frame
+
+# Verify out_frames ball positions:
+for f in [28, 30, 35, 40, 44, 45, 50, 60, 70, 80, 90, 95]:
+    diff = np.max(np.abs(out_frames[f].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(diff &gt; 25)
+    print(f&quot;out frame {f:2d}: ball cx={coords[:, 1].mean():.2f}, cy={coords[:, 0].mean():.2f}&quot;)
+&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 84</strong><time>2026-11-13T02:34:45.289709+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+from scipy.ndimage import shift
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 44 vs 45:
+# In frame 44: donor was frame 37 (cx=172.06), shifted by 171.29 - 172.06 = -0.77 -&gt; cx=171.41
+# In frame 45: donor was frame 80 (cx=208.0), shifted by 171.33 - 208.0 = -36.67 -&gt; cx=171.06
+# Why did frame 44 result in 171.41 and frame 45 in 171.06?
+# Because donor 37 had slightly different threshold mask centroid than donor 80&quot;&#x27;!
+# If we use donor 80 for frame 44, or if we use donor 36/37 for both, or if we calibrate donor_cx to match the exact shift:
+# Let us check:
+for donor_f in [36, 37, 80]:
+    delta = src[donor_f].astype(float) - bg.astype(float)
+    d_mag = np.max(np.abs(delta), axis=-1)
+    donor_coords = np.argwhere(d_mag &gt; 15)
+    mask = np.zeros((144, 256), dtype=float)
+    ymin, ymax = donor_coords[:, 0].min() - 2, donor_coords[:, 0].max() + 2
+    xmin, xmax = donor_coords[:, 1].min() - 2, donor_coords[:, 1].max() + 2
+    mask[ymin:ymax+1, xmin:xmax+1] = 1.0
+    delta_ball = delta * mask[:, :, None]
+    
+    # Measure exact center of delta_ball using absolute weight:
+    weights = np.sum(np.abs(delta_ball), axis=-1)
+    cy_exact = np.sum(np.arange(144)[:, None] * weights) / np.sum(weights)
+    cx_exact = np.sum(np.arange(256)[None, :] * weights) / np.sum(weights)
+    print(f&quot;donor_f={donor_f}: exact weighted cx={cx_exact:.4f}, cy={cy_exact:.4f}&quot;)
+&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 85</strong><time>2026-11-13T02:34:56.243591+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 28 vs frame 27
+d27 = np.max(np.abs(src[27].astype(float) - bg.astype(float)), axis=-1)
+c27 = np.argwhere(d27 &gt; 20)
+print(\&quot;frame 27 cx:\&quot;, c27[:, 1].mean(), \&quot;cy:\&quot;, c27[:, 0].mean())
+
+d28 = np.max(np.abs(src[28].astype(float) - bg.astype(float)), axis=-1)
+c28 = np.argwhere(d28 &gt; 20)
+print(\&quot;frame 28 cx:\&quot;, c28[:, 1].mean(), \&quot;cy:\&quot;, c28[:, 0].mean())
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 86</strong><time>2026-11-13T02:35:04.514850+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 28 vs frame 28 from source:
+# Frame 28 is identical between source and counterfactual&quot;&#x27;!
+# In our simulation:
+# at tau=0 (frame 28): t_orig = 0 -&gt; x_target = x_start = 153.0.
+# So frame 28 is exactly src[28]!
+&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 87</strong><time>2026-11-13T02:35:18.184052+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+from scipy.ndimage import shift
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Calculate positions for original
+xs = []
+for t in range(28, 96):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    xs.append(coords[:, 1].mean())
+
+xs = np.array(xs)
+t_orig_stop = np.where(xs &gt;= 207.99)[0][0] # 49
+x_start = xs[0]
+x_stop_orig = xs[t_orig_stop]
+tau_stop = t_orig_stop / 3.0
+x_stop_new = x_start + (x_stop_orig - x_start) / 3.0
+
+out_frames = np.zeros_like(src)
+out_frames[:29] = src[:29] # frame 28 is exact source
+
+for f in range(29, 96):
+    tau = f - 28
+    if tau &lt; tau_stop:
+        t_orig = 3.0 * tau
+        x_target = x_start + (np.interp(t_orig, np.arange(len(xs)), xs) - x_start) / 3.0
+        s_idx = np.argmin(np.abs(xs - x_target))
+        donor_f = 28 + s_idx
+    else:
+        x_target = x_stop_new
+        donor_f = 80
+
+    # Start with background
+    frame = bg.copy()
+    
+    delta = src[donor_f].astype(float) - bg.astype(float)
+    d_mag = np.max(np.abs(delta), axis=-1)
+    donor_coords = np.argwhere(d_mag &gt; 15)
+    mask = np.zeros((144, 256), dtype=float)
+    ymin, ymax = donor_coords[:, 0].min() - 2, donor_coords[:, 0].max() + 2
+    xmin, xmax = donor_coords[:, 1].min() - 2, donor_coords[:, 1].max() + 2
+    mask[ymin:ymax+1, xmin:xmax+1] = 1.0
+    delta_ball = delta * mask[:, :, None]
+    
+    weights = np.sum(np.abs(delta_ball), axis=-1)
+    donor_cx = np.sum(np.arange(256)[None, :] * weights) / np.sum(weights)
+    
+    dx = x_target - donor_cx
+    shifted_delta = np.zeros_like(delta_ball)
+    for c in range(3):
+        shifted_delta[:, :, c] = shift(delta_ball[:, :, c], (0, dx), order=3)
+    
+    frame = np.clip(frame.astype(float) + shifted_delta, 0, 255).astype(np.uint8)
+    out_frames[f] = frame
+
+# Track center across all frames 27..50
+print(\&quot;Centers from frame 27 to 50:\&quot;)
+for f in range(27, 51):
+    diff = np.max(np.abs(out_frames[f].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(diff &gt; 20)
+    print(f\&quot;frame {f:2d}: cx={coords[:, 1].mean():.3f}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 88</strong><time>2026-11-13T02:35:28.321410+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at y=90..98, x=150..220:
+print(\&quot;Checking background around floor...\&quot;)
+diff_bg_frames = np.max(np.abs(src[80:].astype(float) - bg.astype(float)), axis=-1)
+# exclude ball at 206..210:
+diff_bg_frames[:, 90:98, 204:212] = 0
+print(\&quot;Max diff from bg in frames 80..95 outside ball:\&quot;, diff_bg_frames.max())
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 89</strong><time>2026-11-13T02:35:36.522966+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame f:
+for f in [35, 45, 60, 80]:
+    frame = src[f].copy()
+    # where is original ball in frame f?
+    diff_orig = np.max(np.abs(frame.astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(diff_orig &gt; 20)
+    print(f\&quot;frame {f}: ball at x=[{coords[:,1].min()},{coords[:,1].max()}]\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 90</strong><time>2026-11-13T02:35:46.145056+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at [90:98, 204:212]:
+# When ball is erased, how does the frame look?
+frame80_erased = src[80].copy()
+coords = np.argwhere(np.max(np.abs(frame80_erased.astype(float) - bg.astype(float)), axis=-1) &gt; 15)
+ymin, ymax = coords[:, 0].min() - 2, coords[:, 0].max() + 2
+xmin, xmax = coords[:, 1].min() - 2, coords[:, 1].max() + 2
+frame80_erased[ymin:ymax+1, xmin:xmax+1] = bg[ymin:ymax+1, xmin:xmax+1]
+
+diff = np.max(np.abs(frame80_erased.astype(float) - src[80].astype(float)), axis=-1)
+print(\&quot;Changed pixels:\&quot;, np.sum(diff &gt; 0))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 91</strong><time>2026-11-13T02:35:55.822358+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at [90:98, 204:212]:
+# If we calculate std of pixel values across frames 78..95 at non-ball regions:
+std_noise = np.std(src[78:96, 50:70, 50:70].astype(float), axis=0)
+print(\&quot;Sensor noise std:\&quot;, np.mean(std_noise))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 92</strong><time>2026-11-13T02:36:05.629341+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+xs = []
+for t in range(28, 96):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    xs.append(coords[:, 1].mean())
+
+xs = np.array(xs)
+t_orig_stop = np.where(xs &gt;= 207.99)[0][0] # 49
+x_start = xs[0]
+x_stop_orig = xs[t_orig_stop]
+tau_stop = t_orig_stop / 3.0
+x_stop_new = x_start + (x_stop_orig - x_start) / 3.0
+
+print(f\&quot;Rolling start: frame 28, x={x_start:.2f}\&quot;)
+print(f\&quot;Rolling stop: frame {28+tau_stop:.2f}, x={x_stop_new:.2f}\&quot;)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 93</strong><time>2026-11-13T02:36:17.347190+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at y=90..98, x=160..220:
+print(\&quot;bg rows 91..96 at x=168..174:\\n\&quot;, bg[91:97, 168:174, 1])
+print(\&quot;bg rows 91..96 at x=205..211:\\n\&quot;, bg[91:97, 205:211, 1])
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 94</strong><time>2026-11-13T02:36:27.707406+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+from scipy.ndimage import shift
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs bg at [90:98, 204:212]:
+patch_stop = src[80, 90:98, 204:212]
+bg_patch_stop = bg[90:98, 204:212]
+
+# Let us check delta:
+delta_stop = patch_stop.astype(float) - bg_patch_stop.astype(float)
+# Zero out small differences:
+delta_stop[np.abs(delta_stop) &lt; 8] = 0.0
+
+# When added to bg[90:98, 167:175]:
+placed = np.clip(bg[90:98, 167:175].astype(float) + delta_stop, 0, 255).astype(np.uint8)
+
+# Compare placed with patch_stop:
+diff = np.max(np.abs(placed.astype(float) - patch_stop.astype(float)))
+print(\&quot;Max diff between placed ball and original stopped ball:\&quot;, diff)
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 95</strong><time>2026-11-13T02:36:43.979192+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+from PIL import Image
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Calculate positions for original
+xs = []
+for t in range(28, 96):
+    d = np.max(np.abs(src[t].astype(float) - bg.astype(float)), axis=-1)
+    coords = np.argwhere(d &gt; 25)
+    xs.append(coords[:, 1].mean())
+
+xs = np.array(xs)
+t_orig_stop = np.where(xs &gt;= 207.99)[0][0] # 49
+x_start = xs[0]
+x_stop_orig = xs[t_orig_stop]
+tau_stop = t_orig_stop / 3.0
+x_stop_new = x_start + (x_stop_orig - x_start) / 3.0
+
+from scipy.ndimage import shift
+
+out_frames = np.zeros_like(src)
+out_frames[:29] = src[:29]
+
+for f in range(29, 96):
+    tau = f - 28
+    if tau &lt; tau_stop:
+        t_orig = 3.0 * tau
+        x_target = x_start + (np.interp(t_orig, np.arange(len(xs)), xs) - x_start) / 3.0
+        s_idx = np.argmin(np.abs(xs - x_target))
+        donor_f = 28 + s_idx
+    else:
+        x_target = x_stop_new
+        donor_f = 80
+
+    frame = src[f].copy()
+    # Erase original ball in frame f:
+    d_orig = np.max(np.abs(frame.astype(float) - bg.astype(float)), axis=-1)
+    orig_coords = np.argwhere(d_orig &gt; 15)
+    if len(orig_coords) &gt; 0:
+        ymin, ymax = orig_coords[:, 0].min() - 2, orig_coords[:, 0].max() + 2
+        xmin, xmax = orig_coords[:, 1].min() - 2, orig_coords[:, 1].max() + 2
+        frame[ymin:ymax+1, xmin:xmax+1] = bg[ymin:ymax+1, xmin:xmax+1]
+    
+    # Extract ball delta from donor_f:
+    delta = src[donor_f].astype(float) - bg.astype(float)
+    d_mag = np.max(np.abs(delta), axis=-1)
+    donor_coords = np.argwhere(d_mag &gt; 15)
+    mask = np.zeros((144, 256), dtype=float)
+    ymin, ymax = donor_coords[:, 0].min() - 2, donor_coords[:, 0].max() + 2
+    xmin, xmax = donor_coords[:, 1].min() - 2, donor_coords[:, 1].max() + 2
+    mask[ymin:ymax+1, xmin:xmax+1] = 1.0
+    delta_ball = delta * mask[:, :, None]
+    
+    weights = np.sum(np.abs(delta_ball), axis=-1)
+    donor_cx = np.sum(np.arange(256)[None, :] * weights) / np.sum(weights)
+    
+    dx = x_target - donor_cx
+    shifted_delta = np.zeros_like(delta_ball)
+    for c in range(3):
+        shifted_delta[:, :, c] = shift(delta_ball[:, :, c], (0, dx), order=3)
+    
+    frame = np.clip(frame.astype(float) + shifted_delta, 0, 255).astype(np.uint8)
+    out_frames[f] = frame
+
+# Save a few preview frames
+Image.fromarray(out_frames[35]).save(\&quot;.tmp/out_35.png\&quot;)
+Image.fromarray(out_frames[45]).save(\&quot;.tmp/out_45.png\&quot;)
+Image.fromarray(out_frames[60]).save(\&quot;.tmp/out_60.png\&quot;)
+Image.fromarray(out_frames[80]).save(\&quot;.tmp/out_80.png\&quot;)
+print(\&quot;Saved preview frames successfully&quot;&#x27;!&quot;)
+&#x27;&quot;&#x27;&quot;</pre></details><details class=command><summary><strong>命令 96</strong><time>2026-11-13T02:36:53.664694+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 in our generated out_frames:
+# Let us load out_80.png
+from PIL import Image
+out_80 = np.array(Image.open(\&quot;.tmp/out_80.png\&quot;))
+
+diff = np.max(np.abs(out_80.astype(float) - bg.astype(float)), axis=-1)
+coords = np.argwhere(diff &gt; 20)
+print(f\&quot;out_80 ball cx={coords[:, 1].mean():.2f}, cy={coords[:, 0].mean():.2f}\&quot;)
+print(\&quot;coords count:\&quot;, len(coords))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 97</strong><time>2026-11-13T02:37:01.804138+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+src = np.load(\&quot;source_pixels.npz\&quot;)[\&quot;rgb\&quot;]
+bg = np.median(src, axis=0).astype(np.uint8)
+
+# Check frame 80 vs frame 81 in source:
+diff_src = np.max(np.abs(src[81].astype(float) - src[80].astype(float)), axis=-1)
+print(\&quot;src 80-&gt;81 diff count &gt; 5:\&quot;, np.sum(diff_src &gt; 5))
+&#x27;&quot;</pre></details><details class=command><summary><strong>命令 98</strong><time>2026-11-13T02:38:08.538630+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;python3 generate.py&#x27;</pre></details><details class=command><summary><strong>命令 99</strong><time>2026-11-13T02:38:16.992385+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la pixels.npz inspection.png transition_check.png index.html frames/ | head -n 20&#x27;</pre></details><details class=command><summary><strong>命令 100</strong><time>2026-11-13T02:38:25.418083+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c &#x27;
+import numpy as np
+
+res = np.load(\&quot;pixels.npz\&quot;)[\&quot;pixels\&quot;]
+print(\&quot;pixels tensor shape:\&quot;, res.shape, res.dtype)
+assert res.shape == (144, 256, 96)
+&#x27;&quot;</pre></details><p class=muted>保存候选 1 份；完成命令 100 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
