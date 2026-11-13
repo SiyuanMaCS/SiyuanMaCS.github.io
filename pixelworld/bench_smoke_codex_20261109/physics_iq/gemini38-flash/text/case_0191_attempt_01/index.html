@@ -1,0 +1,1701 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>gemini-3.8-flash · 0191</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>gemini-3.8-flash · 0191</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>4.0 FPS · 20 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_252d13110be89f95.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;055641ef3f17a97ca65a321331ae076c57f664629e6d2f9176a0c99e9a2702ae&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/a10cdc003f9ac9668d7d51be678e5954a1707c8d/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0191_attempt_01/final/pixels_252d13110be89f95.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/a10cdc003f9ac9668d7d51be678e5954a1707c8d/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0191_attempt_01/final/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>首帧续写</span><h3 style="margin-top:14px">原始任务</h3><p>Static locked-off single-shot with fixed frame throughout filmed with constant framerate in real-time. The scene shows a realistic scientific demonstration. The scene only contains the described setup and actions. The white styrofoam cup is on a wooden table. The 30lb kettlebell is placed on top of the white styrofoam cup.
+</p><div class=facts><div><strong>5.00s</strong>视频时长</div><div><strong>21086</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-13T08:57:24.070823+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_252d13110be89f95.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;055641ef3f17a97ca65a321331ae076c57f664629e6d2f9176a0c99e9a2702ae&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/a10cdc003f9ac9668d7d51be678e5954a1707c8d/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0191_attempt_01/candidate_00/pixels_252d13110be89f95.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/a10cdc003f9ac9668d7d51be678e5954a1707c8d/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0191_attempt_01/candidate_00/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/a10cdc003f9ac9668d7d51be678e5954a1707c8d/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0191_attempt_01/candidate_00/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/a10cdc003f9ac9668d7d51be678e5954a1707c8d/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0191_attempt_01/candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/a10cdc003f9ac9668d7d51be678e5954a1707c8d/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0191_attempt_01/candidate_00/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/a10cdc003f9ac9668d7d51be678e5954a1707c8d/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0191_attempt_01/candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,228 @@
++import numpy as np
++import cv2
++from pathlib import Path
++from PIL import Image
++import artifact_io
++
++def run():
++    first_frame_path = Path(&quot;first_frame.png&quot;)
++    first_frame = np.array(Image.open(first_frame_path))
++    h, w, c = first_frame.shape
++
++    # 1. Segment kettlebell and cup
++    # KB mask:
++    kb_mask = np.zeros((h, w), dtype=bool)
++    for y in range(0, 81):
++        for x in range(95, 180):
++            r, g, b = first_frame[y, x]
++            if max(r, g, b) &lt; 65:
++                kb_mask[y, x] = True
++    kb_mask[:22, 116:162] = False
++    
++    # Close small pinholes in kettlebell mask
++    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
++    kb_mask = cv2.morphologyEx(kb_mask.astype(np.uint8), cv2.MORPH_CLOSE, kernel).astype(bool)
++
++    # Cup mask:
++    cup_mask = np.zeros((h, w), dtype=bool)
++    for y in range(81, 102):
++        for x in range(125, 166):
++            r, g, b = first_frame[y, x]
++            if r &gt; 115 and g &gt; 95:
++                cup_mask[y, x] = True
++
++    # 2. Build clean background (without KB and without Cup)
++    total_mask = (kb_mask | cup_mask).astype(np.uint8)
++    total_mask[:22, 116:162] = 0 # keep existing background in handle hole
++    
++    # Inpaint background
++    bgr_first = cv2.cvtColor(first_frame, cv2.COLOR_RGB2BGR)
++    bg_bgr = cv2.inpaint(bgr_first, total_mask, 5, cv2.INPAINT_TELEA)
++    bg_clean = cv2.cvtColor(bg_bgr, cv2.COLOR_BGR2RGB)
++
++    # Reconstruct clean table wood surface behind the cup accurately
++    for y in range(81, 103):
++        c_left = first_frame[y, 120].astype(np.float32)
++        c_right = first_frame[y, 170].astype(np.float32)
++        for x in range(124, 168):
++            alpha = (x - 120) / (170 - 120)
++            c = (1 - alpha) * c_left + alpha * c_right
++            bg_clean[y, x] = np.clip(c, 0, 255).astype(np.uint8)
++
++    # 3. Handle upward extension for when kettlebell shifts downward
++    # We extend the handle upwards so as it moves down, handle remains visible at top
++    kb_canvas = np.zeros((h + 40, w, 3), dtype=np.uint8)
++    kb_mask_extended = np.zeros((h + 40, w), dtype=bool)
++
++    # Place original kb on canvas (offset by 30 at top)
++    offset_y = 30
++    kb_canvas[offset_y:offset_y + h, :] = first_frame
++    kb_mask_extended[offset_y:offset_y + h, :] = kb_mask
++
++    # Extend handle upward in the top 30 rows
++    for dy in range(offset_y):
++        # repeat row 0 of handle
++        kb_canvas[dy, 100:117] = first_frame[0, 100:117]
++        kb_canvas[dy, 161:176] = first_frame[0, 161:176]
++        kb_mask_extended[dy, 100:117] = kb_mask[0, 100:117]
++        kb_mask_extended[dy, 161:176] = kb_mask[0, 161:176]
++
++    # Extract cup bounding box
++    y_cup_min, y_cup_max = 81, 101
++    x_cup_min, x_cup_max = 120, 170
++    cup_crop = first_frame[y_cup_min:y_cup_max+1, x_cup_min:x_cup_max+1].copy()
++    cup_crop_mask = cup_mask[y_cup_min:y_cup_max+1, x_cup_min:x_cup_max+1].copy()
++    cup_orig_h = y_cup_max - y_cup_min + 1 # 21
++    cup_orig_w = x_cup_max - x_cup_min + 1 # 51
++
++    # 4. Generate 20 frames
++    # Kinematics:
++    # Frame 0: rest, scale = 1.0, dy = 0
++    # Frame 1: initial contact/creak, scale = 0.98, dy = 0.4
++    # Frame 2: buckling begins, scale = 0.85, dy = 3.0
++    # Frame 3: rapid crushing, scale = 0.55, dy = 9.5
++    # Frame 4: rapid crushing, scale = 0.32, dy = 14.5
++    # Frame 5: near full crush, scale = 0.22, dy = 16.5
++    # Frame 6: impact bottom, slight bounce/compression, scale = 0.19, dy = 17.2
++    # Frame 7: rebound oscillation, scale = 0.205, dy = 16.9
++    # Frame 8: settling, scale = 0.20, dy = 17.0
++    # Frames 9-19: completely resting at full crush, scale = 0.20, dy = 17.0
++    
++    # We create smooth physics curve:
++    n_frames = 20
++    scales = np.ones(n_frames, dtype=np.float32)
++    dys = np.zeros(n_frames, dtype=np.float32)
++
++    for i in range(n_frames):
++        if i == 0:
++            scales[i] = 1.0
++            dys[i] = 0.0
++        elif i == 1:
++            scales[i] = 0.97
++            dys[i] = 0.6
++        elif i == 2:
++            scales[i] = 0.82
++            dys[i] = 3.8
++        elif i == 3:
++            scales[i] = 0.52
++            dys[i] = 10.1
++        elif i == 4:
++            scales[i] = 0.30
++            dys[i] = 14.7
++        elif i == 5:
++            scales[i] = 0.21
++            dys[i] = 16.6
++        elif i == 6:
++            scales[i] = 0.185
++            dys[i] = 17.2
++        elif i == 7:
++            scales[i] = 0.20
++            dys[i] = 16.9
++        elif i == 8:
++            scales[i] = 0.19
++            dys[i] = 17.1
++        else:
++            scales[i] = 0.19
++            dys[i] = 17.1
++
++    # Deterministic cup fragment flakes popping out during crush
++    np.random.seed(42)
++    n_flakes = 12
++    flake_pos = [] # (x, y, vx, vy)
++    for _ in range(n_flakes):
++        fx = np.random.uniform(128, 162)
++        fy = np.random.uniform(92, 100)
++        # flakes shoot outward left or right
++        dir_x = -1.0 if fx &lt; 145 else 1.0
++        vx = dir_x * np.random.uniform(1.2, 3.8)
++        vy = np.random.uniform(-1.5, 0.5)
++        flake_pos.append([fx, fy, vx, vy])
++
++    frames = []
++    for f_idx in range(n_frames):
++        if f_idx == 0:
++            # Frame 0 must be pixel-identical to first_frame.png
++            frames.append(first_frame.copy())
++            continue
++
++        scale = scales[f_idx]
++        dy = dys[f_idx]
++        int_dy = int(round(dy))
++
++        # Start with clean background
++        frame = bg_clean.copy()
++
++        # Render crushed cup
++        # Cup is grounded at y_cup_max (101)
++        crushed_h = max(3, int(round(cup_orig_h * scale)))
++        # Lateral expansion: cup bulges and flattens out laterally
++        w_factor = 1.0 + (1.0 - scale) * 0.45
++        crushed_w = int(round(cup_orig_w * w_factor))
++
++        resized_cup = cv2.resize(cup_crop, (crushed_w, crushed_h), interpolation=cv2.INTER_LINEAR)
++        resized_mask = cv2.resize(cup_crop_mask.astype(np.uint8), (crushed_w, crushed_h), interpolation=cv2.INTER_NEAREST)
++
++        # Wrinkling / crinkling texture distortion as cup is crushed
++        if scale &lt; 0.9:
++            # Add crumple texture variations
++            crush_noise = (np.sin(np.linspace(0, 15, crushed_w)) * 12 * (1.0 - scale)).astype(np.int16)
++            resized_cup = np.clip(resized_cup.astype(np.int16) + crush_noise[None, :, None], 0, 255).astype(np.uint8)
++
++        # Position of crushed cup:
++        # Bottom remains at y_cup_max (101)
++        cup_top_y = y_cup_max - crushed_h + 1
++        cup_left_x = int(round(145 - crushed_w / 2))
++
++        # Paste crushed cup
++        for cy in range(crushed_h):
++            fy = cup_top_y + cy
++            if 0 &lt;= fy &lt; h:
++                for cx in range(crushed_w):
++                    fx = cup_left_x + cx
++                    if 0 &lt;= fx &lt; w and resized_mask[cy, cx] &gt; 0:
++                        frame[fy, fx] = resized_cup[cy, cx]
++
++        # Render flakes / debris on table for frames &gt;= 3
++        if f_idx &gt;= 2:
++            dt = f_idx - 2
++            for fl in flake_pos:
++                fl_x = int(round(fl[0] + fl[2] * dt))
++                fl_y = int(round(fl[1] + fl[3] * dt + 0.4 * dt * dt)) # gravity
++                # ground flake at table level (y ~ 102..115)
++                if fl_y &gt; 103 + abs(fl_x - 145) * 0.05:
++                    fl_y = int(103 + abs(fl_x - 145) * 0.05)
++                if 0 &lt;= fl_y &lt; h and 0 &lt;= fl_x &lt; w:
++                    # White flake with shadow
++                    frame[fl_y, fl_x] = [235, 235, 238]
++                    if fl_x + 1 &lt; w:
++                        frame[fl_y, fl_x + 1] = [220, 218, 222]
++
++        # Render kettlebell translated down by dy
++        # Sample from kb_canvas
++        for y in range(h):
++            src_y = y - int_dy + offset_y
++            if 0 &lt;= src_y &lt; kb_canvas.shape[0]:
++                mask_row = kb_mask_extended[src_y, :]
++                frame[y, mask_row] = kb_canvas[src_y, mask_row]
++
++        # Contact shadow of kettlebell onto crushed cup and table
++        # Around the bottom of the bell (at y = 80 + int_dy)
++        contact_y = 80 + int_dy
++        for sy in range(contact_y - 1, min(h, contact_y + 3)):
++            for sx in range(120, 170):
++                # if not covered by kettlebell, darken slightly
++                if not kb_mask_extended[sy - int_dy + offset_y, sx]:
++                    frame[sy, sx] = (frame[sy, sx].astype(np.float32) * 0.75).astype(np.uint8)
++
++        frames.append(frame)
++
++    frames = np.array(frames, dtype=np.uint8)
++    assert frames.shape == (20, 144, 256, 3), f&quot;Unexpected shape: {frames.shape}&quot;
++    assert np.array_equal(frames[0], first_frame), &quot;Frame 00 must be pixel-identical to first_frame.png&quot;
++
++    case_dir = Path(&quot;.&quot;)
++    artifact_io.save(frames, case_dir)
++    print(&quot;Video successfully generated and saved!&quot;)
++
++if __name__ == &quot;__main__&quot;:
++    run()
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-13T08:44:16.072650+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la&#x27;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-13T08:44:20.495328+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat prompt.txt; echo &quot;---&quot;; cat GENERATION_RULES.md&#x27;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-13T08:44:26.508116+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2, numpy as np
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+print(&#x27;Image shape:&#x27;, img.shape)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-13T08:44:31.708924+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat artifact_io.py&#x27;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-13T08:45:24.403443+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Shape:&#x27;, img.shape)
+# Let&#x27;s inspect color statistics across rows and columns
+print(&#x27;Row means (sample):&#x27;, img.mean(axis=(1,2))[::10])
+print(&#x27;Col means (sample):&#x27;, img.mean(axis=(0,2))[::20])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-13T08:45:31.082366+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Find white pixels (styrofoam cup is white)
+white_mask = (img[:, :, 0] &gt; 180) &amp; (img[:, :, 1] &gt; 180) &amp; (img[:, :, 2] &gt; 180)
+print(&#x27;White pixels count:&#x27;, np.sum(white_mask))
+y_indices, x_indices = np.where(white_mask)
+if len(y_indices) &gt; 0:
+    print(&#x27;White bounding box: y=[{}, {}], x=[{}, {}]&#x27;.format(y_indices.min(), y_indices.max(), x_indices.min(), x_indices.max()))
+
+# Also check dark pixels / kettlebell
+dark_mask = (img[:, :, 0] &lt; 50) &amp; (img[:, :, 1] &lt; 50) &amp; (img[:, :, 2] &lt; 50)
+print(&#x27;Dark pixels count:&#x27;, np.sum(dark_mask))
+y_d, x_d = np.where(dark_mask)
+if len(y_d) &gt; 0:
+    print(&#x27;Dark bounding box: y=[{}, {}], x=[{}, {}]&#x27;.format(y_d.min(), y_d.max(), x_d.min(), x_d.max()))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-13T08:45:38.938114+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Image center region y=60..110, x=100..180:&#x27;)
+# Let&#x27;s print out what is around y=70..110, x=110..170
+# Let&#x27;s inspect rows around y=70 to 110 at x=140
+for y in range(70, 115, 3):
+    print(f&#x27;y={y:3d}: RGB at x=140: {img[y, 140]}, x=120: {img[y, 120]}, x=160: {img[y, 160]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-13T08:45:46.590043+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the entire image composition
+# Let&#x27;s print summary stats of regions
+print(&#x27;Background top (y=10):&#x27;, img[10, 10], img[10, 128], img[10, 240])
+print(&#x27;Table level (y=100):&#x27;, img[100, 10], img[100, 50], img[100, 200])
+
+# Where is the kettlebell?
+# Let&#x27;s find pixels where brightness &lt; 50
+kb = (img.mean(axis=2) &lt; 60)
+kb_y, kb_x = np.where(kb)
+print(f&#x27;Dark (kettlebell) bbox: y=[{kb_y.min()}, {kb_y.max()}], x=[{kb_x.min()}, {kb_x.max()}]&#x27;)
+
+# Where is the cup?
+cup = (img.mean(axis=2) &gt; 150) &amp; (img[:,:,0] &gt; 140) &amp; (img[:,:,1] &gt; 140) &amp; (img[:,:,2] &gt; 140)
+cup_y, cup_x = np.where(cup)
+print(f&#x27;Cup bbox: y=[{cup_y.min()}, {cup_y.max()}], x=[{cup_x.min()}, {cup_x.max()}]&#x27;)
+
+# Let&#x27;s check table line/surface:
+print(&#x27;y profile at x=20:&#x27;)
+for y in range(60, 120, 5):
+    print(f&#x27;y={y}: {img[y, 20]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-13T08:45:53.058666+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+h, w, _ = img.shape
+
+# Let&#x27;s map out objects by analyzing slices
+# Let&#x27;s see an ASCII rendering of the image&quot;&#x27;!
+# Downsample to 36x64 characters
+small = Image.fromarray(img).resize((64, 36), Image.Resampling.BILINEAR)
+s_arr = np.array(small)
+chars = &#x27;&quot;&#x27; .:-=+*#%@&#x27;
+for row in s_arr:
+    line = &#x27;&#x27;
+    for p in row:
+        val = int(p.mean())
+        line += chars[val * len(chars) // 256]
+    print(line)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-13T08:45:59.052777+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Looking at y from 0 to 90, x from 70 to 180:&#x27;)
+
+# Let&#x27;s inspect brightness across columns at y=15, y=30, y=50, y=70, y=85
+for y in [10, 25, 40, 55, 70, 75, 80, 85, 90]:
+    row = img[y, 80:180:5, 0] # red channel
+    print(f&#x27;y={y:2d}:&#x27;, &#x27; &#x27;.join(f&#x27;{v:3d}&#x27; for v in row))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-13T08:46:05.448626+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Image min/max:&#x27;, img.min(), img.max())
+
+# Let&#x27;s inspect rows around y=60 to 105 in detail:
+for y in range(65, 100):
+    # check where cup is
+    is_white = (img[y, :, 0] &gt; 160) &amp; (img[y, :, 1] &gt; 160) &amp; (img[y, :, 2] &gt; 160)
+    indices = np.where(is_white)[0]
+    if len(indices) &gt; 0:
+        print(f&#x27;y={y}: cup x from {indices.min()} to {indices.max()} (width {indices.max() - indices.min() + 1})&#x27;)
+
+# Where is the dark object (kettlebell)?
+for y in range(0, 90, 5):
+    is_dark = (img[y, :, 0] &lt; 50) &amp; (img[y, :, 1] &lt; 50) &amp; (img[y, :, 2] &lt; 50)
+    indices = np.where(is_dark)[0]
+    if len(indices) &gt; 0:
+        print(f&#x27;y={y}: dark x from {indices.min()} to {indices.max()} (width {indices.max() - indices.min() + 1})&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-13T08:46:11.135165+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=75 to 85, x=115 to 175:&#x27;)
+for y in range(74, 85):
+    line = &#x27;&#x27;
+    for x in range(120, 172):
+        r, g, b = img[y, x]
+        if r &lt; 50:
+            line += &#x27;#&#x27; # dark kettlebell
+        elif r &gt; 160:
+            line += &#x27;W&#x27; # white cup
+        elif r &gt; 90 and g &gt; 65:
+            line += &#x27;.&#x27; # background / table
+        else:
+            line += &#x27;?&#x27;
+    print(f&#x27;y={y:2d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-13T08:46:25.056585+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=80..105, x=120..175:&#x27;)
+for y in range(80, 105):
+    line = &#x27;&#x27;
+    for x in range(120, 172):
+        r, g, b = img[y, x]
+        if r &gt; 160 and g &gt; 160 and b &gt; 160:
+            line += &#x27;W&#x27;
+        elif r &gt; 120 and g &gt; 120 and b &gt; 120:
+            line += &#x27;w&#x27;
+        elif r &gt; 80 and g &gt; 55 and b &lt; 60:
+            line += &#x27;=&#x27; # table
+        elif r &lt; 60 and g &lt; 60 and b &lt; 60:
+            line += &#x27;#&#x27; # kettlebell
+        else:
+            line += &#x27;.&#x27;
+    print(f&#x27;y={y:2d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-13T08:46:30.952455+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table line at x=50, 100, 150, 200:&#x27;)
+for x in [30, 60, 90, 120, 150, 180, 210, 240]:
+    # find where background transitions to table
+    # background is grayish (r~100..120, g~100..120, b~100..120)
+    # table is brownish (r &gt; g &gt; b, e.g. r~80..100, g~60..70, b~35..45)
+    for y in range(60, 120):
+        r, g, b = img[y, x]
+        if r &gt; 70 and g &gt; 50 and b &lt; 50:
+            print(f&#x27;x={x}: table starts around y={y}, rgb={r,g,b}&#x27;)
+            break
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-13T08:46:36.246017+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Values at x=145 for y in 70..105:&#x27;)
+for y in range(70, 105):
+    print(f&#x27;y={y}: {img[y, 145]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-13T08:46:41.280966+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Values at x=145 for y in 0..75:&#x27;)
+for y in range(0, 75, 5):
+    print(f&#x27;y={y}: {img[y, 145]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-13T08:46:48.037987+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s find handle vs bell
+# Bell seems to start around y=25 down to y=78
+# Where is the handle?
+# Let&#x27;s inspect x from 90 to 180 across y from 0 to 30:
+for y in range(0, 30, 2):
+    line = &#x27;&#x27;
+    for x in range(95, 180):
+        r, g, b = img[y, x]
+        if r &lt; 50:
+            line += &#x27;#&#x27;
+        elif r &gt; 150:
+            line += &#x27;.&#x27;
+        else:
+            line += &#x27;-&#x27;
+    print(f&#x27;y={y:2d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-13T08:46:54.351917+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around x=0..120, y=0..30:&#x27;)
+for y in range(0, 30, 2):
+    line = &#x27;&#x27;
+    for x in range(0, 105, 2):
+        r, g, b = img[y, x]
+        if r &lt; 50:
+            line += &#x27;#&#x27;
+        elif r &gt; 150:
+            line += &#x27;.&#x27;
+        elif r &gt; 100:
+            line += &#x27;=&#x27;
+        else:
+            line += &#x27;-&#x27;
+    print(f&#x27;y={y:2d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-13T08:47:02.084614+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around x=170..255, y=0..30:&#x27;)
+for y in range(0, 30, 2):
+    line = &#x27;&#x27;
+    for x in range(170, 256, 2):
+        r, g, b = img[y, x]
+        if r &lt; 50:
+            line += &#x27;#&#x27;
+        elif r &gt; 150:
+            line += &#x27;.&#x27;
+        elif r &gt; 100:
+            line += &#x27;=&#x27;
+        else:
+            line += &#x27;-&#x27;
+    print(f&#x27;y={y:2d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-13T08:47:08.693228+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Image stats:&#x27;)
+print(&#x27;Shape:&#x27;, img.shape)
+
+# Let&#x27;s inspect the entire column 145 from top to bottom:
+for y in range(0, 144, 4):
+    print(f&#x27;y={y:3d}: {img[y, 145]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-13T08:47:24.325319+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=80..105, x=135..155:&#x27;)
+for y in range(80, 105):
+    print(f&#x27;y={y:2d}:&#x27;, img[y, 142:148, 0])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-13T08:47:33.595654+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;x from 100 to 190 at y=90:&#x27;)
+for x in range(115, 180):
+    r, g, b = img[90, x]
+    print(f&#x27;{x}:{r},{g},{b}&#x27;, end=&#x27; &#x27;)
+print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-13T08:47:40.940172+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;x from 100 to 190 at y=102:&#x27;)
+for x in range(120, 175):
+    r, g, b = img[102, x]
+    print(f&#x27;{x}:{r},{g},{b}&#x27;, end=&#x27; &#x27;)
+print()
+print(&#x27;x from 100 to 190 at y=103:&#x27;)
+for x in range(120, 175):
+    r, g, b = img[103, x]
+    print(f&#x27;{x}:{r},{g},{b}&#x27;, end=&#x27; &#x27;)
+print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 24</strong><time>2026-11-13T08:47:47.642100+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table profile at y=95..110 for x=50:&#x27;)
+for y in range(80, 115, 2):
+    print(f&#x27;y={y}: {img[y, 50]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 25</strong><time>2026-11-13T08:47:54.627926+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Background above table:
+# Table top edge is at roughly y=82.
+# Let&#x27;s inspect x=100..180, y=50..82
+print(&#x27;Background at y=50, x in 100..180:&#x27;)
+print(&#x27;x=80:&#x27;, img[50, 80], &#x27;x=100:&#x27;, img[50, 100], &#x27;x=180:&#x27;, img[50, 180], &#x27;x=200:&#x27;, img[50, 200])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 26</strong><time>2026-11-13T08:48:01.737077+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y=82..102 at x=100..120:&#x27;)
+print(&#x27;x=110, y=85..100:&#x27;)
+for y in range(85, 101):
+    print(f&#x27;y={y}: {img[y, 110]}&#x27;)
+print(&#x27;Table y=82..102 at x=170..190:&#x27;)
+print(&#x27;x=175, y=85..100:&#x27;)
+for y in range(85, 101):
+    print(f&#x27;y={y}: {img[y, 175]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 27</strong><time>2026-11-13T08:48:08.391525+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table bottom / foreground:&#x27;)
+print(&#x27;y=130..143 at x=145:&#x27;)
+for y in range(130, 144):
+    print(f&#x27;y={y}: {img[y, 145]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 28</strong><time>2026-11-13T08:48:14.833667+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=0..35, x=135..155:&#x27;)
+for y in range(0, 30, 2):
+    print(f&#x27;y={y:2d}:&#x27;, img[y, 140:150, 0])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 29</strong><time>2026-11-13T08:48:21.239359+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;x from 80 to 200 at y=10:&#x27;)
+for x in range(95, 185):
+    r, g, b = img[10, x]
+    if r &lt; 70:
+        print(f&#x27;{x}:H({r})&#x27;, end=&#x27; &#x27;)
+    else:
+        print(f&#x27;{x}:B({r})&#x27;, end=&#x27; &#x27;)
+print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 30</strong><time>2026-11-13T08:48:28.386148+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;x from 95 to 185 at y=0:&#x27;)
+for x in range(95, 185):
+    r, g, b = img[0, x]
+    print(&#x27;#&#x27; if r &lt; 70 else &#x27;.&#x27;, end=&#x27;&#x27;)
+print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 31</strong><time>2026-11-13T08:48:37.359471+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect the whole cup region:
+cup_mask = (img[:, :, 0] &gt; 140) &amp; (img[:, :, 1] &gt; 140) &amp; (img[:, :, 2] &gt; 140) &amp; (np.arange(144)[:, None] &gt; 80)
+print(&#x27;Cup y min/max:&#x27;, np.where(cup_mask)[0].min(), np.where(cup_mask)[0].max())
+print(&#x27;Cup x min/max:&#x27;, np.where(cup_mask)[1].min(), np.where(cup_mask)[1].max())
+
+# Kettlebell mask:
+kb_mask = np.zeros((144, 256), dtype=bool)
+# Bell body: roughly y between 20 and 80, x between 105 and 175, dark pixels
+for y in range(0, 85):
+    for x in range(95, 185):
+        if img[y, x, 0] &lt; 80 and img[y, x, 1] &lt; 80 and img[y, x, 2] &lt; 80:
+            kb_mask[y, x] = True
+
+print(&#x27;KB total pixels:&#x27;, np.sum(kb_mask))
+print(&#x27;KB y min/max:&#x27;, np.where(kb_mask)[0].min(), np.where(kb_mask)[0].max())
+print(&#x27;KB x min/max:&#x27;, np.where(kb_mask)[1].min(), np.where(kb_mask)[1].max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 32</strong><time>2026-11-13T08:48:43.994737+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around cup bottom (y=95..105, x=120..170):&#x27;)
+for y in range(95, 105):
+    print(f&#x27;y={y}:&#x27;)
+    for x in range(125, 168, 5):
+        print(f&#x27;  x={x}:{img[y,x]}&#x27;, end=&#x27;&#x27;)
+    print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 33</strong><time>2026-11-13T08:48:51.718896+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Color at (50, 50):&#x27;, img[50, 50])
+print(&#x27;Color at (50, 200):&#x27;, img[50, 200])
+print(&#x27;Color at (120, 50):&#x27;, img[120, 50])
+print(&#x27;Color at (120, 200):&#x27;, img[120, 200])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 34</strong><time>2026-11-13T08:48:58.622740+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table x=10..30 vs x=135..155:&#x27;)
+for y in range(85, 120, 5):
+    print(f&#x27;y={y}: left={img[y, 20]} center={img[y, 145]} right={img[y, 230]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 35</strong><time>2026-11-13T08:49:05.453976+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y=82..88, x across table:&#x27;)
+for x in range(30, 230, 20):
+    print(f&#x27;x={x:3d}: y=83:{img[83, x]} y=85:{img[85, x]} y=87:{img[87, x]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 36</strong><time>2026-11-13T08:49:12.751783+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y=82..102 at x=100..125:&#x27;)
+for y in range(82, 103):
+    print(f&#x27;y={y:2d}:&#x27;, img[y, 115:127, 0])
+print(&#x27;Table y=82..102 at x=165..175:&#x27;)
+for y in range(82, 103):
+    print(f&#x27;y={y:2d}:&#x27;, img[y, 165:175, 0])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 37</strong><time>2026-11-13T08:49:23.152303+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Looking at y=100..144:&#x27;)
+for y in range(100, 144, 4):
+    print(f&#x27;y={y:3d}: x=80:{img[y,80]} x=120:{img[y,120]} x=145:{img[y,145]} x=170:{img[y,170]} x=200:{img[y,200]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 38</strong><time>2026-11-13T08:49:31.396375+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=82..102 at x=135..155:&#x27;)
+for y in range(80, 105):
+    line = &#x27;&#x27;
+    for x in range(120, 170):
+        c = img[y, x]
+        if c.mean() &gt; 160:
+            line += &#x27;C&#x27; # cup
+        elif c[0] &gt; 70 and c[1] &gt; 50 and c[2] &lt; 60:
+            line += &#x27;T&#x27; # table
+        elif c.mean() &lt; 60:
+            line += &#x27;K&#x27; # kettlebell
+        else:
+            line += &#x27;.&#x27;
+    print(f&#x27;{y:3d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 39</strong><time>2026-11-13T08:49:37.859730+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=80..105, x=135..155 RGB:&#x27;)
+for y in range(80, 105):
+    print(f&#x27;y={y:3d}: x=130:{img[y,130]} x=145:{img[y,145]} x=160:{img[y,160]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 40</strong><time>2026-11-13T08:49:45.154959+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Min values at y=102:&#x27;)
+print(np.min(img[102, 135:160], axis=0))
+print(&#x27;Row 102 values in center:&#x27;)
+for x in range(135, 160, 2):
+    print(f&#x27;{x}:{img[102,x]}&#x27;, end=&#x27; &#x27;)
+print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 41</strong><time>2026-11-13T08:49:51.031703+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y=82..102 at x=80..95:&#x27;)
+for y in range(85, 102, 2):
+    print(f&#x27;y={y}: {img[y, 85]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 42</strong><time>2026-11-13T08:49:57.733251+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y=82..102 at x=180..200:&#x27;)
+for y in range(85, 102, 2):
+    print(f&#x27;y={y}: {img[y, 185]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 43</strong><time>2026-11-13T08:50:04.469214+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y=82..84 across x=115..175:&#x27;)
+for y in range(80, 85):
+    print(f&#x27;y={y}:&#x27;)
+    for x in range(120, 170, 5):
+        print(f&#x27; x={x}:{img[y,x]}&#x27;, end=&#x27;&#x27;)
+    print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 44</strong><time>2026-11-13T08:50:24.864016+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y=82 along x from 0 to 255:&#x27;)
+for x in range(0, 256, 16):
+    print(f&#x27;x={x:3d}: {img[82, x]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 45</strong><time>2026-11-13T08:50:31.546844+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y=80..84 at x=20:&#x27;)
+for y in range(80, 85):
+    print(f&#x27;y={y}: {img[y, 20]}&#x27;)
+print(&#x27;Table y=80..84 at x=200:&#x27;)
+for y in range(80, 85):
+    print(f&#x27;y={y}: {img[y, 200]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 46</strong><time>2026-11-13T08:50:38.745822+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y at x=10, 20, 30, 40:&#x27;)
+for x in [10, 20, 30, 40, 50, 60, 70, 80]:
+    for y in range(75, 95):
+        if img[y, x, 0] &gt; img[y, x, 2] + 20: # brown table characteristic: R &gt; B + 20
+            print(f&#x27;x={x}: table begins at y={y}&#x27;)
+            break
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 47</strong><time>2026-11-13T08:50:45.998623+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y at x=180, 200, 220, 240:&#x27;)
+for x in [160, 170, 180, 190, 200, 210, 220, 230, 240]:
+    for y in range(75, 95):
+        if img[y, x, 0] &gt; img[y, x, 2] + 20:
+            print(f&#x27;x={x}: table begins at y={y}&#x27;)
+            break
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 48</strong><time>2026-11-13T08:50:53.447853+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around bottom of kettlebell, y=70..85:&#x27;)
+for y in range(70, 85):
+    dark_xs = np.where(img[y, :, 0] &lt; 50)[0]
+    if len(dark_xs) &gt; 0:
+        print(f&#x27;y={y}: dark x min={dark_xs.min()}, max={dark_xs.max()}, count={len(dark_xs)}&#x27;)
+    else:
+        print(f&#x27;y={y}: no dark pixels&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 49</strong><time>2026-11-13T08:51:00.652646+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around top of cup, y=78..85:&#x27;)
+for y in range(78, 86):
+    cup_xs = np.where(img[y, :, 0] &gt; 150)[0]
+    if len(cup_xs) &gt; 0:
+        print(f&#x27;y={y}: cup x min={cup_xs.min()}, max={cup_xs.max()}, count={len(cup_xs)}&#x27;)
+    else:
+        print(f&#x27;y={y}: no cup pixels&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 50</strong><time>2026-11-13T08:51:07.483143+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=78..83, x=135..155:&#x27;)
+for y in range(78, 83):
+    print(f&#x27;y={y}:&#x27;)
+    for x in range(135, 155):
+        print(f&#x27;{img[y, x, 0]:3d}&#x27;, end=&#x27; &#x27;)
+    print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 51</strong><time>2026-11-13T08:51:14.073125+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=95..105, x=140..150:&#x27;)
+for y in range(95, 105):
+    print(f&#x27;y={y}: {[img[y, 145].tolist()]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 52</strong><time>2026-11-13T08:51:22.149705+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Profile of table wood grain at y=103:&#x27;)
+print(&#x27;x=80..110:&#x27;, img[103, 80:110:3, 0])
+print(&#x27;x=120..140:&#x27;, img[103, 120:140:2, 0])
+print(&#x27;x=140..160:&#x27;, img[103, 140:160:2, 0])
+print(&#x27;x=160..180:&#x27;, img[103, 160:180:2, 0])
+print(&#x27;x=180..210:&#x27;, img[103, 180:210:3, 0])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 53</strong><time>2026-11-13T08:51:29.337675+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=82..102 at x=100..115:&#x27;)
+for y in range(85, 102, 2):
+    print(f&#x27;y={y}: {[img[y, 105].tolist()]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 54</strong><time>2026-11-13T08:51:36.190858+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=82..102 at x=175..190:&#x27;)
+for y in range(85, 102, 2):
+    print(f&#x27;y={y}: {[img[y, 180].tolist()]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 55</strong><time>2026-11-13T08:51:43.458235+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y=82..102 left vs right vs center y=104:&#x27;)
+left = img[82:102, 105:120].mean(axis=(0,1))
+right = img[82:102, 170:185].mean(axis=(0,1))
+below = img[103:108, 130:160].mean(axis=(0,1))
+print(&#x27;Left mean:&#x27;, left)
+print(&#x27;Right mean:&#x27;, right)
+print(&#x27;Below mean:&#x27;, below)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 56</strong><time>2026-11-13T08:51:50.851578+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y=82..102 left rows vs right rows:&#x27;)
+for y in range(82, 103):
+    l = img[y, 110:120].mean(axis=0)
+    r = img[y, 170:180].mean(axis=0)
+    print(f&#x27;y={y:2d}: left={l.astype(int)}, right={r.astype(int)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 57</strong><time>2026-11-13T08:51:58.266504+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around handle (y=0..25):&#x27;)
+# Let&#x27;s see handle left at x=100..115 and right at x=160..175
+for y in range(0, 25, 3):
+    hl = np.where(img[y, 90:125, 0] &lt; 50)[0] + 90
+    hr = np.where(img[y, 155:185, 0] &lt; 50)[0] + 155
+    print(f&#x27;y={y:2d}: left handle x={hl.min() if len(hl) else -1}..{hl.max() if len(hl) else -1}, right handle x={hr.min() if len(hr) else -1}..{hr.max() if len(hr) else -1}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 58</strong><time>2026-11-13T08:52:08.957441+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Column 108 (left handle center):&#x27;)
+print(&#x27;y=0..5:&#x27;, img[0:5, 108, 0])
+print(&#x27;Column 168 (right handle center):&#x27;)
+print(&#x27;y=0..5:&#x27;, img[0:5, 168, 0])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 59</strong><time>2026-11-13T08:52:16.258163+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Background top around handle:&#x27;)
+print(&#x27;x=70..100 at y=5:&#x27;, img[5, 70:100:5, 0])
+print(&#x27;x=118..160 at y=5:&#x27;, img[5, 120:160:5, 0])
+print(&#x27;x=175..210 at y=5:&#x27;, img[5, 175:210:5, 0])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 60</strong><time>2026-11-13T08:52:23.449751+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Background top around handle:&#x27;)
+for y in range(0, 10):
+    print(f&#x27;y={y}: left={img[y, 90]} center={img[y, 140]} right={img[y, 190]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 61</strong><time>2026-11-13T08:52:31.290946+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Background top around handle:&#x27;)
+for y in range(0, 30, 5):
+    l = img[y, 90:100].mean(axis=0)
+    c = img[y, 125:155].mean(axis=0)
+    r = img[y, 180:190].mean(axis=0)
+    print(f&#x27;y={y:2d}: left={l.astype(int)} center={c.astype(int)} right={r.astype(int)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 62</strong><time>2026-11-13T08:52:37.572431+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=60..85:&#x27;)
+for y in range(70, 85):
+    l = img[y, 100:110].mean(axis=0)
+    r = img[y, 170:180].mean(axis=0)
+    print(f&#x27;y={y}: left={l.astype(int)}, right={r.astype(int)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 63</strong><time>2026-11-13T08:52:44.693293+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=80..105, x=125..165:&#x27;)
+# Let&#x27;s see the texture of the cup
+for y in range(83, 98):
+    row = img[y, 130:160:3, 0]
+    print(f&#x27;y={y}:&#x27;, &#x27; &#x27;.join(f&#x27;{v:3d}&#x27; for v in row))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 64</strong><time>2026-11-13T08:52:52.390808+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=82..102 at x=100..180:&#x27;)
+# Let&#x27;s inspect where the kettlebell is
+kb = (img.mean(axis=2) &lt; 50)
+print(&#x27;KB lowest y:&#x27;, np.where(kb)[0].max())
+print(&#x27;KB pixels per row from 70 to 85:&#x27;)
+for y in range(70, 85):
+    print(f&#x27;y={y}: {np.sum(kb[y, :])}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 65</strong><time>2026-11-13T08:52:59.969591+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Where are kb pixels with y &gt; 80?&#x27;)
+kb = (img.mean(axis=2) &lt; 50)
+ys, xs = np.where(kb &amp; (np.arange(144)[:, None] &gt;= 80))
+for y, x in zip(ys, xs):
+    print(f&#x27;y={y}, x={x}, rgb={img[y, x]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 66</strong><time>2026-11-13T08:53:07.071010+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=82..102 at x=100..180:&#x27;)
+# Let&#x27;s inspect where the kettlebell is
+# Let&#x27;s check table line at y=81..83:
+# Let&#x27;s write a small script to test inpainting the table behind the cup&quot;&#x27;!
+&quot;&#x27;</pre></details><details class=command><summary><strong>命令 67</strong><time>2026-11-13T08:53:15.764677+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y=82..102 at x=100..125:&#x27;)
+# Let&#x27;s inspect x=120..130 at y=82..102
+# and x=160..170 at y=82..102
+print(&#x27;Wood grain horizontal pattern:&#x27;)
+print(&#x27;y=85 left (x=115..125):&#x27;, img[85, 115:125, 0])
+print(&#x27;y=85 right (x=165..175):&#x27;, img[85, 165:175, 0])
+print(&#x27;y=95 left (x=115..125):&#x27;, img[95, 115:125, 0])
+print(&#x27;y=95 right (x=165..175):&#x27;, img[95, 165:175, 0])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 68</strong><time>2026-11-13T08:53:23.989156+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+# Cup mask:
+# In first_frame, cup is located at y=81..101, x=126..165
+cup_mask = np.zeros(img.shape[:2], dtype=np.uint8)
+cup_mask[81:102, 126:165] = 255
+# Inpaint with TELEA and NS
+inpainted_telea = cv2.inpaint(img, cup_mask, 5, cv2.INPAINT_TELEA)
+inpainted_ns = cv2.inpaint(img, cup_mask, 5, cv2.INPAINT_NS)
+cv2.imwrite(&#x27;.tmp/inpaint_telea.png&#x27;, inpainted_telea)
+cv2.imwrite(&#x27;.tmp/inpaint_ns.png&#x27;, inpainted_ns)
+print(&#x27;Inpainting done successfully&quot;&#x27;!&#x27;&quot;&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 69</strong><time>2026-11-13T08:53:32.536430+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+telea = cv2.imread(&#x27;.tmp/inpaint_telea.png&#x27;)
+print(&#x27;Telea at y=85, x=135..155:&#x27;)
+print(telea[85, 135:155, 2]) # R channel
+print(&#x27;Telea at y=95, x=135..155:&#x27;)
+print(telea[95, 135:155, 2]) # R channel
+print(&#x27;Telea at y=81, x=135..155:&#x27;)
+print(telea[81, 135:155, 2]) # R channel
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 70</strong><time>2026-11-13T08:54:11.532435+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+# Kettlebell mask:
+# bell: y from 0 to 80, x from 98 to 178
+kb_mask = np.zeros(img.shape[:2], dtype=np.uint8)
+# Find kettlebell pixels:
+for y in range(0, 80):
+    for x in range(98, 178):
+        # kettlebell is dark:
+        b, g, r = img[y, x]
+        if max(r, g, b) &lt; 60:
+            kb_mask[y, x] = 255
+
+# Fill small holes in kb_mask (except the hole between the handle&quot;&#x27;!)
+# The handle hole is in y=0..22, x=116..162
+# We do NOT want to inpaint through the handle hole, the background is already there!
+kb_mask[:22, 116:162] = 0
+
+# Dilate mask slightly for clean inpainting
+kernel = np.ones((3,3), np.uint8)
+dilated_kb = cv2.dilate(kb_mask, kernel, iterations=1)
+dilated_kb[:22, 116:162] = 0
+
+bg_inpainted = cv2.inpaint(img, dilated_kb, 5, cv2.INPAINT_TELEA)
+cv2.imwrite(&#x27;&quot;&#x27;.tmp/bg_inpainted.png&#x27;, bg_inpainted)
+print(&#x27;KB Inpainting done&quot;&#x27;! KB pixels count:&#x27;&quot;&#x27;, np.sum(kb_mask &gt; 0))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 71</strong><time>2026-11-13T08:54:19.047412+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+bg = cv2.imread(&#x27;.tmp/bg_inpainted.png&#x27;)
+print(&#x27;Sample background at y=50 across columns 110..170:&#x27;)
+print(&#x27;Original:&#x27;, img[50, 100:180:10, 2])
+print(&#x27;Inpainted bg:&#x27;, bg[50, 100:180:10, 2])
+print(&#x27;Sample background at y=70 across columns 110..170:&#x27;)
+print(&#x27;Original:&#x27;, img[70, 100:180:10, 2])
+print(&#x27;Inpainted bg:&#x27;, bg[70, 100:180:10, 2])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 72</strong><time>2026-11-13T08:54:26.892068+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=0..10, x=100..175:&#x27;)
+# Let&#x27;s inspect rows 0 to 5 for columns 100 to 175
+for y in range(5):
+    line = &#x27;&#x27;
+    for x in range(95, 180):
+        if img[y, x, 0] &lt; 60:
+            line += &#x27;#&#x27;
+        elif img[y, x, 0] &gt; 150:
+            line += &#x27;.&#x27;
+        else:
+            line += &#x27;=&#x27;
+    print(f&#x27;y={y}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 73</strong><time>2026-11-13T08:54:41.848949+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=0..10, x=100..120:&#x27;)
+for y in range(5):
+    print(f&#x27;y={y}:&#x27;, img[y, 100:118, 0])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 74</strong><time>2026-11-13T08:54:48.849899+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=0..10, x=160..176:&#x27;)
+for y in range(5):
+    print(f&#x27;y={y}:&#x27;, img[y, 160:176, 0])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 75</strong><time>2026-11-13T08:54:57.023465+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+# Cup mask:
+# In first_frame, cup is at y=81..102, x=126..165
+cup_mask = np.zeros(img.shape[:2], dtype=np.uint8)
+# cup pixels are white
+for y in range(80, 103):
+    for x in range(125, 166):
+        b, g, r = img[y, x]
+        if r &gt; 120 and g &gt; 100:
+            cup_mask[y, x] = 255
+
+# kettlebell mask
+kb_mask = np.zeros(img.shape[:2], dtype=np.uint8)
+for y in range(0, 80):
+    for x in range(95, 180):
+        b, g, r = img[y, x]
+        if max(r, g, b) &lt; 65:
+            kb_mask[y, x] = 255
+# handle cutout
+kb_mask[:22, 116:162] = 0
+
+print(&#x27;Cup pixels:&#x27;, np.sum(cup_mask &gt; 0))
+print(&#x27;KB pixels:&#x27;, np.sum(kb_mask &gt; 0))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 76</strong><time>2026-11-13T08:55:04.595084+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=98..104, x=125..165:&#x27;)
+for y in range(98, 104):
+    print(f&#x27;y={y}: min_r={img[y, 130:160, 0].min()}, max_r={img[y, 130:160, 0].max()}, mean={img[y, 130:160].mean(axis=0).astype(int)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 77</strong><time>2026-11-13T08:55:12.218532+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+# Kettlebell mask:
+kb_mask = np.zeros(img.shape[:2], dtype=bool)
+for y in range(0, 80):
+    for x in range(95, 180):
+        b, g, r = img[y, x]
+        if max(r, g, b) &lt; 65:
+            kb_mask[y, x] = True
+kb_mask[:22, 116:162] = False
+
+# For pixels that move down by dy:
+# If top of kb shifts down, handle extensions need to be dark like the handle tops
+# Left handle top is at y=0, x=102..116
+# Right handle top is at y=0, x=162..174
+print(&#x27;Left handle top colors at y=0:&#x27;)
+print(img[0, 102:117, 2])
+print(&#x27;Right handle top colors at y=0:&#x27;)
+print(img[0, 162:175, 2])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 78</strong><time>2026-11-13T08:55:19.454680+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=82..102 at x=100..125:&#x27;)
+# Let&#x27;s inspect rows 82 to 102
+# Left table slice: x=105..120
+left_table = img[82:103, 105:120]
+# Right table slice: x=170..185
+right_table = img[82:103, 170:185]
+print(&#x27;Left slice shape:&#x27;, left_table.shape)
+print(&#x27;Right slice shape:&#x27;, right_table.shape)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 79</strong><time>2026-11-13T08:55:27.502597+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+# Cup mask:
+# y from 81 to 102, x from 125 to 166 where img is cup
+cup_mask = np.zeros(img.shape[:2], dtype=np.uint8)
+for y in range(81, 102):
+    for x in range(125, 166):
+        b, g, r = img[y, x]
+        if r &gt; 115 and g &gt; 95:
+            cup_mask[y, x] = 255
+
+# Background inpainting of the table behind the cup:
+# We can use cv2.inpaint with a mask covering the cup
+bg_table = cv2.inpaint(img, cup_mask, 7, cv2.INPAINT_TELEA)
+
+# Let&#x27;s inspect the inpainted table in the cup area:
+print(&#x27;Inpainted table at y=90, x=140..150:&#x27;)
+print(&#x27;R:&#x27;, bg_table[90, 140:150, 2])
+print(&#x27;G:&#x27;, bg_table[90, 140:150, 1])
+print(&#x27;B:&#x27;, bg_table[90, 140:150, 0])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 80</strong><time>2026-11-13T08:55:36.582827+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+# Let&#x27;s inspect x=105..125 and x=165..185 for y in 81..102
+clean_table = np.zeros((21, 256, 3), dtype=np.float32)
+for y in range(81, 102):
+    # linear interpolation between x=122 and x=168
+    c_left = img[y, 122].astype(np.float32)
+    c_right = img[y, 168].astype(np.float32)
+    for x in range(120, 171):
+        alpha = (x - 122) / (168 - 122)
+        alpha = np.clip(alpha, 0.0, 1.0)
+        c = (1 - alpha) * c_left + alpha * c_right
+        # add tiny bit of wood grain variation matching surrounding
+        clean_table[y - 81, x] = c
+
+print(&#x27;Linear interp table at y=90, x=145:&#x27;, clean_table[9, 145].astype(int))
+print(&#x27;Left table at y=90, x=122:&#x27;, img[90, 122])
+print(&#x27;Right table at y=90, x=168:&#x27;, img[90, 168])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 81</strong><time>2026-11-13T08:55:43.689509+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Table y=82..102 at x=120..125:&#x27;)
+for y in range(82, 102, 2):
+    print(f&#x27;y={y}: left={img[y, 120]} right={img[y, 170]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 82</strong><time>2026-11-13T08:55:50.256697+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+print(&#x27;Around y=80..102 at x=125..165:&#x27;)
+cup_pixels = []
+for y in range(82, 102):
+    for x in range(125, 166):
+        r, g, b = img[y, x]
+        if r &gt; 115 and g &gt; 95:
+            cup_pixels.append((y, x, r, g, b))
+
+print(f&#x27;Total cup pixels: {len(cup_pixels)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 83</strong><time>2026-11-13T08:55:58.929905+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+# Kettlebell mask:
+kb_mask = np.zeros(img.shape[:2], dtype=bool)
+for y in range(0, 80):
+    for x in range(95, 180):
+        b, g, r = img[y, x]
+        if max(r, g, b) &lt; 65:
+            kb_mask[y, x] = True
+kb_mask[:22, 116:162] = False
+
+# Background inpainting behind kettlebell:
+dilated_kb = cv2.dilate(kb_mask.astype(np.uint8), np.ones((3,3), np.uint8), iterations=1)
+dilated_kb[:22, 116:162] = 0
+bg_telea = cv2.inpaint(img, dilated_kb, 5, cv2.INPAINT_TELEA)
+
+print(&#x27;Inpainting ready.&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 84</strong><time>2026-11-13T08:56:08.966015+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+# Kettlebell mask:
+kb_mask = np.zeros(img.shape[:2], dtype=bool)
+for y in range(0, 80):
+    for x in range(95, 180):
+        b, g, r = img[y, x]
+        if max(r, g, b) &lt; 65:
+            kb_mask[y, x] = True
+kb_mask[:22, 116:162] = False
+
+# Cup mask:
+cup_mask = np.zeros(img.shape[:2], dtype=bool)
+for y in range(81, 102):
+    for x in range(125, 166):
+        b, g, r = img[y, x]
+        if r &gt; 115 and g &gt; 95:
+            cup_mask[y, x] = True
+
+# Background without cup or kb:
+# Combine masks:
+total_mask = (kb_mask | cup_mask).astype(np.uint8)
+# Handle hole background should not be masked:
+total_mask[:22, 116:162] = 0
+
+bg_clean = cv2.inpaint(img, total_mask, 5, cv2.INPAINT_TELEA)
+
+# Also let&#x27;s ensure table in cup area has realistic wood color:
+for y in range(81, 103):
+    c_left = img[y, 120].astype(np.float32)
+    c_right = img[y, 170].astype(np.float32)
+    for x in range(124, 168):
+        alpha = (x - 120) / (170 - 120)
+        c = (1 - alpha) * c_left + alpha * c_right
+        # blend with bg_clean
+        bg_clean[y, x] = np.clip(c, 0, 255).astype(np.uint8)
+
+cv2.imwrite(&#x27;.tmp/bg_clean.png&#x27;, bg_clean)
+print(&#x27;bg_clean created&quot;&#x27;!&#x27;&quot;&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 85</strong><time>2026-11-13T08:56:17.907928+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+print(&#x27;Testing kettlebell mask and handle top extension...&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 86</strong><time>2026-11-13T08:56:26.019565+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+# Cup mask:
+cup_mask = np.zeros(img.shape[:2], dtype=bool)
+for y in range(81, 102):
+    for x in range(125, 166):
+        b, g, r = img[y, x]
+        if r &gt; 115 and g &gt; 95:
+            cup_mask[y, x] = True
+
+ys, xs = np.where(cup_mask)
+print(f&#x27;Cup y range: {ys.min()} to {ys.max()}&#x27;)
+print(f&#x27;Cup x range: {xs.min()} to {xs.max()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 87</strong><time>2026-11-13T08:56:35.993182+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+# Cup mask:
+cup_mask = np.zeros(img.shape[:2], dtype=bool)
+for y in range(81, 102):
+    for x in range(125, 166):
+        b, g, r = img[y, x]
+        if r &gt; 115 and g &gt; 95:
+            cup_mask[y, x] = True
+
+y_min, y_max = 81, 101
+cup_h = y_max - y_min + 1 # 21
+cup_img = img[y_min:y_max+1, 120:170].copy()
+cup_m = cup_mask[y_min:y_max+1, 120:170].copy()
+
+# Test crushing cup by scaling vertically:
+# Suppose crush factor s in [0.2, 1.0]
+for s in [0.8, 0.5, 0.2]:
+    new_h = max(2, int(round(cup_h * s)))
+    new_w = int(round(50 * (1.0 + (1.0 - s) * 0.4))) # cup expands horizontally when crushed&quot;&#x27;!
+    resized = cv2.resize(cup_img, (new_w, new_h), interpolation=cv2.INTER_LINEAR)
+    resized_m = cv2.resize(cup_m.astype(np.uint8), (new_w, new_h), interpolation=cv2.INTER_NEAREST)
+    print(f&#x27;&quot;&#x27;s={s}: new_h={new_h}, new_w={new_w}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 88</strong><time>2026-11-13T08:56:45.123935+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+# Kettlebell mask:
+kb_mask = np.zeros(img.shape[:2], dtype=bool)
+for y in range(0, 81):
+    for x in range(95, 180):
+        b, g, r = img[y, x]
+        if max(r, g, b) &lt; 65:
+            kb_mask[y, x] = True
+kb_mask[:22, 116:162] = False
+
+# Dilate slightly so edges are smooth
+kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+kb_mask = cv2.morphologyEx(kb_mask.astype(np.uint8), cv2.MORPH_CLOSE, kernel).astype(bool)
+
+# Let&#x27;s inspect lowest row of kb:
+ys, xs = np.where(kb_mask)
+print(&#x27;KB bottom y:&#x27;, ys.max())
+print(&#x27;KB top y:&#x27;, ys.min())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 89</strong><time>2026-11-13T08:56:54.993019+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+import numpy as np
+
+img = cv2.imread(&#x27;first_frame.png&#x27;)
+print(&#x27;Handle slice at y=0:10, x=100:116:&#x27;)
+left_handle = img[0:10, 100:116]
+print(&#x27;Shape:&#x27;, left_handle.shape)
+right_handle = img[0:10, 162:176]
+print(&#x27;Right handle shape:&#x27;, right_handle.shape)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 90</strong><time>2026-11-13T08:57:22.613261+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &lt;&lt; &#x27;EOF&#x27; &gt; generate.py
+import numpy as np
+import cv2
+from pathlib import Path
+from PIL import Image
+import artifact_io
+
+def run():
+    first_frame_path = Path(\&quot;first_frame.png\&quot;)
+    first_frame = np.array(Image.open(first_frame_path))
+    h, w, c = first_frame.shape
+
+    # 1. Segment kettlebell and cup
+    # KB mask:
+    kb_mask = np.zeros((h, w), dtype=bool)
+    for y in range(0, 81):
+        for x in range(95, 180):
+            r, g, b = first_frame[y, x]
+            if max(r, g, b) &lt; 65:
+                kb_mask[y, x] = True
+    kb_mask[:22, 116:162] = False
+    
+    # Close small pinholes in kettlebell mask
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+    kb_mask = cv2.morphologyEx(kb_mask.astype(np.uint8), cv2.MORPH_CLOSE, kernel).astype(bool)
+
+    # Cup mask:
+    cup_mask = np.zeros((h, w), dtype=bool)
+    for y in range(81, 102):
+        for x in range(125, 166):
+            r, g, b = first_frame[y, x]
+            if r &gt; 115 and g &gt; 95:
+                cup_mask[y, x] = True
+
+    # 2. Build clean background (without KB and without Cup)
+    total_mask = (kb_mask | cup_mask).astype(np.uint8)
+    total_mask[:22, 116:162] = 0 # keep existing background in handle hole
+    
+    # Inpaint background
+    bgr_first = cv2.cvtColor(first_frame, cv2.COLOR_RGB2BGR)
+    bg_bgr = cv2.inpaint(bgr_first, total_mask, 5, cv2.INPAINT_TELEA)
+    bg_clean = cv2.cvtColor(bg_bgr, cv2.COLOR_BGR2RGB)
+
+    # Reconstruct clean table wood surface behind the cup accurately
+    for y in range(81, 103):
+        c_left = first_frame[y, 120].astype(np.float32)
+        c_right = first_frame[y, 170].astype(np.float32)
+        for x in range(124, 168):
+            alpha = (x - 120) / (170 - 120)
+            c = (1 - alpha) * c_left + alpha * c_right
+            bg_clean[y, x] = np.clip(c, 0, 255).astype(np.uint8)
+
+    # 3. Handle upward extension for when kettlebell shifts downward
+    # We extend the handle upwards so as it moves down, handle remains visible at top
+    kb_canvas = np.zeros((h + 40, w, 3), dtype=np.uint8)
+    kb_mask_extended = np.zeros((h + 40, w), dtype=bool)
+
+    # Place original kb on canvas (offset by 30 at top)
+    offset_y = 30
+    kb_canvas[offset_y:offset_y + h, :] = first_frame
+    kb_mask_extended[offset_y:offset_y + h, :] = kb_mask
+
+    # Extend handle upward in the top 30 rows
+    for dy in range(offset_y):
+        # repeat row 0 of handle
+        kb_canvas[dy, 100:117] = first_frame[0, 100:117]
+        kb_canvas[dy, 161:176] = first_frame[0, 161:176]
+        kb_mask_extended[dy, 100:117] = kb_mask[0, 100:117]
+        kb_mask_extended[dy, 161:176] = kb_mask[0, 161:176]
+
+    # Extract cup bounding box
+    y_cup_min, y_cup_max = 81, 101
+    x_cup_min, x_cup_max = 120, 170
+    cup_crop = first_frame[y_cup_min:y_cup_max+1, x_cup_min:x_cup_max+1].copy()
+    cup_crop_mask = cup_mask[y_cup_min:y_cup_max+1, x_cup_min:x_cup_max+1].copy()
+    cup_orig_h = y_cup_max - y_cup_min + 1 # 21
+    cup_orig_w = x_cup_max - x_cup_min + 1 # 51
+
+    # 4. Generate 20 frames
+    # Kinematics:
+    # Frame 0: rest, scale = 1.0, dy = 0
+    # Frame 1: initial contact/creak, scale = 0.98, dy = 0.4
+    # Frame 2: buckling begins, scale = 0.85, dy = 3.0
+    # Frame 3: rapid crushing, scale = 0.55, dy = 9.5
+    # Frame 4: rapid crushing, scale = 0.32, dy = 14.5
+    # Frame 5: near full crush, scale = 0.22, dy = 16.5
+    # Frame 6: impact bottom, slight bounce/compression, scale = 0.19, dy = 17.2
+    # Frame 7: rebound oscillation, scale = 0.205, dy = 16.9
+    # Frame 8: settling, scale = 0.20, dy = 17.0
+    # Frames 9-19: completely resting at full crush, scale = 0.20, dy = 17.0
+    
+    # We create smooth physics curve:
+    n_frames = 20
+    scales = np.ones(n_frames, dtype=np.float32)
+    dys = np.zeros(n_frames, dtype=np.float32)
+
+    for i in range(n_frames):
+        if i == 0:
+            scales[i] = 1.0
+            dys[i] = 0.0
+        elif i == 1:
+            scales[i] = 0.97
+            dys[i] = 0.6
+        elif i == 2:
+            scales[i] = 0.82
+            dys[i] = 3.8
+        elif i == 3:
+            scales[i] = 0.52
+            dys[i] = 10.1
+        elif i == 4:
+            scales[i] = 0.30
+            dys[i] = 14.7
+        elif i == 5:
+            scales[i] = 0.21
+            dys[i] = 16.6
+        elif i == 6:
+            scales[i] = 0.185
+            dys[i] = 17.2
+        elif i == 7:
+            scales[i] = 0.20
+            dys[i] = 16.9
+        elif i == 8:
+            scales[i] = 0.19
+            dys[i] = 17.1
+        else:
+            scales[i] = 0.19
+            dys[i] = 17.1
+
+    # Deterministic cup fragment flakes popping out during crush
+    np.random.seed(42)
+    n_flakes = 12
+    flake_pos = [] # (x, y, vx, vy)
+    for _ in range(n_flakes):
+        fx = np.random.uniform(128, 162)
+        fy = np.random.uniform(92, 100)
+        # flakes shoot outward left or right
+        dir_x = -1.0 if fx &lt; 145 else 1.0
+        vx = dir_x * np.random.uniform(1.2, 3.8)
+        vy = np.random.uniform(-1.5, 0.5)
+        flake_pos.append([fx, fy, vx, vy])
+
+    frames = []
+    for f_idx in range(n_frames):
+        if f_idx == 0:
+            # Frame 0 must be pixel-identical to first_frame.png
+            frames.append(first_frame.copy())
+            continue
+
+        scale = scales[f_idx]
+        dy = dys[f_idx]
+        int_dy = int(round(dy))
+
+        # Start with clean background
+        frame = bg_clean.copy()
+
+        # Render crushed cup
+        # Cup is grounded at y_cup_max (101)
+        crushed_h = max(3, int(round(cup_orig_h * scale)))
+        # Lateral expansion: cup bulges and flattens out laterally
+        w_factor = 1.0 + (1.0 - scale) * 0.45
+        crushed_w = int(round(cup_orig_w * w_factor))
+
+        resized_cup = cv2.resize(cup_crop, (crushed_w, crushed_h), interpolation=cv2.INTER_LINEAR)
+        resized_mask = cv2.resize(cup_crop_mask.astype(np.uint8), (crushed_w, crushed_h), interpolation=cv2.INTER_NEAREST)
+
+        # Wrinkling / crinkling texture distortion as cup is crushed
+        if scale &lt; 0.9:
+            # Add crumple texture variations
+            crush_noise = (np.sin(np.linspace(0, 15, crushed_w)) * 12 * (1.0 - scale)).astype(np.int16)
+            resized_cup = np.clip(resized_cup.astype(np.int16) + crush_noise[None, :, None], 0, 255).astype(np.uint8)
+
+        # Position of crushed cup:
+        # Bottom remains at y_cup_max (101)
+        cup_top_y = y_cup_max - crushed_h + 1
+        cup_left_x = int(round(145 - crushed_w / 2))
+
+        # Paste crushed cup
+        for cy in range(crushed_h):
+            fy = cup_top_y + cy
+            if 0 &lt;= fy &lt; h:
+                for cx in range(crushed_w):
+                    fx = cup_left_x + cx
+                    if 0 &lt;= fx &lt; w and resized_mask[cy, cx] &gt; 0:
+                        frame[fy, fx] = resized_cup[cy, cx]
+
+        # Render flakes / debris on table for frames &gt;= 3
+        if f_idx &gt;= 2:
+            dt = f_idx - 2
+            for fl in flake_pos:
+                fl_x = int(round(fl[0] + fl[2] * dt))
+                fl_y = int(round(fl[1] + fl[3] * dt + 0.4 * dt * dt)) # gravity
+                # ground flake at table level (y ~ 102..115)
+                if fl_y &gt; 103 + abs(fl_x - 145) * 0.05:
+                    fl_y = int(103 + abs(fl_x - 145) * 0.05)
+                if 0 &lt;= fl_y &lt; h and 0 &lt;= fl_x &lt; w:
+                    # White flake with shadow
+                    frame[fl_y, fl_x] = [235, 235, 238]
+                    if fl_x + 1 &lt; w:
+                        frame[fl_y, fl_x + 1] = [220, 218, 222]
+
+        # Render kettlebell translated down by dy
+        # Sample from kb_canvas
+        for y in range(h):
+            src_y = y - int_dy + offset_y
+            if 0 &lt;= src_y &lt; kb_canvas.shape[0]:
+                mask_row = kb_mask_extended[src_y, :]
+                frame[y, mask_row] = kb_canvas[src_y, mask_row]
+
+        # Contact shadow of kettlebell onto crushed cup and table
+        # Around the bottom of the bell (at y = 80 + int_dy)
+        contact_y = 80 + int_dy
+        for sy in range(contact_y - 1, min(h, contact_y + 3)):
+            for sx in range(120, 170):
+                # if not covered by kettlebell, darken slightly
+                if not kb_mask_extended[sy - int_dy + offset_y, sx]:
+                    frame[sy, sx] = (frame[sy, sx].astype(np.float32) * 0.75).astype(np.uint8)
+
+        frames.append(frame)
+
+    frames = np.array(frames, dtype=np.uint8)
+    assert frames.shape == (20, 144, 256, 3), f\&quot;Unexpected shape: {frames.shape}\&quot;
+    assert np.array_equal(frames[0], first_frame), \&quot;Frame 00 must be pixel-identical to first_frame.png\&quot;
+
+    case_dir = Path(\&quot;.\&quot;)
+    artifact_io.save(frames, case_dir)
+    print(\&quot;Video successfully generated and saved&quot;&#x27;!&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    run()
+EOF
+python3 generate.py
+&#x27;</pre></details><details class=command><summary><strong>命令 91</strong><time>2026-11-13T08:57:31.390274+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+# Let&#x27;s inspect frames 0, 1, 2, 3, 5, 10, 19
+for idx in [0, 1, 2, 3, 5, 10, 19]:
+    f = np.array(Image.open(f&#x27;frames/{idx:02d}.png&#x27;))
+    print(f&#x27;Frame {idx:02d}: mean={f.mean():.2f}, std={f.std():.2f}&#x27;)
+    # Check bottom row of kettlebell:
+    dark_ys = np.where(f.mean(axis=2) &lt; 50)[0]
+    print(f&#x27;  KB lowest y: {dark_ys.max()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 92</strong><time>2026-11-13T08:57:40.710720+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+f0 = np.array(Image.open(&#x27;frames/00.png&#x27;))
+f1 = np.array(Image.open(&#x27;frames/01.png&#x27;))
+f5 = np.array(Image.open(&#x27;frames/05.png&#x27;))
+
+print(&#x27;Max diff f0 vs first_frame:&#x27;, np.max(np.abs(f0.astype(int) - np.array(Image.open(&#x27;first_frame.png&#x27;)).astype(int))))
+print(&#x27;Diff f0 and f1 num pixels:&#x27;, np.sum(np.any(f0 &quot;&#x27;!= f1, axis=2)))
+print(&#x27;&quot;&#x27;Diff f0 and f5 num pixels:&#x27;, np.sum(np.any(f0 &quot;&#x27;!= f5, axis=2)))
+
+# Check kettlebell body y range in f0 vs f5:
+kb_f0 = (f0[:90, 145].mean(axis=1) &lt; 60)
+kb_f5 = (f5[:110, 145].mean(axis=1) &lt; 60)
+print(&#x27;&quot;&#x27;KB center x=145 in f0: y min/max:&#x27;, np.where(kb_f0)[0].min(), np.where(kb_f0)[0].max())
+print(&#x27;KB center x=145 in f5: y min/max:&#x27;, np.where(kb_f5)[0].min(), np.where(kb_f5)[0].max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 93</strong><time>2026-11-13T08:57:49.876794+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+f5 = np.array(Image.open(&#x27;frames/05.png&#x27;))
+# Cup in f5:
+# In f5, where are cup pixels?
+cup_f5 = (f5[95:105, 110:180].mean(axis=2) &gt; 140)
+print(&#x27;Cup pixels in f5:&#x27;, np.sum(cup_f5))
+for y in range(97, 103):
+    print(f&#x27;y={y}:&#x27;, &#x27; &#x27;.join(&#x27;#&#x27; if f5[y, x].mean() &lt; 60 else (&#x27;W&#x27; if f5[y, x].mean() &gt; 140 else &#x27;.&#x27;) for x in range(120, 170)))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 94</strong><time>2026-11-13T08:57:58.631031+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+f0 = np.array(Image.open(&#x27;frames/00.png&#x27;))
+f1 = np.array(Image.open(&#x27;frames/01.png&#x27;))
+print(&#x27;Difference outside KB and Cup regions (e.g. background x=50, y=50):&#x27;)
+print(&#x27;f0:&#x27;, f0[50, 50], &#x27;f1:&#x27;, f1[50, 50])
+print(&#x27;f0 x=220, y=50:&#x27;, f0[50, 220], &#x27;f1:&#x27;, f1[50, 220])
+print(&#x27;f0 x=50, y=120:&#x27;, f0[120, 50], &#x27;f1:&#x27;, f1[120, 50])
+print(&#x27;f0 x=220, y=120:&#x27;, f0[120, 220], &#x27;f1:&#x27;, f1[120, 220])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 95</strong><time>2026-11-13T08:58:06.134700+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la inspection.png transition_check.png pixels.npz index.html&#x27;</pre></details><details class=command><summary><strong>命令 96</strong><time>2026-11-13T08:58:17.430591+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import generate
+print(&#x27;generate module loaded successfully&#x27;)
+\&quot;&quot;</pre></details><p class=muted>保存候选 1 份；完成命令 96 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><details open><summary>运行生命周期事件</summary><pre>2026-11-13T08:43:31.550751+00:00 · thread.started · 
+2026-11-13T08:43:32.342065+00:00 · turn.started · 
+2026-11-13T08:58:27.043696+00:00 · turn.completed · </pre></details><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
