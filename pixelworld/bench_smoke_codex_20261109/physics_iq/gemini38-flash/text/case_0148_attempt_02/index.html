@@ -1,0 +1,1773 @@
+<!doctype html><html lang=zh data-theme=pixelworld><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>gemini-3.8-flash · 0148</title><style>:root{color-scheme:dark;--bg:#0b0f14;--panel:#141b24;--line:#2b3745;--text:#edf2f7;--muted:#a0adbc;--green:#b8ed94;--blue:#94ccff;--amber:#f4cb91}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:82px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:var(--green)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+main{max-width:1140px;margin:auto;padding:32px 24px 64px}
+.top{position:sticky;top:0;z-index:5;background:#0b0f14f5;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.top-inner{max-width:1140px;margin:auto;padding:16px 24px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{color:var(--text);font-weight:850;letter-spacing:-.025em;display:flex;gap:10px;align-items:center}
+.pixel{height:15px;width:15px;background:var(--green);box-shadow:5px 5px 0 #315238;flex-shrink:0}
+.nav{display:flex;gap:20px;color:var(--muted);font-size:13px;overflow-x:auto;white-space:nowrap}.nav a{color:var(--muted)}.nav a:hover{color:var(--green)}
+.hero{margin:10px 0 28px}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--green);margin:0 0 8px}
+h1{font-size:clamp(29px,4vw,43px);line-height:1.2;letter-spacing:-.04em;margin:0 0 12px}
+h2{font-size:23px;letter-spacing:-.02em;margin:36px 0 15px}h3{font-size:19px;line-height:1.3;letter-spacing:-.02em;margin:0 0 10px}
+p{max-width:900px}.muted,.desc{color:var(--muted)}.desc{font-size:13px;margin:0 0 16px}.status,.tiny{font-size:12px;color:var(--muted)}
+.back{display:inline-block;color:var(--muted);font-size:12px;margin:0 0 18px}
+.card,.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;min-width:0}
+.box{margin:18px 0}.feature{border-color:#52714a;background:linear-gradient(130deg,#1a2b20,var(--panel) 70%)}
+.experiment-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin:24px 0 32px}
+.feature h3{font-size:23px;margin:12px 0 8px}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.button,button,select{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #425064;border-radius:8px;padding:10px 15px;background:#202b37;color:var(--text);font:600 13px system-ui;cursor:pointer;transition:background .15s}
+.button:hover,button:hover{background:#2b3b4a;color:var(--text)}.button.primary,.play{background:var(--green);border-color:var(--green);color:#17220f}.button.primary:hover,.play:hover{background:#c9f5ad;color:#17220f}
+.facts{display:flex;flex-wrap:wrap;gap:24px;padding:15px 0;color:var(--muted);font-size:12px}.facts strong{display:block;color:var(--text);font-size:23px;line-height:1.4;font-variant-numeric:tabular-nums}
+.badge,.pill{display:inline-block;font-size:11px;border:1px solid #465749;border-radius:6px;padding:3px 8px;color:var(--green)}.pill{color:var(--muted);border-color:var(--line)}.badge.warn{color:var(--amber);border-color:#69563c}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.tabs button{background:transparent;color:var(--muted);font-weight:500;padding:8px 13px}.tabs button[aria-selected=true]{color:var(--green);background:#203025;border-color:#52714a}
+[hidden]{display:none!important}.benchmark-panel h3{margin:0 0 12px}.scroll{overflow:auto;border:1px solid var(--line);border-radius:12px;margin:15px 0;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:15px 17px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#192330;color:var(--muted);font-size:12px;font-weight:600}tr:last-child td,tr:last-child th{border-bottom:0}td .status{display:block;margin-top:6px;line-height:1.5}td a{font-weight:600}.matrix th:first-child{width:26%}.matrix td{width:37%}
+.report{border:1px solid var(--line);border-radius:12px;background:var(--panel);margin:18px 0}.report>summary{padding:18px 20px;cursor:pointer;font-weight:600}.report>.scroll{margin:0 18px 18px}.report>p{margin:0 20px 18px;color:var(--muted);font-size:13px}
+.video-grid,.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.sample{display:block;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:12px;transition:border-color .15s;min-width:0}.sample:hover{border-color:#7a9b6b}
+.sample>a{display:block;color:var(--text)}.sample img{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#070b10;image-rendering:pixelated}
+.sample-body{padding:16px}.sample-body h3{font-size:17px;margin:9px 0}.sample-body p{font-size:12px;color:var(--muted);margin:0}.placeholder{aspect-ratio:16/9;display:grid;place-items:center;background:#101720;color:var(--muted);font-size:13px}
+.attempts{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--muted)}.attempts summary{cursor:pointer}.attempts a{display:block;padding-top:6px}
+.case-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 24px}.case-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:20px;align-items:start;margin-bottom:30px}.case-layout>.card p{font-size:13px;color:var(--muted)}
+.player{max-width:850px;min-width:0}.player-frame{position:relative;background:#070b10;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#070b10;cursor:pointer}.play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;padding:0;font-size:24px;background:#b8ed94e8;color:#17220f;border-color:var(--green)}.player:not([data-state=idle]) .play-overlay{display:none}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}.controls button{padding:9px 14px}.controls input[type=range]{flex:1;min-width:100px;accent-color:var(--green);cursor:pointer}.player .status{margin:0 0 14px;font-variant-numeric:tabular-nums}
+.candidate{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}.candidate>summary{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;list-style:none}.candidate>summary::-webkit-details-marker{display:none}.candidate>summary:after{content:'＋';color:var(--muted)}.candidate[open]>summary:after{content:'−'}.candidate>summary time{color:var(--muted);font-size:12px;margin-left:auto}.candidate-content{padding:0 20px 20px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}figure{margin:0}figure img{width:100%;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:8px;background:#070b10}figcaption{font-size:12px;color:var(--muted);margin:7px 0}img{max-width:100%;object-fit:contain}
+.code,.command,.tool-image{border:1px solid var(--line);border-radius:9px;margin:12px 0;background:#101720}.code>summary,.command>summary,.tool-image>summary{padding:13px 16px;cursor:pointer;font-size:13px}.command>summary{display:flex;gap:12px;align-items:center}.command time{margin-left:auto;color:var(--muted);font-size:11px}.tool-image img{display:block;margin:auto;padding:14px;max-height:700px}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,SFMono-Regular,monospace;max-height:540px;overflow:auto;margin:0;padding:16px;color:#c8d6e5}.step{border-left:2px solid #3c5140;padding-left:16px;margin:18px 0}.step>strong{font-size:13px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:34px}.section-head h2{margin:0}.section-head p{font-size:13px;color:var(--muted);margin:0}.note{font-size:12px;color:var(--muted);border-left:2px solid #52714a;padding:5px 14px;margin:20px 0}
+footer{margin-top:42px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:12px;color:#768597;font-size:11px}
+@media(max-width:850px){.experiment-grid,.case-layout{grid-template-columns:1fr}.video-grid,.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.top-inner{align-items:flex-start;flex-direction:column;gap:12px}.nav{width:100%}html{scroll-padding-top:120px}.candidate>summary time{display:none}.section-head{align-items:flex-start;flex-direction:column;gap:5px}}
+@media(max-width:480px){main{padding:24px 16px 44px}.top-inner{padding:14px 16px}.card,.box{padding:18px}.video-grid,.strip,.checks{grid-template-columns:1fr}.controls input[type=range]{flex-basis:100%;order:3}td,th{padding:12px;font-size:12px}.matrix{min-width:520px}.command time{display:none}.candidate-content{padding:0 14px 14px}footer{flex-direction:column;gap:3px}}
+</style><body><header class=top><div class=top-inner><a class=brand href="../../../../../index.html"><span class=pixel aria-hidden=true></span>PixelWorld</a><nav class=nav aria-label="实验导航"><a href="#video">视频</a><a href="#candidates">逐轮候选</a><a href="#trace">工具记录</a></nav></div></header><main><a class=back href="../index.html">← 此模型总览</a><section class=hero><p class=eyebrow>CODING AGENTS AS PIXEL WORLD MODELS</p><h1>gemini-3.8-flash · 0148</h1></section><div class=case-meta><span class=badge>text</span><span class=pill>256×144</span><span class=pill>4.0 FPS · 20 帧</span><span class=pill>complete</span></div><div class=case-layout id=video><div><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_5f8865403204f947.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;d34162b58bac5a1a5b110ab4cefbe58323db1e1782353e581a0cf05b30d2d022&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/352a6f13acb51b1cceba16a34ce611b05405b324/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0148_attempt_02/final/pixels_5f8865403204f947.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/352a6f13acb51b1cceba16a34ce611b05405b324/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0148_attempt_02/final/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div></div><aside class=card><span class=badge>首帧续写</span><h3 style="margin-top:14px">原始任务</h3><p>Static locked-off single-shot with fixed frame throughout filmed with constant framerate in real-time. The scene shows a realistic scientific demonstration. The scene only contains the described setup and actions. A small white lampshade is on a light wooden table and a black tube points from the left side to the right side. The brown tennis ball rolls from the left straight out of the black tube over the entire table.
+</p><div class=facts><div><strong>5.00s</strong>视频时长</div><div><strong>22888</strong>输出 tokens</div></div><p class=tiny>下方可播放每次保存的候选，查看检查图与代码变化。</p></aside></div><div class=section-head id=candidates><h2>逐轮保存的候选</h2><p>回放视频、检查图与代码变化。</p></div><p class=note>每份候选均可单独播放。实际图片检查记录在下方工具轨迹中。</p><details class=candidate open><summary><strong>候选 01</strong><span class=status>播放与检查图</span><time>2026-11-13T00:09:47.189231+00:00</time></summary><div class=candidate-content><div class=player data-video="{&quot;width&quot;: 256, &quot;height&quot;: 144, &quot;frames&quot;: 20, &quot;fps&quot;: 4.0, &quot;pixels_file&quot;: &quot;pixels_5f8865403204f947.rgb.gz&quot;, &quot;layout&quot;: &quot;pixel-time&quot;, &quot;last_rgb_sha256&quot;: &quot;d34162b58bac5a1a5b110ab4cefbe58323db1e1782353e581a0cf05b30d2d022&quot;, &quot;pixels&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/352a6f13acb51b1cceba16a34ce611b05405b324/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0148_attempt_02/candidate_00/pixels_5f8865403204f947.rgb.gz&quot;, &quot;poster&quot;: &quot;https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/352a6f13acb51b1cceba16a34ce611b05405b324/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0148_attempt_02/candidate_00/poster.png&quot;}"><div class=player-frame><canvas aria-label="生成视频"></canvas><button class=play-overlay aria-label="播放视频">▶</button></div><div class=controls><button class=play>▶ 播放</button><button class=replay>↻ 重播</button><input class=seek type=range min=0 step=1 value=0></div><p class=status>点击播放 · 原生 RGB 像素</p></div><div class=checks><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/352a6f13acb51b1cceba16a34ce611b05405b324/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0148_attempt_02/candidate_00/inspection.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/352a6f13acb51b1cceba16a34ce611b05405b324/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0148_attempt_02/candidate_00/inspection.png"></a><figcaption>时间点检查图 · 点击查看原图</figcaption></figure><figure><a href="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/352a6f13acb51b1cceba16a34ce611b05405b324/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0148_attempt_02/candidate_00/transition_check.png" target=_blank><img loading=lazy src="https://raw.githubusercontent.com/SiyuanMaCS/SiyuanMaCS.github.io/352a6f13acb51b1cceba16a34ce611b05405b324/pixelworld/bench_smoke_codex_20261109/physics_iq/gemini38-flash/text/case_0148_attempt_02/candidate_00/transition_check.png"></a><figcaption>首帧与过渡检查 · 点击查看原图</figcaption></figure></div><details class=code><summary>展开代码变化</summary><pre>--- 上一保存版本
++++ 本次保存版本
+@@ -0,0 +1,108 @@
++import numpy as np
++from PIL import Image
++import cv2
++from pathlib import Path
++import artifact_io
++
++def generate_video():
++    case_dir = Path(__file__).parent
++    first_frame_path = case_dir / &quot;first_frame.png&quot;
++    img = np.array(Image.open(first_frame_path))
++    H, W, _ = img.shape
++    
++    # 1. Segment ball from frame 0
++    mask = np.zeros((H, W), dtype=np.uint8)
++    for y in range(48, 71):
++        for x in range(78, 108):
++            c = img[y, x]
++            if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
++                mask[y, x] = 255
++                
++    # Inpaint background to obtain clean table surface behind the ball
++    dilate_k = np.ones((3, 3), np.uint8)
++    dilated_mask = cv2.dilate(mask, dilate_k, iterations=2)
++    clean_bg = cv2.inpaint(img, dilated_mask, 5, cv2.INPAINT_TELEA)
++    
++    # 2. Extract ball sprite and alpha mask
++    by, bx = np.where(mask &gt; 0)
++    cx0, cy0 = float(bx.mean()), float(by.mean())
++    
++    bx_min, bx_max = bx.min(), bx.max()
++    by_min, by_max = by.min(), by.max()
++    
++    ball_img = img[by_min:by_max+1, bx_min:bx_max+1].copy()
++    ball_m = (mask[by_min:by_max+1, bx_min:bx_max+1] &gt; 0).astype(np.float32)
++    
++    bh, bw, _ = ball_img.shape
++    bcx, bcy = bw / 2.0, bh / 2.0
++    ball_radius = (bw + bh) / 4.0 # approximate radius ~ 11.25 px
++    
++    # 3. Ball dynamics across 20 frames (4 fps, 5s)
++    # The ball rolls smoothly from left to right across the table
++    # Constant velocity:
++    v_x = (250.0 - cx0) / 19.0 # ~8.308 px/frame
++    
++    frames = []
++    for frame_idx in range(20):
++        if frame_idx == 0:
++            # Must be pixel-identical to first_frame.png
++            frames.append(img.copy())
++            continue
++            
++        cx = cx0 + frame_idx * v_x
++        cy = cy0 # pure horizontal rolling along the flat table surface
++        
++        # Calculate rolling rotation angle
++        # Rolling without slipping: dist = radius * angle_rad =&gt; angle_deg = (dist / radius) * (180 / pi)
++        # Clockwise rotation as it moves to the right
++        dist = cx - cx0
++        rot_deg = (dist / ball_radius) * (180.0 / np.pi)
++        
++        # Render canvas
++        canvas = clean_bg.astype(np.float32).copy()
++        
++        # A. Contact shadow on table surface
++        contact_x = int(round(cx))
++        contact_y = int(round(cy + 9.5))
++        shadow_layer = np.zeros((H, W), dtype=np.float32)
++        cv2.ellipse(shadow_layer, (contact_x, contact_y), (13, 4), 0, 0, 360, 1.0, -1)
++        shadow_layer = cv2.GaussianBlur(shadow_layer, (7, 5), 1.2)
++        canvas *= (1.0 - 0.22 * shadow_layer[:, :, None])
++        
++        # B. Rotate ball sprite and mask
++        M = cv2.getRotationMatrix2D((bcx, bcy), -rot_deg, 1.0)
++        r_ball = cv2.warpAffine(ball_img, M, (bw, bh), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
++        r_mask = cv2.warpAffine(ball_m, M, (bw, bh), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
++        r_mask = cv2.GaussianBlur(r_mask, (3, 3), 0.5)[:, :, None]
++        
++        # C. Composite onto canvas
++        tx0 = int(round(cx - bw / 2.0))
++        ty0 = int(round(cy - bh / 2.0))
++        tx1 = tx0 + bw
++        ty1 = ty0 + bh
++        
++        sx0 = max(0, -tx0)
++        sy0 = max(0, -ty0)
++        sx1 = bw - max(0, tx1 - W)
++        sy1 = bh - max(0, ty1 - H)
++        
++        tx0 = max(0, tx0)
++        ty0 = max(0, ty0)
++        tx1 = min(W, tx1)
++        ty1 = min(H, ty1)
++        
++        if tx1 &gt; tx0 and ty1 &gt; ty0:
++            sub_c = canvas[ty0:ty1, tx0:tx1]
++            sub_b = r_ball[sy0:sy1, sx0:sx1].astype(np.float32)
++            sub_m = r_mask[sy0:sy1, sx0:sx1]
++            canvas[ty0:ty1, tx0:tx1] = sub_b * sub_m + sub_c * (1.0 - sub_m)
++            
++        frame_rgb = np.clip(canvas, 0, 255).astype(np.uint8)
++        frames.append(frame_rgb)
++        
++    frames = np.array(frames, dtype=np.uint8)
++    artifact_io.save(frames, case_dir)
++    print(&quot;Generation complete and artifacts saved!&quot;)
++
++if __name__ == &quot;__main__&quot;:
++    generate_video()
+</pre></details></div></details><div class=section-head id=trace><h2>可观测工具轨迹</h2><p>实际执行的命令与返回图片。</p></div><details class=command><summary><strong>命令 1</strong><time>2026-11-13T00:00:17.163900+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la&#x27;</pre></details><details class=command><summary><strong>命令 2</strong><time>2026-11-13T00:00:21.361254+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat prompt.txt&#x27;</pre></details><details class=command><summary><strong>命令 3</strong><time>2026-11-13T00:00:25.162549+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat GENERATION_RULES.md&#x27;</pre></details><details class=command><summary><strong>命令 4</strong><time>2026-11-13T00:00:29.039445+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;cat artifact_io.py&#x27;</pre></details><details class=command><summary><strong>命令 5</strong><time>2026-11-13T00:00:33.541009+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+print(&#x27;Image format:&#x27;, img.format, &#x27;Size:&#x27;, img.size, &#x27;Mode:&#x27;, img.mode)
+arr = np.array(img)
+print(&#x27;Shape:&#x27;, arr.shape, &#x27;Dtype:&#x27;, arr.dtype)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 6</strong><time>2026-11-13T00:00:39.242480+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print basic statistics and colors
+print(&#x27;Min RGB:&#x27;, arr.min(axis=(0,1)), &#x27;Max RGB:&#x27;, arr.max(axis=(0,1)), &#x27;Mean RGB:&#x27;, arr.mean(axis=(0,1)))
+
+# Let&#x27;s inspect parts of the image:
+# Where is the black tube? (low RGB)
+# Where is the table?
+# Where is the lampshade?
+# Where is the brown tennis ball?
+# Let&#x27;s find dark pixels (tube)
+tube_mask = (arr[:, :, 0] &lt; 50) &amp; (arr[:, :, 1] &lt; 50) &amp; (arr[:, :, 2] &lt; 50)
+y_indices, x_indices = np.where(tube_mask)
+print(&#x27;Dark pixels count:&#x27;, len(x_indices))
+if len(x_indices) &gt; 0:
+    print(&#x27;Dark pixels x range:&#x27;, x_indices.min(), x_indices.max(), &#x27;y range:&#x27;, y_indices.min(), y_indices.max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 7</strong><time>2026-11-13T00:00:45.131649+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print a downsampled summary of the image luminance
+lum = 0.299 * arr[:, :, 0] + 0.587 * arr[:, :, 1] + 0.114 * arr[:, :, 2]
+print(&#x27;Luminance downsampled 16x8:&#x27;)
+for y in range(0, 144, 10):
+    line = &#x27;&#x27;
+    for x in range(0, 256, 8):
+        v = int(lum[y:min(y+10, 144), x:min(x+8, 256)].mean())
+        # map to ascii chars
+        chars = &#x27; .:-=+*#%@&#x27;
+        c = chars[min(len(chars)-1, v * len(chars) // 256)]
+        line += c
+    print(f&#x27;{y:3d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 8</strong><time>2026-11-13T00:00:52.448487+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect rows around y=0..80, especially where dark tube and white lampshade are
+print(&#x27;Looking for tube, lampshade, etc.&#x27;)
+# Where are high luminance pixels?
+lum = 0.299 * arr[:, :, 0] + 0.587 * arr[:, :, 1] + 0.114 * arr[:, :, 2]
+
+# High luminance &gt; 150
+print(&#x27;High lum (&gt;160) pixels:&#x27;)
+hy, hx = np.where(lum &gt; 160)
+print(f&#x27;Count: {len(hx)}, x: [{hx.min() if len(hx) else -1}, {hx.max() if len(hx) else -1}], y: [{hy.min() if len(hy) else -1}, {hy.max() if len(hy) else -1}]&#x27;)
+
+# Very dark pixels (&lt;30)
+dy, dx = np.where(lum &lt; 30)
+print(f&#x27;Dark lum (&lt;30) pixels: count={len(dx)}, x: [{dx.min() if len(dx) else -1}, {dx.max() if len(dx) else -1}], y: [{dy.min() if len(dy) else -1}, {dy.max() if len(dy) else -1}]&#x27;)
+
+# Let&#x27;s see slices of the image
+# Let&#x27;s find connected components or clusters of dark pixels and white pixels
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 9</strong><time>2026-11-13T00:00:58.429250+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print a block of RGB values across the image
+# Let&#x27;s inspect columns at x=0, 30, 60, 90, 120, 150, 180, 210, 240
+# And rows at y=10, 25, 40, 55, 70, 85, 100, 120
+print(&#x27;Table and background inspection:&#x27;)
+print(&#x27;y=20, background/wall?&#x27;, arr[20, 20], arr[20, 120], arr[20, 220])
+print(&#x27;y=70, table?&#x27;, arr[70, 20], arr[70, 120], arr[70, 220])
+print(&#x27;y=120, table?&#x27;, arr[120, 20], arr[120, 120], arr[120, 220])
+
+# Where is the table boundary?
+# Let&#x27;s inspect along a vertical slice at x=200
+for y in range(20, 90, 5):
+    print(f&#x27;x=200, y={y}: RGB={arr[y, 200]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 10</strong><time>2026-11-13T00:01:04.335792+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect where dark pixels are located:
+lum = 0.299 * arr[:, :, 0] + 0.587 * arr[:, :, 1] + 0.114 * arr[:, :, 2]
+print(&#x27;Locations where lum &lt; 40:&#x27;)
+for y in range(0, 100, 5):
+    dark_xs = np.where(lum[y, :] &lt; 40)[0]
+    if len(dark_xs) &gt; 0:
+        print(f&#x27;y={y:2d}: count={len(dark_xs):3d}, min_x={dark_xs.min():3d}, max_x={dark_xs.max():3d}, xs={dark_xs[::max(1, len(dark_xs)//10)].tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 11</strong><time>2026-11-13T00:01:11.089396+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 0 to 120 and y from 40 to 90
+print(&#x27;Crop y=45..85, x=0..110:&#x27;)
+for y in range(45, 85, 2):
+    row_str = f&#x27;y={y:2d}: &#x27;
+    for x in range(0, 110, 3):
+        r, g, b = arr[y, x]
+        lum = int(0.299*r + 0.587*g + 0.114*b)
+        if lum &lt; 35:
+            ch = &#x27;#&#x27; # very dark (tube)
+        elif lum &lt; 70:
+            ch = &#x27;=&#x27; # dark
+        elif lum &lt; 110:
+            ch = &#x27;-&#x27; # mid
+        elif lum &lt; 140:
+            ch = &#x27;.&#x27; # light
+        else:
+            ch = &#x27;*&#x27; # very bright
+        row_str += ch
+    print(row_str)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 12</strong><time>2026-11-13T00:01:16.587945+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect where the tube is across the entire image width
+print(&#x27;Looking for tube across the image...&#x27;)
+# Print rows 40 to 80 across full width in steps of 4
+for y in range(40, 80, 2):
+    s = f&#x27;{y:2d}: &#x27;
+    for x in range(0, 256, 4):
+        lum = int(0.299*arr[y,x,0] + 0.587*arr[y,x,1] + 0.114*arr[y,x,2])
+        if lum &lt; 35:
+            s += &#x27;#&#x27;
+        elif lum &lt; 65:
+            s += &#x27;=&#x27;
+        elif lum &lt; 100:
+            s += &#x27;-&#x27;
+        elif lum &lt; 140:
+            s += &#x27;.&#x27;
+        else:
+            s += &#x27;*&#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 13</strong><time>2026-11-13T00:01:21.852724+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect rows 0 to 45 across full width
+for y in range(0, 45, 2):
+    s = f&#x27;{y:2d}: &#x27;
+    for x in range(0, 256, 4):
+        lum = int(0.299*arr[y,x,0] + 0.587*arr[y,x,1] + 0.114*arr[y,x,2])
+        if lum &lt; 35:
+            s += &#x27;#&#x27;
+        elif lum &lt; 65:
+            s += &#x27;=&#x27;
+        elif lum &lt; 100:
+            s += &#x27;-&#x27;
+        elif lum &lt; 140:
+            s += &#x27;.&#x27;
+        else:
+            s += &#x27;*&#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 14</strong><time>2026-11-13T00:01:26.679185+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x around 0..100, y around 40..85 closely
+# Print RGB values
+for y in range(48, 80, 2):
+    print(f&#x27;=== y={y} ===&#x27;)
+    for x in range(0, 100, 5):
+        print(f&#x27;x={x:2d}:{arr[y,x].tolist()}&#x27;, end=&#x27; &#x27;)
+    print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 15</strong><time>2026-11-13T00:01:31.955698+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 80 to 110, y from 48 to 72
+print(&#x27;Region around x=80..105, y=48..72:&#x27;)
+for y in range(48, 72):
+    s = f&#x27;y={y:2d}: &#x27;
+    for x in range(80, 105):
+        r, g, b = arr[y, x]
+        s += f&#x27;{r:3d},{g:3d},{b:3d} &#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 16</strong><time>2026-11-13T00:01:38.102242+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 0 to 40, y from 40 to 90
+for y in range(40, 90, 2):
+    s = f&#x27;y={y:2d}: &#x27;
+    for x in range(0, 30, 2):
+        r, g, b = arr[y, x]
+        s += f&#x27;{r:2d},{g:2d} &#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 17</strong><time>2026-11-13T00:01:46.627991+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x around 120..220, y around 40..100
+# Where is the lampshade?
+lum = 0.299 * arr[:, :, 0] + 0.587 * arr[:, :, 1] + 0.114 * arr[:, :, 2]
+bright = lum &gt; 140
+by, bx = np.where(bright)
+print(&#x27;Bright pixels count:&#x27;, len(bx))
+if len(bx) &gt; 0:
+    print(&#x27;x range:&#x27;, bx.min(), bx.max(), &#x27;y range:&#x27;, by.min(), by.max())
+    print(&#x27;Center of mass:&#x27;, bx.mean(), by.mean())
+
+# Let&#x27;s see what is at the top center/left
+print(&#x27;Bright connected components or clusters:&#x27;)
+for y in range(0, 100, 5):
+    b_xs = np.where(bright[y, :])[0]
+    if len(b_xs) &gt; 0:
+        print(f&#x27;y={y:2d}: count={len(b_xs):2d}, x=[{b_xs.min()}, {b_xs.max()}]&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 18</strong><time>2026-11-13T00:02:04.624225+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 90 to 160, y from 0 to 60
+print(&#x27;Lampshade shape and color:&#x27;)
+for y in range(0, 50, 4):
+    print(f&#x27;y={y:2d}:&#x27;, end=&#x27; &#x27;)
+    for x in range(100, 155, 5):
+        print(f&#x27;{arr[y,x].tolist()}&#x27;, end=&#x27; &#x27;)
+    print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 19</strong><time>2026-11-13T00:02:12.739055+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect rows 80 to 144
+print(&#x27;Bottom half inspection:&#x27;)
+for y in range(80, 144, 8):
+    print(f&#x27;y={y:3d}: x=0:{arr[y,0].tolist()} x=60:{arr[y,60].tolist()} x=120:{arr[y,120].tolist()} x=180:{arr[y,180].tolist()} x=240:{arr[y,240].tolist()}&#x27;)
+
+# Check where table edges/legs or anything else might be
+# Does the table cover the bottom of the image?
+print(&#x27;Row 143 (bottom):&#x27;)
+print(&#x27;x=0..255 summary:&#x27;)
+print(&#x27;Min:&#x27;, arr[143].min(axis=0), &#x27;Max:&#x27;, arr[143].max(axis=0), &#x27;Mean:&#x27;, arr[143].mean(axis=0))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 20</strong><time>2026-11-13T00:02:20.330645+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect rows around y=60..75 across x=0..255
+# Find the background-to-table boundary line (the back edge of the table)
+# Let&#x27;s see vertical gradient across rows 30..80
+grad = np.abs(np.diff(arr.astype(float), axis=0)).sum(axis=2)
+for x in range(10, 250, 20):
+    edge_y = np.argmax(grad[30:80, x]) + 30
+    print(f&#x27;x={x:3d}: edge_y={edge_y}, max_grad={grad[edge_y, x]:.1f}, val_above={arr[edge_y-2, x]}, val_below={arr[edge_y+2, x]}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 21</strong><time>2026-11-13T00:02:27.924429+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 0 to 105, y from 45 to 80
+# Mark pixels as:
+# &#x27;B&#x27; if ball (x around 80..100, y around 50..68)
+# &#x27;T&#x27; if tube (dark pixels)
+# &#x27;.&#x27; otherwise (table or background)
+tube_mask = (arr[:, :, 0] &lt; 35) &amp; (arr[:, :, 1] &lt; 35) &amp; (arr[:, :, 2] &lt; 35)
+print(&#x27;Tube mask:&#x27;)
+for y in range(48, 82, 2):
+    s = f&#x27;y={y:2d}: &#x27;
+    for x in range(0, 105, 2):
+        if tube_mask[y, x]:
+            s += &#x27;#&#x27;
+        else:
+            s += &#x27;.&#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 22</strong><time>2026-11-13T00:02:35.784841+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 0 to 105, y from 48 to 72
+# Print luminance character map with finer gradations
+for y in range(48, 75):
+    s = f&#x27;{y:2d}: &#x27;
+    for x in range(0, 105):
+        r, g, b = arr[y, x]
+        lum = 0.299*r + 0.587*g + 0.114*b
+        if r &lt; 15 and g &lt; 15 and b &lt; 15:
+            s += &#x27;#&#x27;
+        elif r &gt; 1.2*b and r &gt; 40 and r &lt; 90 and g &lt; 80 and b &lt; 60:
+            s += &#x27;O&#x27; # brownish ball pixel?
+        elif lum &gt; 105:
+            s += &#x27; &#x27;
+        elif lum &gt; 80:
+            s += &#x27;.&#x27;
+        elif lum &gt; 50:
+            s += &#x27;-&#x27;
+        else:
+            s += &#x27;=&#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 23</strong><time>2026-11-13T00:02:45.449875+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 75 to 110, y from 48 to 72
+# Print the exact shape and bounding box of this round/brown object&quot;&#x27;!
+print(&#x27;&quot;&#x27;Inspecting candidate ball at x=75..110, y=48..72:&#x27;)
+ball_pixels = []
+for y in range(48, 72):
+    row_chars = []
+    for x in range(75, 110):
+        r, g, b = arr[y, x]
+        # check if it is part of the ball
+        # Ball is distinct from the table: table around here is ~ [115, 108, 100]
+        # Ball is darker, brownish: e.g. [45, 25, 17] to [90, 80, 75]
+        diff = np.linalg.norm(arr[y, x].astype(float) - np.array([120, 112, 105]))
+        if diff &gt; 25:
+            ball_pixels.append((x, y, r, g, b))
+            row_chars.append(&#x27;#&#x27;)
+        else:
+            row_chars.append(&#x27;.&#x27;)
+    print(f&#x27;y={y:2d}: &#x27; + &#x27;&#x27;.join(row_chars))
+
+xs = [p[0] for p in ball_pixels]
+ys = [p[1] for p in ball_pixels]
+print(f&#x27;Ball bbox: x=[{min(xs)}, {max(xs)}], y=[{min(ys)}, {max(ys)}]&#x27;)
+print(f&#x27;Ball center: x={np.mean(xs):.1f}, y={np.mean(ys):.1f}, width={max(xs)-min(xs)+1}, height={max(ys)-min(ys)+1}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 24</strong><time>2026-11-13T00:02:52.553116+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print RGB values of rows 45 to 80 for x=0..85
+# Check if there is another object or what the tube looks like
+print(&#x27;Let us check x=0..85, y=50..75:&#x27;)
+# Tube outline: where are dark pixels?
+for y in range(48, 80, 2):
+    s = f&#x27;y={y:2d}: &#x27;
+    for x in range(0, 90, 2):
+        r, g, b = arr[y, x]
+        if r &lt; 30 and g &lt; 30 and b &lt; 30:
+            s += &#x27;#&#x27;
+        elif r &lt; 60 and g &lt; 60 and b &lt; 60:
+            s += &#x27;=&#x27;
+        elif r &lt; 90 and g &lt; 80 and b &lt; 70:
+            s += &#x27;:&#x27;
+        else:
+            s += &#x27; &#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 25</strong><time>2026-11-13T00:02:59.881945+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 0 to 80 and y from 40 to 85 with color values
+# Look for a tube that extends towards x=80&quot;&#x27;!
+# Why would a tube point from left to right?
+# Is the tube lying on the table or elevated?
+# Wait! Let&#x27;&quot;&#x27;s check arr[:, :, :] for any other dark or tube-like shapes&quot;&#x27;!
+print(&#x27;&quot;&#x27;Let us search across the whole image for any other interesting objects or lines:&#x27;)
+# Let&#x27;s check horizontal gradient or vertical slices
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 26</strong><time>2026-11-13T00:03:05.729991+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 0 to 100, y from 40 to 80
+# Print pixel values across row y=58 from x=0 to 110
+print(&#x27;Row y=58 across x=0..110:&#x27;)
+for x in range(0, 110, 2):
+    print(f&#x27;{x}:{arr[58, x].tolist()}&#x27;, end=&#x27; &#x27;)
+print()
+
+# Row y=64 across x=0..110:
+print(&#x27;Row y=64 across x=0..110:&#x27;)
+for x in range(0, 110, 2):
+    print(f&#x27;{x}:{arr[64, x].tolist()}&#x27;, end=&#x27; &#x27;)
+print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 27</strong><time>2026-11-13T00:03:11.833450+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print a cross-section of the tube at x=5
+for y in range(45, 85):
+    print(f&#x27;y={y:2d}: {arr[y, 5].tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 28</strong><time>2026-11-13T00:03:19.028178+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print a cross-section of the tube at x=0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20
+for x in [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]:
+    col = arr[:, x]
+    # find where pixel is very dark
+    dark_y = np.where((col[:, 0] &lt; 20) &amp; (col[:, 1] &lt; 20) &amp; (col[:, 2] &lt; 20))[0]
+    print(f&#x27;x={x:2d}: dark_y min={dark_y.min() if len(dark_y) else -1}, max={dark_y.max() if len(dark_y) else -1}, count={len(dark_y)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 29</strong><time>2026-11-13T00:03:25.736325+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print row y=0..30 at x=0..15
+for y in range(0, 30):
+    print(f&#x27;y={y:2d}:&#x27;, [arr[y, x, 0] for x in range(15)])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 30</strong><time>2026-11-13T00:03:32.854178+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect rows 50 to 80 across x=0..120
+# Where does the tube end?
+# Let&#x27;s check row by row for x in 0..100
+for y in [52, 56, 60, 64, 68, 72, 76]:
+    print(f&#x27;y={y}:&#x27;)
+    for x in range(0, 40, 2):
+        print(f&#x27;{arr[y,x,0]}&#x27;, end=&#x27; &#x27;)
+    print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 31</strong><time>2026-11-13T00:03:40.845610+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 0 to 100, y from 40 to 80
+# Print RGB in a 2D format where we can see the image
+# Let&#x27;s save a small zoomed-in text representation or check edges
+diff_x = np.abs(np.diff(arr.astype(float), axis=1)).sum(axis=2)
+diff_y = np.abs(np.diff(arr.astype(float), axis=0)).sum(axis=2)
+edge = diff_x[:-1, :] + diff_y[:, :-1]
+
+print(&#x27;Edge magnitude around x=0..100, y=45..75:&#x27;)
+for y in range(48, 75):
+    s = f&#x27;{y:2d}: &#x27;
+    for x in range(0, 100):
+        e = edge[y, x]
+        if e &gt; 40:
+            s += &#x27;#&#x27;
+        elif e &gt; 20:
+            s += &#x27;+&#x27;
+        elif e &gt; 10:
+            s += &#x27;.&#x27;
+        else:
+            s += &#x27; &#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 32</strong><time>2026-11-13T00:03:48.468103+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print a block of text showing what&#x27;s at x=0..120, y=40..85
+# Character mapping based on RGB:
+# If very dark: &#x27;T&#x27; (tube)
+# If ball color: &#x27;B&#x27;
+# If table: &#x27;.&#x27;
+# If background wall: &#x27;~&#x27;
+
+wall_color = np.array([85, 78, 69])
+table_color = np.array([125, 115, 107])
+
+for y in range(40, 85, 2):
+    row = f&#x27;{y:2d}: &#x27;
+    for x in range(0, 120, 2):
+        c = arr[y, x]
+        if np.max(c) &lt; 30:
+            row += &#x27;#&#x27;
+        elif 80 &lt;= x &lt;= 106 and 50 &lt;= y &lt;= 70 and np.linalg.norm(c.astype(float) - [55, 35, 25]) &lt; 40:
+            row += &#x27;O&#x27;
+        elif c[0] &gt; 110 and c[1] &gt; 100:
+            row += &#x27;.&#x27;
+        elif c[0] &lt; 80 and c[1] &lt; 75:
+            row += &#x27;~&#x27;
+        else:
+            row += &#x27;-&#x27;
+    print(row)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 33</strong><time>2026-11-13T00:03:55.446811+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 10 to 80, y from 40 to 65
+for y in range(40, 65, 2):
+    print(f&#x27;y={y}:&#x27;)
+    for x in range(10, 80, 5):
+        print(f&#x27;{arr[y,x].tolist()}&#x27;, end=&#x27; &#x27;)
+    print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 34</strong><time>2026-11-13T00:04:02.136654+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 0 to 50, y from 0 to 80
+# Where are dark pixels at the left?
+# At the top: y=0..16, x=0..15 is dark&quot;&#x27;!
+# At the bottom: y=51..81, x=0..10 is dark!
+# What about x=0, y=17..50?
+print(&#x27;&quot;&#x27;Left edge col x=0, y=0..90:&#x27;)
+for y in range(0, 90, 2):
+    print(f&#x27;y={y:2d}: {arr[y, 0].tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 35</strong><time>2026-11-13T00:04:11.745869+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print a 2D color block of x=0..30, y=48..82
+print(&#x27;Tube mouth detail (x=0..30, y=48..82):&#x27;)
+for y in range(48, 83):
+    s = f&#x27;y={y:2d}: &#x27;
+    for x in range(0, 30):
+        r, g, b = arr[y, x]
+        if r &lt; 15 and g &lt; 15 and b &lt; 15:
+            s += &#x27;##&#x27;
+        elif r &lt; 40 and g &lt; 40 and b &lt; 40:
+            s += &#x27;==&#x27;
+        elif r &lt; 70 and g &lt; 65 and b &lt; 60:
+            s += &#x27;::&#x27;
+        elif r &gt; 100:
+            s += &#x27;  &#x27;
+        else:
+            s += &#x27;..&#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 36</strong><time>2026-11-13T00:04:20.344391+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 70 to 115, y from 45 to 75
+# Print RGB values and extract the ball image and mask&quot;&#x27;!
+ball_mask = np.zeros((144, 256), dtype=bool)
+
+# Let&#x27;&quot;&#x27;s see the color of the ball vs surrounding table
+# Background table around x=70..115, y=45..75:
+# Table has r ~ 115..125, g ~ 105..115, b ~ 98..108
+# Ball has lower RGB, with reddish/brownish tint (e.g. 50..80, 25..55, 15..45)
+for y in range(48, 72):
+    for x in range(75, 110):
+        r, g, b = arr[y, x].astype(float)
+        # Check if pixel is ball
+        # Ball condition:
+        if r &lt; 105 and (r - b &gt; 12 or r &lt; 75) and not (x &lt; 80 and y &gt; 68):
+            ball_mask[y, x] = True
+
+print(&#x27;Extracted ball mask count:&#x27;, ball_mask.sum())
+by, bx = np.where(ball_mask)
+print(&#x27;X range:&#x27;, bx.min(), bx.max(), &#x27;Y range:&#x27;, by.min(), by.max())
+print(&#x27;Center:&#x27;, bx.mean(), by.mean())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 37</strong><time>2026-11-13T00:04:29.149499+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print the ball pixels inside box [50..70, 80..106]
+ball_sub = arr[50:70, 80:106]
+print(&#x27;Ball sub shape:&#x27;, ball_sub.shape)
+for y in range(ball_sub.shape[0]):
+    row_str = f&#x27;y={y+50:2d}: &#x27;
+    for x in range(ball_sub.shape[1]):
+        r, g, b = ball_sub[y, x]
+        # table nearby is ~ (115, 108, 100)
+        dist = np.linalg.norm(np.array([r, g, b], dtype=float) - np.array([115, 108, 100], dtype=float))
+        if dist &gt; 25:
+            row_str += &#x27;O&#x27;
+        else:
+            row_str += &#x27;.&#x27;
+    print(row_str)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 38</strong><time>2026-11-13T00:04:36.452096+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Table surface in clean area (e.g. x=150..250, y=50..70)
+# Let&#x27;s inspect the gradient or texture
+table_clean = arr[50:70, 160:240]
+print(&#x27;Clean table mean RGB:&#x27;, table_clean.mean(axis=(0,1)))
+print(&#x27;Clean table std RGB:&#x27;, table_clean.std(axis=(0,1)))
+
+# Let&#x27;s check table texture variation across columns and rows
+# Does the table have wood grain running horizontally or vertically?
+print(&#x27;Row means y=50..70:&#x27;)
+for y in range(50, 70, 2):
+    print(f&#x27;y={y}: mean={arr[y, 160:240].mean(axis=0).round(1)}&#x27;)
+
+print(&#x27;Col means x=160..240 step 10:&#x27;)
+for x in range(160, 241, 10):
+    print(f&#x27;x={x}: mean={arr[50:70, x].mean(axis=0).round(1)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 39</strong><time>2026-11-13T00:04:43.743581+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect rows 50 to 70 for x in [70..80] and [105..120]
+print(&#x27;Left of ball (x=70..80):&#x27;)
+for y in range(50, 70, 3):
+    print(f&#x27;y={y}: mean={arr[y, 70:80].mean(axis=0).round(1)}&#x27;)
+
+print(&#x27;Right of ball (x=105..115):&#x27;)
+for y in range(50, 70, 3):
+    print(f&#x27;y={y}: mean={arr[y, 105:115].mean(axis=0).round(1)}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 40</strong><time>2026-11-13T00:04:50.232478+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 100 to 160, y from 40 to 90
+print(&#x27;Under lampshade:&#x27;)
+for y in range(40, 75, 5):
+    print(f&#x27;y={y}: mean={arr[y, 110:140].mean(axis=0).round(1)}&#x27;)
+
+# Lampshade stem or base?
+for y in range(35, 55):
+    # check where lampshade ends and table begins
+    print(f&#x27;y={y}: center x=125: {arr[y, 125].tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 41</strong><time>2026-11-13T00:04:57.541556+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print y=35..45 for x in 100..155
+for y in range(36, 45):
+    print(f&#x27;y={y}: min_x_bright:&#x27;, np.where(arr[y, :, 2] &gt; 150)[0].tolist()[:3], np.where(arr[y, :, 2] &gt; 150)[0].tolist()[-3:] if len(np.where(arr[y, :, 2] &gt; 150)[0]) else [])
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 42</strong><time>2026-11-13T00:05:04.643594+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print a cross-section of the image at x=125, y=30..60
+for y in range(30, 60):
+    print(f&#x27;y={y:2d}: {arr[y, 125].tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 43</strong><time>2026-11-13T00:05:11.509836+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print a cross-section of the image at x=100, 110, 120, 130, 140, 150
+for x in [100, 110, 120, 130, 140, 150]:
+    print(f&#x27;x={x:3d}: y=35:{arr[35, x].tolist()} y=40:{arr[40, x].tolist()} y=45:{arr[45, x].tolist()} y=50:{arr[50, x].tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 44</strong><time>2026-11-13T00:05:19.072970+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 70 to 110, y from 48 to 72
+# Where is the contact point of the ball on the table?
+# Ball bottom is at y=69&quot;&#x27;!
+# Let&#x27;&quot;&#x27;s see rows 65 to 73 around x=85..100
+for y in range(65, 73):
+    print(f&#x27;y={y}:&#x27;)
+    for x in range(85, 101):
+        print(f&#x27;{arr[y, x, 0]:3d}&#x27;, end=&#x27; &#x27;)
+    print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 45</strong><time>2026-11-13T00:05:25.332056+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print a cross-section of the tube at y=60
+for x in range(0, 30):
+    print(f&#x27;x={x:2d}: {arr[60, x].tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 46</strong><time>2026-11-13T00:05:32.700306+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 0 to 50, y from 0 to 45
+print(&#x27;Checking top left object:&#x27;)
+# Where is it dark in top-left?
+dark_top = (arr[:45, :60, 0] &lt; 50) &amp; (arr[:45, :60, 1] &lt; 50) &amp; (arr[:45, :60, 2] &lt; 50)
+print(&#x27;Count of dark pixels in top-left:&#x27;, dark_top.sum())
+for y in range(0, 30, 2):
+    xs = np.where(dark_top[y, :])[0]
+    if len(xs) &gt; 0:
+        print(f&#x27;y={y:2d}: count={len(xs)}, min_x={xs.min()}, max_x={xs.max()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 47</strong><time>2026-11-13T00:05:40.551984+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 180 to 256, y from 0 to 45
+dark_top_right = (arr[:45, 180:, 0] &lt; 50) &amp; (arr[:45, 180:, 1] &lt; 50) &amp; (arr[:45, 180:, 2] &lt; 50)
+print(&#x27;Count of dark pixels in top-right:&#x27;, dark_top_right.sum())
+for y in range(0, 30, 2):
+    xs = np.where(dark_top_right[y, :])[0] + 180
+    if len(xs) &gt; 0:
+        print(f&#x27;y={y:2d}: count={len(xs)}, min_x={xs.min()}, max_x={xs.max()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 48</strong><time>2026-11-13T00:05:49.575582+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print ascii art of the entire image (64 columns, 36 rows)
+h, w, _ = arr.shape
+sh, sw = 36, 64
+small = Image.fromarray(arr).resize((sw, sh), Image.Resampling.BILINEAR)
+sarr = np.array(small)
+
+chars = &#x27; .:-=+*#%@&#x27;
+for y in range(sh):
+    line = &#x27;&#x27;
+    for x in range(sw):
+        r, g, b = sarr[y, x]
+        lum = 0.299*r + 0.587*g + 0.114*b
+        # Let&#x27;s see color hints
+        if r &lt; 20 and g &lt; 20 and b &lt; 20:
+            c = &#x27;#&#x27;
+        elif r &gt; 150 and g &gt; 150 and b &gt; 180:
+            c = &#x27;@&#x27; # lampshade
+        else:
+            idx = int(lum * (len(chars)-1) / 255)
+            c = chars[idx]
+        line += c
+    print(f&#x27;{y:2d}: {line}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 49</strong><time>2026-11-13T00:05:55.967618+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print y=50..70 across x=20..80
+for y in range(52, 68, 2):
+    s = f&#x27;y={y}: &#x27;
+    for x in range(20, 80, 5):
+        s += f&#x27;{arr[y,x].tolist()} &#x27;
+    print(s)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 50</strong><time>2026-11-13T00:06:02.559657+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Print y=50..80 for x=0..20
+for y in range(50, 82, 2):
+    print(f&#x27;y={y:2d}:&#x27;, end=&#x27; &#x27;)
+    for x in range(0, 16):
+        print(f&#x27;{arr[y,x,0]:2d}&#x27;, end=&#x27; &#x27;)
+    print()
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 51</strong><time>2026-11-13T00:06:16.342599+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Find clean table texture to inpaint behind the ball
+# The ball is currently at x in [80..106], y in [50..70]
+# Right next to it at x in [106..132], y in [50..70] or [60..80], there is table.
+# Let&#x27;s inspect the table at x in [50..80] and [105..135]
+print(&#x27;Comparing table left and right of ball:&#x27;)
+print(&#x27;Left table patch x=55..75, y=50..70 mean:&#x27;, arr[50:70, 55:75].mean(axis=(0,1)))
+print(&#x27;Right table patch x=115..135, y=50..70 mean:&#x27;, arr[50:70, 115:135].mean(axis=(0,1)))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 52</strong><time>2026-11-13T00:06:25.901265+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = Image.open(&#x27;first_frame.png&#x27;)
+arr = np.array(img)
+
+# Let&#x27;s inspect x from 60 to 125, y from 40 to 80
+# Specifically, what is the horizontal gradient of the table without ball?
+# At y=72 (just below ball):
+print(&#x27;y=72 across x=70..130:&#x27;)
+print(&#x27;x=70..80:&#x27;, arr[72, 70:80].mean(axis=0))
+print(&#x27;x=80..90:&#x27;, arr[72, 80:90].mean(axis=0))
+print(&#x27;x=90..100:&#x27;, arr[72, 90:100].mean(axis=0))
+print(&#x27;x=100..110:&#x27;, arr[72, 100:110].mean(axis=0))
+print(&#x27;x=110..120:&#x27;, arr[72, 110:120].mean(axis=0))
+print(&#x27;x=120..130:&#x27;, arr[72, 120:130].mean(axis=0))
+
+# At y=45 (above ball, on table surface):
+print(&#x27;y=45 across x=70..130:&#x27;)
+print(&#x27;x=70..80:&#x27;, arr[45, 70:80].mean(axis=0))
+print(&#x27;x=80..90:&#x27;, arr[45, 80:90].mean(axis=0))
+print(&#x27;x=90..100:&#x27;, arr[45, 90:100].mean(axis=0))
+print(&#x27;x=100..110:&#x27;, arr[45, 100:110].mean(axis=0))
+print(&#x27;x=110..120:&#x27;, arr[45, 110:120].mean(axis=0))
+print(&#x27;x=120..130:&#x27;, arr[45, 120:130].mean(axis=0))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 53</strong><time>2026-11-13T00:06:34.703127+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Define ball mask
+mask = np.zeros((144, 256), dtype=np.uint8)
+
+# Ball is located around x=80..106, y=50..70
+# Let&#x27;s refine the mask
+for y in range(49, 71):
+    for x in range(78, 108):
+        # distance from table color
+        c = img[y, x].astype(float)
+        # table is roughly [115..130, 105..125, 95..120]
+        # Ball is darker or reddish
+        if c[0] &lt; 105 and (c[0] &lt; 80 or c[0] - c[2] &gt; 12):
+            mask[y, x] = 255
+
+# Dilate mask slightly for inpainting
+kernel = np.ones((3,3), np.uint8)
+dilated = cv2.dilate(mask, kernel, iterations=1)
+
+# Inpaint using cv2.inpaint
+telea = cv2.inpaint(img, dilated, 3, cv2.INPAINT_TELEA)
+ns = cv2.inpaint(img, dilated, 3, cv2.INPAINT_NS)
+
+print(&#x27;Inpainting done successfully&quot;&#x27;!&#x27;&quot;&#x27;)
+print(&#x27;Telea diff:&#x27;, np.abs(telea.astype(float) - img.astype(float)).max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 54</strong><time>2026-11-13T00:06:43.535413+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect the ball RGB values:
+ball_pixels = []
+for y in range(48, 71):
+    for x in range(78, 108):
+        c = img[y, x]
+        if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+            ball_pixels.append((x, y, c[0], c[1], c[2]))
+
+ball_arr = np.array(ball_pixels)
+print(&#x27;Ball pixel count:&#x27;, len(ball_arr))
+print(&#x27;Min x, max x:&#x27;, ball_arr[:, 0].min(), ball_arr[:, 0].max())
+print(&#x27;Min y, max y:&#x27;, ball_arr[:, 1].min(), ball_arr[:, 1].max())
+print(&#x27;Mean RGB of ball:&#x27;, ball_arr[:, 2:].mean(axis=0))
+print(&#x27;Min RGB of ball:&#x27;, ball_arr[:, 2:].min(axis=0))
+print(&#x27;Max RGB of ball:&#x27;, ball_arr[:, 2:].max(axis=0))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 55</strong><time>2026-11-13T00:06:53.656561+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+mask = np.zeros((144, 256), dtype=np.uint8)
+for y in range(48, 71):
+    for x in range(78, 108):
+        c = img[y, x]
+        if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+            mask[y, x] = 255
+
+# Clean table inpainting
+clean_bg = cv2.inpaint(img, cv2.dilate(mask, np.ones((3,3), np.uint8), iterations=1), 3, cv2.INPAINT_TELEA)
+
+# Let&#x27;s inspect the ball foreground RGBA:
+# ball is extracted where mask is 255
+# Let&#x27;s check ball RGB vs clean_bg RGB
+ball_fg = np.zeros((144, 256, 4), dtype=np.uint8)
+ball_fg[mask == 255, :3] = img[mask == 255]
+ball_fg[mask == 255, 3] = 255
+
+print(&#x27;Extracted ball alpha sum:&#x27;, (ball_fg[:, :, 3] &gt; 0).sum())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 56</strong><time>2026-11-13T00:07:03.939224+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect rows 65 to 75 around x=80..115
+print(&#x27;Diff between telea and clean_bg in rows 68..75:&#x27;)
+mask = np.zeros((144, 256), dtype=np.uint8)
+for y in range(48, 71):
+    for x in range(78, 108):
+        c = img[y, x]
+        if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+            mask[y, x] = 255
+
+clean = cv2.inpaint(img, cv2.dilate(mask, np.ones((3,3), np.uint8), iterations=2), 5, cv2.INPAINT_TELEA)
+
+# Let&#x27;s check shadow at the bottom of the ball
+# When the ball is at (x_center, y_center), what does the contact shadow look like?
+# In frame 0, ball center is at x=93, contact is at y=69..70
+print(&#x27;Contact shadow at y=68..71, x=85..105:&#x27;)
+for y in range(68, 72):
+    print(f&#x27;y={y}: orig=&#x27;, img[y, 90:100, 0].tolist(), &#x27;clean=&#x27;, clean[y, 90:100, 0].tolist())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 57</strong><time>2026-11-13T00:07:11.451345+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Right edge of the table:
+print(&#x27;Rightmost 10 columns (x=245..255) across y=40..144:&#x27;)
+# Let&#x27;s inspect luminance or RGB at x=250..255
+for y in range(40, 140, 10):
+    print(f&#x27;y={y:3d}: x=250:{img[y, 250].tolist()} x=255:{img[y, 255].tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 58</strong><time>2026-11-13T00:07:19.039454+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect rows 35 to 45 across x=150..255
+for y in range(35, 43):
+    print(f&#x27;y={y}: x=200:{img[y, 200].tolist()} x=220:{img[y, 220].tolist()} x=240:{img[y, 240].tolist()} x=255:{img[y, 255].tolist()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 59</strong><time>2026-11-13T00:07:28.236461+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Define ball mask
+mask = np.zeros((144, 256), dtype=np.uint8)
+for y in range(48, 71):
+    for x in range(78, 108):
+        c = img[y, x]
+        if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+            mask[y, x] = 255
+
+# Clean background
+clean_bg = cv2.inpaint(img, cv2.dilate(mask, np.ones((3,3), np.uint8), iterations=2), 5, cv2.INPAINT_TELEA)
+
+# Ball cutout
+by, bx = np.where(mask &gt; 0)
+x0, x1 = bx.min(), bx.max() + 1
+y0, y1 = by.min(), by.max() + 1
+ball_crop = img[y0:y1, x0:x1].copy()
+mask_crop = mask[y0:y1, x0:x1].copy()
+
+# Feather the mask slightly for smooth compositing
+mask_float = mask_crop.astype(float) / 255.0
+mask_smooth = cv2.GaussianBlur(mask_float, (3, 3), 0.5)[:, :, None]
+
+print(&#x27;Ball crop size:&#x27;, ball_crop.shape)
+print(&#x27;Mask crop size:&#x27;, mask_smooth.shape)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 60</strong><time>2026-11-13T00:07:36.479452+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+mask = np.zeros((144, 256), dtype=np.uint8)
+for y in range(48, 71):
+    for x in range(78, 108):
+        c = img[y, x]
+        if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+            mask[y, x] = 255
+
+clean_bg = cv2.inpaint(img, cv2.dilate(mask, np.ones((3,3), np.uint8), iterations=2), 5, cv2.INPAINT_TELEA)
+
+# Let&#x27;s inspect the shadow under the ball
+# The difference between clean_bg and img under and around the ball:
+diff = np.maximum(0, clean_bg.astype(float) - img.astype(float))
+print(&#x27;Shadow difference max:&#x27;, diff.max(), &#x27;mean in ball region:&#x27;, diff[50:72, 80:108].mean())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 61</strong><time>2026-11-13T00:07:45.686075+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+mask = np.zeros((144, 256), dtype=np.uint8)
+for y in range(48, 71):
+    for x in range(78, 108):
+        c = img[y, x]
+        if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+            mask[y, x] = 255
+
+clean_bg = cv2.inpaint(img, cv2.dilate(mask, np.ones((3,3), np.uint8), iterations=2), 5, cv2.INPAINT_TELEA)
+
+by, bx = np.where(mask &gt; 0)
+x0, x1 = bx.min(), bx.max() + 1
+y0, y1 = by.min(), by.max() + 1
+ball_crop = img[y0:y1, x0:x1].copy()
+mask_crop = (mask[y0:y1, x0:x1] &gt; 0).astype(float)
+
+# Test compositing at frame 0 (dx=0, dy=0)
+test_frame0 = clean_bg.copy()
+# paste ball_crop using mask_crop
+for c in range(3):
+    test_frame0[y0:y1, x0:x1, c] = (
+        ball_crop[:, :, c] * mask_crop + test_frame0[y0:y1, x0:x1, c] * (1.0 - mask_crop)
+    ).astype(np.uint8)
+
+diff_frame0 = np.abs(test_frame0.astype(float) - img.astype(float))
+print(&#x27;Max diff at frame 0:&#x27;, diff_frame0.max())
+print(&#x27;Mean diff in ball bbox:&#x27;, diff_frame0[y0:y1, x0:x1].mean())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 62</strong><time>2026-11-13T00:07:54.632674+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect where diff &gt; 10
+# In frame 0, pixels with diff &gt; 10:
+# Where are they?
+mask = np.zeros((144, 256), dtype=np.uint8)
+for y in range(48, 71):
+    for x in range(78, 108):
+        c = img[y, x]
+        if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+            mask[y, x] = 255
+
+clean_bg = cv2.inpaint(img, cv2.dilate(mask, np.ones((3,3), np.uint8), iterations=2), 5, cv2.INPAINT_TELEA)
+
+diff = np.abs(clean_bg.astype(float) - img.astype(float))
+print(&#x27;Where clean_bg differs from img:&#x27;)
+dy, dx = np.where(diff.max(axis=2) &gt; 10)
+print(f&#x27;Count: {len(dx)}, x: [{dx.min()}, {dx.max()}], y: [{dy.min()}, {dy.max()}]&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 63</strong><time>2026-11-13T00:08:02.839060+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Tube opening: where is the right edge of the tube?
+# Let&#x27;s inspect x from 5 to 25, y from 50 to 80
+for y in range(50, 80, 2):
+    row = img[y, :25, 0]
+    # find where row transitions from dark (&lt;30) to table (&gt;70)
+    dark_idx = np.where(row &lt; 30)[0]
+    if len(dark_idx) &gt; 0:
+        print(f&#x27;y={y}: max_dark_x={dark_idx.max()}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 64</strong><time>2026-11-13T00:08:12.363634+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Let&#x27;s inspect rows 48 to 72, columns 80 to 108
+# To see the seam of the tennis ball or markings&quot;&#x27;!
+ball_box = img[50:70, 81:106]
+print(&#x27;&quot;&#x27;Ball box shape:&#x27;, ball_box.shape)
+
+# Let&#x27;s find contrast within the ball box
+gray_ball = cv2.cvtColor(ball_box, cv2.COLOR_RGB2GRAY)
+print(&#x27;Ball gray min, max, std:&#x27;, gray_ball.min(), gray_ball.max(), gray_ball.std())
+# Print a normalized view
+norm_ball = ((gray_ball - gray_ball.min()) / (gray_ball.max() - gray_ball.min()) * 9).astype(int)
+for row in norm_ball:
+    print(&#x27;&#x27;.join(str(v) for v in row))
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 65</strong><time>2026-11-13T00:08:24.861830+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+# Define ball mask
+mask = np.zeros((144, 256), dtype=np.uint8)
+for y in range(48, 71):
+    for x in range(78, 108):
+        c = img[y, x]
+        if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+            mask[y, x] = 255
+
+# Clean background
+clean_bg = cv2.inpaint(img, cv2.dilate(mask, np.ones((3,3), np.uint8), iterations=2), 5, cv2.INPAINT_TELEA)
+
+# Center of ball in frame 0
+by, bx = np.where(mask &gt; 0)
+c_x0 = bx.mean()
+c_y0 = by.mean()
+print(f&#x27;Ball center in frame 0: ({c_x0:.2f}, {c_y0:.2f})&#x27;)
+
+# Let&#x27;s extract the ball relative to its center
+# Bounding box around center: [-15, +15] in x, [-12, +12] in y
+# Let&#x27;s test a translation function
+def render_frame(clean_bg, img, mask, cx, cy, rot_deg=0):
+    H, W, _ = clean_bg.shape
+    out = clean_bg.copy()
+    
+    # Calculate offset
+    dx = cx - c_x0
+    dy = cy - c_y0
+    
+    # We can use cv2.warpAffine for smooth subpixel translation and rotation
+    M = cv2.getRotationMatrix2D((c_x0, c_y0), -rot_deg, 1.0)
+    M[0, 2] += dx
+    M[1, 2] += dy
+    
+    # Warp ball and mask
+    warped_ball = cv2.warpAffine(img, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    warped_mask = cv2.warpAffine(mask, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+    
+    # Contact shadow
+    # Create an elliptical contact shadow on the table below the ball
+    # Ball radius ~ 11 px. Table contact is at cy + 10.
+    shadow_mask = np.zeros((H, W), dtype=np.float32)
+    contact_x = int(round(cx))
+    contact_y = int(round(cy + 10))
+    cv2.ellipse(shadow_mask, (contact_x, contact_y), (12, 4), 0, 0, 360, 1.0, -1)
+    shadow_mask = cv2.GaussianBlur(shadow_mask, (9, 5), 1.5)
+    
+    # Apply soft shadow: darken the clean background under the ball
+    shadow_factor = 1.0 - 0.28 * shadow_mask[:, :, None]
+    out = np.clip(out.astype(np.float32) * shadow_factor, 0, 255).astype(np.uint8)
+    
+    # Composite ball
+    alpha = (warped_mask.astype(float) / 255.0)[:, :, None]
+    # Feather alpha edge
+    alpha = cv2.GaussianBlur(alpha, (3, 3), 0.5)[:, :, None] if alpha.ndim == 2 else cv2.GaussianBlur(alpha, (3, 3), 0.5)
+    if alpha.ndim == 2:
+        alpha = alpha[:, :, None]
+        
+    out = (warped_ball.astype(float) * alpha + out.astype(float) * (1.0 - alpha)).astype(np.uint8)
+    return out
+
+f0 = render_frame(clean_bg, img, mask, c_x0, c_y0, 0)
+print(&#x27;Diff between rendered f0 and orig img outside mask:&#x27;, np.abs(f0[mask == 0] - img[mask == 0]).max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 66</strong><time>2026-11-13T00:08:34.039939+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+mask = np.zeros((144, 256), dtype=np.uint8)
+for y in range(48, 71):
+    for x in range(78, 108):
+        c = img[y, x]
+        if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+            mask[y, x] = 255
+
+by, bx = np.where(mask &gt; 0)
+c_x0 = bx.mean()
+c_y0 = by.mean()
+
+# Crop ball and isolate it
+pad = 16
+x0, x1 = int(c_x0 - pad), int(c_x0 + pad)
+y0, y1 = int(c_y0 - pad), int(c_y0 + pad)
+
+ball_patch = np.zeros((pad*2, pad*2, 3), dtype=np.uint8)
+mask_patch = np.zeros((pad*2, pad*2), dtype=np.uint8)
+
+ball_patch = img[y0:y1, x0:x1].copy()
+mask_patch = mask[y0:y1, x0:x1].copy()
+
+# Zero out background in ball_patch
+ball_patch[mask_patch == 0] = 0
+
+print(&#x27;Ball patch shape:&#x27;, ball_patch.shape)
+print(&#x27;Mask patch non-zero:&#x27;, (mask_patch &gt; 0).sum())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 67</strong><time>2026-11-13T00:08:45.827024+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+mask = np.zeros((144, 256), dtype=np.uint8)
+for y in range(48, 71):
+    for x in range(78, 108):
+        c = img[y, x]
+        if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+            mask[y, x] = 255
+
+clean_bg = cv2.inpaint(img, cv2.dilate(mask, np.ones((3,3), np.uint8), iterations=2), 5, cv2.INPAINT_TELEA)
+
+by, bx = np.where(mask &gt; 0)
+c_x0 = bx.mean()
+c_y0 = by.mean()
+
+# Ball local patch
+r = 16
+x0, x1 = int(round(c_x0)) - r, int(round(c_x0)) + r
+y0, y1 = int(round(c_y0)) - r, int(round(c_y0)) + r
+
+ball_patch = img[y0:y1, x0:x1].copy()
+mask_patch = mask[y0:y1, x0:x1].copy()
+# Smooth alpha mask
+alpha_patch = (mask_patch.astype(np.float32) / 255.0)
+alpha_patch = cv2.GaussianBlur(alpha_patch, (3, 3), 0.5)
+
+# Shadow patch
+# Shadow is difference between clean_bg and img in the patch region
+orig_patch = img[y0:y1, x0:x1].astype(np.float32)
+bg_patch = clean_bg[y0:y1, x0:x1].astype(np.float32)
+
+# Below the ball (rows from center down to +14)
+# Let&#x27;s see the contact shadow:
+shadow_under = np.maximum(0, bg_patch - orig_patch)
+print(&#x27;Shadow under shape:&#x27;, shadow_under.shape, &#x27;max:&#x27;, shadow_under.max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 68</strong><time>2026-11-13T00:08:55.735777+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+mask = np.zeros((144, 256), dtype=np.uint8)
+for y in range(48, 71):
+    for x in range(78, 108):
+        c = img[y, x]
+        if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+            mask[y, x] = 255
+
+clean_bg = cv2.inpaint(img, cv2.dilate(mask, np.ones((3,3), np.uint8), iterations=2), 5, cv2.INPAINT_TELEA)
+
+by, bx = np.where(mask &gt; 0)
+cx0, cy0 = bx.mean(), by.mean()
+
+# Ball local bounding box
+bx_min, bx_max = bx.min(), bx.max()
+by_min, by_max = by.min(), by.max()
+
+ball_w = bx_max - bx_min + 1
+ball_h = by_max - by_min + 1
+ball_img = img[by_min:by_max+1, bx_min:bx_max+1].copy()
+ball_m = (mask[by_min:by_max+1, bx_min:bx_max+1] &gt; 0).astype(np.float32)
+
+# Shadow map: difference between clean_bg and img
+diff = np.maximum(0, clean_bg.astype(np.float32) - img.astype(np.float32))
+# Only keep shadow in table area around contact point
+shadow_map = diff.copy()
+# Zero out inside the ball itself so shadow is just the floor shadow
+shadow_map[mask &gt; 0] = 0
+# Smooth shadow map slightly
+shadow_map = cv2.GaussianBlur(shadow_map, (5, 5), 1.0)
+
+# Crop floor shadow relative to cx0, cy0
+s_ymin, s_ymax = int(cy0 + 5), int(cy0 + 15)
+s_xmin, s_xmax = int(cx0 - 15), int(cx0 + 15)
+shadow_patch = shadow_map[s_ymin:s_ymax, s_xmin:s_xmax].copy()
+
+print(&#x27;Shadow patch shape:&#x27;, shadow_patch.shape, &#x27;max intensity:&#x27;, shadow_patch.max())
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 69</strong><time>2026-11-13T00:09:08.455934+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+mask = np.zeros((144, 256), dtype=np.uint8)
+for y in range(48, 71):
+    for x in range(78, 108):
+        c = img[y, x]
+        if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+            mask[y, x] = 255
+
+clean_bg = cv2.inpaint(img, cv2.dilate(mask, np.ones((3,3), np.uint8), iterations=2), 5, cv2.INPAINT_TELEA)
+
+by, bx = np.where(mask &gt; 0)
+cx0, cy0 = bx.mean(), by.mean()
+
+# Ball local bounding box
+bx_min, bx_max = bx.min(), bx.max()
+by_min, by_max = by.min(), by.max()
+
+ball_img = img[by_min:by_max+1, bx_min:bx_max+1].copy()
+ball_m = (mask[by_min:by_max+1, bx_min:bx_max+1] &gt; 0).astype(np.float32)
+
+# Also let&#x27;s inspect the shadow under the ball:
+# An elliptical contact shadow of size (14, 4) at (cx, cy + 9.5)
+def composite_ball(bg, cx, cy, rot_deg=0):
+    canvas = bg.astype(np.float32).copy()
+    H, W, _ = canvas.shape
+    
+    # 1. Floor shadow
+    # Elliptical contact shadow
+    shadow_layer = np.zeros((H, W), dtype=np.float32)
+    contact_pt = (int(round(cx)), int(round(cy + 9.5)))
+    cv2.ellipse(shadow_layer, contact_pt, (13, 4), 0, 0, 360, 1.0, -1)
+    shadow_layer = cv2.GaussianBlur(shadow_layer, (7, 5), 1.2)
+    # Darken background
+    canvas *= (1.0 - 0.22 * shadow_layer[:, :, None])
+    
+    # 2. Rotate ball_img around its center
+    bh, bw, _ = ball_img.shape
+    bcx, bcy = bw / 2.0, bh / 2.0
+    M = cv2.getRotationMatrix2D((bcx, bcy), -rot_deg, 1.0)
+    # Rotate both ball and mask
+    r_ball = cv2.warpAffine(ball_img, M, (bw, bh), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    r_mask = cv2.warpAffine(ball_m, M, (bw, bh), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+    r_mask = cv2.GaussianBlur(r_mask, (3, 3), 0.5)[:, :, None]
+    
+    # 3. Paste onto canvas at (cx, cy)
+    # Target top-left
+    tx0 = int(round(cx - bw / 2.0))
+    ty0 = int(round(cy - bh / 2.0))
+    tx1 = tx0 + bw
+    ty1 = ty0 + bh
+    
+    # Clip to canvas boundaries
+    sx0 = max(0, -tx0)
+    sy0 = max(0, -ty0)
+    sx1 = bw - max(0, tx1 - W)
+    sy1 = bh - max(0, ty1 - H)
+    
+    tx0 = max(0, tx0)
+    ty0 = max(0, ty0)
+    tx1 = min(W, tx1)
+    ty1 = min(H, ty1)
+    
+    if tx1 &gt; tx0 and ty1 &gt; ty0:
+        sub_c = canvas[ty0:ty1, tx0:tx1]
+        sub_b = r_ball[sy0:sy1, sx0:sx1].astype(np.float32)
+        sub_m = r_mask[sy0:sy1, sx0:sx1]
+        canvas[ty0:ty1, tx0:tx1] = sub_b * sub_m + sub_c * (1.0 - sub_m)
+        
+    return np.clip(canvas, 0, 255).astype(np.uint8)
+
+test_f0 = composite_ball(clean_bg, cx0, cy0, 0)
+print(&#x27;Composite test finished&quot;&#x27;!&#x27;&quot;&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 70</strong><time>2026-11-13T00:09:21.041724+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import cv2
+from PIL import Image
+import numpy as np
+
+img = np.array(Image.open(&#x27;first_frame.png&#x27;))
+
+mask = np.zeros((144, 256), dtype=np.uint8)
+for y in range(48, 71):
+    for x in range(78, 108):
+        c = img[y, x]
+        if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+            mask[y, x] = 255
+
+clean_bg = cv2.inpaint(img, cv2.dilate(mask, np.ones((3,3), np.uint8), iterations=2), 5, cv2.INPAINT_TELEA)
+
+by, bx = np.where(mask &gt; 0)
+cx0, cy0 = bx.mean(), by.mean()
+
+# Ball local bounding box
+bx_min, bx_max = bx.min(), bx.max()
+by_min, by_max = by.min(), by.max()
+
+ball_img = img[by_min:by_max+1, bx_min:bx_max+1].copy()
+ball_m = (mask[by_min:by_max+1, bx_min:bx_max+1] &gt; 0).astype(np.float32)
+
+def composite_ball(bg, cx, cy, rot_deg=0):
+    canvas = bg.astype(np.float32).copy()
+    H, W, _ = canvas.shape
+    
+    shadow_layer = np.zeros((H, W), dtype=np.float32)
+    contact_pt = (int(round(cx)), int(round(cy + 9.5)))
+    cv2.ellipse(shadow_layer, contact_pt, (13, 4), 0, 0, 360, 1.0, -1)
+    shadow_layer = cv2.GaussianBlur(shadow_layer, (7, 5), 1.2)
+    canvas *= (1.0 - 0.22 * shadow_layer[:, :, None])
+    
+    bh, bw, _ = ball_img.shape
+    bcx, bcy = bw / 2.0, bh / 2.0
+    M = cv2.getRotationMatrix2D((bcx, bcy), -rot_deg, 1.0)
+    r_ball = cv2.warpAffine(ball_img, M, (bw, bh), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+    r_mask = cv2.warpAffine(ball_m, M, (bw, bh), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+    r_mask = cv2.GaussianBlur(r_mask, (3, 3), 0.5)[:, :, None]
+    
+    tx0 = int(round(cx - bw / 2.0))
+    ty0 = int(round(cy - bh / 2.0))
+    tx1 = tx0 + bw
+    ty1 = ty0 + bh
+    
+    sx0 = max(0, -tx0)
+    sy0 = max(0, -ty0)
+    sx1 = bw - max(0, tx1 - W)
+    sy1 = bh - max(0, ty1 - H)
+    
+    tx0 = max(0, tx0)
+    ty0 = max(0, ty0)
+    tx1 = min(W, tx1)
+    ty1 = min(H, ty1)
+    
+    if tx1 &gt; tx0 and ty1 &gt; ty0:
+        sub_c = canvas[ty0:ty1, tx0:tx1]
+        sub_b = r_ball[sy0:sy1, sx0:sx1].astype(np.float32)
+        sub_m = r_mask[sy0:sy1, sx0:sx1]
+        canvas[ty0:ty1, tx0:tx1] = sub_b * sub_m + sub_c * (1.0 - sub_m)
+        
+    return np.clip(canvas, 0, 255).astype(np.uint8)
+
+# Check frame 1 (t = 1/4 s = 0.25 s)
+f1 = composite_ball(clean_bg, cx0 + 8.5, cy0, 38)
+print(&#x27;f1 rendered successfully&quot;&#x27;! Ball center x:&#x27;&quot;&#x27;, cx0 + 8.5)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 71</strong><time>2026-11-13T00:09:28.941018+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+import numpy as np
+
+# Total frames: 20 (0 to 19)
+# Frame 0: cx = 92.14
+# Frame 19: cx = 250.0 (near right edge)
+# Delta x = 250 - 92.14 = 157.86
+# Over 19 steps:
+# If constant velocity: v = 157.86 / 19 = 8.308 px/frame
+# Let&#x27;s check:
+for i in range(20):
+    cx = 92.14 + i * (250.0 - 92.14) / 19.0
+    print(f&#x27;Frame {i:2d}: cx = {cx:.1f}&#x27;)
+\&quot;&quot;</pre></details><details class=command><summary><strong>命令 72</strong><time>2026-11-13T00:09:45.728007+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;cat &lt;&lt; &#x27;EOF&#x27; &gt; generate.py
+import numpy as np
+from PIL import Image
+import cv2
+from pathlib import Path
+import artifact_io
+
+def generate_video():
+    case_dir = Path(__file__).parent
+    first_frame_path = case_dir / \&quot;first_frame.png\&quot;
+    img = np.array(Image.open(first_frame_path))
+    H, W, _ = img.shape
+    
+    # 1. Segment ball from frame 0
+    mask = np.zeros((H, W), dtype=np.uint8)
+    for y in range(48, 71):
+        for x in range(78, 108):
+            c = img[y, x]
+            if c[0] &lt; 105 and (c[0] &lt; 80 or (int(c[0]) - int(c[2])) &gt; 12):
+                mask[y, x] = 255
+                
+    # Inpaint background to obtain clean table surface behind the ball
+    dilate_k = np.ones((3, 3), np.uint8)
+    dilated_mask = cv2.dilate(mask, dilate_k, iterations=2)
+    clean_bg = cv2.inpaint(img, dilated_mask, 5, cv2.INPAINT_TELEA)
+    
+    # 2. Extract ball sprite and alpha mask
+    by, bx = np.where(mask &gt; 0)
+    cx0, cy0 = float(bx.mean()), float(by.mean())
+    
+    bx_min, bx_max = bx.min(), bx.max()
+    by_min, by_max = by.min(), by.max()
+    
+    ball_img = img[by_min:by_max+1, bx_min:bx_max+1].copy()
+    ball_m = (mask[by_min:by_max+1, bx_min:bx_max+1] &gt; 0).astype(np.float32)
+    
+    bh, bw, _ = ball_img.shape
+    bcx, bcy = bw / 2.0, bh / 2.0
+    ball_radius = (bw + bh) / 4.0 # approximate radius ~ 11.25 px
+    
+    # 3. Ball dynamics across 20 frames (4 fps, 5s)
+    # The ball rolls smoothly from left to right across the table
+    # Constant velocity:
+    v_x = (250.0 - cx0) / 19.0 # ~8.308 px/frame
+    
+    frames = []
+    for frame_idx in range(20):
+        if frame_idx == 0:
+            # Must be pixel-identical to first_frame.png
+            frames.append(img.copy())
+            continue
+            
+        cx = cx0 + frame_idx * v_x
+        cy = cy0 # pure horizontal rolling along the flat table surface
+        
+        # Calculate rolling rotation angle
+        # Rolling without slipping: dist = radius * angle_rad =&gt; angle_deg = (dist / radius) * (180 / pi)
+        # Clockwise rotation as it moves to the right
+        dist = cx - cx0
+        rot_deg = (dist / ball_radius) * (180.0 / np.pi)
+        
+        # Render canvas
+        canvas = clean_bg.astype(np.float32).copy()
+        
+        # A. Contact shadow on table surface
+        contact_x = int(round(cx))
+        contact_y = int(round(cy + 9.5))
+        shadow_layer = np.zeros((H, W), dtype=np.float32)
+        cv2.ellipse(shadow_layer, (contact_x, contact_y), (13, 4), 0, 0, 360, 1.0, -1)
+        shadow_layer = cv2.GaussianBlur(shadow_layer, (7, 5), 1.2)
+        canvas *= (1.0 - 0.22 * shadow_layer[:, :, None])
+        
+        # B. Rotate ball sprite and mask
+        M = cv2.getRotationMatrix2D((bcx, bcy), -rot_deg, 1.0)
+        r_ball = cv2.warpAffine(ball_img, M, (bw, bh), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
+        r_mask = cv2.warpAffine(ball_m, M, (bw, bh), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+        r_mask = cv2.GaussianBlur(r_mask, (3, 3), 0.5)[:, :, None]
+        
+        # C. Composite onto canvas
+        tx0 = int(round(cx - bw / 2.0))
+        ty0 = int(round(cy - bh / 2.0))
+        tx1 = tx0 + bw
+        ty1 = ty0 + bh
+        
+        sx0 = max(0, -tx0)
+        sy0 = max(0, -ty0)
+        sx1 = bw - max(0, tx1 - W)
+        sy1 = bh - max(0, ty1 - H)
+        
+        tx0 = max(0, tx0)
+        ty0 = max(0, ty0)
+        tx1 = min(W, tx1)
+        ty1 = min(H, ty1)
+        
+        if tx1 &gt; tx0 and ty1 &gt; ty0:
+            sub_c = canvas[ty0:ty1, tx0:tx1]
+            sub_b = r_ball[sy0:sy1, sx0:sx1].astype(np.float32)
+            sub_m = r_mask[sy0:sy1, sx0:sx1]
+            canvas[ty0:ty1, tx0:tx1] = sub_b * sub_m + sub_c * (1.0 - sub_m)
+            
+        frame_rgb = np.clip(canvas, 0, 255).astype(np.uint8)
+        frames.append(frame_rgb)
+        
+    frames = np.array(frames, dtype=np.uint8)
+    artifact_io.save(frames, case_dir)
+    print(\&quot;Generation complete and artifacts saved&quot;&#x27;!&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    generate_video()
+EOF
+python3 generate.py
+&#x27;</pre></details><details class=command><summary><strong>命令 73</strong><time>2026-11-13T00:09:52.784345+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &#x27;ls -la; ls -la frames&#x27;</pre></details><details class=command><summary><strong>命令 74</strong><time>2026-11-13T00:10:01.019636+00:00</time><span class=pill>exit 0</span></summary><pre>/bin/bash -lc &quot;python3 -c \&quot;
+from PIL import Image
+import numpy as np
+
+f0_orig = np.array(Image.open(&#x27;first_frame.png&#x27;))
+f0_gen = np.array(Image.open(&#x27;frames/00.png&#x27;))
+
+assert np.array_equal(f0_orig, f0_gen), &#x27;Frame 0 is not pixel identical&quot;&#x27;!&#x27;&quot;&#x27;
+print(&#x27;Frame 0 is perfectly pixel identical to first_frame.png&quot;&#x27;!&#x27;&quot;&#x27;)
+
+# Check all frames shapes and types
+for i in range(20):
+    f = np.array(Image.open(f&#x27;frames/{i:02d}.png&#x27;))
+    assert f.shape == (144, 256, 3)
+    assert f.dtype == np.uint8
+
+print(&#x27;All 20 frames verified successfully&quot;&#x27;!&#x27;&quot;&#x27;)
+\&quot;&quot;</pre></details><p class=muted>保存候选 1 份；完成命令 74 次；可验证图片返回 0 张。原始 API 响应与完整日志保留在本地。</p><footer><span>PixelWorld · 研究预览</span><span>视频 · 候选版本 · 可观测生成过程</span></footer></main><script>
+class PixelPlayer{
+ constructor(node,d){this.node=node;this.d=d;this.frames=null;this.frame=0;this.playing=false;this.epoch=0;this.ctx=node.querySelector('canvas').getContext('2d');this.ctx.canvas.width=d.width;this.ctx.canvas.height=d.height;this.seek=node.querySelector('.seek');this.seek.max=d.frames-1;this.note=node.querySelector('.status');node.querySelector('.play').onclick=()=>this.toggle();node.querySelector('.replay').onclick=async()=>{await this.load();this.frame=0;this.start()};this.seek.oninput=async()=>{await this.load();this.frame=+this.seek.value;this.draw();if(this.playing)this.epoch=performance.now()-this.frame*1000/this.d.fps};this.preview=new Image();this.preview.onload=()=>{if(!this.frames)this.ctx.drawImage(this.preview,0,0,d.width,d.height)};this.preview.src=d.poster;}
+ async load(){if(this.frames)return;if(this.loading)return this.loading;this.note.textContent='载入像素…';this.loading=(async()=>{try{let r=await fetch(this.d.pixels);if(!r.ok)throw Error('HTTP '+r.status);let decoded=r.body.pipeThrough(new DecompressionStream('gzip'));this.frames=new Uint8Array(await new Response(decoded).arrayBuffer());if(this.frames.length!==this.d.width*this.d.height*this.d.frames*3)throw Error('RGB 长度不匹配');this.draw()}catch(e){this.note.textContent='载入失败：'+e.message;this.loading=null;throw e}})();return this.loading}
+ draw(){let n=this.d.width*this.d.height,rgba=new Uint8ClampedArray(n*4);for(let i=0;i<n;i++){let o=this.d.layout==='pixel-time'?(i*this.d.frames+this.frame)*3:(this.frame*n+i)*3;rgba[4*i]=this.frames[o];rgba[4*i+1]=this.frames[o+1];rgba[4*i+2]=this.frames[o+2];rgba[4*i+3]=255}this.ctx.putImageData(new ImageData(rgba,this.d.width,this.d.height),0,0);this.seek.value=this.frame;this.note.textContent=(this.frame/this.d.fps).toFixed(2)+' / '+(this.d.frames/this.d.fps).toFixed(2)+' s · '+(this.frame+1)+'/'+this.d.frames;}
+ start(){this.playing=true;this.epoch=performance.now()-this.frame*1000/this.d.fps;this.node.querySelector('.play').textContent='Ⅱ 暂停';let tick=now=>{if(!this.playing)return;this.frame=Math.min(this.d.frames-1,Math.floor((now-this.epoch)*this.d.fps/1000));this.draw();if(now-this.epoch>=this.d.frames*1000/this.d.fps){this.pause();return}requestAnimationFrame(tick)};requestAnimationFrame(tick)}
+ pause(){this.playing=false;this.node.querySelector('.play').textContent='▶ 播放'}
+ async toggle(){try{await this.load();if(this.playing)this.pause();else{if(this.frame>=this.d.frames-1)this.frame=0;this.start()}}catch(e){}}
+}
+window.__benchPlayers=[];document.querySelectorAll('.player').forEach(n=>{let p=new PixelPlayer(n,JSON.parse(n.dataset.video));n.dataset.state='idle';let start=p.start.bind(p),pause=p.pause.bind(p);p.start=()=>{n.dataset.state='playing';start()};p.pause=()=>{n.dataset.state='paused';pause()};n.querySelector('canvas').onclick=()=>p.toggle();let overlay=n.querySelector('.play-overlay');if(overlay)overlay.onclick=()=>p.toggle();window.__benchPlayers.push(p)});window.__benchReady=true;
+document.querySelectorAll('[data-panel]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-panel]').forEach(x=>x.setAttribute('aria-selected',String(x===b)));document.querySelectorAll('.benchmark-panel').forEach(x=>x.hidden=x.id!==b.dataset.panel)});
+</script></body></html>
